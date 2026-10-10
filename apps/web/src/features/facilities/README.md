@@ -55,3 +55,53 @@ has unknown monitors. Search for a nonexistent hospital to inspect the empty
 state. Submit blank or fractional bed quantities to inspect validation. API
 mode acceptance uses the migrated, seeded backend: submit an observation at the
 current local time, refresh the browser, and confirm the saved value remains.
+
+## Feature 2: current capacity and bottlenecks
+
+The hospital details page now includes a capacity panel per service. It displays
+the backend estimate as “Modeled service places”, all tied bottleneck names,
+resource quantities and units, requirements per place, supplied resource limits,
+observation timestamps/IDs, profile version, and capacity's own `as_of` timestamp.
+Unknown, unavailable/zero, not-configured, no-services, loading, updating, and
+request-error states are distinct. Explanations preserve every returned reason.
+The panel labels demo assumptions and states that estimates apply to each service
+separately and are not confirmed spare admission capacity. No numerical capacity
+calculations execute in the frontend.
+
+`src/lib/api/capacity.ts` requests
+`GET /api/v1/capacity/facilities/{facility_id}` through the same proxy. A saved
+observation and the hospital refresh action refetch both snapshot and capacity.
+Capacity errors stay inside the panel and do not turn a successful observation
+save into a failed save. Old capacity is hidden while updating; a generation
+counter prevents older requests or errors from replacing newer results.
+
+API mode uses the implemented capacity endpoint and Python engine. Response types
+in `src/lib/api/feature-2.ts` alias the generated OpenAPI `components["schemas"]`
+types. After a backend contract export, run `npm run generate:api --prefix apps/web`
+from the repository root to refresh them. API errors never display sample results.
+
+Browser demo mode starts with a frozen synthetic capacity preview and offers a
+“View synthetic example” button after refresh. These examples never claim to
+reflect saved updates; refreshing invalidates the example because browser demo
+mode cannot calculate capacity for its local observations. Use API mode to test
+capacity changes. Shared examples are bundled by `scripts/sync-capacity-fixtures.mjs`;
+do not edit `capacity-fixtures.generated.json` by hand. Additional display fixtures
+cover not-configured and no-services states for frontend tests.
+
+```bash
+npm run test:capacity --prefix apps/web
+npm run test:facilities --prefix apps/web
+npm run typecheck --prefix apps/web
+npm run build --prefix apps/web -- --webpack
+```
+
+Capacity tests render the contract examples, exercise unknown/stale/unavailable,
+valid zero, tied bottlenecks, empty and not-configured states, and verify request
+ordering and consumption of an updated API estimate from 5 to 8 using mocked
+responses. For live acceptance in API mode, open Demo Hospital B and save current
+observations for 18 available beds, 9 on-shift nurses, and 5 working monitors.
+Confirm capacity is 5 with monitors as the bottleneck. Save 8 working monitors
+with a newer observation timestamp, then refresh the page and confirm capacity
+remains 8. With a real runtime clock, old seed data can be stale; every required
+resource needs a current report. Historical updates do not replace newer reports.
+The user handles browser checks as agreed in `docs/feature-2-contract.md`.

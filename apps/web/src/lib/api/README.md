@@ -8,3 +8,8 @@ Never place OpenAI credentials here. Mock future endpoints using agreed examples
 Feature 1 uses the generated aliases in `feature-1.ts` and the browser client in
 `facilities.ts`. It has explicit synthetic demo and API modes; see
 `../../features/facilities/README.md` for setup and persistence semantics.
+
+Feature 2's `capacity.ts` uses the implemented GET capacity route without falling
+back to samples. `feature-2.ts` aliases the backend-owned types in generated
+`schema.d.ts`. Resource saves refetch both snapshot and capacity. The panel never
+calculates capacity; the optional browser demo labels its fixed samples as frozen.

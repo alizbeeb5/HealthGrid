@@ -3,6 +3,7 @@
     "target": "ES2022",
     "lib": ["ES2022", "DOM"],
     "module": "CommonJS",
+    "jsx": "react-jsx",
     "moduleResolution": "Node",
     "strict": true,
     "esModuleInterop": true,
@@ -11,5 +12,5 @@
     "rootDir": "../..",
     "outDir": ".test-build"
   },
-  "include": ["tests/facilities.test.ts"]
+  "include": ["tests/*.test.ts", "tests/*.test.tsx"]
 }

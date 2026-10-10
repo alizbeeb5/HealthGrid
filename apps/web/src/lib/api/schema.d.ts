@@ -55,6 +55,29 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/capacity/facilities/{facility_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Facility Capacity
+         * @description Modeled single-service capacity from reported resources.
+         *
+         *     A resource-based estimate under demo requirement profiles, not confirmed spare
+         *     admission capacity. Unknown capacity is a successful result, not an error.
+         */
+        get: operations["get_facility_capacity"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -79,6 +102,11 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /**
+         * CapacityStatus
+         * @enum {string}
+         */
+        CapacityStatus: "calculated" | "unknown" | "unavailable" | "not_configured";
         /**
          * DataStatus
          * @enum {string}
@@ -112,6 +140,25 @@ export interface components {
             longitude: number;
             /** Last Reported At */
             last_reported_at: string | null;
+        };
+        /** FacilityCapacityResponse */
+        FacilityCapacityResponse: {
+            /** Facility Id */
+            facility_id: string;
+            /**
+             * As Of
+             * Format: date-time
+             */
+            as_of: string;
+            /** Stale After Hours */
+            stale_after_hours: number;
+            /**
+             * Calculation Scope
+             * @constant
+             */
+            calculation_scope: "single_service";
+            /** Services */
+            services: components["schemas"]["ServiceCapacityResult"][];
         };
         /** FacilityListResponse */
         FacilityListResponse: {
@@ -201,6 +248,28 @@ export interface components {
             recorded_at: string;
         };
         /**
+         * ReasonCode
+         * @enum {string}
+         */
+        ReasonCode: "service_unavailable" | "requirements_not_configured" | "service_restriction_unquantified" | "missing_required_observation" | "stale_required_observation";
+        /** ResourceCapacityLimit */
+        ResourceCapacityLimit: {
+            /** Resource Id */
+            resource_id: string;
+            unit: components["schemas"]["ResourceUnit"];
+            /** Required Per Capacity Unit */
+            required_per_capacity_unit: number;
+            /** Available Quantity */
+            available_quantity: number | null;
+            /** Capacity Limit */
+            capacity_limit: number | null;
+            data_status: components["schemas"]["DataStatus"];
+            /** Observation Id */
+            observation_id: string | null;
+            /** Observed At */
+            observed_at: string | null;
+        };
+        /**
          * ResourceCategory
          * @enum {string}
          */
@@ -230,6 +299,28 @@ export interface components {
          * @enum {string}
          */
         ResourceUnit: "bed" | "person" | "item" | "liter";
+        /** ServiceCapacityResult */
+        ServiceCapacityResult: {
+            /** Service Id */
+            service_id: string;
+            service_status: components["schemas"]["ServiceStatus"];
+            /** Profile Version */
+            profile_version: string | null;
+            /**
+             * Capacity Unit
+             * @constant
+             */
+            capacity_unit: "simultaneous_service_place";
+            status: components["schemas"]["CapacityStatus"];
+            /** Estimated Capacity */
+            estimated_capacity: number | null;
+            /** Bottleneck Resource Ids */
+            bottleneck_resource_ids: string[];
+            /** Resource Limits */
+            resource_limits: components["schemas"]["ResourceCapacityLimit"][];
+            /** Reason Codes */
+            reason_codes: components["schemas"]["ReasonCode"][];
+        };
         /**
          * ServiceStatus
          * @enum {string}
@@ -326,6 +417,46 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ObservationResponse"];
+                };
+            };
+            /** @description Facility does not exist */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Invalid request or observation */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_facility_capacity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                facility_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FacilityCapacityResponse"];
                 };
             };
             /** @description Facility does not exist */

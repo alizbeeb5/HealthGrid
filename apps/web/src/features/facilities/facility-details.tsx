@@ -5,8 +5,11 @@ import { getFacilitySnapshot, FacilityClientError } from "../../lib/api/faciliti
 import type { FacilitySnapshotResponse } from "../../lib/api/feature-1";
 import { BackLink, displayError, LoadError, LoadingState, Location, ModeNotice, panelClass, secondaryClass, StatusBadge, Timestamp } from "./shared";
 import { ObservationForm } from "./observation-form";
+import { CapacityPanel } from "./capacity-panel";
+import { useCapacity } from "./use-capacity";
 
 export function FacilityDetails({ facilityId }: { facilityId: string }) {
+  const capacity = useCapacity(facilityId);
   const [snapshot, setSnapshot] = useState<FacilitySnapshotResponse>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>();
@@ -29,11 +32,15 @@ export function FacilityDetails({ facilityId }: { facilityId: string }) {
   async function refreshSnapshot() {
     const request = ++requestNumber.current;
     setRefreshing(true);
+    const capacityRefresh = capacity.refresh();
     try {
       const next = await getFacilitySnapshot(facilityId);
       if (request === requestNumber.current) { setSnapshot(next); setError(undefined); }
     }
-    finally { if (request === requestNumber.current) setRefreshing(false); }
+    finally {
+      await capacityRefresh;
+      if (request === requestNumber.current) setRefreshing(false);
+    }
   }
 
   return <>
@@ -55,6 +62,7 @@ export function FacilityDetails({ facilityId }: { facilityId: string }) {
         </div>
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
           <div className="space-y-6">
+            <CapacityPanel state={capacity.state} snapshot={snapshot} onRefresh={() => void capacity.refresh()} onShowExample={capacity.showExample} />
             <section className={`${panelClass} p-5`} aria-labelledby="services-heading">
               <h2 id="services-heading" className="text-lg font-semibold">Services</h2>
               {snapshot.services.length ? <ul className="mt-4 divide-y divide-slate-100">{snapshot.services.map((service) => <li key={service.service_id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0"><span className="text-sm font-medium">{service.name}</span><StatusBadge status={service.status} /></li>)}</ul>
