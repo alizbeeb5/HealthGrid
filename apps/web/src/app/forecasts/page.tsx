@@ -1,5 +1,6 @@
-import { PagePlaceholder } from "@/components/page-placeholder";
+import { Suspense } from "react";
+import { ForecastDashboard } from "@/features/forecasting/forecast-dashboard";
 
 export default function Page() {
-  return <PagePlaceholder title="Capacity and demand forecasts" description="Compare expected demand with usable capacity and inspect uncertainty." />;
+  return <Suspense fallback={<p role="status">Loading forecasts…</p>}><ForecastDashboard /></Suspense>;
 }

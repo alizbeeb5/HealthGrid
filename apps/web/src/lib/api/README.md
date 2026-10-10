@@ -19,3 +19,5 @@ service catalog and one selected-service overview. API mode never falls back to
 fixtures. Explicit example mode uses the published, frozen Feature 3 responses.
 See `../../features/network/README.md` for filtering, summary-helper ownership,
 navigation and acceptance checks.
+
+Forecasts use generated OpenAPI types and the published GET endpoint through the existing proxy. The source adapter and explicit shared-example mode live in `features/forecasting/demo-client.ts`.

@@ -118,6 +118,29 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/forecasts/facilities/{facility_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Facility Forecast
+         * @description Seven-day modeled capacity and demand forecast for one facility service.
+         *
+         *     Insufficient history is a successful result with status insufficient_history.
+         *     Predicted gaps are not calibrated shortage probabilities. Synthetic demo data.
+         */
+        get: operations["get_facility_forecast"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -147,6 +170,11 @@ export interface components {
          * @enum {string}
          */
         CapacityStatus: "calculated" | "unknown" | "unavailable" | "not_configured";
+        /**
+         * DataQuality
+         * @enum {string}
+         */
+        DataQuality: "reported" | "estimated";
         /**
          * DataStatus
          * @enum {string}
@@ -200,6 +228,38 @@ export interface components {
             /** Services */
             services: components["schemas"]["ServiceCapacityResult"][];
         };
+        /** FacilityForecastResponse */
+        FacilityForecastResponse: {
+            /** Facility Id */
+            facility_id: string;
+            /** Service Id */
+            service_id: string;
+            /**
+             * Generated At
+             * Format: date-time
+             */
+            generated_at: string;
+            /**
+             * Horizon Days
+             * @constant
+             */
+            horizon_days: 7;
+            /**
+             * Capacity Unit
+             * @constant
+             */
+            capacity_unit: "simultaneous_service_place";
+            /** Profile Version */
+            profile_version: string | null;
+            status: components["schemas"]["ForecastStatus"];
+            /** History */
+            history: components["schemas"]["HistoryDay"][];
+            /** Forecast */
+            forecast: components["schemas"]["ForecastDay"][];
+            /** Alerts */
+            alerts: components["schemas"]["ForecastAlert"][];
+            validation: components["schemas"]["ForecastValidation"] | null;
+        };
         /** FacilityListResponse */
         FacilityListResponse: {
             /** Items */
@@ -237,6 +297,77 @@ export interface components {
             /** Message */
             message: string;
         };
+        /**
+         * ForecastAlert
+         * @description A predicted gap; not a calibrated shortage probability.
+         */
+        ForecastAlert: {
+            /**
+             * Date
+             * Format: date
+             */
+            date: string;
+            /**
+             * Code
+             * @constant
+             */
+            code: "predicted_gap";
+            /** Expected Gap */
+            expected_gap: number;
+            /** Message */
+            message: string;
+        };
+        /** ForecastDay */
+        ForecastDay: {
+            /**
+             * Date
+             * Format: date
+             */
+            date: string;
+            /** Predicted Capacity */
+            predicted_capacity: number;
+            /** Predicted Demand */
+            predicted_demand: number;
+            /** Capacity Lower */
+            capacity_lower: number;
+            /** Capacity Upper */
+            capacity_upper: number;
+            /** Demand Lower */
+            demand_lower: number;
+            /** Demand Upper */
+            demand_upper: number;
+            /** Expected Gap */
+            expected_gap: number;
+        };
+        /**
+         * ForecastStatus
+         * @enum {string}
+         */
+        ForecastStatus: "forecasted" | "insufficient_history" | "not_configured";
+        /**
+         * ForecastValidation
+         * @description Error on withheld historical days, in simultaneous service places.
+         */
+        ForecastValidation: {
+            /** Method */
+            method: string;
+            /** Holdout Days */
+            holdout_days: number;
+            /**
+             * Evaluated From
+             * Format: date
+             */
+            evaluated_from: string;
+            /**
+             * Evaluated To
+             * Format: date
+             */
+            evaluated_to: string;
+            /** Capacity Mae */
+            capacity_mae: number | null;
+            /** Demand Mae */
+            demand_mae: number | null;
+        };
         /** HealthResponse */
         HealthResponse: {
             /**
@@ -251,6 +382,21 @@ export interface components {
              * @constant
              */
             service: "healthgrid-api";
+        };
+        /** HistoryDay */
+        HistoryDay: {
+            /**
+             * Date
+             * Format: date
+             */
+            date: string;
+            /** Capacity */
+            capacity: number | null;
+            /** Demand */
+            demand: number | null;
+            /** Sources */
+            sources: string[];
+            data_quality: components["schemas"]["DataQuality"] | null;
         };
         /** NetworkFacilityResult */
         NetworkFacilityResult: {
@@ -603,6 +749,48 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["NetworkOverviewResponse"];
+                };
+            };
+            /** @description Invalid request or observation */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    get_facility_forecast: {
+        parameters: {
+            query: {
+                service_id: string;
+            };
+            header?: never;
+            path: {
+                facility_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FacilityForecastResponse"];
+                };
+            };
+            /** @description Facility does not exist */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
             /** @description Invalid request or observation */
