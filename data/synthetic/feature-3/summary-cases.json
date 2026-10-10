@@ -1,0 +1,513 @@
+[
+  {
+    "case": "baseline",
+    "rows": [
+      {
+        "facility": {
+          "facility_id": "DEMO-A"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "unknown",
+          "estimated_capacity": null,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      },
+      {
+        "facility": {
+          "facility_id": "DEMO-B"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "calculated",
+          "estimated_capacity": 5,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      },
+      {
+        "facility": {
+          "facility_id": "DEMO-C"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "unavailable",
+          "estimated_capacity": 0,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      }
+    ],
+    "expected": {
+      "facility_count": 3,
+      "calculated_count": 1,
+      "unavailable_count": 1,
+      "unknown_count": 1,
+      "not_configured_count": 0,
+      "known_estimate_count": 2,
+      "unresolved_count": 1,
+      "modeled_capacity_subtotal": 5,
+      "subtotal_status": "available",
+      "attention_facility_ids": [
+        "DEMO-C",
+        "DEMO-A"
+      ]
+    }
+  },
+  {
+    "case": "post-update",
+    "rows": [
+      {
+        "facility": {
+          "facility_id": "DEMO-A"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "unknown",
+          "estimated_capacity": null,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      },
+      {
+        "facility": {
+          "facility_id": "DEMO-B"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "calculated",
+          "estimated_capacity": 8,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      },
+      {
+        "facility": {
+          "facility_id": "DEMO-C"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "unavailable",
+          "estimated_capacity": 0,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      }
+    ],
+    "expected": {
+      "facility_count": 3,
+      "calculated_count": 1,
+      "unavailable_count": 1,
+      "unknown_count": 1,
+      "not_configured_count": 0,
+      "known_estimate_count": 2,
+      "unresolved_count": 1,
+      "modeled_capacity_subtotal": 8,
+      "subtotal_status": "available",
+      "attention_facility_ids": [
+        "DEMO-C",
+        "DEMO-A"
+      ]
+    }
+  },
+  {
+    "case": "empty-filter",
+    "rows": [],
+    "expected": {
+      "facility_count": 0,
+      "calculated_count": 0,
+      "unavailable_count": 0,
+      "unknown_count": 0,
+      "not_configured_count": 0,
+      "known_estimate_count": 0,
+      "unresolved_count": 0,
+      "modeled_capacity_subtotal": null,
+      "subtotal_status": "no_known_estimates",
+      "attention_facility_ids": []
+    }
+  },
+  {
+    "case": "all-unknown",
+    "rows": [
+      {
+        "facility": {
+          "facility_id": "DEMO-B"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "unknown",
+          "estimated_capacity": null,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      },
+      {
+        "facility": {
+          "facility_id": "DEMO-A"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "unknown",
+          "estimated_capacity": null,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      }
+    ],
+    "expected": {
+      "facility_count": 2,
+      "calculated_count": 0,
+      "unavailable_count": 0,
+      "unknown_count": 2,
+      "not_configured_count": 0,
+      "known_estimate_count": 0,
+      "unresolved_count": 2,
+      "modeled_capacity_subtotal": null,
+      "subtotal_status": "no_known_estimates",
+      "attention_facility_ids": [
+        "DEMO-A",
+        "DEMO-B"
+      ]
+    }
+  },
+  {
+    "case": "unavailable-zero",
+    "rows": [
+      {
+        "facility": {
+          "facility_id": "DEMO-C"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "unavailable",
+          "estimated_capacity": 0,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      }
+    ],
+    "expected": {
+      "facility_count": 1,
+      "calculated_count": 0,
+      "unavailable_count": 1,
+      "unknown_count": 0,
+      "not_configured_count": 0,
+      "known_estimate_count": 1,
+      "unresolved_count": 0,
+      "modeled_capacity_subtotal": 0,
+      "subtotal_status": "available",
+      "attention_facility_ids": [
+        "DEMO-C"
+      ]
+    }
+  },
+  {
+    "case": "calculated-zero",
+    "rows": [
+      {
+        "facility": {
+          "facility_id": "DEMO-B"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "calculated",
+          "estimated_capacity": 0,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      }
+    ],
+    "expected": {
+      "facility_count": 1,
+      "calculated_count": 1,
+      "unavailable_count": 0,
+      "unknown_count": 0,
+      "not_configured_count": 0,
+      "known_estimate_count": 1,
+      "unresolved_count": 0,
+      "modeled_capacity_subtotal": 0,
+      "subtotal_status": "available",
+      "attention_facility_ids": [
+        "DEMO-B"
+      ]
+    }
+  },
+  {
+    "case": "mixed-profiles",
+    "rows": [
+      {
+        "facility": {
+          "facility_id": "DEMO-B"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "calculated",
+          "estimated_capacity": 5,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      },
+      {
+        "facility": {
+          "facility_id": "DEMO-C"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "unavailable",
+          "estimated_capacity": 0,
+          "profile_version": "demo-v2",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      }
+    ],
+    "expected": {
+      "facility_count": 2,
+      "calculated_count": 1,
+      "unavailable_count": 1,
+      "unknown_count": 0,
+      "not_configured_count": 0,
+      "known_estimate_count": 2,
+      "unresolved_count": 0,
+      "modeled_capacity_subtotal": null,
+      "subtotal_status": "incompatible_profiles",
+      "attention_facility_ids": [
+        "DEMO-C"
+      ]
+    }
+  },
+  {
+    "case": "known-without-profile",
+    "rows": [
+      {
+        "facility": {
+          "facility_id": "DEMO-B"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "calculated",
+          "estimated_capacity": 5,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      },
+      {
+        "facility": {
+          "facility_id": "DEMO-C"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "unavailable",
+          "estimated_capacity": 0,
+          "profile_version": null,
+          "capacity_unit": "simultaneous_service_place"
+        }
+      }
+    ],
+    "expected": {
+      "facility_count": 2,
+      "calculated_count": 1,
+      "unavailable_count": 1,
+      "unknown_count": 0,
+      "not_configured_count": 0,
+      "known_estimate_count": 2,
+      "unresolved_count": 0,
+      "modeled_capacity_subtotal": null,
+      "subtotal_status": "incompatible_profiles",
+      "attention_facility_ids": [
+        "DEMO-C"
+      ]
+    }
+  },
+  {
+    "case": "unresolved-profile-does-not-block-subtotal",
+    "rows": [
+      {
+        "facility": {
+          "facility_id": "DEMO-A"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "not_configured",
+          "estimated_capacity": null,
+          "profile_version": null,
+          "capacity_unit": "simultaneous_service_place"
+        }
+      },
+      {
+        "facility": {
+          "facility_id": "DEMO-B"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "calculated",
+          "estimated_capacity": 5,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      }
+    ],
+    "expected": {
+      "facility_count": 2,
+      "calculated_count": 1,
+      "unavailable_count": 0,
+      "unknown_count": 0,
+      "not_configured_count": 1,
+      "known_estimate_count": 1,
+      "unresolved_count": 1,
+      "modeled_capacity_subtotal": 5,
+      "subtotal_status": "available",
+      "attention_facility_ids": [
+        "DEMO-A"
+      ]
+    }
+  },
+  {
+    "case": "all-unconfigured",
+    "rows": [
+      {
+        "facility": {
+          "facility_id": "DEMO-A"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "not_configured",
+          "estimated_capacity": null,
+          "profile_version": null,
+          "capacity_unit": "simultaneous_service_place"
+        }
+      }
+    ],
+    "expected": {
+      "facility_count": 1,
+      "calculated_count": 0,
+      "unavailable_count": 0,
+      "unknown_count": 0,
+      "not_configured_count": 1,
+      "known_estimate_count": 0,
+      "unresolved_count": 1,
+      "modeled_capacity_subtotal": null,
+      "subtotal_status": "no_known_estimates",
+      "attention_facility_ids": [
+        "DEMO-A"
+      ]
+    }
+  },
+  {
+    "case": "service-offered-by-subset",
+    "rows": [
+      {
+        "facility": {
+          "facility_id": "DEMO-B"
+        },
+        "capacity": {
+          "service_id": "demo-outpatient",
+          "status": "not_configured",
+          "estimated_capacity": null,
+          "profile_version": null,
+          "capacity_unit": "simultaneous_service_place"
+        }
+      }
+    ],
+    "expected": {
+      "facility_count": 1,
+      "calculated_count": 0,
+      "unavailable_count": 0,
+      "unknown_count": 0,
+      "not_configured_count": 1,
+      "known_estimate_count": 0,
+      "unresolved_count": 1,
+      "modeled_capacity_subtotal": null,
+      "subtotal_status": "no_known_estimates",
+      "attention_facility_ids": [
+        "DEMO-B"
+      ]
+    }
+  },
+  {
+    "case": "attention-order",
+    "rows": [
+      {
+        "facility": {
+          "facility_id": "DEMO-A"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "unknown",
+          "estimated_capacity": null,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      },
+      {
+        "facility": {
+          "facility_id": "DEMO-B"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "calculated",
+          "estimated_capacity": 0,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      },
+      {
+        "facility": {
+          "facility_id": "DEMO-C"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "unavailable",
+          "estimated_capacity": 0,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      }
+    ],
+    "expected": {
+      "facility_count": 3,
+      "calculated_count": 1,
+      "unavailable_count": 1,
+      "unknown_count": 1,
+      "not_configured_count": 0,
+      "known_estimate_count": 2,
+      "unresolved_count": 1,
+      "modeled_capacity_subtotal": 0,
+      "subtotal_status": "available",
+      "attention_facility_ids": [
+        "DEMO-C",
+        "DEMO-B",
+        "DEMO-A"
+      ]
+    }
+  },
+  {
+    "case": "positive-filter",
+    "rows": [
+      {
+        "facility": {
+          "facility_id": "DEMO-B"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "status": "calculated",
+          "estimated_capacity": 5,
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place"
+        }
+      }
+    ],
+    "expected": {
+      "facility_count": 1,
+      "calculated_count": 1,
+      "unavailable_count": 0,
+      "unknown_count": 0,
+      "not_configured_count": 0,
+      "known_estimate_count": 1,
+      "unresolved_count": 0,
+      "modeled_capacity_subtotal": 5,
+      "subtotal_status": "available",
+      "attention_facility_ids": []
+    }
+  }
+]
