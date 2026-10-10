@@ -1,11 +1,10 @@
 # Feature 7 — Investment package planning
 
-Status: backend implemented — `modules/investments` schemas/router/service/models,
-the starter catalog (`modules/investments/starter_catalog.json`, version
-`demo-investments-v1`), migration `0006_investment_runs`, all three endpoints,
-OpenAPI and examples in `contracts/examples/feature-7/`. `POST /investments/runs`
-returns HTTP 500 until `engines/investments.py` provides `optimize_investments`;
-the screen is pending.
+Status: integrated — backend contracts, catalog and immutable runs connect to the
+pure OR-Tools investment engine and the investment screen. API mode loads the
+starter catalog, creates checked saved packages and reopens frozen results by
+`proposal_id`. Canonical catalog IDs are shared with the numerical and browser
+examples. The explicit example mode remains a fixed demonstration.
 
 Backend interface decisions for the engine owner to review (`investments/schemas.py`):
 - `InvestmentEngineInput`: `service_id`, `capacity_unit`, frozen `requirement`,

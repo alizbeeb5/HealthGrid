@@ -74,6 +74,16 @@ def _validate(request: InvestmentRunRequest, state: PostAllocationState) -> list
     def error(field: str, message: str) -> None:
         errors.append(FieldError(field=field, message=message))
 
+    limit = investments_engine.MAX_INTEGER
+    for field in ("budget_minor_units", "operating_cost_months"):
+        if getattr(request, field) > limit:
+            error(field, f"Must be at most {limit} for the investment solver.")
+    if len(request.candidates) > investments_engine.MAX_CANDIDATES:
+        error("candidates", f"Supply at most {investments_engine.MAX_CANDIDATES} projects.")
+    for field in ("planning_starts_at", "evaluation_at"):
+        if getattr(request, field).utcoffset() != timedelta(0):
+            error(field, "Use an explicit UTC timestamp.")
+
     earliest = state.incident_starts_at + timedelta(minutes=state.allocation_horizon_minutes)
     if request.planning_starts_at < earliest:
         error("planning_starts_at", "Planning cannot start before the incident start plus the "
@@ -86,12 +96,23 @@ def _validate(request: InvestmentRunRequest, state: PostAllocationState) -> list
     known = {c.candidate_id for c in request.candidates}
     for i, candidate in enumerate(request.candidates):
         path = f"candidates.{i}"
+        if not candidate.name.strip():
+            error(f"{path}.name", "Enter a project name.")
+        for field in ("capital_cost_minor_units", "monthly_operating_cost_minor_units",
+                      "implementation_days"):
+            if getattr(candidate, field) > limit:
+                error(f"{path}.{field}", f"Must be at most {limit} for the investment solver.")
+        if candidate.confirmed_at and candidate.confirmed_at.utcoffset() != timedelta(0):
+            error(f"{path}.confirmed_at", "Use an explicit UTC timestamp.")
         if candidate.service_id != state.service_id:
             error(f"{path}.service_id", f"Candidates must be for {state.service_id}.")
         if candidate.facility_id not in facility_ids:
             error(f"{path}.facility_id",
                   f"{candidate.facility_id} is not in the source allocation scenario.")
         for j, effect in enumerate(candidate.resource_effects):
+            if effect.quantity_delta > limit:
+                error(f"{path}.resource_effects.{j}.quantity_delta",
+                      f"Must be at most {limit} for the investment solver.")
             if effect.resource_id not in units:
                 error(f"{path}.resource_effects.{j}.resource_id",
                       f"{effect.resource_id} is not in the {state.service_id} profile.")
@@ -102,8 +123,19 @@ def _validate(request: InvestmentRunRequest, state: PostAllocationState) -> list
             if prerequisite not in known:
                 error(f"{path}.requires_candidate_ids",
                       f"Unknown prerequisite {prerequisite}.")
-    if cycle := _cycle(request.candidates):
+    if len(request.candidates) <= investments_engine.MAX_CANDIDATES and (
+        cycle := _cycle(request.candidates)
+    ):
         error("candidates", f"Dependency cycle: {' -> '.join(cycle)}.")
+    if not errors:
+        costs = sum(c.capital_cost_minor_units + c.monthly_operating_cost_minor_units *
+                    request.operating_cost_months for c in request.candidates)
+        if costs >= 2**60:
+            error("candidates", "Combined cost bounds exceed safe solver arithmetic.")
+        try:
+            ready_dates(_engine_input(request, state))
+        except OverflowError:
+            error("candidates", "Project implementation dates exceed the supported calendar.")
     return errors
 
 

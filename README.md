@@ -11,8 +11,7 @@ should we fund?
 
 This is a development scaffold with a hospital snapshot frontend, `/health` and
 the Feature 1 facility endpoints (list, snapshot, append observation). The network
-overview and seven-day forecast screen/API are implemented. Incident simulation and monitor allocation screens/APIs are connected. Investments,
-authentication and remaining domain models are placeholders. Existing PyCharm `main.py` is preserved and is not the API entry point.
+overview and seven-day forecast screen/API are implemented. Incident simulation and monitor allocation screens/APIs are connected. Investment planning is connected to the OR-Tools package solver and saved-run API. Authentication and remaining domain models are placeholders. Existing PyCharm `main.py` is preserved and is not the API entry point.
 
 ## Requirements
 Use Python **3.12**, Node.js **22** with npm **9.5+**, and PostgreSQL **17** (or Docker Compose).
@@ -145,3 +144,22 @@ field extraction fails. It uses the same API key; the default guidance model is
 `gpt-6-luna` (`OPENAI_EMERGENCY_MODEL` can override it). Suggestions include steps,
 reasons, prerequisites, evidence and questions. They do not dispatch resources or
 calculate feasible transfer quantities. Changing the incident clears old guidance.
+
+
+## Investment planning
+
+Apply migrations through `0006_investment_runs` before using saved funding proposals.
+Open a saved validated allocation, choose **Plan investments**, review the starter
+catalog, enter UTC planning/evaluation dates and acknowledge the assumptions. **Calculate
+and save funding proposal** calls the investment API and returns a persisted result.
+The `proposal_id` URL reopens the frozen result without recalculating or reloading
+current hospital observations/catalog. Edited constraints create a separate run.
+
+The fictional $3,000 / three-month / 30-day demonstration selects repair plus
+commissioning for $2,400, increases Hospital B from 3 to 8 modeled places and closes
+its five-place modeled gap. Repair alone has no working-resource benefit. Different
+budgets and deadlines change the result. No AI call, purchase or dispatch occurs.
+Explicit `/investments?mode=example` remains an isolated fixed browser demonstration.
+
+Additional checks: `npm run test:investments --prefix apps/web` and
+`python -m pytest apps/api/tests/test_investments_api.py apps/api/tests/test_investment_engine.py`.

@@ -1,0 +1,36 @@
+{
+  "service_id": "emergency-care",
+  "capacity_unit": "simultaneous_service_place",
+  "currency": "USD",
+  "planning_starts_at": "2026-10-10T11:00:00Z",
+  "evaluation_at": "2026-11-09T11:00:00Z",
+  "operating_cost_months": 3,
+  "budget_minor_units": 300000,
+  "required_service_places": {
+    "DEMO-A": 3,
+    "DEMO-B": 8
+  },
+  "included_facility_ids": [
+    "DEMO-A",
+    "DEMO-B"
+  ],
+  "excluded_facilities": [
+    {
+      "facility_id": "DEMO-C",
+      "reasons": [
+        "no_planning_constraints",
+        "service_unavailable",
+        "stale_required_evidence"
+      ]
+    }
+  ],
+  "solver_settings": {
+    "time_limit_seconds": 5,
+    "random_seed": 0,
+    "num_search_workers": 1
+  },
+  "assumptions": [
+    "Synthetic data only. Allocation transfers are assumed completed at planning start; this is not execution evidence.",
+    "Demand from the allocation persists through evaluation. Each selected project pays three full months of operating allowance."
+  ]
+}

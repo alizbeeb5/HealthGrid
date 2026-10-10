@@ -459,3 +459,45 @@ def test_budget_changes_the_recommendation(client, allocation, budget, selected)
     run = client.post(f"{URL}/runs", json=request_for(allocation,
                                                       budget_minor_units=budget)).json()
     assert [p["candidate_id"] for p in run["selected_projects"]] == selected
+
+
+def test_real_saved_package_remains_frozen_after_reporting_update(client, allocation, monkeypatch):
+    response = client.post(f"{URL}/runs", json=request_for(allocation))
+    assert response.status_code == 201, response.text
+    saved = response.json()
+    assert saved["proposed_summary"]["rows"][1]["estimated_capacity"] == 8
+    update = {"resource_id": "working-monitors", "available_quantity": 20, "unit": "item",
+              "observed_at": "2026-10-10T09:29:00Z"}
+    assert client.post("/api/v1/facilities/DEMO-B/observations", json=update).status_code == 201
+    # A fresh proposal still starts from the original saved transfer, not live inventory.
+    second = client.post(f"{URL}/runs", json=request_for(allocation))
+    assert second.status_code == 201, second.text
+    assert second.json()["baseline_summary"] == saved["baseline_summary"]
+    assert second.json()["proposed_summary"] == saved["proposed_summary"]
+
+    def unexpected_solve(_):
+        raise AssertionError("Reopening must never solve again")
+
+    monkeypatch.setattr(investments_engine, "optimize_investments", unexpected_solve)
+    reopened = client.get(f"{URL}/runs/{saved['investment_run_id']}")
+    assert reopened.status_code == 200 and reopened.json() == saved
+
+
+@pytest.mark.parametrize(("changes", "field"), [
+    ({"budget_minor_units": 1000000001}, "budget_minor_units"),
+    ({"operating_cost_months": 1000000001}, "operating_cost_months"),
+    ({"planning_starts_at": "2026-10-10T14:00:00+03:00"}, "planning_starts_at"),
+    ({"candidates": _candidates(name="   ")}, "candidates.0.name"),
+    ({"candidates": _candidates(implementation_days=1000000000)}, "candidates"),
+    ({"candidates": _candidates(capital_cost_minor_units=1000000001)},
+     "candidates.0.capital_cost_minor_units"),
+    ({"candidates": _candidates(confirmed_at="2026-10-10T14:00:00+03:00")},
+     "candidates.0.confirmed_at"),
+    ({"candidates": _candidates(resource_effects=[
+        {"resource_id": "working-monitors", "quantity_delta": 1000000001, "unit": "item"}])},
+     "candidates.0.resource_effects.0.quantity_delta"),
+])
+def test_numerical_support_limits_are_field_errors(client, allocation, changes, field):
+    response = client.post(f"{URL}/runs", json=request_for(allocation, **changes))
+    assert response.status_code == 422, response.text
+    assert field in [item["field"] for item in response.json()["error"]["fields"]]

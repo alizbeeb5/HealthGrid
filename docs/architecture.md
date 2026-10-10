@@ -38,7 +38,7 @@ constraints. Human approval is required before any operational action.
 The hospital snapshot frontend connects to Feature 1 facility persistence:
 facilities, services, resource definitions and append-only observations, with list,
 snapshot and observation endpoints. An optional synthetic demo stores updates in
-the browser. Investments remains a page shell. The API liveness endpoint,
+the browser. Investment planning is connected to the package solver and saved-run API. The API liveness endpoint,
 database connection setup and migration infrastructure exist. The Feature 2
 capacity endpoint, engine and hospital capacity panel return and show modeled
 single-service capacity from demo requirement profiles. The Feature 3 network
@@ -54,6 +54,6 @@ Manual incident entry remains available without AI. Feature 6 allocation runs
 (saved transfer proposals from a frozen simulation) exist in the backend; the
 OR-Tools engine and planning screen are connected: reviewed constraints create and save a monitor-transfer proposal, and its URL reopens the frozen result. Feature 7 investment runs (saved funding
 packages from a saved allocation proposal) and the starter catalog exist in the
-backend; the investment engine and screen are not merged yet. Domain routers are
+backend; the OR-Tools investment engine and screen are connected. Projects are evaluated against frozen post-allocation quantities, independently verified and persisted for reopening. Domain routers are
 registered in `app/routes.py`. Authentication is not implemented. Paid AI behavior
 requires live account verification.

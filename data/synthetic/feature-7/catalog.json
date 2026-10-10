@@ -1,0 +1,83 @@
+{
+  "catalog_version": "demo-investments-v1",
+  "currency": "USD",
+  "synthetic": true,
+  "candidates": [
+    {
+      "candidate_id": "INV-B-BUY-1-MONITOR",
+      "name": "Buy one compatible monitor for Demo Hospital B",
+      "facility_id": "DEMO-B",
+      "service_id": "emergency-care",
+      "capital_cost_minor_units": 100000,
+      "monthly_operating_cost_minor_units": 6000,
+      "implementation_days": 14,
+      "resource_effects": [
+        {
+          "resource_id": "working-monitors",
+          "quantity_delta": 1,
+          "unit": "item"
+        }
+      ],
+      "requires_candidate_ids": [],
+      "exclusive_group_id": null,
+      "source_note": "Synthetic estimate: one compatible monitor delivered and installed in 14 days; space and staffing reviewed for the demo.",
+      "confirmed_at": "2026-10-10T09:20:00Z"
+    },
+    {
+      "candidate_id": "INV-B-BUY-5-MONITORS",
+      "name": "Buy five compatible monitors for Demo Hospital B",
+      "facility_id": "DEMO-B",
+      "service_id": "emergency-care",
+      "capital_cost_minor_units": 500000,
+      "monthly_operating_cost_minor_units": 30000,
+      "implementation_days": 14,
+      "resource_effects": [
+        {
+          "resource_id": "working-monitors",
+          "quantity_delta": 5,
+          "unit": "item"
+        }
+      ],
+      "requires_candidate_ids": [],
+      "exclusive_group_id": null,
+      "source_note": "Synthetic estimate: five compatible monitors delivered and installed in 14 days; space and staffing reviewed for the demo.",
+      "confirmed_at": "2026-10-10T09:20:00Z"
+    },
+    {
+      "candidate_id": "INV-B-COMMISSION-5-REPAIRED",
+      "name": "Commission five repaired monitors at Demo Hospital B",
+      "facility_id": "DEMO-B",
+      "service_id": "emergency-care",
+      "capital_cost_minor_units": 50000,
+      "monthly_operating_cost_minor_units": 30000,
+      "implementation_days": 3,
+      "resource_effects": [
+        {
+          "resource_id": "working-monitors",
+          "quantity_delta": 5,
+          "unit": "item"
+        }
+      ],
+      "requires_candidate_ids": [
+        "INV-B-REPAIR-5-IDLE"
+      ],
+      "exclusive_group_id": null,
+      "source_note": "Synthetic estimate: testing and commissioning takes 3 days after repair; the commissioned monitors are the working-resource effect.",
+      "confirmed_at": "2026-10-10T09:20:00Z"
+    },
+    {
+      "candidate_id": "INV-B-REPAIR-5-IDLE",
+      "name": "Repair five confirmed idle monitors at Demo Hospital B",
+      "facility_id": "DEMO-B",
+      "service_id": "emergency-care",
+      "capital_cost_minor_units": 100000,
+      "monthly_operating_cost_minor_units": 0,
+      "implementation_days": 7,
+      "resource_effects": [],
+      "requires_candidate_ids": [],
+      "exclusive_group_id": "DEMO-B-IDLE-MONITORS",
+      "source_note": "Synthetic evidence: five idle, compatible monitors confirmed in storage; repair alone adds no working monitors until commissioned.",
+      "confirmed_at": "2026-10-10T09:20:00Z"
+    }
+  ]
+}
