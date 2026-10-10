@@ -48,7 +48,7 @@ def simulate_incident(baseline: IncidentBaseline, incident: IncidentRevision) ->
                                   affected=False, applied_overrides=[]))
             continue
 
-        scenario, applied = _apply_overrides(snapshot, incident, selected, required)
+        scenario, applied = apply_incident_overrides(snapshot, incident, selected, required)
         scenario_service = next(s for s in scenario.services if s.service_id == selected)
         after = calculate_service_capacity(scenario, scenario_service, profile)
         change = (
@@ -71,12 +71,13 @@ def simulate_incident(baseline: IncidentBaseline, incident: IncidentRevision) ->
     )
 
 
-def _apply_overrides(
+def apply_incident_overrides(
     snapshot: FacilitySnapshotResponse,
     incident: IncidentRevision,
     service_id: str,
     required: set[str],
 ) -> tuple[FacilitySnapshotResponse, list]:
+    """One facility's snapshot under the incident's confirmed overrides (a copy)."""
     facility_id = snapshot.facility.facility_id
     services = list(snapshot.services)
     resources = list(snapshot.resources)

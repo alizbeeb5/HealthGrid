@@ -1,6 +1,31 @@
 # Feature 6 — Feasible resource allocation
 
-Status: agreed implementation plan; allocation is currently a placeholder.
+Status: backend implemented — `modules/allocation` schemas/router/service/models,
+migration `0005_allocation_runs`, both endpoints, OpenAPI and examples in
+`contracts/examples/feature-6/`. `POST /allocation/runs` returns HTTP 500 until the
+OR-Tools engine `optimize_allocation` is merged; the frontend is pending.
+
+Backend interface decisions for the engine owner to review (`allocation/schemas.py`):
+- `AllocationEngineInput`: `service_id`, `resource_id`, `unit`, `capacity_unit`,
+  frozen `requirement`, `facilities` (every baseline facility: effective scenario
+  `snapshot`, `applied_overrides`, and the planner `constraint` or null), `routes`,
+  horizon, budget, currency and `solver_settings` (5 s total). Built by
+  `scenarios.service.get_effective_scenario`, never from live observations.
+- `AllocationEngineResult` is the response minus run metadata. Rows add
+  `service_status` and `resource_quantity` (the moved resource after transfers).
+  `ExclusionReason`: `no_planning_constraints`, `service_unavailable`,
+  `service_limited`, `requirements_not_configured`, `missing_required_evidence`,
+  `stale_required_evidence`. `needs_inputs` means no facility is included.
+- `minimum_retained_resource_quantity` is a hard floor for every included facility's
+  final quantity, so a retained quantity above current inventory is `infeasible`
+  (the no-solution example). The donor service floor applies only to senders.
+- The backend re-checks every hard constraint and recomputes capacities with the
+  capacity engine before saving; a failing proposal is a 500 and is never saved.
+- Examples were produced through the live API with a contract-faithful reference
+  solver; tests compare everything except generated IDs, `created_at` and
+  `solve_duration_ms` (wall clock; the examples show 0).
+- Errors use the shared envelope with codes `invalid_request`,
+  `simulation_run_not_found` and `allocation_run_not_found`.
 
 ## Outcome and first scope
 

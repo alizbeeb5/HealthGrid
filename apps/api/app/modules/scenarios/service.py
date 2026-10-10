@@ -7,6 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.engines import scenarios as scenario_engine
+from app.engines.capacity import calculate_service_capacity
 from app.modules.capacity import service as capacity
 from app.modules.facilities import service as facilities
 from app.modules.facilities.errors import FacilityNotFound
@@ -15,6 +16,8 @@ from app.modules.scenarios import models, repository
 from app.modules.scenarios.errors import ScenarioError
 from app.modules.scenarios.schemas import (
     SCHEMA_VERSION,
+    EffectiveFacility,
+    EffectiveScenario,
     IncidentBaseline,
     IncidentConfirmRequest,
     IncidentDraftInput,
@@ -293,6 +296,53 @@ def simulate(
         db.rollback()  # a concurrent request saved the run first; return that one
         return _run(repository.find_run(db, revision_id, engine_version)), False
     return run, True
+
+
+def get_effective_scenario(db: Session, run_id: str) -> EffectiveScenario:
+    """Public contract for allocation: the saved run's frozen baseline with the confirmed
+    overrides applied, rebuilt by the same overlay that produced the run."""
+    row = repository.get_run(db, run_id)
+    if row is None:
+        raise ScenarioError("run_not_found")
+    run = _run(row)
+    revision = _revision(repository.get_revision(db, row.revision_id))
+    baseline = IncidentBaseline.model_validate(
+        repository.get_baseline(db, revision.baseline_id).payload
+    )
+    selected = revision.input.service_id
+    profile = next((p for p in baseline.requirement_profiles if p.service_id == selected), None)
+    required = {r.resource_id for r in profile.requirements} if profile else set()
+    saved = {r.facility.facility_id: r for r in run.impact.rows}
+
+    facilities_out = []
+    for snapshot in baseline.facility_snapshots:
+        facility_id = snapshot.facility.facility_id
+        impact_row = saved[facility_id]
+        effective = snapshot
+        if impact_row.affected:
+            effective, _ = scenario_engine.apply_incident_overrides(
+                snapshot, revision, selected, required
+            )
+        service = next(s for s in effective.services if s.service_id == selected)
+        if calculate_service_capacity(effective, service, profile) != impact_row.scenario_capacity:
+            raise RuntimeError(f"Saved run {run_id} does not match its frozen inputs.")
+        facilities_out.append(EffectiveFacility(
+            snapshot=effective,
+            affected=impact_row.affected,
+            applied_overrides=impact_row.applied_overrides,
+            scenario_capacity=impact_row.scenario_capacity,
+        ))
+    return EffectiveScenario(
+        run_id=run.run_id,
+        incident_id=revision.incident_id,
+        revision_id=revision.revision_id,
+        baseline_id=baseline.baseline_id,
+        baseline_captured_at=baseline.captured_at,
+        planning_starts_at=revision.input.starts_at,
+        service_id=selected,
+        requirement_profiles=baseline.requirement_profiles,
+        facilities=facilities_out,
+    )
 
 
 def get_run(db: Session, run_id: str) -> SimulationRun:

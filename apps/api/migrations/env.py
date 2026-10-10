@@ -3,6 +3,7 @@
 from alembic import context
 from sqlalchemy import create_engine, pool
 
+import app.modules.allocation.models  # noqa: F401
 import app.modules.facilities.models  # noqa: F401
 import app.modules.forecasting.models  # noqa: F401
 import app.modules.scenarios.models  # noqa: F401

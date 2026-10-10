@@ -1,0 +1,161 @@
+{
+  "engine_version": "allocation-cpsat-v1",
+  "solver_version": "ortools-cp-sat-9.15.6755",
+  "solver_status": "optimal",
+  "plan_outcome": "no_improvement",
+  "coverage": {
+    "included_facility_ids": [
+      "DEMO-A",
+      "DEMO-B"
+    ],
+    "excluded": [
+      {
+        "facility_id": "DEMO-C",
+        "reasons": [
+          "no_planning_constraints",
+          "service_unavailable",
+          "stale_required_evidence"
+        ]
+      }
+    ]
+  },
+  "baseline_summary": {
+    "included_facility_ids": [
+      "DEMO-A",
+      "DEMO-B"
+    ],
+    "required_service_places": 11,
+    "covered_service_places": 5,
+    "unmet_service_places": 6,
+    "rows": [
+      {
+        "facility_id": "DEMO-A",
+        "service_status": "operating",
+        "required_service_places": 3,
+        "resource_quantity": 4,
+        "estimated_capacity": 4,
+        "covered_service_places": 3,
+        "unmet_service_places": 0,
+        "bottleneck_resource_ids": [
+          "working-monitors"
+        ]
+      },
+      {
+        "facility_id": "DEMO-B",
+        "service_status": "operating",
+        "required_service_places": 8,
+        "resource_quantity": 2,
+        "estimated_capacity": 2,
+        "covered_service_places": 2,
+        "unmet_service_places": 6,
+        "bottleneck_resource_ids": [
+          "working-monitors"
+        ]
+      }
+    ]
+  },
+  "proposed_summary": {
+    "included_facility_ids": [
+      "DEMO-A",
+      "DEMO-B"
+    ],
+    "required_service_places": 11,
+    "covered_service_places": 5,
+    "unmet_service_places": 6,
+    "rows": [
+      {
+        "facility_id": "DEMO-A",
+        "service_status": "operating",
+        "required_service_places": 3,
+        "resource_quantity": 4,
+        "estimated_capacity": 4,
+        "covered_service_places": 3,
+        "unmet_service_places": 0,
+        "bottleneck_resource_ids": [
+          "working-monitors"
+        ]
+      },
+      {
+        "facility_id": "DEMO-B",
+        "service_status": "operating",
+        "required_service_places": 8,
+        "resource_quantity": 2,
+        "estimated_capacity": 2,
+        "covered_service_places": 2,
+        "unmet_service_places": 6,
+        "bottleneck_resource_ids": [
+          "working-monitors"
+        ]
+      }
+    ]
+  },
+  "transfers": [],
+  "total_cost_minor_units": 0,
+  "remaining_gap_reasons": [
+    "6 modeled places remain unmet across included facilities; no further approved, affordable, in-time transfer improves coverage.",
+    "DEMO-C is excluded (no_planning_constraints, service_unavailable, stale_required_evidence); its demand is not counted."
+  ],
+  "validation_passed": true,
+  "review_required": true,
+  "objective_description": "Minimize unmet modeled service places across included facilities, then total transfer cost, then the number of moved items.",
+  "solve_duration_ms": 0,
+  "allocation_run_id": "ALLOC-DEMO-NO-IMPROVEMENT",
+  "simulation_run_id": "RUN-DEMO-MONITORS",
+  "incident_id": "INC-DEMO-MONITORS",
+  "revision_id": "REV-DEMO-MONITORS-CONFIRMED",
+  "baseline_id": "BASE-DEMO-MONITORS",
+  "created_at": "2026-10-10T09:15:00Z",
+  "schema_version": 1,
+  "input": {
+    "simulation_run_id": "RUN-DEMO-MONITORS",
+    "resource_id": "working-monitors",
+    "planning_horizon_minutes": 60,
+    "budget_minor_units": 0,
+    "currency": "USD",
+    "facility_constraints": [
+      {
+        "facility_id": "DEMO-A",
+        "required_service_places": 3,
+        "minimum_retained_service_places": 3,
+        "minimum_retained_resource_quantity": 3,
+        "transferable_quantity": 1,
+        "maximum_inbound_quantity": 0,
+        "source_note": "Synthetic: DEMO-A approves releasing one compatible monitor.",
+        "confirmed_at": "2026-10-10T09:10:00Z"
+      },
+      {
+        "facility_id": "DEMO-B",
+        "required_service_places": 8,
+        "minimum_retained_service_places": 0,
+        "minimum_retained_resource_quantity": 0,
+        "transferable_quantity": 0,
+        "maximum_inbound_quantity": 1,
+        "source_note": "Synthetic: DEMO-B can install one additional monitor.",
+        "confirmed_at": "2026-10-10T09:10:00Z"
+      }
+    ],
+    "routes": [
+      {
+        "route_id": "ROUTE-A-B",
+        "from_facility_id": "DEMO-A",
+        "to_facility_id": "DEMO-B",
+        "lead_time_minutes": 30,
+        "cost_per_unit_minor_units": 10000,
+        "maximum_quantity": 1,
+        "source_note": "Synthetic: approved direct transfer, 30 minutes.",
+        "confirmed_at": "2026-10-10T09:10:00Z"
+      }
+    ],
+    "assumptions": [
+      "Demand figures are planner-confirmed synthetic assumptions."
+    ]
+  },
+  "solver_settings": {
+    "time_limit_seconds": 5,
+    "objective_order": [
+      "minimize_unmet_demand",
+      "minimize_transfer_cost",
+      "minimize_moved_items"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "simulation_run_id": "RUN-DEMO-MONITORS",
+  "resource_id": "working-monitors",
+  "planning_horizon_minutes": 60,
+  "budget_minor_units": 10000,
+  "currency": "USD",
+  "facility_constraints": [],
+  "routes": [],
+  "assumptions": [
+    "Demand figures are planner-confirmed synthetic assumptions."
+  ]
+}

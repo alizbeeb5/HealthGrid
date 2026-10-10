@@ -1,0 +1,75 @@
+{
+  "engine_version": "allocation-cpsat-v1",
+  "solver_version": "ortools-cp-sat-9.15.6755",
+  "solver_status": "not_run",
+  "plan_outcome": "needs_inputs",
+  "coverage": {
+    "included_facility_ids": [],
+    "excluded": [
+      {
+        "facility_id": "DEMO-A",
+        "reasons": [
+          "no_planning_constraints"
+        ]
+      },
+      {
+        "facility_id": "DEMO-B",
+        "reasons": [
+          "no_planning_constraints"
+        ]
+      },
+      {
+        "facility_id": "DEMO-C",
+        "reasons": [
+          "no_planning_constraints",
+          "service_unavailable",
+          "stale_required_evidence"
+        ]
+      }
+    ]
+  },
+  "baseline_summary": {
+    "included_facility_ids": [],
+    "required_service_places": 0,
+    "covered_service_places": 0,
+    "unmet_service_places": 0,
+    "rows": []
+  },
+  "proposed_summary": null,
+  "transfers": [],
+  "total_cost_minor_units": 0,
+  "remaining_gap_reasons": [
+    "No facility has complete planning constraints and usable evidence; enter constraints to compute a proposal."
+  ],
+  "validation_passed": false,
+  "review_required": true,
+  "objective_description": "Minimize unmet modeled service places across included facilities, then total transfer cost, then the number of moved items.",
+  "solve_duration_ms": 0,
+  "allocation_run_id": "ALLOC-DEMO-NEEDS-INPUTS",
+  "simulation_run_id": "RUN-DEMO-MONITORS",
+  "incident_id": "INC-DEMO-MONITORS",
+  "revision_id": "REV-DEMO-MONITORS-CONFIRMED",
+  "baseline_id": "BASE-DEMO-MONITORS",
+  "created_at": "2026-10-10T09:15:00Z",
+  "schema_version": 1,
+  "input": {
+    "simulation_run_id": "RUN-DEMO-MONITORS",
+    "resource_id": "working-monitors",
+    "planning_horizon_minutes": 60,
+    "budget_minor_units": 10000,
+    "currency": "USD",
+    "facility_constraints": [],
+    "routes": [],
+    "assumptions": [
+      "Demand figures are planner-confirmed synthetic assumptions."
+    ]
+  },
+  "solver_settings": {
+    "time_limit_seconds": 5,
+    "objective_order": [
+      "minimize_unmet_demand",
+      "minimize_transfer_cost",
+      "minimize_moved_items"
+    ]
+  }
+}

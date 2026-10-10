@@ -1,0 +1,60 @@
+{
+  "title": "Synthetic monitor shortage at Demo Hospital B",
+  "report_text": null,
+  "service_id": "emergency-care",
+  "starts_at": "2026-10-10T10:00:00Z",
+  "expected_ends_at": null,
+  "affected_facility_ids": [
+    "DEMO-A",
+    "DEMO-B"
+  ],
+  "service_overrides": [
+    {
+      "facility_id": "DEMO-A",
+      "service_id": "emergency-care",
+      "status": "operating",
+      "restriction_note": null
+    }
+  ],
+  "resource_overrides": [
+    {
+      "facility_id": "DEMO-A",
+      "resource_id": "available-beds",
+      "available_quantity": 12,
+      "unit": "bed"
+    },
+    {
+      "facility_id": "DEMO-A",
+      "resource_id": "nurses-on-duty",
+      "available_quantity": 6,
+      "unit": "person"
+    },
+    {
+      "facility_id": "DEMO-A",
+      "resource_id": "working-monitors",
+      "available_quantity": 4,
+      "unit": "item"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "resource_id": "available-beds",
+      "available_quantity": 18,
+      "unit": "bed"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "resource_id": "nurses-on-duty",
+      "available_quantity": 9,
+      "unit": "person"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "resource_id": "working-monitors",
+      "available_quantity": 2,
+      "unit": "item"
+    }
+  ],
+  "assumptions": [
+    "Synthetic scenario: DEMO-A operates with 4 monitors, 12 beds and 6 nurses; DEMO-B operates with 2 monitors, 18 beds and 9 nurses."
+  ]
+}

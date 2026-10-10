@@ -50,5 +50,8 @@ Feature 5 incident drafts, confirmed revisions, immutable baselines and saved
 baseline-versus-scenario simulation runs exist in the backend and connect to the
 incident screen. Decisions assessment and Responses extraction are server-side
 endpoints invoked only by explicit review actions when configured with an API key.
-Manual incident entry remains available without AI. Authentication and optimization
-are not implemented. Paid AI behavior requires live account verification.
+Manual incident entry remains available without AI. Feature 6 allocation runs
+(saved transfer proposals from a frozen simulation) exist in the backend; the
+OR-Tools engine and planning screen are not merged yet. Domain routers are
+registered in `app/routes.py`. Authentication is not implemented. Paid AI behavior
+requires live account verification.

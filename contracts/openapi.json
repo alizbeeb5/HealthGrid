@@ -382,7 +382,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Content",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
@@ -444,7 +444,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -509,7 +509,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -595,7 +595,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -659,7 +659,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -670,6 +670,113 @@
               }
             },
             "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/allocation/runs": {
+      "post": {
+        "tags": [
+          "allocation"
+        ],
+        "summary": "Create Allocation Run",
+        "description": "Solve and save a transfer proposal from a saved simulation's frozen scenario.\nNeeds-inputs, no-improvement and no-solution outcomes are saved results too.",
+        "operationId": "create_allocation_run",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AllocationRunRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllocationRun"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllocationErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllocationErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/allocation/runs/{allocation_run_id}": {
+      "get": {
+        "tags": [
+          "allocation"
+        ],
+        "summary": "Get Allocation Run",
+        "description": "The saved proposal as computed; reopening never re-solves.",
+        "operationId": "get_allocation_run",
+        "parameters": [
+          {
+            "name": "allocation_run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Allocation Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllocationRun"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllocationErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllocationErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
           }
         }
       }
@@ -857,6 +964,277 @@
         ],
         "title": "AdviceEvidence"
       },
+      "AllocationErrorDetail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "invalid_request",
+              "simulation_run_not_found",
+              "allocation_run_not_found"
+            ],
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/FieldError"
+            },
+            "type": "array",
+            "title": "Fields"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "fields"
+        ],
+        "title": "AllocationErrorDetail"
+      },
+      "AllocationErrorResponse": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/AllocationErrorDetail"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "AllocationErrorResponse"
+      },
+      "AllocationRun": {
+        "properties": {
+          "engine_version": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Engine Version"
+          },
+          "solver_version": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Solver Version"
+          },
+          "solver_status": {
+            "$ref": "#/components/schemas/SolverStatus"
+          },
+          "plan_outcome": {
+            "$ref": "#/components/schemas/PlanOutcome"
+          },
+          "coverage": {
+            "$ref": "#/components/schemas/Coverage"
+          },
+          "baseline_summary": {
+            "$ref": "#/components/schemas/PlanSummary"
+          },
+          "proposed_summary": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PlanSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "transfers": {
+            "items": {
+              "$ref": "#/components/schemas/Transfer"
+            },
+            "type": "array",
+            "title": "Transfers"
+          },
+          "total_cost_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Cost Minor Units"
+          },
+          "remaining_gap_reasons": {
+            "items": {
+              "type": "string",
+              "maxLength": 500,
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Remaining Gap Reasons"
+          },
+          "validation_passed": {
+            "type": "boolean",
+            "title": "Validation Passed"
+          },
+          "review_required": {
+            "type": "boolean",
+            "const": true,
+            "title": "Review Required"
+          },
+          "objective_description": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Objective Description"
+          },
+          "solve_duration_ms": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Solve Duration Ms"
+          },
+          "allocation_run_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Allocation Run Id"
+          },
+          "simulation_run_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Simulation Run Id"
+          },
+          "incident_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Incident Id"
+          },
+          "revision_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Revision Id"
+          },
+          "baseline_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Baseline Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "schema_version": {
+            "type": "integer",
+            "const": 1,
+            "title": "Schema Version"
+          },
+          "input": {
+            "$ref": "#/components/schemas/AllocationRunRequest"
+          },
+          "solver_settings": {
+            "$ref": "#/components/schemas/SolverSettings"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "engine_version",
+          "solver_version",
+          "solver_status",
+          "plan_outcome",
+          "coverage",
+          "baseline_summary",
+          "proposed_summary",
+          "transfers",
+          "total_cost_minor_units",
+          "remaining_gap_reasons",
+          "validation_passed",
+          "review_required",
+          "objective_description",
+          "solve_duration_ms",
+          "allocation_run_id",
+          "simulation_run_id",
+          "incident_id",
+          "revision_id",
+          "baseline_id",
+          "created_at",
+          "schema_version",
+          "input",
+          "solver_settings"
+        ],
+        "title": "AllocationRun",
+        "description": "Saved proposal. Reopening returns this record; it is never re-solved."
+      },
+      "AllocationRunRequest": {
+        "properties": {
+          "simulation_run_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Simulation Run Id"
+          },
+          "resource_id": {
+            "type": "string",
+            "const": "working-monitors",
+            "title": "Resource Id"
+          },
+          "planning_horizon_minutes": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Planning Horizon Minutes"
+          },
+          "budget_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Budget Minor Units"
+          },
+          "currency": {
+            "type": "string",
+            "const": "USD",
+            "title": "Currency"
+          },
+          "facility_constraints": {
+            "items": {
+              "$ref": "#/components/schemas/FacilityConstraint"
+            },
+            "type": "array",
+            "title": "Facility Constraints"
+          },
+          "routes": {
+            "items": {
+              "$ref": "#/components/schemas/RouteConstraint"
+            },
+            "type": "array",
+            "title": "Routes"
+          },
+          "assumptions": {
+            "items": {
+              "type": "string",
+              "maxLength": 500,
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Assumptions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "simulation_run_id",
+          "resource_id",
+          "planning_horizon_minutes",
+          "budget_minor_units",
+          "currency",
+          "facility_constraints",
+          "routes",
+          "assumptions"
+        ],
+        "title": "AllocationRunRequest"
+      },
       "AppliedResourceOverride": {
         "properties": {
           "override_type": {
@@ -1018,6 +1396,34 @@
           "not_configured"
         ],
         "title": "CapacityStatus"
+      },
+      "Coverage": {
+        "properties": {
+          "included_facility_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Included Facility Ids"
+          },
+          "excluded": {
+            "items": {
+              "$ref": "#/components/schemas/FacilityExclusion"
+            },
+            "type": "array",
+            "title": "Excluded"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "included_facility_ids",
+          "excluded"
+        ],
+        "title": "Coverage"
       },
       "DataQuality": {
         "type": "string",
@@ -1305,6 +1711,18 @@
         ],
         "title": "Evidence"
       },
+      "ExclusionReason": {
+        "type": "string",
+        "enum": [
+          "no_planning_constraints",
+          "service_unavailable",
+          "service_limited",
+          "requirements_not_configured",
+          "missing_required_evidence",
+          "stale_required_evidence"
+        ],
+        "title": "ExclusionReason"
+      },
       "ExtractionResponse_IncidentDraftInput_": {
         "properties": {
           "extraction_status": {
@@ -1472,6 +1890,93 @@
         ],
         "title": "FacilityCapacityResponse"
       },
+      "FacilityConstraint": {
+        "properties": {
+          "facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id"
+          },
+          "required_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Required Service Places"
+          },
+          "minimum_retained_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Minimum Retained Service Places"
+          },
+          "minimum_retained_resource_quantity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Minimum Retained Resource Quantity"
+          },
+          "transferable_quantity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Transferable Quantity"
+          },
+          "maximum_inbound_quantity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Maximum Inbound Quantity"
+          },
+          "source_note": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Source Note"
+          },
+          "confirmed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Confirmed At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility_id",
+          "required_service_places",
+          "minimum_retained_service_places",
+          "minimum_retained_resource_quantity",
+          "transferable_quantity",
+          "maximum_inbound_quantity",
+          "source_note",
+          "confirmed_at"
+        ],
+        "title": "FacilityConstraint",
+        "description": "Planner-confirmed limits for one facility. transferable_quantity is explicitly\napproved movable inventory, not all reported equipment."
+      },
+      "FacilityExclusion": {
+        "properties": {
+          "facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id"
+          },
+          "reasons": {
+            "items": {
+              "$ref": "#/components/schemas/ExclusionReason"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Reasons"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility_id",
+          "reasons"
+        ],
+        "title": "FacilityExclusion"
+      },
       "FacilityForecastResponse": {
         "properties": {
           "facility_id": {
@@ -1584,6 +2089,96 @@
           "items"
         ],
         "title": "FacilityListResponse"
+      },
+      "FacilityPlanRow": {
+        "properties": {
+          "facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id"
+          },
+          "service_status": {
+            "$ref": "#/components/schemas/ServiceStatus"
+          },
+          "required_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Required Service Places"
+          },
+          "resource_quantity": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resource Quantity"
+          },
+          "estimated_capacity": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Estimated Capacity"
+          },
+          "covered_service_places": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Covered Service Places"
+          },
+          "unmet_service_places": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unmet Service Places"
+          },
+          "bottleneck_resource_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Bottleneck Resource Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility_id",
+          "service_status",
+          "required_service_places",
+          "resource_quantity",
+          "estimated_capacity",
+          "covered_service_places",
+          "unmet_service_places",
+          "bottleneck_resource_ids"
+        ],
+        "title": "FacilityPlanRow"
       },
       "FacilityService": {
         "properties": {
@@ -2608,6 +3203,63 @@
         ],
         "title": "ObservationResponse"
       },
+      "PlanOutcome": {
+        "type": "string",
+        "enum": [
+          "needs_inputs",
+          "improved",
+          "no_improvement",
+          "no_solution"
+        ],
+        "title": "PlanOutcome"
+      },
+      "PlanSummary": {
+        "properties": {
+          "included_facility_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Included Facility Ids"
+          },
+          "required_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Required Service Places"
+          },
+          "covered_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Covered Service Places"
+          },
+          "unmet_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Unmet Service Places"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/FacilityPlanRow"
+            },
+            "type": "array",
+            "title": "Rows"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "included_facility_ids",
+          "required_service_places",
+          "covered_service_places",
+          "unmet_service_places",
+          "rows"
+        ],
+        "title": "PlanSummary",
+        "description": "Totals over included facilities only; excluded demand is not counted as zero."
+      },
       "ReasonCode": {
         "type": "string",
         "enum": [
@@ -2926,6 +3578,71 @@
         ],
         "title": "RevisionStatus"
       },
+      "RouteConstraint": {
+        "properties": {
+          "route_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Route Id"
+          },
+          "from_facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "From Facility Id"
+          },
+          "to_facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "To Facility Id"
+          },
+          "lead_time_minutes": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Lead Time Minutes"
+          },
+          "cost_per_unit_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Cost Per Unit Minor Units"
+          },
+          "maximum_quantity": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Maximum Quantity"
+          },
+          "source_note": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Source Note"
+          },
+          "confirmed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Confirmed At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "route_id",
+          "from_facility_id",
+          "to_facility_id",
+          "lead_time_minutes",
+          "cost_per_unit_minor_units",
+          "maximum_quantity",
+          "source_note",
+          "confirmed_at"
+        ],
+        "title": "RouteConstraint",
+        "description": "An explicitly approved directed route; coordinates never imply one."
+      },
       "ScenarioErrorDetail": {
         "properties": {
           "code": {
@@ -3165,6 +3882,104 @@
           "impact"
         ],
         "title": "SimulationRun"
+      },
+      "SolverSettings": {
+        "properties": {
+          "time_limit_seconds": {
+            "type": "number",
+            "maximum": 60.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Time Limit Seconds"
+          },
+          "objective_order": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Objective Order"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "time_limit_seconds",
+          "objective_order"
+        ],
+        "title": "SolverSettings"
+      },
+      "SolverStatus": {
+        "type": "string",
+        "enum": [
+          "not_run",
+          "optimal",
+          "feasible",
+          "infeasible",
+          "unknown"
+        ],
+        "title": "SolverStatus"
+      },
+      "Transfer": {
+        "properties": {
+          "route_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Route Id"
+          },
+          "from_facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "From Facility Id"
+          },
+          "to_facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "To Facility Id"
+          },
+          "resource_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id"
+          },
+          "quantity": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Quantity"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/ResourceUnit"
+          },
+          "lead_time_minutes": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Lead Time Minutes"
+          },
+          "cost_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Cost Minor Units"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "route_id",
+          "from_facility_id",
+          "to_facility_id",
+          "resource_id",
+          "quantity",
+          "unit",
+          "lead_time_minutes",
+          "cost_minor_units"
+        ],
+        "title": "Transfer"
       },
       "ValidationError": {
         "properties": {

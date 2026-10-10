@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "invalid_request",
+    "message": "The allocation request is invalid.",
+    "fields": [
+      {
+        "field": "routes.0.to_facility_id",
+        "message": "DEMO-C needs a facility constraint to use a route."
+      }
+    ]
+  }
+}

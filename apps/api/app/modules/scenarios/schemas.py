@@ -222,6 +222,29 @@ class SimulationRun(ContractModel):
     impact: IncidentImpact
 
 
+class EffectiveFacility(ContractModel):
+    """One facility under the saved scenario: overrides applied to its frozen snapshot."""
+
+    snapshot: FacilitySnapshotResponse
+    affected: bool
+    applied_overrides: list[AppliedOverride]
+    scenario_capacity: ServiceCapacityResult
+
+
+class EffectiveScenario(ContractModel):
+    """Frozen allocation input from a saved run; never reads live observations."""
+
+    run_id: Identifier
+    incident_id: Identifier
+    revision_id: Identifier
+    baseline_id: Identifier
+    baseline_captured_at: AwareDatetime
+    planning_starts_at: AwareDatetime
+    service_id: Identifier
+    requirement_profiles: list[ServiceRequirement]
+    facilities: list[EffectiveFacility]
+
+
 # Errors: same envelope shape as Feature 1, scenarios-owned codes.
 
 ScenarioErrorCode = Literal[
