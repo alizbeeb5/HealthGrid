@@ -1,8 +1,9 @@
 # Three-person workflow
 
 See `product-scope.md` for the finalized routine/crisis workflow and `next-tasks.md`
-for broad workstreams. The active Feature 1 assignments and shared interfaces
-are in `feature-1-contract.md`; data/validation is the third teammate’s task for this milestone.
+for broad workstreams. The active Feature 2 assignments and shared interfaces
+are in `feature-2-contract.md`; the third teammate owns the capacity engine and
+demo rules for this milestone. Feature 1 remains the observation contract.
 
 | Owner | Primary files | Deliverable |
 | --- | --- | --- |
@@ -10,7 +11,9 @@ are in `feature-1-contract.md`; data/validation is the third teammate’s task f
 | Backend/data | core, facilities, ingestion, capacity, scenarios, migrations | Validated data, usable capacity, saved scenarios |
 | Forecasting/AI | forecasting, allocation, investments, intelligence | Forecasts, feasible response/funding plans, report interpretation |
 
-The backend/data owner owns `engines/capacity.py`; the forecasting/AI owner owns
+For Feature 2, the third teammate owns `engines/capacity.py`, while backend/data
+owns the capacity API and Pydantic schemas. Outside this milestone, the
+backend/data owner owns `engines/capacity.py`; the forecasting/AI owner owns
 other numerical engines. Domain owners maintain their routers and schemas, with
 backend/data review for persistence changes.
 
