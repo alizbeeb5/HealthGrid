@@ -1,0 +1,4314 @@
+[
+  {
+    "date": "2026-08-16",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-16T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-16-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-16T08:30:00Z",
+          "recorded_at": "2026-08-16T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-16-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-16T08:30:00Z",
+          "recorded_at": "2026-08-16T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-16-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-16T08:30:00Z",
+          "recorded_at": "2026-08-16T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-16-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-16T08:30:00Z",
+          "recorded_at": "2026-08-16T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-16T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-17",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-17T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-17-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-17T08:30:00Z",
+          "recorded_at": "2026-08-17T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-17-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-17T08:30:00Z",
+          "recorded_at": "2026-08-17T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-17-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-17T08:30:00Z",
+          "recorded_at": "2026-08-17T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-17-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-17T08:30:00Z",
+          "recorded_at": "2026-08-17T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-17T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-18",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-18T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-18-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-18T08:30:00Z",
+          "recorded_at": "2026-08-18T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-18-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-18T08:30:00Z",
+          "recorded_at": "2026-08-18T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-18-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-18T08:30:00Z",
+          "recorded_at": "2026-08-18T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-18-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-18T08:30:00Z",
+          "recorded_at": "2026-08-18T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-18T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 4,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-19",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-19T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-19-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-19T08:30:00Z",
+          "recorded_at": "2026-08-19T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-19-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-19T08:30:00Z",
+          "recorded_at": "2026-08-19T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-19-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-19T08:30:00Z",
+          "recorded_at": "2026-08-19T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-19-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-19T08:30:00Z",
+          "recorded_at": "2026-08-19T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-19T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-20",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-20T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-20-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-20T08:30:00Z",
+          "recorded_at": "2026-08-20T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-20-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-20T08:30:00Z",
+          "recorded_at": "2026-08-20T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-20-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-20T08:30:00Z",
+          "recorded_at": "2026-08-20T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-20-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-20T08:30:00Z",
+          "recorded_at": "2026-08-20T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-20T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-21",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-21T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-21-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-21T08:30:00Z",
+          "recorded_at": "2026-08-21T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-21-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-21T08:30:00Z",
+          "recorded_at": "2026-08-21T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-21-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-21T08:30:00Z",
+          "recorded_at": "2026-08-21T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-21-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-21T08:30:00Z",
+          "recorded_at": "2026-08-21T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-21T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-22",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-22T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-22-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-22T08:30:00Z",
+          "recorded_at": "2026-08-22T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-22-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-22T08:30:00Z",
+          "recorded_at": "2026-08-22T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-22-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-22T08:30:00Z",
+          "recorded_at": "2026-08-22T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-22-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-22T08:30:00Z",
+          "recorded_at": "2026-08-22T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-22T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-23",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-23T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-23-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-23T08:30:00Z",
+          "recorded_at": "2026-08-23T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-23-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-23T08:30:00Z",
+          "recorded_at": "2026-08-23T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-23-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-23T08:30:00Z",
+          "recorded_at": "2026-08-23T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-23-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-23T08:30:00Z",
+          "recorded_at": "2026-08-23T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-23T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-24",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-24T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-24-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-24T08:30:00Z",
+          "recorded_at": "2026-08-24T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-24-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-24T08:30:00Z",
+          "recorded_at": "2026-08-24T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-24-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-24T08:30:00Z",
+          "recorded_at": "2026-08-24T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-24-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-24T08:30:00Z",
+          "recorded_at": "2026-08-24T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-24T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-25",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-25T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-25-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-25T08:30:00Z",
+          "recorded_at": "2026-08-25T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-25-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-25T08:30:00Z",
+          "recorded_at": "2026-08-25T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-25-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-25T08:30:00Z",
+          "recorded_at": "2026-08-25T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-25-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-25T08:30:00Z",
+          "recorded_at": "2026-08-25T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-25T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 4,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-26",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-26T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-26-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-26T08:30:00Z",
+          "recorded_at": "2026-08-26T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-26-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-26T08:30:00Z",
+          "recorded_at": "2026-08-26T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-26-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-26T08:30:00Z",
+          "recorded_at": "2026-08-26T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-26-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-26T08:30:00Z",
+          "recorded_at": "2026-08-26T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-26T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-27",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-27T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-27-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-27T08:30:00Z",
+          "recorded_at": "2026-08-27T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-27-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-27T08:30:00Z",
+          "recorded_at": "2026-08-27T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-27-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-27T08:30:00Z",
+          "recorded_at": "2026-08-27T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-27-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-27T08:30:00Z",
+          "recorded_at": "2026-08-27T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-27T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-28",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-28T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-28-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-28T08:30:00Z",
+          "recorded_at": "2026-08-28T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-28-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-28T08:30:00Z",
+          "recorded_at": "2026-08-28T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-28-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-28T08:30:00Z",
+          "recorded_at": "2026-08-28T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-28-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-28T08:30:00Z",
+          "recorded_at": "2026-08-28T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-28T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-29",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-29T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-29-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-29T08:30:00Z",
+          "recorded_at": "2026-08-29T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-29-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-29T08:30:00Z",
+          "recorded_at": "2026-08-29T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-29-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-29T08:30:00Z",
+          "recorded_at": "2026-08-29T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-29-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-29T08:30:00Z",
+          "recorded_at": "2026-08-29T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-29T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-30",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-30T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-30-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-30T08:30:00Z",
+          "recorded_at": "2026-08-30T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-30-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-30T08:30:00Z",
+          "recorded_at": "2026-08-30T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-30-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-30T08:30:00Z",
+          "recorded_at": "2026-08-30T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-30-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-30T08:30:00Z",
+          "recorded_at": "2026-08-30T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-30T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-08-31",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-08-31T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-31-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-08-31T08:30:00Z",
+          "recorded_at": "2026-08-31T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-31-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-08-31T08:30:00Z",
+          "recorded_at": "2026-08-31T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-08-31-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-08-31T08:30:00Z",
+          "recorded_at": "2026-08-31T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-08-31-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-08-31T08:30:00Z",
+          "recorded_at": "2026-08-31T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-08-31T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-01",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-01T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-01-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-01T08:30:00Z",
+          "recorded_at": "2026-09-01T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-01-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-01T08:30:00Z",
+          "recorded_at": "2026-09-01T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-01-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-01T08:30:00Z",
+          "recorded_at": "2026-09-01T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-01-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-01T08:30:00Z",
+          "recorded_at": "2026-09-01T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-01T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 4,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-02",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-02T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-02-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-02T08:30:00Z",
+          "recorded_at": "2026-09-02T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-02-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-02T08:30:00Z",
+          "recorded_at": "2026-09-02T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-02-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-02T08:30:00Z",
+          "recorded_at": "2026-09-02T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-02-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-02T08:30:00Z",
+          "recorded_at": "2026-09-02T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-02T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-03",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-03T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-03-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-03T08:30:00Z",
+          "recorded_at": "2026-09-03T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-03-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-03T08:30:00Z",
+          "recorded_at": "2026-09-03T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-03-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-03T08:30:00Z",
+          "recorded_at": "2026-09-03T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-03-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-03T08:30:00Z",
+          "recorded_at": "2026-09-03T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-03T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-04",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-04T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-04-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-04T08:30:00Z",
+          "recorded_at": "2026-09-04T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-04-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-04T08:30:00Z",
+          "recorded_at": "2026-09-04T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-04-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-04T08:30:00Z",
+          "recorded_at": "2026-09-04T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-04-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-04T08:30:00Z",
+          "recorded_at": "2026-09-04T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-04T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-05",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-05T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-05-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-05T08:30:00Z",
+          "recorded_at": "2026-09-05T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-05-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-05T08:30:00Z",
+          "recorded_at": "2026-09-05T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-05-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-05T08:30:00Z",
+          "recorded_at": "2026-09-05T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-05-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-05T08:30:00Z",
+          "recorded_at": "2026-09-05T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-05T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-06",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-06T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-06-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-06T08:30:00Z",
+          "recorded_at": "2026-09-06T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-06-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-06T08:30:00Z",
+          "recorded_at": "2026-09-06T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-06-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-06T08:30:00Z",
+          "recorded_at": "2026-09-06T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-06-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-06T08:30:00Z",
+          "recorded_at": "2026-09-06T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-06T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-07",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-07T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-07-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-07T08:30:00Z",
+          "recorded_at": "2026-09-07T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-07-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-07T08:30:00Z",
+          "recorded_at": "2026-09-07T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-07-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-07T08:30:00Z",
+          "recorded_at": "2026-09-07T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-07-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-07T08:30:00Z",
+          "recorded_at": "2026-09-07T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-07T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-08",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-08T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-08-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-08T08:30:00Z",
+          "recorded_at": "2026-09-08T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-08-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-08T08:30:00Z",
+          "recorded_at": "2026-09-08T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-08-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-08T08:30:00Z",
+          "recorded_at": "2026-09-08T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-08-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-08T08:30:00Z",
+          "recorded_at": "2026-09-08T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-08T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 4,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-09",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-09T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-09-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-09T08:30:00Z",
+          "recorded_at": "2026-09-09T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-09-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-09T08:30:00Z",
+          "recorded_at": "2026-09-09T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-09-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-09T08:30:00Z",
+          "recorded_at": "2026-09-09T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-09-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-09T08:30:00Z",
+          "recorded_at": "2026-09-09T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-09T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-10",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-10T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-10-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-10T08:30:00Z",
+          "recorded_at": "2026-09-10T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-10-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-10T08:30:00Z",
+          "recorded_at": "2026-09-10T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-10-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-10T08:30:00Z",
+          "recorded_at": "2026-09-10T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-10-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-10T08:30:00Z",
+          "recorded_at": "2026-09-10T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-10T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-11",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-11T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-11-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-11T08:30:00Z",
+          "recorded_at": "2026-09-11T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-11-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-11T08:30:00Z",
+          "recorded_at": "2026-09-11T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-11-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-11T08:30:00Z",
+          "recorded_at": "2026-09-11T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-11-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-11T08:30:00Z",
+          "recorded_at": "2026-09-11T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-11T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-12",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-12T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-12-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-12T08:30:00Z",
+          "recorded_at": "2026-09-12T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-12-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-12T08:30:00Z",
+          "recorded_at": "2026-09-12T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-12-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-12T08:30:00Z",
+          "recorded_at": "2026-09-12T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-12-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-12T08:30:00Z",
+          "recorded_at": "2026-09-12T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-12T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-13",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-13T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-13-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-13T08:30:00Z",
+          "recorded_at": "2026-09-13T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-13-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-13T08:30:00Z",
+          "recorded_at": "2026-09-13T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-13-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-13T08:30:00Z",
+          "recorded_at": "2026-09-13T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-13-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-13T08:30:00Z",
+          "recorded_at": "2026-09-13T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-13T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-14",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-14T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-14-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-14T08:30:00Z",
+          "recorded_at": "2026-09-14T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-14-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-14T08:30:00Z",
+          "recorded_at": "2026-09-14T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-14-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-14T08:30:00Z",
+          "recorded_at": "2026-09-14T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-14-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-14T08:30:00Z",
+          "recorded_at": "2026-09-14T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-14T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-15",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-15T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-15-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-15T08:30:00Z",
+          "recorded_at": "2026-09-15T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-15-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-15T08:30:00Z",
+          "recorded_at": "2026-09-15T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-15-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-15T08:30:00Z",
+          "recorded_at": "2026-09-15T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-15-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-15T08:30:00Z",
+          "recorded_at": "2026-09-15T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-15T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 4,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-16",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-16T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-16-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-16T08:30:00Z",
+          "recorded_at": "2026-09-16T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-16-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-16T08:30:00Z",
+          "recorded_at": "2026-09-16T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-16-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-16T08:30:00Z",
+          "recorded_at": "2026-09-16T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-16-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-16T08:30:00Z",
+          "recorded_at": "2026-09-16T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-16T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-17",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-17T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-17-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-17T08:30:00Z",
+          "recorded_at": "2026-09-17T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-17-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-17T08:30:00Z",
+          "recorded_at": "2026-09-17T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-17-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-17T08:30:00Z",
+          "recorded_at": "2026-09-17T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-17-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-17T08:30:00Z",
+          "recorded_at": "2026-09-17T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-17T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-18",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-18T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-18-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-18T08:30:00Z",
+          "recorded_at": "2026-09-18T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-18-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-18T08:30:00Z",
+          "recorded_at": "2026-09-18T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-18-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-18T08:30:00Z",
+          "recorded_at": "2026-09-18T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-18-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-18T08:30:00Z",
+          "recorded_at": "2026-09-18T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-18T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-19",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-19T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-19-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-19T08:30:00Z",
+          "recorded_at": "2026-09-19T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-19-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-19T08:30:00Z",
+          "recorded_at": "2026-09-19T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-19-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-19T08:30:00Z",
+          "recorded_at": "2026-09-19T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-19-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-19T08:30:00Z",
+          "recorded_at": "2026-09-19T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-19T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-20",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-20T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-20-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-20T08:30:00Z",
+          "recorded_at": "2026-09-20T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-20-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-20T08:30:00Z",
+          "recorded_at": "2026-09-20T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-20-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-20T08:30:00Z",
+          "recorded_at": "2026-09-20T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-20-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-20T08:30:00Z",
+          "recorded_at": "2026-09-20T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-20T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-21",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-21T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-21-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-21T08:30:00Z",
+          "recorded_at": "2026-09-21T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-21-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-21T08:30:00Z",
+          "recorded_at": "2026-09-21T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-21-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-21T08:30:00Z",
+          "recorded_at": "2026-09-21T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-21-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-21T08:30:00Z",
+          "recorded_at": "2026-09-21T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-21T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-22",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-22T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-22-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-22T08:30:00Z",
+          "recorded_at": "2026-09-22T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-22-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-22T08:30:00Z",
+          "recorded_at": "2026-09-22T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-22-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-22T08:30:00Z",
+          "recorded_at": "2026-09-22T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-22-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-22T08:30:00Z",
+          "recorded_at": "2026-09-22T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-22T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 4,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-23",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-23T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-23-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-23T08:30:00Z",
+          "recorded_at": "2026-09-23T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-23-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-23T08:30:00Z",
+          "recorded_at": "2026-09-23T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-23-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-23T08:30:00Z",
+          "recorded_at": "2026-09-23T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-23-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-23T08:30:00Z",
+          "recorded_at": "2026-09-23T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-23T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-24",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-24T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-24-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-24T08:30:00Z",
+          "recorded_at": "2026-09-24T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-24-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-24T08:30:00Z",
+          "recorded_at": "2026-09-24T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-24-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-24T08:30:00Z",
+          "recorded_at": "2026-09-24T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-24-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-24T08:30:00Z",
+          "recorded_at": "2026-09-24T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-24T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-25",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-25T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-25-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-25T08:30:00Z",
+          "recorded_at": "2026-09-25T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-25-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-25T08:30:00Z",
+          "recorded_at": "2026-09-25T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-25-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-25T08:30:00Z",
+          "recorded_at": "2026-09-25T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-25-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-25T08:30:00Z",
+          "recorded_at": "2026-09-25T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-25T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-26",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-26T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-26-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-26T08:30:00Z",
+          "recorded_at": "2026-09-26T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-26-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-26T08:30:00Z",
+          "recorded_at": "2026-09-26T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-26-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-26T08:30:00Z",
+          "recorded_at": "2026-09-26T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-26-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-26T08:30:00Z",
+          "recorded_at": "2026-09-26T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-26T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-27",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-27T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-27-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-27T08:30:00Z",
+          "recorded_at": "2026-09-27T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-27-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-27T08:30:00Z",
+          "recorded_at": "2026-09-27T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-27-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-27T08:30:00Z",
+          "recorded_at": "2026-09-27T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-27-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-27T08:30:00Z",
+          "recorded_at": "2026-09-27T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-27T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-28",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-28T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-28-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-28T08:30:00Z",
+          "recorded_at": "2026-09-28T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-28-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-28T08:30:00Z",
+          "recorded_at": "2026-09-28T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-28-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-28T08:30:00Z",
+          "recorded_at": "2026-09-28T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-28-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-28T08:30:00Z",
+          "recorded_at": "2026-09-28T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-28T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-29",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-29T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-29-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-29T08:30:00Z",
+          "recorded_at": "2026-09-29T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-29-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-29T08:30:00Z",
+          "recorded_at": "2026-09-29T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-29-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-29T08:30:00Z",
+          "recorded_at": "2026-09-29T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-29-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-29T08:30:00Z",
+          "recorded_at": "2026-09-29T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-29T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 4,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-09-30",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-09-30T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-30-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-09-30T08:30:00Z",
+          "recorded_at": "2026-09-30T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-30-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-09-30T08:30:00Z",
+          "recorded_at": "2026-09-30T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-09-30-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-09-30T08:30:00Z",
+          "recorded_at": "2026-09-30T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-09-30-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-09-30T08:30:00Z",
+          "recorded_at": "2026-09-30T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-09-30T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-10-01",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-10-01T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-01-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-10-01T08:30:00Z",
+          "recorded_at": "2026-10-01T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-01-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-10-01T08:30:00Z",
+          "recorded_at": "2026-10-01T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-10-01-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-10-01T08:30:00Z",
+          "recorded_at": "2026-10-01T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-01-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-10-01T08:30:00Z",
+          "recorded_at": "2026-10-01T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-10-01T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-10-02",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-10-02T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-02-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-10-02T08:30:00Z",
+          "recorded_at": "2026-10-02T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-02-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-10-02T08:30:00Z",
+          "recorded_at": "2026-10-02T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-10-02-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-10-02T08:30:00Z",
+          "recorded_at": "2026-10-02T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-02-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-10-02T08:30:00Z",
+          "recorded_at": "2026-10-02T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-10-02T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-10-03",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-10-03T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-03-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-10-03T08:30:00Z",
+          "recorded_at": "2026-10-03T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-03-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-10-03T08:30:00Z",
+          "recorded_at": "2026-10-03T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-10-03-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-10-03T08:30:00Z",
+          "recorded_at": "2026-10-03T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-03-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-10-03T08:30:00Z",
+          "recorded_at": "2026-10-03T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-10-03T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-10-04",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-10-04T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-04-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-10-04T08:30:00Z",
+          "recorded_at": "2026-10-04T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-04-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-10-04T08:30:00Z",
+          "recorded_at": "2026-10-04T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-10-04-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-10-04T08:30:00Z",
+          "recorded_at": "2026-10-04T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-04-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-10-04T08:30:00Z",
+          "recorded_at": "2026-10-04T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-10-04T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-10-05",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-10-05T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-05-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-10-05T08:30:00Z",
+          "recorded_at": "2026-10-05T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-05-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-10-05T08:30:00Z",
+          "recorded_at": "2026-10-05T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-10-05-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-10-05T08:30:00Z",
+          "recorded_at": "2026-10-05T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-05-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-10-05T08:30:00Z",
+          "recorded_at": "2026-10-05T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-10-05T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-10-06",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-10-06T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-06-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-10-06T08:30:00Z",
+          "recorded_at": "2026-10-06T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-06-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-10-06T08:30:00Z",
+          "recorded_at": "2026-10-06T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-10-06-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-10-06T08:30:00Z",
+          "recorded_at": "2026-10-06T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-06-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-10-06T08:30:00Z",
+          "recorded_at": "2026-10-06T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-10-06T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 4,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-10-07",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-10-07T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-07-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-10-07T08:30:00Z",
+          "recorded_at": "2026-10-07T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-07-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-10-07T08:30:00Z",
+          "recorded_at": "2026-10-07T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-10-07-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-10-07T08:30:00Z",
+          "recorded_at": "2026-10-07T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-07-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-10-07T08:30:00Z",
+          "recorded_at": "2026-10-07T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-10-07T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-10-08",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-10-08T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-08-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-10-08T08:30:00Z",
+          "recorded_at": "2026-10-08T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-08-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-10-08T08:30:00Z",
+          "recorded_at": "2026-10-08T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-10-08-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-10-08T08:30:00Z",
+          "recorded_at": "2026-10-08T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-08-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-10-08T08:30:00Z",
+          "recorded_at": "2026-10-08T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-10-08T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-10-09",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-10-09T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-09-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-10-09T08:30:00Z",
+          "recorded_at": "2026-10-09T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-09-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-10-09T08:30:00Z",
+          "recorded_at": "2026-10-09T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-10-09-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-10-09T08:30:00Z",
+          "recorded_at": "2026-10-09T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-09-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-10-09T08:30:00Z",
+          "recorded_at": "2026-10-09T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-10-09T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 3,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  },
+  {
+    "date": "2026-10-10",
+    "snapshot": {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-10-10T08:35:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-10-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-10-10T08:30:00Z",
+          "recorded_at": "2026-10-10T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-10-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-10-10T08:30:00Z",
+          "recorded_at": "2026-10-10T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "HIST-C-2026-10-10-oxygen-stock",
+          "available_quantity": 800.5,
+          "observed_at": "2026-10-10T08:30:00Z",
+          "recorded_at": "2026-10-10T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "HIST-C-2026-10-10-working-monitors",
+          "available_quantity": 4,
+          "observed_at": "2026-10-10T08:30:00Z",
+          "recorded_at": "2026-10-10T08:35:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-10-10T23:59:00Z",
+      "stale_after_hours": 24
+    },
+    "demand": 2,
+    "source": "fictional-weekly-demo-v1",
+    "data_quality": "synthetic",
+    "capacity_unit": "simultaneous_service_place",
+    "profile_version": "demo-v1"
+  }
+]
