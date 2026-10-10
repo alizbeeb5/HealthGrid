@@ -237,6 +237,57 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/intelligence/incidents/advice": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Advise Incident */
+        post: operations["advise_incident_api_v1_intelligence_incidents_advice_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/intelligence/incidents/assess": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Assess Incident */
+        post: operations["assess_incident_api_v1_intelligence_incidents_assess_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/intelligence/incidents/extract": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Extract Incident */
+        post: operations["extract_incident_report"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -261,6 +312,13 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** AdviceEvidence */
+        AdviceEvidence: {
+            /** Path */
+            path: string;
+            /** Value */
+            value: string | number | boolean | null;
+        };
         /**
          * AppliedResourceOverride
          * @description Scenario quantity is a planner assumption, not a reported observation.
@@ -296,6 +354,22 @@ export interface components {
             /** Restriction Note */
             restriction_note: string | null;
         };
+        /** AssessmentResponse */
+        AssessmentResponse: {
+            /**
+             * Assessment Status
+             * @enum {string}
+             */
+            assessment_status: "completed" | "unavailable" | "failed" | "refused";
+            /** Answers */
+            answers: components["schemas"]["ReviewAnswer"][];
+            /** Model */
+            model: string | null;
+            /** Rubric Version */
+            rubric_version: string;
+            /** Elapsed Ms */
+            elapsed_ms: number;
+        };
         /**
          * CapacityStatus
          * @enum {string}
@@ -311,6 +385,61 @@ export interface components {
          * @enum {string}
          */
         DataStatus: "current" | "stale" | "unknown";
+        /** EmergencyAction */
+        EmergencyAction: {
+            /**
+             * Priority
+             * @enum {string}
+             */
+            priority: "immediate" | "next";
+            /** Title */
+            title: string;
+            /** Facility Ids */
+            facility_ids: string[];
+            /** Steps */
+            steps: string[];
+            /** Rationale */
+            rationale: string;
+            /** Prerequisites */
+            prerequisites: string[];
+            /** Evidence Paths */
+            evidence_paths: string[];
+        };
+        /** EmergencyAdviceProposal */
+        EmergencyAdviceProposal: {
+            /** Summary */
+            summary: string;
+            /** Actions */
+            actions: components["schemas"]["EmergencyAction"][];
+            /** Questions */
+            questions: string[];
+        };
+        /** EmergencyAdviceRequest */
+        EmergencyAdviceRequest: {
+            incident: components["schemas"]["IncidentDraftInput"];
+        };
+        /** EmergencyAdviceResponse */
+        EmergencyAdviceResponse: {
+            /**
+             * Advice Status
+             * @enum {string}
+             */
+            advice_status: "completed" | "unavailable" | "failed" | "refused";
+            proposal: components["schemas"]["EmergencyAdviceProposal"] | null;
+            /** Evidence */
+            evidence: components["schemas"]["AdviceEvidence"][];
+            /** Warnings */
+            warnings: string[];
+            /** Model */
+            model: string | null;
+            /** Elapsed Ms */
+            elapsed_ms: number;
+            /**
+             * As Of
+             * Format: date-time
+             */
+            as_of: string;
+        };
         /** ErrorDetail */
         ErrorDetail: {
             /**
@@ -326,6 +455,32 @@ export interface components {
         /** ErrorResponse */
         ErrorResponse: {
             error: components["schemas"]["ErrorDetail"];
+        };
+        /** Evidence */
+        Evidence: {
+            /** Field Path */
+            field_path: string;
+            /** Source Excerpt */
+            source_excerpt: string;
+        };
+        /** ExtractionResponse[IncidentDraftInput] */
+        ExtractionResponse_IncidentDraftInput_: {
+            /**
+             * Extraction Status
+             * @enum {string}
+             */
+            extraction_status: "completed" | "unavailable" | "failed" | "refused";
+            candidate: components["schemas"]["IncidentDraftInput"] | null;
+            /** Evidence */
+            evidence: components["schemas"]["Evidence"][];
+            /** Questions */
+            questions: string[];
+            /** Warnings */
+            warnings: string[];
+            /** Model */
+            model: string | null;
+            /** Elapsed Ms */
+            elapsed_ms: number;
         };
         /** Facility */
         Facility: {
@@ -498,6 +653,11 @@ export interface components {
             capacity_mae: number | null;
             /** Demand Mae */
             demand_mae: number | null;
+        };
+        /** HTTPValidationError */
+        HTTPValidationError: {
+            /** Detail */
+            detail?: components["schemas"]["ValidationError"][];
         };
         /** HealthResponse */
         HealthResponse: {
@@ -733,6 +893,11 @@ export interface components {
          * @enum {string}
          */
         ReasonCode: "service_unavailable" | "requirements_not_configured" | "service_restriction_unquantified" | "missing_required_observation" | "stale_required_observation";
+        /** ReportRequest */
+        ReportRequest: {
+            /** Report Text */
+            report_text: string;
+        };
         /** ResourceCapacityLimit */
         ResourceCapacityLimit: {
             /** Resource Id */
@@ -793,6 +958,21 @@ export interface components {
          * @enum {string}
          */
         ResourceUnit: "bed" | "person" | "item" | "liter";
+        /** ReviewAnswer */
+        ReviewAnswer: {
+            /**
+             * Name
+             * @enum {string}
+             */
+            name: "outage_reported" | "multiple_facilities_reported" | "resource_loss_reported" | "clarification_needed";
+            /** Value */
+            value: ("yes" | "no" | "unclear") | null;
+            /**
+             * Answer Status
+             * @enum {string}
+             */
+            answer_status: "completed" | "refused";
+        };
         /**
          * RevisionStatus
          * @enum {string}
@@ -870,6 +1050,19 @@ export interface components {
              */
             schema_version: 1;
             impact: components["schemas"]["IncidentImpact"];
+        };
+        /** ValidationError */
+        ValidationError: {
+            /** Location */
+            loc: (string | number)[];
+            /** Message */
+            msg: string;
+            /** Error Type */
+            type: string;
+            /** Input */
+            input?: unknown;
+            /** Context */
+            ctx?: Record<string, never>;
         };
     };
     responses: never;
@@ -1159,7 +1352,7 @@ export interface operations {
                     "application/json": components["schemas"]["IncidentRevision"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -1200,7 +1393,7 @@ export interface operations {
                     "application/json": components["schemas"]["ScenarioErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -1253,7 +1446,7 @@ export interface operations {
                     "application/json": components["schemas"]["ScenarioErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -1312,7 +1505,7 @@ export interface operations {
                     "application/json": components["schemas"]["ScenarioErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -1352,13 +1545,112 @@ export interface operations {
                     "application/json": components["schemas"]["ScenarioErrorResponse"];
                 };
             };
-            /** @description Unprocessable Entity */
+            /** @description Unprocessable Content */
             422: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
                     "application/json": components["schemas"]["ScenarioErrorResponse"];
+                };
+            };
+        };
+    };
+    advise_incident_api_v1_intelligence_incidents_advice_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["EmergencyAdviceRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EmergencyAdviceResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    assess_incident_api_v1_intelligence_incidents_assess_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReportRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AssessmentResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    extract_incident_report: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ReportRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExtractionResponse_IncidentDraftInput_"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

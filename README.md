@@ -114,3 +114,34 @@ synthetic history ends on 2026-10-09; forecasts are valid at the fixture clock o
 2026-10-10. Later dates correctly return insufficient_history until updated daily
 records are imported. Frozen previews are available at /forecasts?mode=example.
 Current resource updates do not rewrite daily history. This feature needs no AI key.
+
+## Live incident AI review
+
+`/scenarios` connects to the incident backend and optional OpenAI review. Add your
+key to the repository-root `.env` (ignored by Git), never to the frontend:
+
+```dotenv
+OPENAI_API_KEY=your_api_project_key
+OPENAI_ASSESSMENT_MODEL=gpt-6-luna
+OPENAI_EXTRACTION_MODEL=gpt-6-luna
+```
+
+Restart the API after configuration (recreate the API container if using Compose).
+Open `/scenarios`, click **Load sample report for AI review**, then
+**Assess report · live** to see the actual Decisions flags, model and request time.
+**Extract fields · live** independently requests a Responses proposal with evidence.
+Review/edit the proposal and confirm assumptions before simulation. Each explicit
+AI button sends a billable provider request when configured; nothing runs at startup.
+Missing configuration or provider failures preserve manual input. The isolated
+`/scenarios?mode=example` preview never calls OpenAI.
+
+The local checks pass with Python 3.14 and Node 22; Python 3.12 remains the shared
+project target. For environments that restrict Turbopack's local helper port, use
+`npm run build --prefix apps/web -- --webpack` for production build verification.
+
+On the same scenario screen, **Suggest emergency next steps · live** requests
+prioritized guidance directly from the report and current hospital data, even when
+field extraction fails. It uses the same API key; the default guidance model is
+`gpt-6-luna` (`OPENAI_EMERGENCY_MODEL` can override it). Suggestions include steps,
+reasons, prerequisites, evidence and questions. They do not dispatch resources or
+calculate feasible transfer quantities. Changing the incident clears old guidance.

@@ -25,7 +25,7 @@ export type Assessment = { status: "completed" | "unavailable" | "failed" | "ref
 export type Extraction = { status: "completed" | "unavailable" | "failed" | "refused"; candidate: IncidentFields | null; evidence: { field_path: string; source_excerpt: string }[]; questions: string[]; warnings: string[]; model: string | null; elapsed_ms: number | null; message: string };
 export const snapshots = Object.values(catalog.snapshots) as FacilitySnapshotResponse[];
 export const blankIncident = (): IncidentFields => ({ title: "", report_text: null, service_id: "emergency-care", starts_at: null, expected_ends_at: null, affected_facility_ids: [], service_overrides: [], resource_overrides: [], assumptions: [] });
-export const outageReport = "Demo Hospital B's emergency service is unavailable after a power failure. The disruption started at 10:00 UTC on October 10, 2026 and is expected to last six hours.";
+export const outageReport = "Demo Hospital B Emergency care is unavailable after a power failure. Starts at 2026-10-10T10:00:00Z. Expected end 2026-10-10T16:00:00Z.";
 export const outageExample = (): IncidentFields => ({ title: "Hospital B power failure", report_text: outageReport, service_id: "emergency-care", starts_at: "2026-10-10T10:00:00Z", expected_ends_at: "2026-10-10T16:00:00Z", affected_facility_ids: ["DEMO-B"], service_overrides: [{ facility_id: "DEMO-B", service_id: "emergency-care", status: "unavailable", restriction_note: "Power failure; emergency service unavailable." }], resource_overrides: [], assumptions: ["Unavailable service is modeled as one post-incident state; recovery is not simulated."] });
 
 /** Input feedback only, no capacity/impact calculation. */

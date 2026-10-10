@@ -22,6 +22,10 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-healthgrid}:${POSTGRES_PASSWORD:-healthgrid_local}@db:5432/${POSTGRES_DB:-healthgrid}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_ASSESSMENT_MODEL: ${OPENAI_ASSESSMENT_MODEL:-gpt-6-luna}
+      OPENAI_EXTRACTION_MODEL: ${OPENAI_EXTRACTION_MODEL:-}
+      OPENAI_EMERGENCY_MODEL: ${OPENAI_EMERGENCY_MODEL:-gpt-6-luna}
+      OPENAI_INTELLIGENCE_TIMEOUT_SECONDS: ${OPENAI_INTELLIGENCE_TIMEOUT_SECONDS:-15}
     ports:
       - "127.0.0.1:8000:8000"
     volumes:

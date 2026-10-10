@@ -3,8 +3,9 @@
 Status: backend implemented — scenarios schemas, persistence (migration
 `0004_incident_scenarios`), the pure overlay `engines/scenarios.py`, all six
 `/scenarios` endpoints, OpenAPI and examples in `contracts/examples/feature-5/`
-(generated from the live flow at the fixture clock). The intelligence endpoints and
-the frontend are pending. This agreement supersedes the earlier emergency-intake draft.
+(generated from the live flow at the fixture clock). The incident frontend now
+connects to persistence/simulation and the Decisions/Responses intelligence endpoints.
+Paid provider verification is pending server-side key configuration. This agreement supersedes the earlier emergency-intake draft.
 Use the existing stack. Features 1–4 remain the reported-data and forecast foundations.
 
 Backend additions to the field lists below (in `modules/scenarios/schemas.py`):
@@ -22,8 +23,8 @@ Backend additions to the field lists below (in `modules/scenarios/schemas.py`):
 Declare an incident from the network dashboard, assess its report quickly, confirm
 the affected hospitals/services/resources, then compare modeled capacity before
 and under the incident assumptions. Save the evidence and immutable run inputs.
-This feature identifies the capacity effect; Feature 6 will compare responses with
-OR-Tools. It does not infer patient redistribution or spare admission capacity.
+This feature identifies the capacity effect and offers emergency next-step
+suggestions in scenarios. Feature 6 remains investments and broader planning. It does not infer patient redistribution or spare admission capacity.
 
 Workflow: overview -> Declare incident -> manual form or situation report ->
 AI assessment/extraction -> edit and confirm assumptions -> capture baseline ->
@@ -237,5 +238,32 @@ Ordinary tests stub providers. Paid live checks run only when deliberately invok
 6. Joint finish includes confirming B outage, saved simulation, a later real resource
    update, and proof that reopening the saved run retains its original baseline.
 
-Feature 6 takes these confirmed inputs into Google OR-Tools to compare feasible
-responses, including donor reserves, receiving capacity and resource conservation.
+Feature 6 remains investments and broader planning. Scenario emergency guidance
+uses the incident and current hospital context. Exact resource allocation would need
+donor reserves, receiving capacity, compatibility and logistics constraints.
+
+## Scenario emergency next steps
+
+The scenario screen also provides `POST /api/v1/intelligence/incidents/advice`.
+Its request is `{incident: IncidentDraftInput}` with a nonblank report. It returns
+`advice_status`, `proposal`, `evidence`, `warnings`, `model`, `elapsed_ms`, and `as_of`.
+The proposal includes a summary, prioritized actions (steps, rationale, known hospital
+IDs, prerequisites and evidence paths), and questions. Examples:
+`contracts/examples/feature-5/emergency-advice.request.json` and
+`contracts/examples/feature-5/emergency-advice.response.json` (synthetic output).
+
+This separate Responses call uses the same server API key and defaults to
+`OPENAI_EMERGENCY_MODEL=gpt-6-luna`, with minimal reasoning, bounded output and no
+automatic retries. It does not depend on extraction succeeding. The context includes
+the current unconfirmed draft, full hospital snapshots, units/freshness and capacities
+calculated in Python at one request timestamp. Reported capacity is not post-incident
+simulation capacity. Suggestions cite actual supplied values, including explicit nulls
+and missing operational inputs. Evidence links context; it does not validate that an
+action is feasible. No numeric transfer plan, dispatch, persistence or optimization is
+implemented by guidance. Existing confirmation and saved simulation remain separate.
+
+The panel discards guidance whenever incident fields change. Provider failures and
+invalid evidence preserve manual input. Occupancy, transfer eligibility, donor minimums,
+transport availability and travel times are missing; the prompt asks for verification
+before any relocation and cannot claim spare admission capacity. Feature 6 remains
+investments and broader planning.

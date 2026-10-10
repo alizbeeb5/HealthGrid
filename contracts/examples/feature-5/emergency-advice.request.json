@@ -1,0 +1,22 @@
+{
+  "incident": {
+    "title": "Demo Hospital B Emergency care is unavailable after a power failure",
+    "report_text": "Demo Hospital B Emergency care is unavailable after a power failure. Starts at 2026-10-10T10:00:00Z. Expected end 2026-10-10T16:00:00Z.",
+    "service_id": "emergency-care",
+    "starts_at": "2026-10-10T10:00:00Z",
+    "expected_ends_at": "2026-10-10T16:00:00Z",
+    "affected_facility_ids": [
+      "DEMO-B"
+    ],
+    "service_overrides": [
+      {
+        "facility_id": "DEMO-B",
+        "service_id": "emergency-care",
+        "status": "unavailable",
+        "restriction_note": null
+      }
+    ],
+    "resource_overrides": [],
+    "assumptions": []
+  }
+}

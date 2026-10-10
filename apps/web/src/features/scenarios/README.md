@@ -37,13 +37,31 @@ saved incidents are successfully refreshed/reopened. 409 conflicts expose the ex
 revision link; validation failures expose the backend field paths. Requests are
 uncached and route loads discard outdated responses. Server errors never use examples.
 
-## AI handoff and explicit example mode
+## Live AI review and explicit example mode
 
-The pulled intelligence router/schemas still have no endpoints. Assess/extract return
-clearly unavailable presentation states without making invented HTTP or OpenAI calls.
-Manual entry works without an AI key. Assessment/extraction states are independent;
-report changes discard proposals and manual edits block stale proposal application.
-Connect these adapters after the AI owner publishes generated schemas and examples.
+API mode posts the entered report to `/api/v1/intelligence/incidents/assess`
+(OpenAI Decisions) and `/api/v1/intelligence/incidents/extract` (OpenAI Responses).
+Generated wire types map the independent component statuses into the review panel.
+The panel displays actual returned flags, model and elapsed time; extraction retains
+source excerpts, questions and warnings. Unavailable, refused, failed, invalid-report
+and transport failures never substitute example flags or change manual input.
+Report changes discard responses and manual edits block stale proposal application.
+Requests happen only on explicit button presses and are never automatically retried.
+
+Set `OPENAI_API_KEY` in the repository-root `.env` or API environment, then restart
+or recreate the API process. Never put it in `NEXT_PUBLIC_*`, frontend storage or Git.
+`OPENAI_ASSESSMENT_MODEL=gpt-6-luna` is the Decisions default. To enable the separate
+Responses extraction, also set `OPENAI_EXTRACTION_MODEL=gpt-6-luna` (or a compatible
+Responses model your project supports). Docker Compose forwards these settings.
+The key's API project needs access and billing. No key was configured during checks,
+so paid provider behavior and account access have not been verified.
+
+Demo: open `/scenarios`, choose **Load sample report for AI review**, then
+**Assess report · live**. The report is fictional; the classification is requested
+from OpenAI. Optionally choose **Extract fields · live**, inspect the evidence,
+use the reviewed proposal, edit/confirm assumptions and simulate/save. Reopen the
+saved comparison after refreshing. The separate **Load synthetic B outage** action
+fills manual fields without making an AI request.
 
 `/scenarios?mode=example` is a separate browser-only synthetic preview. Its versioned
 storage is independent from API incidents and operational demo reports. It supports
@@ -67,8 +85,20 @@ Before local API startup, apply the pulled migration without resetting existing 
 `alembic -c apps/api/alembic.ini upgrade head`, then restart the API process to load
 its new incident routes. The database must already have the Feature 1 catalog/data.
 
-Per the Feature 5 agreement, no automatic frontend tests/builds or live AI calls were
-run. User browser acceptance: manual outage save/reopen, confirmation acknowledgement,
-B capacity comparison, saved run refresh, resource assumptions, unknown/stale reports,
-AI unavailable/manual fallback, error/conflict recovery, and a later hospital report
-update that leaves a reopened run unchanged.
+The user requested integrated checks: backend tests, Python lint, frontend typecheck,
+frontend tests and a production build. `npm run test:intelligence --prefix apps/web`
+checks real endpoint routing, provider-response mapping, rendered metadata and
+failure states with stub HTTP responses. No paid AI calls run in tests. The webpack
+production build passes; this environment blocks Turbopack's local helper port.
+Live account verification and a complete browser save/reopen walkthrough remain
+manual acceptance checks once the local services and API key are configured.
+
+## Emergency next-step guidance
+
+API mode also renders `EmergencyAdvicePanel`. Its explicit live button posts the
+current draft to `/api/v1/intelligence/incidents/advice`. Suggestions display priority,
+hospital IDs, steps, rationale, prerequisites, supplied evidence values and questions.
+Changes to any incident field discard previous/pending guidance. No advice is copied
+into assumptions automatically, saved as a run or executed. The backend uses current
+snapshots and calculated capacity, not the fixed browser example. The preview mode
+has no emergency-guidance calls. Feature 6 remains investments and broader planning.

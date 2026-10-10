@@ -7,6 +7,7 @@ import { ForecastAlert, ForecastEvidence, ForecastTable, InsufficientHistory } f
 import { chartPoints, forecastDate } from "../src/features/forecasting/presentation";
 import facilities from "../src/lib/api/facilities-fixtures.generated.json";
 import capacity from "../src/lib/api/capacity-fixtures.generated.json";
+import sharedForecast from "../../../contracts/examples/feature-4/DEMO-B.forecast.response.json";
 
 const text = (html: string) => html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
 function deferred<T>() {
@@ -42,7 +43,7 @@ test("B shows seven future rows and highlights the first central gap on day thre
   assert.equal((table.match(/<tr/g) ?? []).length, 8);
   assert.equal((table.match(/First expected gap/g) ?? []).length, 1);
   assert.match(table, /2026-10-12/);
-  assert.match(text(table), /Range 6.5–9.5/);
+  assert.ok(text(table).includes(`Range ${sharedForecast.forecast[2].demand_lower}–${sharedForecast.forecast[2].demand_upper}`));
   assert.doesNotMatch(text(table), /Gap range/);
 });
 
@@ -56,8 +57,8 @@ test("chart projection preserves supplied historical/future values and bounds wi
   assert.equal(points[56].historical_demand, null);
   assert.equal(points[58].forecast_demand, 8);
   assert.equal(points[58].forecast_capacity, 5);
-  assert.deepEqual(points[58].demand_range, [6.5, 9.5]);
-  assert.deepEqual(points[58].capacity_range, [4, 5]);
+  assert.deepEqual(points[58].demand_range, [sharedForecast.forecast[2].demand_lower, sharedForecast.forecast[2].demand_upper]);
+  assert.deepEqual(points[58].capacity_range, [sharedForecast.forecast[2].capacity_lower, sharedForecast.forecast[2].capacity_upper]);
   assert.deepEqual(data, before);
   assert.ok(forecastDate("2026-10-12").includes("12"));
 });
@@ -75,8 +76,8 @@ test("evidence displays published validation, provenance and timestamp limits", 
   const data = await getForecastExample("DEMO-B", "emergency-care");
   const html = renderToStaticMarkup(<ForecastEvidence data={data} />);
   assert.match(html, /dateTime="2026-10-10T09:00:00Z"/);
-  assert.match(html, /synthetic-demo-v1/);
-  assert.match(html, /weekly_seasonal_baseline/);
+  assert.ok(html.includes(sharedForecast.history[0].sources[0]));
+  assert.ok(html.includes(sharedForecast.validation.method));
   assert.match(html, /not calibrated confidence intervals/);
   assert.match(html, /not patients arriving per day/);
   assert.match(html, /demo-v1/);

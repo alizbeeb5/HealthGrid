@@ -382,7 +382,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Entity",
+            "description": "Unprocessable Content",
             "content": {
               "application/json": {
                 "schema": {
@@ -444,7 +444,7 @@
                 }
               }
             },
-            "description": "Unprocessable Entity"
+            "description": "Unprocessable Content"
           },
           "404": {
             "content": {
@@ -509,7 +509,7 @@
                 }
               }
             },
-            "description": "Unprocessable Entity"
+            "description": "Unprocessable Content"
           },
           "404": {
             "content": {
@@ -595,7 +595,7 @@
                 }
               }
             },
-            "description": "Unprocessable Entity"
+            "description": "Unprocessable Content"
           },
           "404": {
             "content": {
@@ -659,7 +659,7 @@
                 }
               }
             },
-            "description": "Unprocessable Entity"
+            "description": "Unprocessable Content"
           },
           "404": {
             "content": {
@@ -670,6 +670,129 @@
               }
             },
             "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/intelligence/incidents/advice": {
+      "post": {
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Advise Incident",
+        "operationId": "advise_incident_api_v1_intelligence_incidents_advice_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmergencyAdviceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmergencyAdviceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/intelligence/incidents/assess": {
+      "post": {
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Assess Incident",
+        "operationId": "assess_incident_api_v1_intelligence_incidents_assess_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssessmentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/intelligence/incidents/extract": {
+      "post": {
+        "tags": [
+          "intelligence"
+        ],
+        "summary": "Extract Incident",
+        "operationId": "extract_incident_report",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExtractionResponse_IncidentDraftInput_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
           }
         }
       }
@@ -699,6 +822,41 @@
   },
   "components": {
     "schemas": {
+      "AdviceEvidence": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Path"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "path",
+          "value"
+        ],
+        "title": "AdviceEvidence"
+      },
       "AppliedResourceOverride": {
         "properties": {
           "override_type": {
@@ -800,6 +958,57 @@
         ],
         "title": "AppliedServiceOverride"
       },
+      "AssessmentResponse": {
+        "properties": {
+          "assessment_status": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "unavailable",
+              "failed",
+              "refused"
+            ],
+            "title": "Assessment Status"
+          },
+          "answers": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewAnswer"
+            },
+            "type": "array",
+            "title": "Answers"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "rubric_version": {
+            "type": "string",
+            "title": "Rubric Version"
+          },
+          "elapsed_ms": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Elapsed Ms"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "assessment_status",
+          "answers",
+          "model",
+          "rubric_version",
+          "elapsed_ms"
+        ],
+        "title": "AssessmentResponse"
+      },
       "CapacityStatus": {
         "type": "string",
         "enum": [
@@ -826,6 +1035,207 @@
           "unknown"
         ],
         "title": "DataStatus"
+      },
+      "EmergencyAction": {
+        "properties": {
+          "priority": {
+            "type": "string",
+            "enum": [
+              "immediate",
+              "next"
+            ],
+            "title": "Priority"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 1200,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "facility_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "title": "Facility Ids"
+          },
+          "steps": {
+            "items": {
+              "type": "string",
+              "maxLength": 1200,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 4,
+            "minItems": 1,
+            "title": "Steps"
+          },
+          "rationale": {
+            "type": "string",
+            "maxLength": 1200,
+            "minLength": 1,
+            "title": "Rationale"
+          },
+          "prerequisites": {
+            "items": {
+              "type": "string",
+              "maxLength": 1200,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 6,
+            "minItems": 1,
+            "title": "Prerequisites"
+          },
+          "evidence_paths": {
+            "items": {
+              "type": "string",
+              "maxLength": 1200,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 8,
+            "minItems": 1,
+            "title": "Evidence Paths"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "priority",
+          "title",
+          "facility_ids",
+          "steps",
+          "rationale",
+          "prerequisites",
+          "evidence_paths"
+        ],
+        "title": "EmergencyAction"
+      },
+      "EmergencyAdviceProposal": {
+        "properties": {
+          "summary": {
+            "type": "string",
+            "maxLength": 1200,
+            "minLength": 1,
+            "title": "Summary"
+          },
+          "actions": {
+            "items": {
+              "$ref": "#/components/schemas/EmergencyAction"
+            },
+            "type": "array",
+            "maxItems": 5,
+            "minItems": 1,
+            "title": "Actions"
+          },
+          "questions": {
+            "items": {
+              "type": "string",
+              "maxLength": 1200,
+              "minLength": 1
+            },
+            "type": "array",
+            "maxItems": 8,
+            "title": "Questions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "summary",
+          "actions",
+          "questions"
+        ],
+        "title": "EmergencyAdviceProposal"
+      },
+      "EmergencyAdviceRequest": {
+        "properties": {
+          "incident": {
+            "$ref": "#/components/schemas/IncidentDraftInput"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "incident"
+        ],
+        "title": "EmergencyAdviceRequest"
+      },
+      "EmergencyAdviceResponse": {
+        "properties": {
+          "advice_status": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "unavailable",
+              "failed",
+              "refused"
+            ],
+            "title": "Advice Status"
+          },
+          "proposal": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/EmergencyAdviceProposal"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/AdviceEvidence"
+            },
+            "type": "array",
+            "title": "Evidence"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "elapsed_ms": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Elapsed Ms"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time",
+            "title": "As Of"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "advice_status",
+          "proposal",
+          "evidence",
+          "warnings",
+          "model",
+          "elapsed_ms",
+          "as_of"
+        ],
+        "title": "EmergencyAdviceResponse"
       },
       "ErrorDetail": {
         "properties": {
@@ -871,6 +1281,102 @@
           "error"
         ],
         "title": "ErrorResponse"
+      },
+      "Evidence": {
+        "properties": {
+          "field_path": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Field Path"
+          },
+          "source_excerpt": {
+            "type": "string",
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Source Excerpt"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "field_path",
+          "source_excerpt"
+        ],
+        "title": "Evidence"
+      },
+      "ExtractionResponse_IncidentDraftInput_": {
+        "properties": {
+          "extraction_status": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "unavailable",
+              "failed",
+              "refused"
+            ],
+            "title": "Extraction Status"
+          },
+          "candidate": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/IncidentDraftInput"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "type": "array",
+            "title": "Evidence"
+          },
+          "questions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Questions"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "elapsed_ms": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Elapsed Ms"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "extraction_status",
+          "candidate",
+          "evidence",
+          "questions",
+          "warnings",
+          "model",
+          "elapsed_ms"
+        ],
+        "title": "ExtractionResponse[IncidentDraftInput]"
       },
       "Facility": {
         "properties": {
@@ -1336,6 +1842,19 @@
         ],
         "title": "ForecastValidation",
         "description": "Error on withheld historical days, in simultaneous service places."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
       },
       "HealthResponse": {
         "properties": {
@@ -2100,6 +2619,22 @@
         ],
         "title": "ReasonCode"
       },
+      "ReportRequest": {
+        "properties": {
+          "report_text": {
+            "type": "string",
+            "maxLength": 10000,
+            "minLength": 1,
+            "title": "Report Text"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "report_text"
+        ],
+        "title": "ReportRequest"
+      },
       "ResourceCapacityLimit": {
         "properties": {
           "resource_id": {
@@ -2336,6 +2871,52 @@
           "liter"
         ],
         "title": "ResourceUnit"
+      },
+      "ReviewAnswer": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "enum": [
+              "outage_reported",
+              "multiple_facilities_reported",
+              "resource_loss_reported",
+              "clarification_needed"
+            ],
+            "title": "Name"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "yes",
+                  "no",
+                  "unclear"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          },
+          "answer_status": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "refused"
+            ],
+            "title": "Answer Status"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "value",
+          "answer_status"
+        ],
+        "title": "ReviewAnswer"
       },
       "RevisionStatus": {
         "type": "string",
@@ -2584,6 +3165,46 @@
           "impact"
         ],
         "title": "SimulationRun"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
       }
     }
   }

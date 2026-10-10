@@ -1,0 +1,71 @@
+{
+  "advice_status": "completed",
+  "proposal": {
+    "summary": "The report describes a power-related emergency-care outage at Demo Hospital B. Verify operating conditions and coordinate alternatives before moving resources.",
+    "actions": [
+      {
+        "priority": "immediate",
+        "title": "Verify Hospital B outage scope and backup power",
+        "facility_ids": [
+          "DEMO-B"
+        ],
+        "steps": [
+          "Contact the Hospital B emergency coordinator and technical team.",
+          "Confirm which service areas remain operational and whether approved backup power is available."
+        ],
+        "rationale": "The incident reports an unavailable service; extra equipment alone may not restore operation.",
+        "prerequisites": [
+          "Confirm the report with the facility; the incident is still a draft."
+        ],
+        "evidence_paths": [
+          "incident.report_text"
+        ]
+      },
+      {
+        "priority": "next",
+        "title": "Resolve receiving-hospital information before relocation",
+        "facility_ids": [
+          "DEMO-A",
+          "DEMO-C"
+        ],
+        "steps": [
+          "Request current service status, complete resource observations and occupancy from alternative hospitals.",
+          "Ask the coordinator to verify receiving capability and logistics before choosing a destination."
+        ],
+        "rationale": "Hospital A has an unknown estimate and Hospital C reports an unavailable service; neither is an established receiving option.",
+        "prerequisites": [
+          "Verify current operating status, occupancy, compatibility and transport availability."
+        ],
+        "evidence_paths": [
+          "hospitals.DEMO-A.reported_capacities.0.status",
+          "hospitals.DEMO-C.reported_capacities.0.status"
+        ]
+      }
+    ],
+    "questions": [
+      "What is Hospital B current occupancy and expected outage duration?",
+      "Which alternatives confirm operating status and receiving capability?"
+    ]
+  },
+  "evidence": [
+    {
+      "path": "incident.report_text",
+      "value": "Demo Hospital B Emergency care is unavailable after a power failure. Starts at 2026-10-10T10:00:00Z. Expected end 2026-10-10T16:00:00Z."
+    },
+    {
+      "path": "hospitals.DEMO-A.reported_capacities.0.status",
+      "value": "unknown"
+    },
+    {
+      "path": "hospitals.DEMO-C.reported_capacities.0.status",
+      "value": "unavailable"
+    }
+  ],
+  "warnings": [
+    "Synthetic example, not an actual provider response.",
+    "Suggestions require coordinator review; transfers and spare capacity are unverified."
+  ],
+  "model": "gpt-6-luna",
+  "elapsed_ms": 1100,
+  "as_of": "2026-10-10T09:00:00Z"
+}

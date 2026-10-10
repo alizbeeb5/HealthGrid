@@ -38,7 +38,7 @@ constraints. Human approval is required before any operational action.
 The hospital snapshot frontend connects to Feature 1 facility persistence:
 facilities, services, resource definitions and append-only observations, with list,
 snapshot and observation endpoints. An optional synthetic demo stores updates in
-the browser. Other frontend routes remain page shells. The API liveness endpoint,
+the browser. Investments remains a page shell. The API liveness endpoint,
 database connection setup and migration infrastructure exist. The Feature 2
 capacity endpoint, engine and hospital capacity panel return and show modeled
 single-service capacity from demo requirement profiles. The Feature 3 network
@@ -47,6 +47,8 @@ history storage/import, forecasting engine, seven-day forecast endpoint and scre
 are connected. Forecasts use complete UTC daily history and preserve historical
 service status. Missing or stale history returns an insufficient-history state.
 Feature 5 incident drafts, confirmed revisions, immutable baselines and saved
-baseline-versus-scenario simulation runs exist in the backend; the AI assessment
-endpoints and incident screens are not implemented yet. Authentication and
-optimization are not implemented. No AI requests execute.
+baseline-versus-scenario simulation runs exist in the backend and connect to the
+incident screen. Decisions assessment and Responses extraction are server-side
+endpoints invoked only by explicit review actions when configured with an API key.
+Manual incident entry remains available without AI. Authentication and optimization
+are not implemented. Paid AI behavior requires live account verification.

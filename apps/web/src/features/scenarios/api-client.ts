@@ -3,6 +3,7 @@ import { facilityRequest } from "../../lib/api/facilities";
 import type { FacilityListResponse, FacilitySnapshotResponse } from "../../lib/api/feature-1";
 import type { IncidentClient } from "./preview-client";
 import type { PreviewRevision, PreviewRun } from "./model";
+import { assessIncidentReport, extractIncidentReport } from "./intelligence-client";
 type Schemas = components["schemas"];
 export class IncidentRequestError extends Error {
   constructor(message: string, public uncertain: boolean, public existingRevisionId?: string, public fields: { field: string; message: string }[] = []) { super(message); }
@@ -14,7 +15,7 @@ async function request<T>(path: string, payload?: unknown): Promise<T> {
   catch { throw new IncidentRequestError(writing ? "The save could not be confirmed. Refresh saved incidents and reopen the revision before trying again." : "Could not connect to the incident API.", writing); }
   let body: unknown;
   try { body = await response.json(); }
-  catch { throw new IncidentRequestError(writing ? "The save response could not be read. Refresh saved incidents before trying again." : "The incident response could not be read.", writing && response.status !== 422 && response.status !== 409); }
+  catch { throw new IncidentRequestError(writing ? "The save response could not be read. Refresh saved incidents before trying again." : response.status >= 500 ? "The incident API failed. Check the backend database connection and apply pending migrations, then retry." : "The incident response could not be read.", writing && response.status !== 422 && response.status !== 409); }
   if (!response.ok) {
     const detail = (body as Schemas["ScenarioErrorResponse"])?.error;
     throw new IncidentRequestError(response.status >= 500 ? writing ? "The save could not be confirmed. Refresh saved incidents and reopen before trying again." : "The incident API is unavailable." : detail?.message ?? "The incident request failed.", writing && response.status >= 500, detail?.existing_revision_id ?? undefined, Array.isArray(detail?.fields) ? detail.fields : []);
@@ -57,7 +58,7 @@ export function createIncidentApiClient(): IncidentClient {
       return presentRun(await request<Schemas["SimulationRun"]>(`/incidents/${id(revision.incident_id)}/revisions/${id(revisionId)}/simulate`, null));
     },
     async getRun(runId) { return presentRun(await request<Schemas["SimulationRun"]>(`/runs/${id(runId)}`)); },
-    async assess() { return { status: "unavailable", answers: [], model: null, elapsed_ms: null, rubric_version: "emergency-review-v1", message: "AI assessment endpoint has not been implemented. Manual entry remains available." }; },
-    async extract() { return { status: "unavailable", candidate: null, evidence: [], questions: [], warnings: [], model: null, elapsed_ms: null, message: "AI extraction endpoint has not been implemented. Your manual fields are unchanged." }; },
+    assess: assessIncidentReport,
+    extract: extractIncidentReport,
   };
 }
