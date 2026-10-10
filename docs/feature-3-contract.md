@@ -1,6 +1,10 @@
 # Feature 3: Network capacity dashboard
 
-Status: design and assignments only; not implemented.
+Status: backend implemented. Both GET routes, `app/modules/network/schemas.py` and
+`contracts/openapi.json` are published, with examples in
+`contracts/examples/feature-3/` (generated from the live endpoints at the fixture
+clock). The dashboard UI, `summarizeNetwork` helper and `test_network_api.py` are
+pending.
 
 ## Purpose and workflow
 

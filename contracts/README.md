@@ -8,8 +8,9 @@ cd apps/web
 npm run generate:api
 ```
 
-`/health` and the three Feature 1 facility endpoints are implemented. Other domain
-module routers remain placeholders.
+`/health`, the three Feature 1 facility endpoints, the Feature 2 capacity endpoint
+and the two Feature 3 network endpoints are implemented. Other domain module
+routers remain placeholders. Examples for each feature are in `examples/feature-N/`.
 Before implementing a domain endpoint, agree on its request/response schemas,
 units and error cases, commit examples, then regenerate the contract and types.
 The sample scenario in examples is a design fixture, not an implemented endpoint.

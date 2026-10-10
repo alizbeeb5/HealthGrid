@@ -48,6 +48,26 @@ def list_services(db: Session, facility_id: str) -> list[Row[tuple[FacilityServi
     return list(db.execute(stmt))
 
 
+def list_offered_services(db: Session) -> list[Service]:
+    """Catalog services offered by at least one facility."""
+    offered = select(FacilityService.service_id).distinct()
+    stmt = select(Service).where(Service.service_id.in_(offered)).order_by(Service.service_id)
+    return list(db.scalars(stmt))
+
+
+def get_service(db: Session, service_id: str) -> Service | None:
+    return db.get(Service, service_id)
+
+
+def list_facility_ids_offering(db: Session, service_id: str) -> list[str]:
+    stmt = (
+        select(FacilityService.facility_id)
+        .where(FacilityService.service_id == service_id)
+        .order_by(FacilityService.facility_id)
+    )
+    return list(db.scalars(stmt))
+
+
 def list_resource_definitions(db: Session) -> list[ResourceDefinition]:
     return list(db.scalars(select(ResourceDefinition).order_by(ResourceDefinition.resource_id)))
 

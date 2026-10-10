@@ -199,6 +199,73 @@
         }
       }
     },
+    "/api/v1/network/services": {
+      "get": {
+        "tags": [
+          "network"
+        ],
+        "summary": "List Network Services",
+        "operationId": "list_network_services",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NetworkServiceListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/network/overview": {
+      "get": {
+        "tags": [
+          "network"
+        ],
+        "summary": "Get Network Overview",
+        "description": "Modeled single-service capacity for every facility offering the service.\n\nAn unknown service_id returns 200 with service_name null and no facilities.\nEstimates are demo resource-based models, not spare admission capacity.",
+        "operationId": "get_network_overview",
+        "parameters": [
+          {
+            "name": "service_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+              "title": "Service Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NetworkOverviewResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request or observation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "tags": [
@@ -512,6 +579,128 @@
         },
         "type": "object",
         "title": "HealthResponse"
+      },
+      "NetworkFacilityResult": {
+        "properties": {
+          "facility": {
+            "$ref": "#/components/schemas/Facility"
+          },
+          "capacity": {
+            "$ref": "#/components/schemas/ServiceCapacityResult"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility",
+          "capacity"
+        ],
+        "title": "NetworkFacilityResult"
+      },
+      "NetworkOverviewResponse": {
+        "properties": {
+          "service_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Service Id"
+          },
+          "service_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Service Name"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time",
+            "title": "As Of"
+          },
+          "stale_after_hours": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Stale After Hours"
+          },
+          "calculation_scope": {
+            "type": "string",
+            "const": "single_service",
+            "title": "Calculation Scope"
+          },
+          "capacity_unit": {
+            "type": "string",
+            "const": "simultaneous_service_place",
+            "title": "Capacity Unit"
+          },
+          "facilities": {
+            "items": {
+              "$ref": "#/components/schemas/NetworkFacilityResult"
+            },
+            "type": "array",
+            "title": "Facilities"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "service_id",
+          "service_name",
+          "as_of",
+          "stale_after_hours",
+          "calculation_scope",
+          "capacity_unit",
+          "facilities"
+        ],
+        "title": "NetworkOverviewResponse"
+      },
+      "NetworkService": {
+        "properties": {
+          "service_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Service Id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "service_id",
+          "name"
+        ],
+        "title": "NetworkService"
+      },
+      "NetworkServiceListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/NetworkService"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "NetworkServiceListResponse",
+        "description": "Services offered by at least one facility, ordered by service_id."
       },
       "ObservationCreate": {
         "properties": {

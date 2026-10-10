@@ -15,6 +15,7 @@ from app.modules.capacity.schemas import (
     ServiceRequirement,
 )
 from app.modules.facilities import service as facilities
+from app.modules.facilities.schemas import FacilityService, FacilitySnapshotResponse
 
 # Runtime copy of contracts/examples/feature-2/service-requirement.json, maintained
 # by the data/calculation owner. Fictional demo rules, not clinical standards.
@@ -59,20 +60,29 @@ def get_profiles(db: Session) -> dict[str, ServiceRequirement]:
     return {profile.service_id: profile for profile in profiles}
 
 
+def calculate_service(
+    snapshot: FacilitySnapshotResponse,
+    service: FacilityService,
+    profiles: dict[str, ServiceRequirement],
+) -> ServiceCapacityResult:
+    """One service of one snapshot through the engine; profiles from get_profiles."""
+    result = capacity_engine.calculate_service_capacity(
+        snapshot, service, profiles.get(service.service_id)
+    )
+    if result.service_id != service.service_id:
+        raise CapacityConfigurationError(
+            f"Engine returned {result.service_id} for service {service.service_id}."
+        )
+    return result
+
+
 def get_facility_capacity(db: Session, facility_id: str, now: datetime) -> FacilityCapacityResponse:
     snapshot = facilities.get_snapshot(db, facility_id, now)  # raises FacilityNotFound
     profiles = get_profiles(db)
-
-    results: list[ServiceCapacityResult] = []
-    for service in sorted(snapshot.services, key=lambda s: s.service_id):
-        result = capacity_engine.calculate_service_capacity(
-            snapshot, service, profiles.get(service.service_id)
-        )
-        if result.service_id != service.service_id:
-            raise CapacityConfigurationError(
-                f"Engine returned {result.service_id} for service {service.service_id}."
-            )
-        results.append(result)
+    results = [
+        calculate_service(snapshot, service, profiles)
+        for service in sorted(snapshot.services, key=lambda s: s.service_id)
+    ]
 
     # Revalidate so engine output that breaks contract invariants fails visibly.
     return FacilityCapacityResponse.model_validate(

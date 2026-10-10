@@ -59,6 +59,20 @@ def list_facilities(db: Session) -> FacilityListResponse:
     return FacilityListResponse(items=[_facility(row) for row in repository.list_facilities(db)])
 
 
+def list_offered_services(db: Session) -> list[tuple[str, str]]:
+    """(service_id, name) for services offered by at least one facility, by ID."""
+    return [(service.service_id, service.name) for service in repository.list_offered_services(db)]
+
+
+def get_service_name(db: Session, service_id: str) -> str | None:
+    service = repository.get_service(db, service_id)
+    return service.name if service else None
+
+
+def list_facility_ids_offering(db: Session, service_id: str) -> list[str]:
+    return repository.list_facility_ids_offering(db, service_id)
+
+
 def list_resource_definitions(db: Session) -> list[ResourceDefinition]:
     return [_definition(resource) for resource in repository.list_resource_definitions(db)]
 

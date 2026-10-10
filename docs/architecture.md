@@ -40,6 +40,8 @@ facilities, services, resource definitions and append-only observations, with li
 snapshot and observation endpoints. An optional synthetic demo stores updates in
 the browser. Other frontend routes remain page shells. The API liveness endpoint,
 database connection setup and migration infrastructure exist. The Feature 2
-capacity endpoint and engine return modeled single-service capacity from demo
-requirement profiles; the frontend capacity panel is not implemented yet. Authentication, forecasting and optimization are
+capacity endpoint, engine and hospital capacity panel return and show modeled
+single-service capacity from demo requirement profiles. The Feature 3 network
+endpoints (`/network/services`, `/network/overview`) exist; the overview dashboard
+UI and display-summary helper are not implemented yet. Authentication, forecasting and optimization are
 not implemented. No AI requests execute.
