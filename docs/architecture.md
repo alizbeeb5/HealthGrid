@@ -43,6 +43,7 @@ database connection setup and migration infrastructure exist. The Feature 2
 capacity endpoint, engine and hospital capacity panel return and show modeled
 single-service capacity from demo requirement profiles. The Feature 3 network
 endpoints and overview dashboard compare hospitals per service. Feature 4 daily
-history storage/import and the forecast endpoint exist, but the forecasting engine,
-dataset and forecast screen are not merged, so forecasts are not available yet.
+history storage/import, forecasting engine, seven-day forecast endpoint and screen
+are connected. Forecasts use complete UTC daily history and preserve historical
+service status. Missing or stale history returns an insufficient-history state.
 Authentication and optimization are not implemented. No AI requests execute.

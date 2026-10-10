@@ -63,7 +63,7 @@ test("chart projection preserves supplied historical/future values and bounds wi
 });
 
 test("insufficient history and missing profiles do not manufacture future zeroes", async () => {
-  const c = await getForecastExample("DEMO-C", "emergency-care");
+  const c = await getForecastExample("DEMO-A", "emergency-care");
   assert.match(text(renderToStaticMarkup(<InsufficientHistory data={c} />)), /Insufficient history/);
   assert.deepEqual(c.forecast, []);
   assert.equal(c.first_gap, null);
@@ -88,7 +88,7 @@ test("loader replaces previous results with pending state and preserves request 
   const loader = createForecastLoader(getForecastExample, (state) => states.push(state));
   await loader.refresh("DEMO-B", "emergency-care");
   assert.equal(states[0].phase, "loading");
-  await loader.refresh("DEMO-C", "emergency-care");
+  await loader.refresh("DEMO-A", "emergency-care");
   assert.deepEqual(states[2], { phase: "updating" });
   const last = states.at(-1)!;
   assert.equal(last.phase, "ready");
@@ -109,16 +109,16 @@ test("older successes, failures and canceled requests cannot replace the latest 
   let index = 0;
   const loader = createForecastLoader(() => requests[index++].promise, (state) => states.push(state));
   const old = loader.refresh("DEMO-B", "emergency-care");
-  const next = loader.refresh("DEMO-C", "emergency-care");
-  requests[1].resolve(await getForecastExample("DEMO-C", "emergency-care")); await next;
+  const next = loader.refresh("DEMO-A", "emergency-care");
+  requests[1].resolve(await getForecastExample("DEMO-A", "emergency-care")); await next;
   const newest = states.at(-1);
   requests[0].resolve(await getForecastExample("DEMO-B", "emergency-care")); await old;
   assert.equal(states.at(-1), newest);
   const oldError = loader.refresh("DEMO-B", "emergency-care");
-  const canceled = loader.refresh("DEMO-C", "emergency-care");
+  const canceled = loader.refresh("DEMO-A", "emergency-care");
   loader.cancel(); const count = states.length;
   requests[2].reject(new Error("Old failure")); await oldError;
-  requests[3].resolve(await getForecastExample("DEMO-C", "emergency-care")); await canceled;
+  requests[3].resolve(await getForecastExample("DEMO-A", "emergency-care")); await canceled;
   assert.equal(states.length, count);
 });
 

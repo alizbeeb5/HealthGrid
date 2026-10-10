@@ -2,9 +2,9 @@
 
 See `product-scope.md` for the finalized routine/crisis workflow and `next-tasks.md`
 for broad workstreams. The active Feature 4 assignments and shared interfaces
-are in `feature-4-contract.md`. Frontend owns emergency intake/review screens;
-backend owns incident persistence, baseline capture, migrations and shared contracts;
-the third teammate owns intelligence adapters and report evaluation cases.
+are in `feature-4-forecast-contract.md`. Frontend owns the forecast screen;
+backend owns daily history, imports, migrations and shared contracts;
+the third teammate owns the forecasting engine and synthetic history.
 Features 1–3 remain the observation, capacity and network contracts.
 
 | Owner | Primary files | Deliverable |

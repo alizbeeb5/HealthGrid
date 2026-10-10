@@ -10,7 +10,9 @@ import pytest
 from app.engines.forecasting import (
     DailyHistoryRecord,
     ForecastInputError,
-    forecast_service_capacity,
+)
+from app.engines.forecasting import (
+    forecast_daily_history as forecast_service_capacity,
 )
 from app.modules.capacity.schemas import ServiceRequirement
 from app.modules.facilities.schemas import FacilitySnapshotResponse
@@ -46,8 +48,8 @@ def test_three_hospitals_have_eight_consecutive_weeks():
     for letter in "ABC":
         records = load(letter)
         assert len(records) == 56
-        assert records[0].date == date(2026, 8, 16)
-        assert records[-1].date == date(2026, 10, 10)
+        assert records[0].date == date(2026, 8, 15)
+        assert records[-1].date == date(2026, 10, 9)
         assert all(r.data_quality == "synthetic" and r.source for r in records)
         assert all(b.date == a.date + timedelta(days=1) for a, b in zip(records, records[1:]))
 
@@ -57,7 +59,7 @@ def test_demo_gap_and_validation_errors(profile):
     assert len(result.history) == 56 and len(result.forecast) == 7
     assert result.forecast[0].expected_gap == result.forecast[1].expected_gap == 0
     third = result.forecast[2]
-    assert third.date == date(2026, 10, 13)
+    assert third.date == date(2026, 10, 12)
     assert (third.predicted_capacity, third.predicted_demand, third.expected_gap) == (5, 8, 3)
     assert (third.capacity_lower, third.capacity_upper) == (3, 7)
     assert (third.demand_lower, third.demand_upper) == (6, 10)
@@ -168,7 +170,7 @@ def test_generation_clock_and_daily_timestamp_validation(profile):
     with pytest.raises(ForecastInputError):
         forecast_service_capacity(load(), profile, NOW.replace(tzinfo=None))
     with pytest.raises(ForecastInputError, match="stale history"):
-        forecast_service_capacity(load(), profile, NOW + timedelta(days=1))
+        forecast_service_capacity(load(), profile, NOW + timedelta(days=2))
     records = load()
     snapshot = records[0].snapshot.model_copy(deep=True)
     snapshot.as_of += timedelta(days=1)

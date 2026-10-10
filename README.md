@@ -10,10 +10,9 @@ should we fund?
 - `docs`: architecture, team ownership and demo scenario.
 
 This is a development scaffold with a hospital snapshot frontend, `/health` and
-the Feature 1 facility endpoints (list, snapshot, append observation). Other
-frontend routes remain page shells. Forecasting,
-allocations, investments, import, authentication and remaining domain models are
-placeholders. Existing PyCharm `main.py` is preserved and is not the API entry point.
+the Feature 1 facility endpoints (list, snapshot, append observation). The network
+overview and seven-day forecast screen/API are implemented. Allocations, investments,
+authentication and remaining domain models are placeholders. Existing PyCharm `main.py` is preserved and is not the API entry point.
 
 ## Requirements
 Use Python **3.12**, Node.js **22** with npm **9.5+**, and PostgreSQL **17** (or Docker Compose).
@@ -92,8 +91,7 @@ python apps/api/scripts/import_daily_history.py [path/to/daily-history.json]
 
 ## Team handoff
 The finalized product workflow is in `docs/product-scope.md`; the next three
-broad workstreams are in `docs/next-tasks.md`. The active Feature 1 contract and
-three focused assignments are in `docs/feature-1-contract.md`.
+broad workstreams are in `docs/next-tasks.md`. The active Feature 4 contract is in `docs/feature-4-forecast-contract.md`.
 Read `docs/team-ownership.md` before starting. Coordinate shared contracts first,
 then develop frontend, data services and numerical engines independently.
 Use synthetic data until authentication and permissions are implemented.
@@ -102,3 +100,17 @@ Use synthetic data until authentication and permissions are implemented.
 The scaffold was checked with a frontend production build, TypeScript, Python lint,
 API smoke checks and scientific-library imports. Docker is not installed on the
 setup machine, so container startup and a live PostgreSQL connection are unverified.
+
+## Forecasting startup
+
+After activating your Python environment and choosing DATABASE_URL, run:
+```bash
+alembic -c apps/api/alembic.ini upgrade head
+python apps/api/scripts/seed_feature_1.py
+python apps/api/scripts/import_daily_history.py
+```
+Then start the API and frontend as above. Open /forecasts in API mode. The supplied
+synthetic history ends on 2026-10-09; forecasts are valid at the fixture clock on
+2026-10-10. Later dates correctly return insufficient_history until updated daily
+records are imported. Frozen previews are available at /forecasts?mode=example.
+Current resource updates do not rewrite daily history. This feature needs no AI key.

@@ -1,19 +1,21 @@
 """Pure seven-day weekly seasonal forecasts; no persistence, HTTP or implicit clock.
 
-Dataclasses describe the engine boundary, not the backend's Pydantic wire schema.
-The backend adapts validated daily records and maps ForecastInputError to its
-agreed insufficient-history/input response. See data/synthetic/feature-4/README.md.
+The canonical boundary accepts ForecastInput and returns the Pydantic API result.
+Dataclasses describe the internal snapshot-based seasonal model only.
 """
 
 from dataclasses import dataclass
 from datetime import UTC, date, datetime, timedelta
 from math import ceil
 from statistics import mean
-from typing import Sequence
+from typing import TYPE_CHECKING, Sequence
 
-from app.engines.capacity import calculate_service_capacity
+from app.engines.capacity import CAPACITY_UNIT, calculate_service_capacity
 from app.modules.capacity.schemas import ServiceRequirement
 from app.modules.facilities.schemas import FacilitySnapshotResponse
+
+if TYPE_CHECKING:
+    from app.modules.forecasting.schemas import FacilityForecastResponse, ForecastInput
 
 ENGINE_VERSION = "weekly-seasonal-v1"
 HORIZON_DAYS = 7
@@ -109,7 +111,7 @@ def _error_radius(errors: Sequence[int]) -> int:
     return ordered[ceil(0.9 * len(ordered)) - 1]
 
 
-def forecast_service_capacity(
+def forecast_daily_history(
     records: Sequence[DailyHistoryRecord],
     requirement: ServiceRequirement,
     generated_at: datetime,
@@ -129,9 +131,10 @@ def forecast_service_capacity(
         raise ForecastInputError("At least 56 daily history records are required.")
     if any(b.date != a.date + timedelta(days=1) for a, b in zip(ordered, ordered[1:])):
         raise ForecastInputError("Daily history must have unique, consecutive dates.")
-    if ordered[-1].date != generated_at.date():
+    if ordered[-1].date not in {generated_at.date(), generated_at.date() - timedelta(days=1)}:
         raise ForecastInputError(
-            "History must end on the UTC generation date; stale history rejected."
+            "History must end on the generation date or preceding complete UTC day; "
+            "stale history rejected."
         )
 
     facility_id = ordered[0].snapshot.facility.facility_id
@@ -148,6 +151,7 @@ def forecast_service_capacity(
             raise ForecastInputError("Historical profile versions must match the forecast profile.")
         if not record.source.strip() or record.data_quality not in {
             "synthetic",
+            "estimated",
             "reported",
             "missing",
         }:
@@ -244,5 +248,182 @@ def forecast_service_capacity(
             interval_method="symmetric_90th_percentile_absolute_holdout_error_uncalibrated",
             capacity_error_radius=capacity_radius,
             demand_error_radius=demand_radius,
+        ),
+    )
+
+
+def forecast_service_capacity(inputs: "ForecastInput") -> "FacilityForecastResponse":
+    """Canonical API boundary: ForecastInput -> FacilityForecastResponse.
+
+    Daily aggregates are complete only after their UTC date ends. Adapting them
+    into snapshots reuses the capacity formula; it does not invent observation IDs.
+    Historical service status comes from the daily record, never today's status.
+    """
+    from app.modules.facilities.schemas import Facility, FacilityService, ResourceSnapshot
+    from app.modules.forecasting.schemas import (
+        FacilityForecastResponse,
+        HistoryDay,
+    )
+    from app.modules.forecasting.schemas import (
+        ForecastAlert as Alert,
+    )
+    from app.modules.forecasting.schemas import (
+        ForecastDay as Day,
+    )
+    from app.modules.forecasting.schemas import (
+        ForecastValidation as Validation,
+    )
+
+    now = inputs.generated_at.astimezone(UTC)
+    resources = {}
+    demands = {}
+    for record in inputs.resource_records:
+        if record.facility_id != inputs.facility_id:
+            raise ValueError("Historical resources belong to a different facility.")
+        if record.date >= now.date():
+            continue  # Today's daily peak/aggregate is not complete yet.
+        key = (record.date, record.resource_id)
+        if key in resources:
+            raise ValueError("Duplicate historical resource record.")
+        resources[key] = record
+    for record in inputs.demand_records:
+        if (record.facility_id, record.service_id) != (inputs.facility_id, inputs.service_id):
+            raise ValueError("Historical demand belongs to a different facility/service.")
+        if record.date >= now.date():
+            continue
+        if record.date in demands:
+            raise ValueError("Duplicate historical demand record.")
+        demands[record.date] = record
+    profile = inputs.requirement
+    if profile is not None and profile.service_id != inputs.service_id:
+        raise ValueError("Requirement profile does not match the requested service.")
+    required = {r.resource_id: r for r in profile.requirements} if profile else {}
+    dates = {day for day, rid in resources if rid in required} | set(demands)
+    history, records = [], []
+    if dates:
+        day = min(dates)
+        last = max(dates)
+        while day <= last:
+            demand = demands.get(day)
+            used = [resources[(day, rid)] for rid in sorted(required) if (day, rid) in resources]
+            evidence = used + ([demand] if demand else [])
+            sources = sorted({r.source for r in evidence})
+            quality = (
+                (
+                    "estimated"
+                    if any(r.data_quality == "estimated" for r in evidence)
+                    else "reported"
+                )
+                if evidence
+                else None
+            )
+            timestamp = datetime.combine(day, datetime.max.time(), tzinfo=UTC)
+            snapshot = FacilitySnapshotResponse(
+                facility=Facility(
+                    facility_id=inputs.facility_id,
+                    name=inputs.facility_id,
+                    latitude=0,
+                    longitude=0,
+                    last_reported_at=None,
+                ),
+                services=[
+                    FacilityService(
+                        facility_id=inputs.facility_id,
+                        service_id=inputs.service_id,
+                        name=inputs.service_id,
+                        status=demand.service_status if demand else "limited",
+                    )
+                ],
+                resources=[
+                    ResourceSnapshot(
+                        resource_id=r.resource_id,
+                        name=r.resource_id,
+                        category="infrastructure",
+                        unit=r.unit,
+                        allows_fractional=r.unit == "liter",
+                        available_quantity=r.available_quantity,
+                        observation_id=None,
+                        observed_at=datetime.combine(day, datetime.min.time(), tzinfo=UTC),
+                        recorded_at=None,
+                        data_status="current",
+                    )
+                    for r in used
+                ],
+                as_of=timestamp,
+                stale_after_hours=24,
+            )
+            if profile:
+                for r in used:
+                    if r.unit != required[r.resource_id].unit:
+                        raise ValueError("Historical resource unit does not match profile.")
+                modeled = calculate_service_capacity(snapshot, snapshot.services[0], profile)
+                value = modeled.estimated_capacity
+                records.append(
+                    DailyHistoryRecord(
+                        date=day,
+                        snapshot=snapshot,
+                        demand=demand.peak_required_places if demand else None,
+                        source="; ".join(sources) or "missing daily records",
+                        data_quality=quality or "missing",
+                        capacity_unit=profile.capacity_unit,
+                        profile_version=profile.profile_version,
+                    )
+                )
+            else:
+                value = None
+            history.append(
+                HistoryDay(
+                    date=day,
+                    capacity=value,
+                    demand=demand.peak_required_places if demand else None,
+                    sources=sources,
+                    data_quality=quality,
+                )
+            )
+            day += timedelta(days=1)
+    common = dict(
+        facility_id=inputs.facility_id,
+        service_id=inputs.service_id,
+        generated_at=now,
+        horizon_days=7,
+        capacity_unit=CAPACITY_UNIT,
+        profile_version=profile.profile_version if profile else None,
+        history=history,
+    )
+    if profile is None:
+        return FacilityForecastResponse(
+            **common, status="not_configured", forecast=[], alerts=[], validation=None
+        )
+    try:
+        result = forecast_daily_history(records, profile, now)
+    except ForecastInputError:
+        return FacilityForecastResponse(
+            **common, status="insufficient_history", forecast=[], alerts=[], validation=None
+        )
+    days = [
+        Day(**{field: getattr(day, field) for field in Day.model_fields}) for day in result.forecast
+    ]
+    return FacilityForecastResponse(
+        **common,
+        status="forecasted",
+        forecast=days,
+        alerts=[
+            Alert(
+                date=d.date,
+                code="predicted_gap",
+                expected_gap=d.expected_gap,
+                message=f"Expected simultaneous demand exceeds modeled capacity by "
+                f"{d.expected_gap} places.",
+            )
+            for d in days
+            if d.expected_gap > 0
+        ],
+        validation=Validation(
+            method=result.validation.method,
+            holdout_days=HOLDOUT_DAYS,
+            evaluated_from=history[-HOLDOUT_DAYS].date,
+            evaluated_to=history[-1].date,
+            capacity_mae=result.validation.capacity_mae,
+            demand_mae=result.validation.demand_mae,
         ),
     )

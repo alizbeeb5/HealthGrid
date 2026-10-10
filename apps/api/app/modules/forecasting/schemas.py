@@ -68,6 +68,7 @@ class DailyDemandRecord(ContractModel):
     peak_required_places: Places
     source: SourceLabel
     data_quality: DataQuality
+    service_status: ServiceStatus = ServiceStatus.OPERATING
 
 
 class DailyHistoryImport(ContractModel):

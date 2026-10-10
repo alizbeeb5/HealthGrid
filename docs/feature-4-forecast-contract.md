@@ -1,11 +1,7 @@
 # Feature 4: Capacity prediction and preventive alerts
 
-Status: backend schemas, history storage/import and the endpoint are implemented.
-The endpoint returns HTTP 500 until the forecasting engine is merged. The `/forecasts`
-screen, engine and eight-week dataset are pending.
-
-Note: `feature-4-contract.md` (emergency intake and incident baseline) describes a
-different milestone. The team should decide its order and renumber one of them.
+Status: connected history import, engine, endpoint and forecast screen. Emergency
+intake is Feature 5; see feature-5-emergency-design.md. No model API calls run here.
 
 ## Outcome
 
@@ -58,7 +54,8 @@ Import format `DailyHistoryImport`: `resource_records` and `demand_records`.
 - `DailyResourceRecord`: `facility_id`, `resource_id`, `date`, `available_quantity`,
   `unit`, `source`, `data_quality` (`reported` / `estimated`).
 - `DailyDemandRecord`: `facility_id`, `service_id`, `date`, `peak_required_places`
-  (integer), `source`, `data_quality`.
+  (integer), `source`, `data_quality`, and `service_status` (default operating).
+  Preserve a day's operating/limited/unavailable status independently of today's report.
 
 Validated: known facility, applicable resource, catalog unit, whole numbers where
 fractions are not allowed, offered service, no future dates, no duplicates. Missing
@@ -86,12 +83,29 @@ the insufficient-history threshold. Reject incompatible data with `ValueError`.
 
 `contracts/examples/feature-4/`: `DEMO-B.forecast.response.json`,
 `insufficient-history.forecast.response.json`, `daily-history.import.json`,
-`service-not-offered.response.json`. The two forecast responses currently hold
-schema-valid illustrative numbers for the B demo. The forecasting teammate owns
-calculations and example expectations: replace them with the engine's output for the
-dataset at the fixture clock `2026-10-10T09:00:00Z`. `test_forecast_api.py` then
-requires the live endpoint to match `DEMO-B.forecast.response.json` exactly.
+`service-not-offered.response.json`. The forecast examples are generated from the full import dataset at the fixture
+clock 2026-10-10T09:00:00Z. They are engine outputs, not manually chosen forecasts.
+The real database-to-engine integration test is mandatory, with no missing-file skip.
+
+The canonical engine function accepts ForecastInput and returns
+FacilityForecastResponse. Its internal forecast_daily_history function retains the
+pure snapshot-based seasonal baseline. The adapter builds capacity from measured
+daily quantities, preserves absent records, and maps sources/quality into the wire
+schema. It does not use the present service status as historical evidence.
+
+Only completed dates before generated_at's UTC calendar date are used. The last
+history date must be the preceding UTC date for the live endpoint. Today's partial
+aggregates are excluded; stale/short/incomplete history returns insufficient_history.
+The seven-day forecast starts on the current UTC date. No profile returns
+not_configured. Invalid units/configuration remain errors, never a zero estimate.
+
+Run migrations through 0003_daily_service_status. Existing imported demand rows
+receive an operating default; correct historical statuses require source records,
+not inference from the current hospital report. Existing insert-only rows are never
+silently overwritten. Synthetic history spans 2026-08-15 through 2026-10-09; it ages
+normally and will require newer real or explicitly synthetic inputs on later dates.
 
 Backend owns schemas, storage, import, endpoint and OpenAPI; frontend owns the
-`/forecasts` screen; the forecasting teammate owns the engine, dataset and expectations.
-Field changes go through the backend owner and update schemas, examples and types together.
+/forecasts screen; forecasting/data owns the engine, dataset and expectations.
+Generate data/examples with work/check-venv/bin/python
+ data/synthetic/feature-4/generate_demo.py, then sync forecast frontend fixtures.

@@ -13,205 +13,205 @@
         "capacity": 5,
         "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-16",
         "capacity": 5,
-        "demand": 3,
+        "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-17",
         "capacity": 5,
-        "demand": 7,
+        "demand": 8,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-18",
         "capacity": 5,
-        "demand": 6,
+        "demand": 7,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-19",
         "capacity": 5,
-        "demand": 5,
+        "demand": 6,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-20",
         "capacity": 5,
         "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-21",
         "capacity": 5,
-        "demand": 4,
+        "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-22",
         "capacity": 5,
-        "demand": 4,
+        "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-23",
         "capacity": 5,
-        "demand": 3,
+        "demand": 6,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-24",
         "capacity": 5,
-        "demand": 7,
+        "demand": 9,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-25",
         "capacity": 5,
-        "demand": 6,
+        "demand": 8,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-26",
         "capacity": 5,
-        "demand": 5,
+        "demand": 7,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-27",
         "capacity": 5,
-        "demand": 5,
+        "demand": 6,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-28",
         "capacity": 5,
-        "demand": 4,
+        "demand": 6,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-29",
-        "capacity": 5,
+        "capacity": 6,
         "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-30",
-        "capacity": 5,
-        "demand": 3,
+        "capacity": 6,
+        "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-08-31",
-        "capacity": 5,
-        "demand": 7,
+        "capacity": 6,
+        "demand": 8,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-01",
-        "capacity": 5,
-        "demand": 6,
+        "capacity": 6,
+        "demand": 7,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-02",
-        "capacity": 5,
-        "demand": 5,
+        "capacity": 6,
+        "demand": 6,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-03",
-        "capacity": 5,
+        "capacity": 6,
         "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-04",
-        "capacity": 5,
-        "demand": 4,
+        "capacity": 6,
+        "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-05",
         "capacity": 5,
-        "demand": 4,
+        "demand": 3,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-06",
         "capacity": 5,
-        "demand": 3,
+        "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
         "data_quality": "estimated"
       },
@@ -220,297 +220,297 @@
         "capacity": 5,
         "demand": 7,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-08",
         "capacity": 5,
         "demand": 6,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-09",
         "capacity": 5,
         "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-10",
         "capacity": 5,
-        "demand": 5,
+        "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-11",
         "capacity": 5,
         "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-12",
         "capacity": 5,
         "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-13",
         "capacity": 5,
-        "demand": 3,
+        "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-14",
         "capacity": 5,
-        "demand": 7,
+        "demand": 8,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-15",
         "capacity": 5,
-        "demand": 6,
+        "demand": 7,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-16",
         "capacity": 5,
-        "demand": 5,
+        "demand": 6,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-17",
         "capacity": 5,
         "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-18",
         "capacity": 5,
-        "demand": 4,
+        "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-19",
-        "capacity": 5,
-        "demand": 4,
+        "capacity": 6,
+        "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-20",
-        "capacity": null,
-        "demand": 3,
+        "capacity": 6,
+        "demand": 6,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-21",
-        "capacity": 5,
-        "demand": 7,
+        "capacity": 6,
+        "demand": 9,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-22",
-        "capacity": 5,
-        "demand": 6,
+        "capacity": 6,
+        "demand": 8,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-23",
-        "capacity": 5,
-        "demand": 5,
+        "capacity": 6,
+        "demand": 7,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-24",
-        "capacity": 5,
-        "demand": 5,
+        "capacity": 6,
+        "demand": 6,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-25",
-        "capacity": 5,
-        "demand": 4,
+        "capacity": 6,
+        "demand": 6,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-26",
-        "capacity": 5,
-        "demand": 4,
+        "capacity": 4,
+        "demand": 3,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-27",
-        "capacity": 5,
-        "demand": 3,
+        "capacity": 4,
+        "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-28",
-        "capacity": 5,
-        "demand": 8,
+        "capacity": 4,
+        "demand": 7,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-29",
-        "capacity": 5,
+        "capacity": 4,
         "demand": 6,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-09-30",
-        "capacity": 5,
+        "capacity": 4,
         "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-01",
-        "capacity": 5,
-        "demand": 5,
+        "capacity": 4,
+        "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-02",
-        "capacity": 5,
+        "capacity": 4,
         "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-03",
         "capacity": 5,
         "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-04",
         "capacity": 5,
-        "demand": 3,
+        "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-05",
         "capacity": 5,
         "demand": 8,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-06",
         "capacity": 5,
-        "demand": 6,
+        "demand": 7,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-07",
         "capacity": 5,
-        "demand": 5,
+        "demand": 6,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-08",
         "capacity": 5,
         "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-09",
         "capacity": 5,
-        "demand": 4,
+        "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       }
     ],
     "forecast": [
@@ -518,70 +518,70 @@
         "date": "2026-10-10",
         "predicted_capacity": 5,
         "predicted_demand": 4,
-        "capacity_lower": 4,
-        "capacity_upper": 5,
-        "demand_lower": 3,
-        "demand_upper": 5,
+        "capacity_lower": 3,
+        "capacity_upper": 7,
+        "demand_lower": 2,
+        "demand_upper": 6,
         "expected_gap": 0
       },
       {
         "date": "2026-10-11",
         "predicted_capacity": 5,
-        "predicted_demand": 3,
-        "capacity_lower": 4,
-        "capacity_upper": 5,
-        "demand_lower": 2,
-        "demand_upper": 4,
+        "predicted_demand": 5,
+        "capacity_lower": 3,
+        "capacity_upper": 7,
+        "demand_lower": 3,
+        "demand_upper": 7,
         "expected_gap": 0
       },
       {
         "date": "2026-10-12",
         "predicted_capacity": 5,
         "predicted_demand": 8,
-        "capacity_lower": 4,
-        "capacity_upper": 5,
-        "demand_lower": 6.5,
-        "demand_upper": 9.5,
+        "capacity_lower": 3,
+        "capacity_upper": 7,
+        "demand_lower": 6,
+        "demand_upper": 10,
         "expected_gap": 3
       },
       {
         "date": "2026-10-13",
         "predicted_capacity": 5,
-        "predicted_demand": 6,
-        "capacity_lower": 4,
-        "capacity_upper": 5,
+        "predicted_demand": 7,
+        "capacity_lower": 3,
+        "capacity_upper": 7,
         "demand_lower": 5,
-        "demand_upper": 7,
-        "expected_gap": 1
+        "demand_upper": 9,
+        "expected_gap": 2
       },
       {
         "date": "2026-10-14",
         "predicted_capacity": 5,
-        "predicted_demand": 5,
-        "capacity_lower": 4,
-        "capacity_upper": 5,
+        "predicted_demand": 6,
+        "capacity_lower": 3,
+        "capacity_upper": 7,
         "demand_lower": 4,
-        "demand_upper": 6,
-        "expected_gap": 0
+        "demand_upper": 8,
+        "expected_gap": 1
       },
       {
         "date": "2026-10-15",
         "predicted_capacity": 5,
         "predicted_demand": 5,
-        "capacity_lower": 4,
-        "capacity_upper": 5,
-        "demand_lower": 4,
-        "demand_upper": 6,
+        "capacity_lower": 3,
+        "capacity_upper": 7,
+        "demand_lower": 3,
+        "demand_upper": 7,
         "expected_gap": 0
       },
       {
         "date": "2026-10-16",
         "predicted_capacity": 5,
-        "predicted_demand": 4,
-        "capacity_lower": 4,
-        "capacity_upper": 5,
+        "predicted_demand": 5,
+        "capacity_lower": 3,
+        "capacity_upper": 7,
         "demand_lower": 3,
-        "demand_upper": 5,
+        "demand_upper": 7,
         "expected_gap": 0
       }
     ],
@@ -590,26 +590,32 @@
         "date": "2026-10-12",
         "code": "predicted_gap",
         "expected_gap": 3,
-        "message": "Predicted demand of 8 places exceeds predicted capacity of 5 by 3."
+        "message": "Expected simultaneous demand exceeds modeled capacity by 3.0 places."
       },
       {
         "date": "2026-10-13",
         "code": "predicted_gap",
+        "expected_gap": 2,
+        "message": "Expected simultaneous demand exceeds modeled capacity by 2.0 places."
+      },
+      {
+        "date": "2026-10-14",
+        "code": "predicted_gap",
         "expected_gap": 1,
-        "message": "Predicted demand of 6 places exceeds predicted capacity of 5 by 1."
+        "message": "Expected simultaneous demand exceeds modeled capacity by 1.0 places."
       }
     ],
     "validation": {
-      "method": "weekly_seasonal_baseline",
+      "method": "fixed_origin_14_day_holdout",
       "holdout_days": 14,
       "evaluated_from": "2026-09-26",
       "evaluated_to": "2026-10-09",
-      "capacity_mae": 0,
-      "demand_mae": 0.64
+      "capacity_mae": 1.5,
+      "demand_mae": 1.5
     }
   },
   {
-    "facility_id": "DEMO-C",
+    "facility_id": "DEMO-A",
     "service_id": "emergency-care",
     "generated_at": "2026-10-10T09:00:00Z",
     "horizon_days": 7,
@@ -618,94 +624,508 @@
     "status": "insufficient_history",
     "history": [
       {
+        "date": "2026-08-15",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-16",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-17",
+        "capacity": 4,
+        "demand": 5,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-18",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-19",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-20",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-21",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-22",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-23",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-24",
+        "capacity": 4,
+        "demand": 5,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-25",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-26",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-27",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-28",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-29",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-30",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-08-31",
+        "capacity": 4,
+        "demand": 5,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-01",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-02",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-03",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-04",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-05",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-06",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-07",
+        "capacity": 4,
+        "demand": 5,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-08",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-09",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-10",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-11",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-12",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-13",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-14",
+        "capacity": 4,
+        "demand": 5,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-15",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-16",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-17",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-18",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-19",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-20",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-21",
+        "capacity": 4,
+        "demand": 5,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-22",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-23",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-24",
+        "capacity": 4,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-25",
+        "capacity": 4,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-26",
+        "capacity": null,
+        "demand": 3,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-27",
+        "capacity": null,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-28",
+        "capacity": null,
+        "demand": 5,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
+        "date": "2026-09-29",
+        "capacity": null,
+        "demand": 4,
+        "sources": [
+          "fictional-weekly-demo-v1"
+        ],
+        "data_quality": "estimated"
+      },
+      {
         "date": "2026-09-30",
         "capacity": null,
-        "demand": 2,
+        "demand": 3,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-01",
         "capacity": null,
-        "demand": 2,
+        "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-02",
         "capacity": null,
-        "demand": 2,
+        "demand": 3,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-03",
         "capacity": null,
-        "demand": 2,
+        "demand": 3,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-04",
         "capacity": null,
-        "demand": 2,
+        "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-05",
         "capacity": null,
-        "demand": 2,
+        "demand": 5,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-06",
         "capacity": null,
-        "demand": 2,
+        "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-07",
         "capacity": null,
-        "demand": 2,
+        "demand": 3,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-08",
         "capacity": null,
-        "demand": 2,
+        "demand": 4,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       },
       {
         "date": "2026-10-09",
         "capacity": null,
-        "demand": 2,
+        "demand": 3,
         "sources": [
-          "synthetic-demo-v1"
+          "fictional-weekly-demo-v1"
         ],
-        "data_quality": "reported"
+        "data_quality": "estimated"
       }
     ],
     "forecast": [],

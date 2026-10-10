@@ -75,7 +75,14 @@ def import_daily_history(
 
     def store(path: str, row, existing) -> None:
         nonlocal unchanged
-        fields = ("available_quantity", "unit", "source", "data_quality", "peak_required_places")
+        fields = (
+            "available_quantity",
+            "unit",
+            "source",
+            "data_quality",
+            "peak_required_places",
+            "service_status",
+        )
         if existing is None:
             new_rows.append(row)
         elif all(getattr(existing, f, None) == getattr(row, f, None) for f in fields):
@@ -94,8 +101,7 @@ def import_daily_history(
         )
         if resource is None:
             errors.append(
-                f"{path}.resource_id: {record.resource_id} is not tracked for "
-                f"{record.facility_id}."
+                f"{path}.resource_id: {record.resource_id} is not tracked for {record.facility_id}."
             )
             continue
         if record.unit != resource.unit:
@@ -130,6 +136,7 @@ def import_daily_history(
             service_id=record.service_id,
             record_date=record.date,
             peak_required_places=record.peak_required_places,
+            service_status=record.service_status,
             source=record.source,
             data_quality=record.data_quality,
             imported_at=now,
@@ -167,6 +174,7 @@ def _demand_record(row: DemandRow) -> DailyDemandRecord:
         service_id=row.service_id,
         date=row.record_date,
         peak_required_places=row.peak_required_places,
+        service_status=row.service_status,
         source=row.source,
         data_quality=row.data_quality,
     )

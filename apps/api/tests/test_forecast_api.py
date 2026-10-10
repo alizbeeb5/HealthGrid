@@ -284,13 +284,6 @@ def test_forecast_request_writes_nothing(client, engine, stub_engine, imported):
 
 # Integration with the real engine and dataset (forecasting/data owner).
 
-needs_engine = pytest.mark.skipif(
-    not hasattr(forecasting_engine, "forecast_service_capacity") or not DATASET.exists(),
-    reason="engines.forecasting.forecast_service_capacity or the Feature 4 dataset not merged",
-)
-
-
-@needs_engine
 def test_real_engine_matches_demo_b_example(client, engine):
     with Session(engine) as db:
         dataset = DailyHistoryImport.model_validate_json(DATASET.read_text(encoding="utf-8"))

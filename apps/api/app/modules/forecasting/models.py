@@ -52,12 +52,16 @@ class DailyServiceDemand(Base):
         ),
         CheckConstraint("peak_required_places >= 0", name="places_nonnegative"),
         CheckConstraint("data_quality IN ('reported', 'estimated')", name="data_quality"),
+        CheckConstraint(
+            "service_status IN ('operating', 'limited', 'unavailable')", name="service_status"
+        ),
     )
 
     facility_id: Mapped[str] = mapped_column(String(64), primary_key=True)
     service_id: Mapped[str] = mapped_column(String(64), primary_key=True)
     record_date: Mapped[date] = mapped_column(Date, primary_key=True)
     peak_required_places: Mapped[int] = mapped_column(Integer)
+    service_status: Mapped[str] = mapped_column(String(20), server_default="operating")
     source: Mapped[str] = mapped_column(String(200))
     data_quality: Mapped[str] = mapped_column(String(20))
     imported_at: Mapped[datetime] = mapped_column(UTCDateTime())

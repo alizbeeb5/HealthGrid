@@ -8,9 +8,23 @@
   "status": "forecasted",
   "history": [
     {
-      "date": "2026-08-16",
+      "date": "2026-08-15",
       "modeled_capacity": 4,
       "demand": 2,
+      "capacity_status": "calculated",
+      "reason_codes": [],
+      "source": "fictional-weekly-demo-v1",
+      "data_quality": "synthetic",
+      "observation_ids": [
+        "HIST-C-2026-08-15-available-beds",
+        "HIST-C-2026-08-15-nurses-on-duty",
+        "HIST-C-2026-08-15-working-monitors"
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "modeled_capacity": 4,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -24,7 +38,7 @@
     {
       "date": "2026-08-17",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 4,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -38,7 +52,7 @@
     {
       "date": "2026-08-18",
       "modeled_capacity": 4,
-      "demand": 4,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -52,7 +66,7 @@
     {
       "date": "2026-08-19",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -66,7 +80,7 @@
     {
       "date": "2026-08-20",
       "modeled_capacity": 4,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -80,7 +94,7 @@
     {
       "date": "2026-08-21",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -108,7 +122,7 @@
     {
       "date": "2026-08-23",
       "modeled_capacity": 4,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -122,7 +136,7 @@
     {
       "date": "2026-08-24",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 4,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -136,7 +150,7 @@
     {
       "date": "2026-08-25",
       "modeled_capacity": 4,
-      "demand": 4,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -150,7 +164,7 @@
     {
       "date": "2026-08-26",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -164,7 +178,7 @@
     {
       "date": "2026-08-27",
       "modeled_capacity": 4,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -178,7 +192,7 @@
     {
       "date": "2026-08-28",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -206,7 +220,7 @@
     {
       "date": "2026-08-30",
       "modeled_capacity": 4,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -220,7 +234,7 @@
     {
       "date": "2026-08-31",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 4,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -234,7 +248,7 @@
     {
       "date": "2026-09-01",
       "modeled_capacity": 4,
-      "demand": 4,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -248,7 +262,7 @@
     {
       "date": "2026-09-02",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -262,7 +276,7 @@
     {
       "date": "2026-09-03",
       "modeled_capacity": 4,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -276,7 +290,7 @@
     {
       "date": "2026-09-04",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -304,7 +318,7 @@
     {
       "date": "2026-09-06",
       "modeled_capacity": 4,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -318,7 +332,7 @@
     {
       "date": "2026-09-07",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 4,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -332,7 +346,7 @@
     {
       "date": "2026-09-08",
       "modeled_capacity": 4,
-      "demand": 4,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -346,7 +360,7 @@
     {
       "date": "2026-09-09",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -360,7 +374,7 @@
     {
       "date": "2026-09-10",
       "modeled_capacity": 4,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -374,7 +388,7 @@
     {
       "date": "2026-09-11",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -402,7 +416,7 @@
     {
       "date": "2026-09-13",
       "modeled_capacity": 4,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -416,7 +430,7 @@
     {
       "date": "2026-09-14",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 4,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -430,7 +444,7 @@
     {
       "date": "2026-09-15",
       "modeled_capacity": 4,
-      "demand": 4,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -444,7 +458,7 @@
     {
       "date": "2026-09-16",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -458,7 +472,7 @@
     {
       "date": "2026-09-17",
       "modeled_capacity": 4,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -472,7 +486,7 @@
     {
       "date": "2026-09-18",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -500,7 +514,7 @@
     {
       "date": "2026-09-20",
       "modeled_capacity": 4,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -514,7 +528,7 @@
     {
       "date": "2026-09-21",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 4,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -528,7 +542,7 @@
     {
       "date": "2026-09-22",
       "modeled_capacity": 4,
-      "demand": 4,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -542,7 +556,7 @@
     {
       "date": "2026-09-23",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -556,7 +570,7 @@
     {
       "date": "2026-09-24",
       "modeled_capacity": 4,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -570,7 +584,7 @@
     {
       "date": "2026-09-25",
       "modeled_capacity": 4,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "calculated",
       "reason_codes": [],
       "source": "fictional-weekly-demo-v1",
@@ -583,10 +597,12 @@
     },
     {
       "date": "2026-09-26",
-      "modeled_capacity": 4,
+      "modeled_capacity": 0,
       "demand": 2,
-      "capacity_status": "calculated",
-      "reason_codes": [],
+      "capacity_status": "unavailable",
+      "reason_codes": [
+        "service_unavailable"
+      ],
       "source": "fictional-weekly-demo-v1",
       "data_quality": "synthetic",
       "observation_ids": [
@@ -598,7 +614,7 @@
     {
       "date": "2026-09-27",
       "modeled_capacity": 0,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "unavailable",
       "reason_codes": [
         "service_unavailable"
@@ -614,7 +630,7 @@
     {
       "date": "2026-09-28",
       "modeled_capacity": 0,
-      "demand": 3,
+      "demand": 4,
       "capacity_status": "unavailable",
       "reason_codes": [
         "service_unavailable"
@@ -630,7 +646,7 @@
     {
       "date": "2026-09-29",
       "modeled_capacity": 0,
-      "demand": 4,
+      "demand": 3,
       "capacity_status": "unavailable",
       "reason_codes": [
         "service_unavailable"
@@ -646,7 +662,7 @@
     {
       "date": "2026-09-30",
       "modeled_capacity": 0,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "unavailable",
       "reason_codes": [
         "service_unavailable"
@@ -662,7 +678,7 @@
     {
       "date": "2026-10-01",
       "modeled_capacity": 0,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "unavailable",
       "reason_codes": [
         "service_unavailable"
@@ -678,7 +694,7 @@
     {
       "date": "2026-10-02",
       "modeled_capacity": 0,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "unavailable",
       "reason_codes": [
         "service_unavailable"
@@ -710,7 +726,7 @@
     {
       "date": "2026-10-04",
       "modeled_capacity": 0,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "unavailable",
       "reason_codes": [
         "service_unavailable"
@@ -726,7 +742,7 @@
     {
       "date": "2026-10-05",
       "modeled_capacity": 0,
-      "demand": 3,
+      "demand": 4,
       "capacity_status": "unavailable",
       "reason_codes": [
         "service_unavailable"
@@ -742,7 +758,7 @@
     {
       "date": "2026-10-06",
       "modeled_capacity": 0,
-      "demand": 4,
+      "demand": 3,
       "capacity_status": "unavailable",
       "reason_codes": [
         "service_unavailable"
@@ -758,7 +774,7 @@
     {
       "date": "2026-10-07",
       "modeled_capacity": 0,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "unavailable",
       "reason_codes": [
         "service_unavailable"
@@ -774,7 +790,7 @@
     {
       "date": "2026-10-08",
       "modeled_capacity": 0,
-      "demand": 2,
+      "demand": 3,
       "capacity_status": "unavailable",
       "reason_codes": [
         "service_unavailable"
@@ -790,7 +806,7 @@
     {
       "date": "2026-10-09",
       "modeled_capacity": 0,
-      "demand": 3,
+      "demand": 2,
       "capacity_status": "unavailable",
       "reason_codes": [
         "service_unavailable"
@@ -802,27 +818,11 @@
         "HIST-C-2026-10-09-nurses-on-duty",
         "HIST-C-2026-10-09-working-monitors"
       ]
-    },
-    {
-      "date": "2026-10-10",
-      "modeled_capacity": 0,
-      "demand": 2,
-      "capacity_status": "unavailable",
-      "reason_codes": [
-        "service_unavailable"
-      ],
-      "source": "fictional-weekly-demo-v1",
-      "data_quality": "synthetic",
-      "observation_ids": [
-        "HIST-C-2026-10-10-available-beds",
-        "HIST-C-2026-10-10-nurses-on-duty",
-        "HIST-C-2026-10-10-working-monitors"
-      ]
     }
   ],
   "forecast": [
     {
-      "date": "2026-10-11",
+      "date": "2026-10-10",
       "predicted_capacity": 0,
       "predicted_demand": 2,
       "capacity_lower": 0,
@@ -832,7 +832,7 @@
       "expected_gap": 2
     },
     {
-      "date": "2026-10-12",
+      "date": "2026-10-11",
       "predicted_capacity": 0,
       "predicted_demand": 3,
       "capacity_lower": 0,
@@ -842,7 +842,7 @@
       "expected_gap": 3
     },
     {
-      "date": "2026-10-13",
+      "date": "2026-10-12",
       "predicted_capacity": 0,
       "predicted_demand": 4,
       "capacity_lower": 0,
@@ -852,7 +852,7 @@
       "expected_gap": 4
     },
     {
-      "date": "2026-10-14",
+      "date": "2026-10-13",
       "predicted_capacity": 0,
       "predicted_demand": 3,
       "capacity_lower": 0,
@@ -862,7 +862,7 @@
       "expected_gap": 3
     },
     {
-      "date": "2026-10-15",
+      "date": "2026-10-14",
       "predicted_capacity": 0,
       "predicted_demand": 2,
       "capacity_lower": 0,
@@ -872,7 +872,7 @@
       "expected_gap": 2
     },
     {
-      "date": "2026-10-16",
+      "date": "2026-10-15",
       "predicted_capacity": 0,
       "predicted_demand": 3,
       "capacity_lower": 0,
@@ -882,7 +882,7 @@
       "expected_gap": 3
     },
     {
-      "date": "2026-10-17",
+      "date": "2026-10-16",
       "predicted_capacity": 0,
       "predicted_demand": 2,
       "capacity_lower": 0,
@@ -894,37 +894,37 @@
   ],
   "alerts": [
     {
-      "date": "2026-10-11",
+      "date": "2026-10-10",
       "expected_gap": 2,
+      "reason_code": "predicted_demand_exceeds_modeled_capacity"
+    },
+    {
+      "date": "2026-10-11",
+      "expected_gap": 3,
       "reason_code": "predicted_demand_exceeds_modeled_capacity"
     },
     {
       "date": "2026-10-12",
-      "expected_gap": 3,
-      "reason_code": "predicted_demand_exceeds_modeled_capacity"
-    },
-    {
-      "date": "2026-10-13",
       "expected_gap": 4,
       "reason_code": "predicted_demand_exceeds_modeled_capacity"
     },
     {
-      "date": "2026-10-14",
+      "date": "2026-10-13",
       "expected_gap": 3,
       "reason_code": "predicted_demand_exceeds_modeled_capacity"
     },
     {
-      "date": "2026-10-15",
+      "date": "2026-10-14",
       "expected_gap": 2,
       "reason_code": "predicted_demand_exceeds_modeled_capacity"
     },
     {
-      "date": "2026-10-16",
+      "date": "2026-10-15",
       "expected_gap": 3,
       "reason_code": "predicted_demand_exceeds_modeled_capacity"
     },
     {
-      "date": "2026-10-17",
+      "date": "2026-10-16",
       "expected_gap": 2,
       "reason_code": "predicted_demand_exceeds_modeled_capacity"
     }
