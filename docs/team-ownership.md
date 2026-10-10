@@ -1,11 +1,12 @@
 # Three-person workflow
 
 See `product-scope.md` for the finalized routine/crisis workflow and `next-tasks.md`
-for broad workstreams. The active Feature 7 assignments and shared interfaces
-are in `feature-7-contract.md`. Frontend owns investment inputs and package comparison;
-backend/data owns investment schemas, catalog endpoints, frozen source integration
-and saved runs; the third teammate owns the pure package solver and numerical
-fixtures/tests. Features 1–6 retain their existing contracts and ownership.
+for broad workstreams. The active Feature 8 assignments and shared interfaces
+are in `feature-8-contract.md`. Frontend owns the decision board, timeline and
+follow-up views; backend/data owns decision contracts, state transitions, event
+persistence and evidence capture; the third teammate owns the pure outcome
+evaluation engine and evidence fixtures/tests. Features 1–7 retain their existing
+contracts and ownership.
 
 | Owner | Primary files | Deliverable |
 | --- | --- | --- |
