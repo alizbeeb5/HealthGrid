@@ -1,5 +1,5 @@
-import { PagePlaceholder } from "@/components/page-placeholder";
+import { FacilityList } from "@/features/facilities/facility-list";
 
 export default function Page() {
-  return <PagePlaceholder title="Facilities and resources" description="Review services, resource availability and reporting freshness." />;
+  return <FacilityList />;
 }

@@ -17,6 +17,7 @@ node_modules/
 .next/
 out/
 *.tsbuildinfo
+.test-build/
 # Local editor and scratch files
 .idea/
 .vscode/

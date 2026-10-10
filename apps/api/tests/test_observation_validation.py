@@ -88,7 +88,9 @@ class ObservationValidationTests(unittest.TestCase):
             [e.field for e in errors], ["unit", "available_quantity", "observed_at"]
         )
         response = ErrorResponse(error=ErrorDetail(
-            code="invalid_observation", message="The observation could not be saved.", fields=errors,
+            code="invalid_observation",
+            message="The observation could not be saved.",
+            fields=errors,
         ))
         self.assertEqual(len(json.loads(response.model_dump_json())["error"]["fields"]), 3)
         unit_errors = self.validate({**self.payload, "unit": "liter"})

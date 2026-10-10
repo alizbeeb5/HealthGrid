@@ -10,13 +10,14 @@ The three endpoints below are live in the backend and included in
 `apps/api/app/modules/facilities/schemas.py` defines payload fields and types.
 `contracts/feature-1.openapi.json` is generated from those schemas plus the three
 planned endpoint definitions in `apps/api/scripts/export_feature_1_contract.py`.
-Frontend types are generated into `apps/web/src/lib/api/feature-1-schema.d.ts`;
-use the aliases in `feature-1.ts`. Do not maintain separate handwritten interfaces.
+The implemented API generates frontend types into `apps/web/src/lib/api/schema.d.ts`;
+use the aliases in `feature-1.ts`. The earlier design contract also generates
+`feature-1-schema.d.ts`, used for the resource catalog entity that has no standalone
+live endpoint. Do not maintain separate handwritten interfaces.
 
-Once endpoints are implemented, the backend owner must make their live schemas
-match this contract and consolidate it into the regular OpenAPI export. Until
-then, keep the planned contract separate from `contracts/openapi.json` so the
-live API does not falsely advertise features that do not work.
+The backend's live schemas match this contract and are consolidated into the
+regular OpenAPI export. Keep the earlier design contract available for reference;
+the regular export remains the source for the implemented API client.
 
 ## Naming and types
 
@@ -170,8 +171,8 @@ validate_observation(
 
 The frontend client exports `listFacilities()`, `getFacilitySnapshot(facility_id)`
 and `createResourceObservation(facility_id, payload)` with the generated response
-and request types. These are agreed function names for implementation, not
-already implemented functions.
+and request types. These functions are implemented in
+`apps/web/src/lib/api/facilities.ts`.
 
 This allows the third teammate to work without the database.
 

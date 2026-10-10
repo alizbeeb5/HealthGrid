@@ -35,7 +35,9 @@ AI-generated interpretations require evidence and review, and cannot override ha
 constraints. Human approval is required before any operational action.
 
 ## Current state
-The frontend page shells, API liveness endpoint and Feature 1 facility persistence
-exist: facilities, services, resource definitions and append-only observations, with
-list, snapshot and observation endpoints. Capacity, authentication, forecasting and
-optimization are not implemented. No AI requests execute.
+The hospital snapshot frontend connects to Feature 1 facility persistence:
+facilities, services, resource definitions and append-only observations, with list,
+snapshot and observation endpoints. An optional synthetic demo stores updates in
+the browser. Other frontend routes remain page shells. The API liveness endpoint,
+database connection setup and migration infrastructure exist. Capacity,
+authentication, forecasting and optimization are not implemented. No AI requests execute.

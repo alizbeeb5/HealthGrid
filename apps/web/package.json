@@ -7,10 +7,14 @@
     "npm": ">=9.5.0"
   },
   "scripts": {
+    "sync:facilities": "node scripts/sync-facility-fixtures.mjs",
+    "predev": "npm run sync:facilities",
     "dev": "next dev",
+    "prebuild": "npm run sync:facilities",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "test:facilities": "tsc -p tsconfig.test.json && node --test --experimental-test-isolation=none .test-build/apps/web/tests/facilities.test.js",
     "generate:api": "openapi-typescript ../../contracts/openapi.json -o src/lib/api/schema.d.ts",
     "generate:feature-1": "openapi-typescript ../../contracts/feature-1.openapi.json -o src/lib/api/feature-1-schema.d.ts"
   },

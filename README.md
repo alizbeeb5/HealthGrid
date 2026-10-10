@@ -9,8 +9,9 @@ should we fund?
 - `data`: synthetic fixtures and import templates.
 - `docs`: architecture, team ownership and demo scenario.
 
-This is a development scaffold. Frontend routes, `/health` and the Feature 1
-facility endpoints (list, snapshot, append observation) are implemented; forecasting,
+This is a development scaffold with a hospital snapshot frontend, `/health` and
+the Feature 1 facility endpoints (list, snapshot, append observation). Other
+frontend routes remain page shells. Forecasting,
 allocations, investments, import, authentication and remaining domain models are
 placeholders. Existing PyCharm `main.py` is preserved and is not the API entry point.
 
@@ -52,12 +53,20 @@ Frontend page shells and the API `/health` endpoint work without a database or
 OpenAI key. The facility endpoints need migrated, seeded tables (see below). For a
 separately configured PostgreSQL instance, update DATABASE_URL in the root `.env`.
 
+The hospital list, details, and resource update form are available at `/facilities`.
+They default to the implemented API, with updates persisted by the backend.
+Run the migration and seed commands below before using them. For a frontend-only
+demo, set `NEXT_PUBLIC_FACILITIES_DATA_MODE=demo` in `apps/web/.env.local` and
+restart/rebuild the frontend; those synthetic updates persist only in the same
+browser. See `apps/web/src/features/facilities/README.md` for acceptance checks.
+
 ## Contracts and checks
 ```bash
 python apps/api/scripts/export_openapi.py
 cd apps/web
 npm run generate:api
 npm run typecheck
+npm run test:facilities
 npm run build
 ```
 From the repository root, `ruff check apps/api` checks Python style and `pytest`
