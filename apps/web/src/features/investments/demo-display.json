@@ -1,0 +1,232 @@
+{
+  "id": "frontend-funding-display",
+  "saved_at": null,
+  "source": {
+    "allocation_run_id": "FRONTEND-FUNDING-SOURCE-EXAMPLE",
+    "simulation_run_id": "frontend-example",
+    "incident_id": "frontend-example",
+    "revision_id": "frontend-example",
+    "baseline_id": "frontend-example",
+    "saved_at": "2026-10-10T11:00:00Z",
+    "example": true,
+    "summary": {
+      "included_facility_ids": [
+        "DEMO-A",
+        "DEMO-B"
+      ],
+      "required_service_places": 11,
+      "covered_service_places": 6,
+      "unmet_service_places": 5,
+      "rows": [
+        {
+          "facility_id": "DEMO-A",
+          "service_status": "operating",
+          "required_service_places": 3,
+          "resource_quantity": 3,
+          "estimated_capacity": 3,
+          "covered_service_places": 3,
+          "unmet_service_places": 0,
+          "bottleneck_resource_ids": [
+            "working-monitors"
+          ]
+        },
+        {
+          "facility_id": "DEMO-B",
+          "service_status": "operating",
+          "required_service_places": 8,
+          "resource_quantity": 3,
+          "estimated_capacity": 3,
+          "covered_service_places": 3,
+          "unmet_service_places": 5,
+          "bottleneck_resource_ids": [
+            "working-monitors"
+          ]
+        }
+      ]
+    },
+    "excluded": [
+      {
+        "facility_id": "DEMO-C",
+        "reasons": [
+          "no_planning_constraints",
+          "service_unavailable",
+          "stale_required_evidence"
+        ]
+      }
+    ],
+    "transfers": [
+      "Assumed: one monitor transferred A \u2192 B. Not evidence that a transfer was executed."
+    ],
+    "transfer_cost_minor_units": 10000,
+    "solver_status": "optimal",
+    "remaining_gap_reasons": [
+      "B has five unmet simultaneous service places, limited by monitors."
+    ]
+  },
+  "input": {
+    "allocation_run_id": "FRONTEND-FUNDING-SOURCE-EXAMPLE",
+    "planning_starts_at": "2026-10-10T11:00:00Z",
+    "evaluation_at": "2026-11-09T11:00:00Z",
+    "operating_cost_months": "3",
+    "budget_minor_units": "300000",
+    "currency": "USD",
+    "catalog_version": "frontend-synthetic-display-v1",
+    "candidates": [
+      {
+        "candidate_id": "BUY-FIVE",
+        "name": "Buy five compatible monitors",
+        "facility_id": "DEMO-B",
+        "service_id": "emergency-care",
+        "capital_cost_minor_units": "500000",
+        "monthly_operating_cost_minor_units": "30000",
+        "implementation_days": "14",
+        "resource_effects": [
+          {
+            "resource_id": "working-monitors",
+            "quantity_delta": "5",
+            "unit": "item"
+          }
+        ],
+        "requires_candidate_ids": [],
+        "exclusive_group_id": null,
+        "source_note": "Fictional reviewed estimate; compatible devices, space and recurring costs assumed. Five idle repairable assets are explicitly assumed to exist for the repair option.",
+        "confirmed_at": "2026-10-10T11:00:00Z"
+      },
+      {
+        "candidate_id": "BUY-ONE",
+        "name": "Buy one compatible monitor",
+        "facility_id": "DEMO-B",
+        "service_id": "emergency-care",
+        "capital_cost_minor_units": "100000",
+        "monthly_operating_cost_minor_units": "6000",
+        "implementation_days": "14",
+        "resource_effects": [
+          {
+            "resource_id": "working-monitors",
+            "quantity_delta": "1",
+            "unit": "item"
+          }
+        ],
+        "requires_candidate_ids": [],
+        "exclusive_group_id": null,
+        "source_note": "Fictional reviewed estimate; compatible devices, space and recurring costs assumed. Five idle repairable assets are explicitly assumed to exist for the repair option.",
+        "confirmed_at": "2026-10-10T11:00:00Z"
+      },
+      {
+        "candidate_id": "REPAIR-FIVE",
+        "name": "Repair five confirmed idle monitors",
+        "facility_id": "DEMO-B",
+        "service_id": "emergency-care",
+        "capital_cost_minor_units": "100000",
+        "monthly_operating_cost_minor_units": "0",
+        "implementation_days": "7",
+        "resource_effects": [],
+        "requires_candidate_ids": [],
+        "exclusive_group_id": "B-idle-monitor-repair",
+        "source_note": "Fictional reviewed estimate; compatible devices, space and recurring costs assumed. Five idle repairable assets are explicitly assumed to exist for the repair option.",
+        "confirmed_at": "2026-10-10T11:00:00Z"
+      },
+      {
+        "candidate_id": "COMMISSION",
+        "name": "Commission repaired monitors",
+        "facility_id": "DEMO-B",
+        "service_id": "emergency-care",
+        "capital_cost_minor_units": "50000",
+        "monthly_operating_cost_minor_units": "30000",
+        "implementation_days": "3",
+        "resource_effects": [
+          {
+            "resource_id": "working-monitors",
+            "quantity_delta": "5",
+            "unit": "item"
+          }
+        ],
+        "requires_candidate_ids": [
+          "REPAIR-FIVE"
+        ],
+        "exclusive_group_id": null,
+        "source_note": "Fictional reviewed estimate; compatible devices, space and recurring costs assumed. Five idle repairable assets are explicitly assumed to exist for the repair option.",
+        "confirmed_at": "2026-10-10T11:00:00Z"
+      }
+    ],
+    "assumptions": [
+      "Transfers are assumed completed at planning start; not executed by this proposal.",
+      "Demand at evaluation remains A=3 and B=8 simultaneous service places.",
+      "Projects proceed in parallel except dependencies; workforce scheduling is not modeled.",
+      "Full three-month operating allowance is charged regardless of readiness; previous transfer costs are not charged again.",
+      "All projects, costs, asset existence and benefits are synthetic demonstration inputs."
+    ]
+  },
+  "solver_status": "optimal",
+  "plan_outcome": "improved",
+  "proposed": {
+    "included_facility_ids": [
+      "DEMO-A",
+      "DEMO-B"
+    ],
+    "required_service_places": 11,
+    "covered_service_places": 11,
+    "unmet_service_places": 0,
+    "rows": [
+      {
+        "facility_id": "DEMO-A",
+        "service_status": "operating",
+        "required_service_places": 3,
+        "resource_quantity": 3,
+        "estimated_capacity": 3,
+        "covered_service_places": 3,
+        "unmet_service_places": 0,
+        "bottleneck_resource_ids": [
+          "working-monitors"
+        ]
+      },
+      {
+        "facility_id": "DEMO-B",
+        "service_status": "operating",
+        "required_service_places": 8,
+        "resource_quantity": 8,
+        "estimated_capacity": 8,
+        "covered_service_places": 8,
+        "unmet_service_places": 0,
+        "bottleneck_resource_ids": [
+          "working-monitors"
+        ]
+      }
+    ]
+  },
+  "selected_projects": [
+    {
+      "candidate_id": "REPAIR-FIVE",
+      "ready_at": "2026-10-17T11:00:00Z",
+      "capital_cost_minor_units": 100000,
+      "operating_cost_minor_units": 0,
+      "total_cost_minor_units": 100000,
+      "resource_effects": []
+    },
+    {
+      "candidate_id": "COMMISSION",
+      "ready_at": "2026-10-20T11:00:00Z",
+      "capital_cost_minor_units": 50000,
+      "operating_cost_minor_units": 90000,
+      "total_cost_minor_units": 140000,
+      "resource_effects": [
+        {
+          "resource_id": "working-monitors",
+          "quantity_delta": 5,
+          "unit": "item"
+        }
+      ]
+    }
+  ],
+  "candidate_exclusions": [],
+  "total_capital_cost_minor_units": 150000,
+  "total_operating_cost_minor_units": 90000,
+  "total_cost_minor_units": 240000,
+  "remaining_budget_minor_units": 60000,
+  "validation_passed": true,
+  "remaining_gap_reasons": [
+    "The supplied package closes the included five-place gap under fictional demand and capacity rules.",
+    "C remains excluded; its unmet demand is not counted as zero.",
+    "Buying five exceeds the USD 3,000 budget. Buying one has less benefit; repair alone adds no working-resource quantity."
+  ]
+}

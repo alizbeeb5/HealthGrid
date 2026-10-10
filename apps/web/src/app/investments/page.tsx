@@ -1,5 +1,5 @@
-import { PagePlaceholder } from "@/components/page-placeholder";
-
+import { Suspense } from "react";
+import { InvestmentDashboard } from "@/features/investments/investment-dashboard";
 export default function Page() {
-  return <PagePlaceholder title="Investment planning" description="Compare investment packages against budget, capacity and implementation constraints." />;
+  return <Suspense fallback={<p role="status">Loading funding workspace…</p>}><InvestmentDashboard /></Suspense>;
 }
