@@ -382,7 +382,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Content",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
@@ -444,7 +444,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -509,7 +509,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -595,7 +595,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -659,7 +659,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -714,7 +714,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Content",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
@@ -776,7 +776,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           }
         }
       }
@@ -843,7 +843,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Content",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
@@ -905,7 +905,425 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/decisions": {
+      "post": {
+        "tags": [
+          "decisions"
+        ],
+        "summary": "Create Decision",
+        "description": "Record a draft decision for a validated saved proposal. Freezes its expectation.",
+        "operationId": "create_decision",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecisionCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionRecord"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "decisions"
+        ],
+        "summary": "List Decisions",
+        "operationId": "list_decisions",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/DecisionStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/decisions/{decision_id}": {
+      "get": {
+        "tags": [
+          "decisions"
+        ],
+        "summary": "Get Decision",
+        "operationId": "get_decision",
+        "parameters": [
+          {
+            "name": "decision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Decision Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionRecord"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/decisions/{decision_id}/events": {
+      "post": {
+        "tags": [
+          "decisions"
+        ],
+        "summary": "Apply Decision Event",
+        "description": "Apply one command. 201 when applied; 200 returns the saved result of a retried\nrequest_id. Outdated expected_version is 409.",
+        "operationId": "apply_decision_event",
+        "parameters": [
+          {
+            "name": "decision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Decision Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecisionEventRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionRecord"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionRecord"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/decisions/{decision_id}/reviews": {
+      "post": {
+        "tags": [
+          "decisions"
+        ],
+        "summary": "Create Outcome Review",
+        "description": "Capture current reports and compare them with the frozen expectation. The\ncapture time is the server's; reopening returns this review unchanged.",
+        "operationId": "create_outcome_review",
+        "parameters": [
+          {
+            "name": "decision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Decision Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OutcomeReviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutcomeReview"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutcomeReview"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/decisions/{decision_id}/reviews/{review_id}": {
+      "get": {
+        "tags": [
+          "decisions"
+        ],
+        "summary": "Get Outcome Review",
+        "operationId": "get_outcome_review",
+        "parameters": [
+          {
+            "name": "decision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Decision Id"
+            }
+          },
+          {
+            "name": "review_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Review Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutcomeReview"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DecisionErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
           }
         }
       }
@@ -1058,6 +1476,247 @@
   },
   "components": {
     "schemas": {
+      "ActionCorrection": {
+        "properties": {
+          "corrected_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Corrected At"
+          },
+          "actor_name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Actor Name"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Reason"
+          },
+          "previous_completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Completed At"
+          },
+          "previous_evidence_note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Evidence Note"
+          },
+          "previous_actual_cost_minor_units": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Actual Cost Minor Units"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "corrected_at",
+          "actor_name",
+          "reason",
+          "previous_completed_at",
+          "previous_evidence_note",
+          "previous_actual_cost_minor_units"
+        ],
+        "title": "ActionCorrection"
+      },
+      "ActionItem": {
+        "properties": {
+          "action_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Action Id"
+          },
+          "action_type": {
+            "type": "string",
+            "enum": [
+              "transfer",
+              "project"
+            ],
+            "title": "Action Type"
+          },
+          "reference_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Reference Id"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Description"
+          },
+          "facility_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Facility Ids"
+          },
+          "requires_action_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Requires Action Ids"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ActionStatus"
+          },
+          "proposed_cost_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Proposed Cost Minor Units"
+          },
+          "proposed_ready_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Proposed Ready At"
+          },
+          "reported_started_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reported Started At"
+          },
+          "reported_completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reported Completed At"
+          },
+          "actual_cost_minor_units": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual Cost Minor Units"
+          },
+          "evidence_note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Note"
+          },
+          "blocker_note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Blocker Note"
+          },
+          "corrections": {
+            "items": {
+              "$ref": "#/components/schemas/ActionCorrection"
+            },
+            "type": "array",
+            "title": "Corrections"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "action_id",
+          "action_type",
+          "reference_id",
+          "description",
+          "facility_ids",
+          "requires_action_ids",
+          "status",
+          "proposed_cost_minor_units",
+          "proposed_ready_at",
+          "reported_started_at",
+          "reported_completed_at",
+          "actual_cost_minor_units",
+          "evidence_note",
+          "blocker_note",
+          "corrections"
+        ],
+        "title": "ActionItem"
+      },
+      "ActionStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "in_progress",
+          "blocked",
+          "completed",
+          "cancelled"
+        ],
+        "title": "ActionStatus"
+      },
       "AdviceEvidence": {
         "properties": {
           "path": {
@@ -1465,6 +2124,21 @@
         ],
         "title": "AppliedServiceOverride"
       },
+      "ApprovePayload": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "approve",
+            "title": "Event Type"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_type"
+        ],
+        "title": "ApprovePayload"
+      },
       "AssessmentResponse": {
         "properties": {
           "assessment_status": {
@@ -1516,6 +2190,21 @@
         ],
         "title": "AssessmentResponse"
       },
+      "CancelPayload": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "cancel",
+            "title": "Event Type"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_type"
+        ],
+        "title": "CancelPayload"
+      },
       "CandidateExclusion": {
         "properties": {
           "candidate_id": {
@@ -1562,6 +2251,97 @@
         ],
         "title": "CapacityStatus"
       },
+      "CompletePayload": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "complete",
+            "title": "Event Type"
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Occurred At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_type",
+          "occurred_at"
+        ],
+        "title": "CompletePayload"
+      },
+      "CorrectActionReportPayload": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "correct_action_report",
+            "title": "Event Type"
+          },
+          "action_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Action Id"
+          },
+          "reason": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Reason"
+          },
+          "completed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completed At"
+          },
+          "evidence_note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Note"
+          },
+          "actual_cost_minor_units": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual Cost Minor Units"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_type",
+          "action_id",
+          "reason",
+          "completed_at",
+          "evidence_note",
+          "actual_cost_minor_units"
+        ],
+        "title": "CorrectActionReportPayload"
+      },
       "Coverage": {
         "properties": {
           "included_facility_ids": {
@@ -1606,6 +2386,703 @@
           "unknown"
         ],
         "title": "DataStatus"
+      },
+      "DecisionCreateRequest": {
+        "properties": {
+          "source_type": {
+            "$ref": "#/components/schemas/SourceType"
+          },
+          "source_run_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Source Run Id"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "owner_name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Owner Name"
+          },
+          "rationale": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Rationale"
+          },
+          "target_completion_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Target Completion At"
+          },
+          "actor_name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Actor Name"
+          },
+          "prerequisite_decision_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prerequisite Decision Id"
+          },
+          "supersedes_decision_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supersedes Decision Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_type",
+          "source_run_id",
+          "title",
+          "owner_name",
+          "rationale",
+          "target_completion_at",
+          "actor_name",
+          "prerequisite_decision_id",
+          "supersedes_decision_id"
+        ],
+        "title": "DecisionCreateRequest"
+      },
+      "DecisionErrorDetail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "invalid_request",
+              "source_run_not_found",
+              "decision_not_found",
+              "review_not_found",
+              "invalid_transition",
+              "prerequisite_not_met",
+              "duplicate_source_decision",
+              "version_conflict",
+              "idempotency_conflict"
+            ],
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/FieldError"
+            },
+            "type": "array",
+            "title": "Fields"
+          },
+          "current_version": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Current Version"
+          },
+          "existing_decision_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Existing Decision Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "fields",
+          "current_version",
+          "existing_decision_id"
+        ],
+        "title": "DecisionErrorDetail"
+      },
+      "DecisionErrorResponse": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/DecisionErrorDetail"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "DecisionErrorResponse"
+      },
+      "DecisionEvent": {
+        "properties": {
+          "event_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Event Id"
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Sequence"
+          },
+          "event_type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "create"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "edit_draft",
+                  "submit",
+                  "approve",
+                  "reject",
+                  "start",
+                  "update_action",
+                  "complete",
+                  "cancel",
+                  "correct_action_report"
+                ]
+              }
+            ],
+            "title": "Event Type"
+          },
+          "request_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Request Id"
+          },
+          "actor_name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Actor Name"
+          },
+          "identity_mode": {
+            "type": "string",
+            "const": "demo_self_reported",
+            "title": "Identity Mode"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "occurred_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Occurred At"
+          },
+          "recorded_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Recorded At"
+          },
+          "payload": {
+            "anyOf": [
+              {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/EditDraftPayload"
+                  },
+                  {
+                    "$ref": "#/components/schemas/SubmitPayload"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ApprovePayload"
+                  },
+                  {
+                    "$ref": "#/components/schemas/RejectPayload"
+                  },
+                  {
+                    "$ref": "#/components/schemas/StartPayload"
+                  },
+                  {
+                    "$ref": "#/components/schemas/UpdateActionPayload"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CompletePayload"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CancelPayload"
+                  },
+                  {
+                    "$ref": "#/components/schemas/CorrectActionReportPayload"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "event_type",
+                  "mapping": {
+                    "approve": "#/components/schemas/ApprovePayload",
+                    "cancel": "#/components/schemas/CancelPayload",
+                    "complete": "#/components/schemas/CompletePayload",
+                    "correct_action_report": "#/components/schemas/CorrectActionReportPayload",
+                    "edit_draft": "#/components/schemas/EditDraftPayload",
+                    "reject": "#/components/schemas/RejectPayload",
+                    "start": "#/components/schemas/StartPayload",
+                    "submit": "#/components/schemas/SubmitPayload",
+                    "update_action": "#/components/schemas/UpdateActionPayload"
+                  }
+                }
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payload"
+          },
+          "status_after": {
+            "$ref": "#/components/schemas/DecisionStatus"
+          },
+          "version_after": {
+            "type": "integer",
+            "title": "Version After"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_id",
+          "sequence",
+          "event_type",
+          "request_id",
+          "actor_name",
+          "identity_mode",
+          "note",
+          "occurred_at",
+          "recorded_at",
+          "payload",
+          "status_after",
+          "version_after"
+        ],
+        "title": "DecisionEvent",
+        "description": "Append-only timeline entry. recorded_at is server time; occurred_at is the\nhuman-reported time, when the event has one."
+      },
+      "DecisionEventRequest": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "enum": [
+              "edit_draft",
+              "submit",
+              "approve",
+              "reject",
+              "start",
+              "update_action",
+              "complete",
+              "cancel",
+              "correct_action_report"
+            ],
+            "title": "Event Type"
+          },
+          "expected_version": {
+            "type": "integer",
+            "minimum": 1.0,
+            "title": "Expected Version"
+          },
+          "request_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Request Id"
+          },
+          "actor_name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Actor Name"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "payload": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/EditDraftPayload"
+              },
+              {
+                "$ref": "#/components/schemas/SubmitPayload"
+              },
+              {
+                "$ref": "#/components/schemas/ApprovePayload"
+              },
+              {
+                "$ref": "#/components/schemas/RejectPayload"
+              },
+              {
+                "$ref": "#/components/schemas/StartPayload"
+              },
+              {
+                "$ref": "#/components/schemas/UpdateActionPayload"
+              },
+              {
+                "$ref": "#/components/schemas/CompletePayload"
+              },
+              {
+                "$ref": "#/components/schemas/CancelPayload"
+              },
+              {
+                "$ref": "#/components/schemas/CorrectActionReportPayload"
+              }
+            ],
+            "title": "Payload",
+            "discriminator": {
+              "propertyName": "event_type",
+              "mapping": {
+                "approve": "#/components/schemas/ApprovePayload",
+                "cancel": "#/components/schemas/CancelPayload",
+                "complete": "#/components/schemas/CompletePayload",
+                "correct_action_report": "#/components/schemas/CorrectActionReportPayload",
+                "edit_draft": "#/components/schemas/EditDraftPayload",
+                "reject": "#/components/schemas/RejectPayload",
+                "start": "#/components/schemas/StartPayload",
+                "submit": "#/components/schemas/SubmitPayload",
+                "update_action": "#/components/schemas/UpdateActionPayload"
+              }
+            }
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_type",
+          "expected_version",
+          "request_id",
+          "actor_name",
+          "note",
+          "payload"
+        ],
+        "title": "DecisionEventRequest"
+      },
+      "DecisionListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/DecisionRecord"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "DecisionListResponse"
+      },
+      "DecisionRecord": {
+        "properties": {
+          "decision_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Decision Id"
+          },
+          "source_type": {
+            "$ref": "#/components/schemas/SourceType"
+          },
+          "source_run_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Source Run Id"
+          },
+          "incident_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Incident Id"
+          },
+          "revision_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Revision Id"
+          },
+          "baseline_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Baseline Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "owner_name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Owner Name"
+          },
+          "rationale": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Rationale"
+          },
+          "target_completion_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Target Completion At"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DecisionStatus"
+          },
+          "version": {
+            "type": "integer",
+            "title": "Version"
+          },
+          "identity_mode": {
+            "type": "string",
+            "const": "demo_self_reported",
+            "title": "Identity Mode"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "prerequisite_decision_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prerequisite Decision Id"
+          },
+          "supersedes_decision_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supersedes Decision Id"
+          },
+          "expectation": {
+            "$ref": "#/components/schemas/SourceExpectation"
+          },
+          "actions": {
+            "items": {
+              "$ref": "#/components/schemas/ActionItem"
+            },
+            "type": "array",
+            "title": "Actions"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/DecisionEvent"
+            },
+            "type": "array",
+            "title": "Events"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "decision_id",
+          "source_type",
+          "source_run_id",
+          "incident_id",
+          "revision_id",
+          "baseline_id",
+          "title",
+          "owner_name",
+          "rationale",
+          "target_completion_at",
+          "status",
+          "version",
+          "identity_mode",
+          "created_at",
+          "updated_at",
+          "prerequisite_decision_id",
+          "supersedes_decision_id",
+          "expectation",
+          "actions",
+          "events"
+        ],
+        "title": "DecisionRecord"
+      },
+      "DecisionStatus": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "pending_review",
+          "approved",
+          "in_progress",
+          "completed",
+          "rejected",
+          "cancelled"
+        ],
+        "title": "DecisionStatus"
+      },
+      "EditDraftPayload": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "edit_draft",
+            "title": "Event Type"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "owner_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Owner Name"
+          },
+          "rationale": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rationale"
+          },
+          "target_completion_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Completion At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_type",
+          "title",
+          "owner_name",
+          "rationale",
+          "target_completion_at"
+        ],
+        "title": "EditDraftPayload"
       },
       "EmergencyAction": {
         "properties": {
@@ -1876,6 +3353,16 @@
         ],
         "title": "Evidence"
       },
+      "EvidenceStatus": {
+        "type": "string",
+        "enum": [
+          "fresh",
+          "outside_window",
+          "stale",
+          "missing"
+        ],
+        "title": "EvidenceStatus"
+      },
       "ExclusionReason": {
         "type": "string",
         "enum": [
@@ -1887,6 +3374,41 @@
           "stale_required_evidence"
         ],
         "title": "ExclusionReason"
+      },
+      "ExpectedFacility": {
+        "properties": {
+          "facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id"
+          },
+          "required_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Required Service Places"
+          },
+          "capacity_before": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Capacity Before"
+          },
+          "expected_capacity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Expected Capacity"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility_id",
+          "required_service_places",
+          "capacity_before",
+          "expected_capacity"
+        ],
+        "title": "ExpectedFacility"
       },
       "ExtractionResponse_IncidentDraftInput_": {
         "properties": {
@@ -2254,6 +3776,98 @@
           "items"
         ],
         "title": "FacilityListResponse"
+      },
+      "FacilityOutcome": {
+        "properties": {
+          "facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id"
+          },
+          "classification": {
+            "$ref": "#/components/schemas/OutcomeClassification"
+          },
+          "expected_capacity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Expected Capacity"
+          },
+          "observed_capacity": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed Capacity"
+          },
+          "capacity_difference": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Capacity Difference"
+          },
+          "observed": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ServiceCapacityResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceEvidence"
+            },
+            "type": "array",
+            "title": "Evidence"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          },
+          "unmet_against_planned_demand": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unmet Against Planned Demand"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility_id",
+          "classification",
+          "expected_capacity",
+          "observed_capacity",
+          "capacity_difference",
+          "observed",
+          "evidence",
+          "reasons",
+          "unmet_against_planned_demand"
+        ],
+        "title": "FacilityOutcome"
       },
       "FacilityPlanRow": {
         "properties": {
@@ -3982,6 +5596,265 @@
         ],
         "title": "ObservationResponse"
       },
+      "OutcomeClassification": {
+        "type": "string",
+        "enum": [
+          "at_or_above_expected",
+          "below_expected",
+          "insufficient_evidence",
+          "too_early",
+          "not_comparable"
+        ],
+        "title": "OutcomeClassification"
+      },
+      "OutcomeCoverage": {
+        "properties": {
+          "comparable_facility_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Comparable Facility Ids"
+          },
+          "not_comparable_facility_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Not Comparable Facility Ids"
+          },
+          "excluded_facilities": {
+            "items": {
+              "$ref": "#/components/schemas/FacilityExclusion"
+            },
+            "type": "array",
+            "title": "Excluded Facilities"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "comparable_facility_ids",
+          "not_comparable_facility_ids",
+          "excluded_facilities"
+        ],
+        "title": "OutcomeCoverage"
+      },
+      "OutcomeReview": {
+        "properties": {
+          "engine_version": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Engine Version"
+          },
+          "timing": {
+            "type": "string",
+            "enum": [
+              "too_early",
+              "on_or_after_expected"
+            ],
+            "title": "Timing"
+          },
+          "captured_offset_minutes": {
+            "type": "integer",
+            "title": "Captured Offset Minutes"
+          },
+          "facilities": {
+            "items": {
+              "$ref": "#/components/schemas/FacilityOutcome"
+            },
+            "type": "array",
+            "title": "Facilities"
+          },
+          "coverage": {
+            "$ref": "#/components/schemas/OutcomeCoverage"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          },
+          "review_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Review Id"
+          },
+          "decision_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Decision Id"
+          },
+          "source_type": {
+            "$ref": "#/components/schemas/SourceType"
+          },
+          "source_run_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Source Run Id"
+          },
+          "request_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Request Id"
+          },
+          "actor_name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Actor Name"
+          },
+          "identity_mode": {
+            "type": "string",
+            "const": "demo_self_reported",
+            "title": "Identity Mode"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "captured_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Captured At"
+          },
+          "observation_window_starts_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Observation Window Starts At"
+          },
+          "expected_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expected At"
+          },
+          "target_completion_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Target Completion At"
+          },
+          "decision_status": {
+            "$ref": "#/components/schemas/DecisionStatus"
+          },
+          "decision_version": {
+            "type": "integer",
+            "title": "Decision Version"
+          },
+          "requirement": {
+            "$ref": "#/components/schemas/ServiceRequirement"
+          },
+          "snapshots": {
+            "items": {
+              "$ref": "#/components/schemas/FacilitySnapshotResponse"
+            },
+            "type": "array",
+            "title": "Snapshots"
+          },
+          "schema_version": {
+            "type": "integer",
+            "const": 1,
+            "title": "Schema Version"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "engine_version",
+          "timing",
+          "captured_offset_minutes",
+          "facilities",
+          "coverage",
+          "reasons",
+          "review_id",
+          "decision_id",
+          "source_type",
+          "source_run_id",
+          "request_id",
+          "actor_name",
+          "identity_mode",
+          "note",
+          "captured_at",
+          "observation_window_starts_at",
+          "expected_at",
+          "target_completion_at",
+          "decision_status",
+          "decision_version",
+          "requirement",
+          "snapshots",
+          "schema_version"
+        ],
+        "title": "OutcomeReview",
+        "description": "Captured follow-up review. Reopening returns it; later reports create a new one."
+      },
+      "OutcomeReviewRequest": {
+        "properties": {
+          "actor_name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Actor Name"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "request_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Request Id"
+          },
+          "observation_window_starts_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Observation Window Starts At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "actor_name",
+          "note",
+          "request_id",
+          "observation_window_starts_at"
+        ],
+        "title": "OutcomeReviewRequest"
+      },
       "PlanOutcome": {
         "type": "string",
         "enum": [
@@ -4049,6 +5922,21 @@
           "stale_required_observation"
         ],
         "title": "ReasonCode"
+      },
+      "RejectPayload": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "reject",
+            "title": "Event Type"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_type"
+        ],
+        "title": "RejectPayload"
       },
       "ReportRequest": {
         "properties": {
@@ -4189,6 +6077,71 @@
         ],
         "title": "ResourceEffect"
       },
+      "ResourceEvidence": {
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id"
+          },
+          "observation_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observation Id"
+          },
+          "available_quantity": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Available Quantity"
+          },
+          "observed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed At"
+          },
+          "data_status": {
+            "$ref": "#/components/schemas/DataStatus"
+          },
+          "evidence_status": {
+            "$ref": "#/components/schemas/EvidenceStatus"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_id",
+          "observation_id",
+          "available_quantity",
+          "observed_at",
+          "data_status",
+          "evidence_status"
+        ],
+        "title": "ResourceEvidence"
+      },
       "ResourceOverride": {
         "properties": {
           "facility_id": {
@@ -4247,6 +6200,33 @@
           "quantity"
         ],
         "title": "ResourceQuantity"
+      },
+      "ResourceRequirement": {
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/ResourceUnit"
+          },
+          "required_per_capacity_unit": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Required Per Capacity Unit"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_id",
+          "unit",
+          "required_per_capacity_unit"
+        ],
+        "title": "ResourceRequirement"
       },
       "ResourceSnapshot": {
         "properties": {
@@ -4731,6 +6711,46 @@
         ],
         "title": "ServiceOverride"
       },
+      "ServiceRequirement": {
+        "properties": {
+          "service_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Service Id"
+          },
+          "profile_version": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Profile Version"
+          },
+          "capacity_unit": {
+            "type": "string",
+            "const": "simultaneous_service_place",
+            "title": "Capacity Unit"
+          },
+          "requirements": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceRequirement"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Requirements"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "service_id",
+          "profile_version",
+          "capacity_unit",
+          "requirements"
+        ],
+        "title": "ServiceRequirement",
+        "description": "Configurable requirement profile; demo values are not clinical standards."
+      },
       "ServiceStatus": {
         "type": "string",
         "enum": [
@@ -4815,6 +6835,206 @@
         ],
         "title": "SolverStatus"
       },
+      "SourceExpectation": {
+        "properties": {
+          "source_type": {
+            "$ref": "#/components/schemas/SourceType"
+          },
+          "source_run_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Source Run Id"
+          },
+          "source_engine_version": {
+            "type": "string",
+            "title": "Source Engine Version"
+          },
+          "source_created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Source Created At"
+          },
+          "plan_outcome": {
+            "type": "string",
+            "enum": [
+              "improved",
+              "no_improvement"
+            ],
+            "title": "Plan Outcome"
+          },
+          "incident_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Incident Id"
+          },
+          "revision_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Revision Id"
+          },
+          "baseline_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Baseline Id"
+          },
+          "baseline_captured_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Baseline Captured At"
+          },
+          "service_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Service Id"
+          },
+          "capacity_unit": {
+            "type": "string",
+            "const": "simultaneous_service_place",
+            "title": "Capacity Unit"
+          },
+          "requirement": {
+            "$ref": "#/components/schemas/ServiceRequirement"
+          },
+          "expected_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expected At"
+          },
+          "facilities": {
+            "items": {
+              "$ref": "#/components/schemas/ExpectedFacility"
+            },
+            "type": "array",
+            "title": "Facilities"
+          },
+          "excluded_facilities": {
+            "items": {
+              "$ref": "#/components/schemas/FacilityExclusion"
+            },
+            "type": "array",
+            "title": "Excluded Facilities"
+          },
+          "expected_unmet_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Expected Unmet Service Places"
+          },
+          "proposed_cost_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Proposed Cost Minor Units"
+          },
+          "proposed_capital_cost_minor_units": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Proposed Capital Cost Minor Units"
+          },
+          "proposed_operating_cost_minor_units": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Proposed Operating Cost Minor Units"
+          },
+          "currency": {
+            "type": "string",
+            "const": "USD",
+            "title": "Currency"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "source_type",
+          "source_run_id",
+          "source_engine_version",
+          "source_created_at",
+          "plan_outcome",
+          "incident_id",
+          "revision_id",
+          "baseline_id",
+          "baseline_captured_at",
+          "service_id",
+          "capacity_unit",
+          "requirement",
+          "expected_at",
+          "facilities",
+          "excluded_facilities",
+          "expected_unmet_service_places",
+          "proposed_cost_minor_units",
+          "proposed_capital_cost_minor_units",
+          "proposed_operating_cost_minor_units",
+          "currency"
+        ],
+        "title": "SourceExpectation",
+        "description": "Frozen at decision creation from the saved source run; never recomputed."
+      },
+      "SourceType": {
+        "type": "string",
+        "enum": [
+          "allocation",
+          "investment"
+        ],
+        "title": "SourceType"
+      },
+      "StartPayload": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "start",
+            "title": "Event Type"
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Occurred At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_type",
+          "occurred_at"
+        ],
+        "title": "StartPayload"
+      },
+      "SubmitPayload": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "submit",
+            "title": "Event Type"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_type"
+        ],
+        "title": "SubmitPayload"
+      },
       "Transfer": {
         "properties": {
           "route_id": {
@@ -4877,6 +7097,86 @@
           "cost_minor_units"
         ],
         "title": "Transfer"
+      },
+      "UpdateActionPayload": {
+        "properties": {
+          "event_type": {
+            "type": "string",
+            "const": "update_action",
+            "title": "Event Type"
+          },
+          "action_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Action Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "in_progress",
+              "blocked",
+              "completed"
+            ],
+            "title": "Status"
+          },
+          "occurred_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Occurred At"
+          },
+          "evidence_note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Note"
+          },
+          "actual_cost_minor_units": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual Cost Minor Units"
+          },
+          "blocker_note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Blocker Note"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "event_type",
+          "action_id",
+          "status",
+          "occurred_at",
+          "evidence_note",
+          "actual_cost_minor_units",
+          "blocker_note"
+        ],
+        "title": "UpdateActionPayload"
       },
       "ValidationError": {
         "properties": {

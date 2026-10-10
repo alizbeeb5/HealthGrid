@@ -1,0 +1,174 @@
+{
+  "decision_id": "DEC-DEMO-REPAIR",
+  "source_type": "investment",
+  "source_run_id": "INVRUN-DEMO-IMPROVED",
+  "incident_id": "INC-DEMO-MONITORS",
+  "revision_id": "REV-DEMO-MONITORS-CONFIRMED",
+  "baseline_id": "BASE-DEMO-MONITORS",
+  "title": "Repair and commission five idle monitors at Demo Hospital B",
+  "owner_name": "Biomedical engineering lead (demo)",
+  "rationale": "Cheapest package that closes the modeled gap at B by the evaluation date.",
+  "target_completion_at": "2026-10-21T00:00:00Z",
+  "status": "approved",
+  "version": 3,
+  "identity_mode": "demo_self_reported",
+  "created_at": "2026-10-10T10:30:00Z",
+  "updated_at": "2026-10-10T10:30:00Z",
+  "prerequisite_decision_id": "DEC-DEMO-TRANSFER",
+  "supersedes_decision_id": null,
+  "expectation": {
+    "source_type": "investment",
+    "source_run_id": "INVRUN-DEMO-IMPROVED",
+    "source_engine_version": "investment-cpsat-v1",
+    "source_created_at": "2026-10-10T09:30:00Z",
+    "plan_outcome": "improved",
+    "incident_id": "INC-DEMO-MONITORS",
+    "revision_id": "REV-DEMO-MONITORS-CONFIRMED",
+    "baseline_id": "BASE-DEMO-MONITORS",
+    "baseline_captured_at": "2026-10-10T09:05:00Z",
+    "service_id": "emergency-care",
+    "capacity_unit": "simultaneous_service_place",
+    "requirement": {
+      "service_id": "emergency-care",
+      "profile_version": "demo-v1",
+      "capacity_unit": "simultaneous_service_place",
+      "requirements": [
+        {
+          "resource_id": "available-beds",
+          "unit": "bed",
+          "required_per_capacity_unit": 1
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "unit": "person",
+          "required_per_capacity_unit": 0.5
+        },
+        {
+          "resource_id": "working-monitors",
+          "unit": "item",
+          "required_per_capacity_unit": 1
+        }
+      ]
+    },
+    "expected_at": "2026-11-09T11:00:00Z",
+    "facilities": [
+      {
+        "facility_id": "DEMO-A",
+        "required_service_places": 3,
+        "capacity_before": 3,
+        "expected_capacity": 3
+      },
+      {
+        "facility_id": "DEMO-B",
+        "required_service_places": 8,
+        "capacity_before": 3,
+        "expected_capacity": 8
+      }
+    ],
+    "excluded_facilities": [
+      {
+        "facility_id": "DEMO-C",
+        "reasons": [
+          "no_planning_constraints",
+          "service_unavailable",
+          "stale_required_evidence"
+        ]
+      }
+    ],
+    "expected_unmet_service_places": 0,
+    "proposed_cost_minor_units": 240000,
+    "proposed_capital_cost_minor_units": 150000,
+    "proposed_operating_cost_minor_units": 90000,
+    "currency": "USD"
+  },
+  "actions": [
+    {
+      "action_id": "ACT-INV-B-COMMISSION-5-REPAIRED",
+      "action_type": "project",
+      "reference_id": "INV-B-COMMISSION-5-REPAIRED",
+      "description": "Commission five repaired monitors at Demo Hospital B",
+      "facility_ids": [
+        "DEMO-B"
+      ],
+      "requires_action_ids": [
+        "ACT-INV-B-REPAIR-5-IDLE"
+      ],
+      "status": "pending",
+      "proposed_cost_minor_units": 140000,
+      "proposed_ready_at": "2026-10-20T11:00:00Z",
+      "reported_started_at": null,
+      "reported_completed_at": null,
+      "actual_cost_minor_units": null,
+      "evidence_note": null,
+      "blocker_note": null,
+      "corrections": []
+    },
+    {
+      "action_id": "ACT-INV-B-REPAIR-5-IDLE",
+      "action_type": "project",
+      "reference_id": "INV-B-REPAIR-5-IDLE",
+      "description": "Repair five confirmed idle monitors at Demo Hospital B",
+      "facility_ids": [
+        "DEMO-B"
+      ],
+      "requires_action_ids": [],
+      "status": "pending",
+      "proposed_cost_minor_units": 100000,
+      "proposed_ready_at": "2026-10-17T11:00:00Z",
+      "reported_started_at": null,
+      "reported_completed_at": null,
+      "actual_cost_minor_units": null,
+      "evidence_note": null,
+      "blocker_note": null,
+      "corrections": []
+    }
+  ],
+  "events": [
+    {
+      "event_id": "EVT-72237689-32a9-4cdb-9b72-2ceed7d10f34",
+      "sequence": 1,
+      "event_type": "create",
+      "request_id": null,
+      "actor_name": "Demo planner",
+      "identity_mode": "demo_self_reported",
+      "note": null,
+      "occurred_at": null,
+      "recorded_at": "2026-10-10T10:30:00Z",
+      "payload": null,
+      "status_after": "draft",
+      "version_after": 1
+    },
+    {
+      "event_id": "EVT-ea45f45b-13d8-4ad6-ab00-a75ac6f2823a",
+      "sequence": 2,
+      "event_type": "submit",
+      "request_id": "REQ-R-SUBMIT",
+      "actor_name": "Demo planner",
+      "identity_mode": "demo_self_reported",
+      "note": null,
+      "occurred_at": null,
+      "recorded_at": "2026-10-10T10:30:00Z",
+      "payload": {
+        "event_type": "submit"
+      },
+      "status_after": "pending_review",
+      "version_after": 2
+    },
+    {
+      "event_id": "EVT-2a024f33-583f-4160-a48c-ada9486c4626",
+      "sequence": 3,
+      "event_type": "approve",
+      "request_id": "REQ-R-APPROVE",
+      "actor_name": "Regional director (demo)",
+      "identity_mode": "demo_self_reported",
+      "note": "Within budget; approved.",
+      "occurred_at": null,
+      "recorded_at": "2026-10-10T10:30:00Z",
+      "payload": {
+        "event_type": "approve"
+      },
+      "status_after": "approved",
+      "version_after": 3
+    }
+  ]
+}

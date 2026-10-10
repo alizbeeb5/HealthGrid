@@ -1,0 +1,10 @@
+{
+  "event_type": "approve",
+  "expected_version": 2,
+  "request_id": "REQ-R-APPROVE",
+  "actor_name": "Regional director (demo)",
+  "note": "Within budget; approved.",
+  "payload": {
+    "event_type": "approve"
+  }
+}

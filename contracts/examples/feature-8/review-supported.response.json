@@ -1,0 +1,363 @@
+{
+  "engine_version": "outcome-review-v1",
+  "timing": "on_or_after_expected",
+  "captured_offset_minutes": 1330,
+  "facilities": [
+    {
+      "facility_id": "DEMO-A",
+      "classification": "not_comparable",
+      "expected_capacity": 3,
+      "observed_capacity": null,
+      "capacity_difference": null,
+      "observed": {
+        "service_id": "emergency-care",
+        "service_status": "limited",
+        "profile_version": "demo-v1",
+        "capacity_unit": "simultaneous_service_place",
+        "status": "unknown",
+        "estimated_capacity": null,
+        "bottleneck_resource_ids": [],
+        "resource_limits": [
+          {
+            "resource_id": "available-beds",
+            "unit": "bed",
+            "required_per_capacity_unit": 1,
+            "available_quantity": 12,
+            "capacity_limit": 12,
+            "data_status": "current",
+            "observation_id": "OBS-83d67072-2fbb-46d3-ba29-5d6303899030",
+            "observed_at": "2026-11-10T08:00:00Z"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "unit": "person",
+            "required_per_capacity_unit": 0.5,
+            "available_quantity": 6,
+            "capacity_limit": 12,
+            "data_status": "current",
+            "observation_id": "OBS-e65cb62d-d7ba-4418-b7a9-3970f4c67ce5",
+            "observed_at": "2026-11-10T08:00:00Z"
+          },
+          {
+            "resource_id": "working-monitors",
+            "unit": "item",
+            "required_per_capacity_unit": 1,
+            "available_quantity": 3,
+            "capacity_limit": 3,
+            "data_status": "current",
+            "observation_id": "OBS-98aae76d-2c3a-464a-b80a-6e8d10bad252",
+            "observed_at": "2026-11-10T08:00:00Z"
+          }
+        ],
+        "reason_codes": [
+          "service_restriction_unquantified"
+        ]
+      },
+      "evidence": [
+        {
+          "resource_id": "available-beds",
+          "observation_id": "OBS-83d67072-2fbb-46d3-ba29-5d6303899030",
+          "available_quantity": 12,
+          "observed_at": "2026-11-10T08:00:00Z",
+          "data_status": "current",
+          "evidence_status": "fresh"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "observation_id": "OBS-e65cb62d-d7ba-4418-b7a9-3970f4c67ce5",
+          "available_quantity": 6,
+          "observed_at": "2026-11-10T08:00:00Z",
+          "data_status": "current",
+          "evidence_status": "fresh"
+        },
+        {
+          "resource_id": "working-monitors",
+          "observation_id": "OBS-98aae76d-2c3a-464a-b80a-6e8d10bad252",
+          "available_quantity": 3,
+          "observed_at": "2026-11-10T08:00:00Z",
+          "data_status": "current",
+          "evidence_status": "fresh"
+        }
+      ],
+      "reasons": [
+        "Reported service status is limited; modeled capacity is not quantified."
+      ],
+      "unmet_against_planned_demand": null
+    },
+    {
+      "facility_id": "DEMO-B",
+      "classification": "at_or_above_expected",
+      "expected_capacity": 8,
+      "observed_capacity": 8,
+      "capacity_difference": 0,
+      "observed": {
+        "service_id": "emergency-care",
+        "service_status": "operating",
+        "profile_version": "demo-v1",
+        "capacity_unit": "simultaneous_service_place",
+        "status": "calculated",
+        "estimated_capacity": 8,
+        "bottleneck_resource_ids": [
+          "working-monitors"
+        ],
+        "resource_limits": [
+          {
+            "resource_id": "available-beds",
+            "unit": "bed",
+            "required_per_capacity_unit": 1,
+            "available_quantity": 18,
+            "capacity_limit": 18,
+            "data_status": "current",
+            "observation_id": "OBS-39abaf5d-9d49-4a99-8adf-57b855c74be2",
+            "observed_at": "2026-11-10T08:00:00Z"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "unit": "person",
+            "required_per_capacity_unit": 0.5,
+            "available_quantity": 9,
+            "capacity_limit": 18,
+            "data_status": "current",
+            "observation_id": "OBS-f9c17bfd-d1a9-4ef7-a479-1db98f6d2135",
+            "observed_at": "2026-11-10T08:00:00Z"
+          },
+          {
+            "resource_id": "working-monitors",
+            "unit": "item",
+            "required_per_capacity_unit": 1,
+            "available_quantity": 8,
+            "capacity_limit": 8,
+            "data_status": "current",
+            "observation_id": "OBS-0c6b71b7-d72e-4f6e-a621-68214ffea0e6",
+            "observed_at": "2026-11-10T08:00:00Z"
+          }
+        ],
+        "reason_codes": []
+      },
+      "evidence": [
+        {
+          "resource_id": "available-beds",
+          "observation_id": "OBS-39abaf5d-9d49-4a99-8adf-57b855c74be2",
+          "available_quantity": 18,
+          "observed_at": "2026-11-10T08:00:00Z",
+          "data_status": "current",
+          "evidence_status": "fresh"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "observation_id": "OBS-f9c17bfd-d1a9-4ef7-a479-1db98f6d2135",
+          "available_quantity": 9,
+          "observed_at": "2026-11-10T08:00:00Z",
+          "data_status": "current",
+          "evidence_status": "fresh"
+        },
+        {
+          "resource_id": "working-monitors",
+          "observation_id": "OBS-0c6b71b7-d72e-4f6e-a621-68214ffea0e6",
+          "available_quantity": 8,
+          "observed_at": "2026-11-10T08:00:00Z",
+          "data_status": "current",
+          "evidence_status": "fresh"
+        }
+      ],
+      "reasons": [],
+      "unmet_against_planned_demand": 0
+    }
+  ],
+  "coverage": {
+    "comparable_facility_ids": [
+      "DEMO-B"
+    ],
+    "not_comparable_facility_ids": [
+      "DEMO-A"
+    ],
+    "excluded_facilities": [
+      {
+        "facility_id": "DEMO-C",
+        "reasons": [
+          "no_planning_constraints",
+          "service_unavailable",
+          "stale_required_evidence"
+        ]
+      }
+    ]
+  },
+  "reasons": [],
+  "review_id": "REVIEW-DEMO-SUPPORTED",
+  "decision_id": "DEC-DEMO-REPAIR",
+  "source_type": "investment",
+  "source_run_id": "INVRUN-DEMO-IMPROVED",
+  "request_id": "REQ-REVIEW-2",
+  "actor_name": "Planning analyst (demo)",
+  "identity_mode": "demo_self_reported",
+  "note": null,
+  "captured_at": "2026-11-10T09:10:00Z",
+  "observation_window_starts_at": "2026-11-09T00:00:00Z",
+  "expected_at": "2026-11-09T11:00:00Z",
+  "target_completion_at": "2026-10-21T00:00:00Z",
+  "decision_status": "completed",
+  "decision_version": 11,
+  "requirement": {
+    "service_id": "emergency-care",
+    "profile_version": "demo-v1",
+    "capacity_unit": "simultaneous_service_place",
+    "requirements": [
+      {
+        "resource_id": "available-beds",
+        "unit": "bed",
+        "required_per_capacity_unit": 1
+      },
+      {
+        "resource_id": "nurses-on-duty",
+        "unit": "person",
+        "required_per_capacity_unit": 0.5
+      },
+      {
+        "resource_id": "working-monitors",
+        "unit": "item",
+        "required_per_capacity_unit": 1
+      }
+    ]
+  },
+  "snapshots": [
+    {
+      "facility": {
+        "facility_id": "DEMO-A",
+        "name": "Demo Hospital A",
+        "latitude": 33.9,
+        "longitude": 35.5,
+        "last_reported_at": "2026-11-10T09:05:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-A",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "limited"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "OBS-83d67072-2fbb-46d3-ba29-5d6303899030",
+          "available_quantity": 12,
+          "observed_at": "2026-11-10T08:00:00Z",
+          "recorded_at": "2026-11-10T09:05:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "OBS-e65cb62d-d7ba-4418-b7a9-3970f4c67ce5",
+          "available_quantity": 6,
+          "observed_at": "2026-11-10T08:00:00Z",
+          "recorded_at": "2026-11-10T09:05:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "OBS-DEMO-A-3",
+          "available_quantity": 800.5,
+          "observed_at": "2026-10-10T08:30:00Z",
+          "recorded_at": "2026-10-10T08:35:00Z",
+          "data_status": "stale"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "OBS-98aae76d-2c3a-464a-b80a-6e8d10bad252",
+          "available_quantity": 3,
+          "observed_at": "2026-11-10T08:00:00Z",
+          "recorded_at": "2026-11-10T09:05:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-11-10T09:10:00Z",
+      "stale_after_hours": 24
+    },
+    {
+      "facility": {
+        "facility_id": "DEMO-B",
+        "name": "Demo Hospital B",
+        "latitude": 33.88,
+        "longitude": 35.53,
+        "last_reported_at": "2026-11-10T09:05:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-B",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "OBS-39abaf5d-9d49-4a99-8adf-57b855c74be2",
+          "available_quantity": 18,
+          "observed_at": "2026-11-10T08:00:00Z",
+          "recorded_at": "2026-11-10T09:05:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "OBS-f9c17bfd-d1a9-4ef7-a479-1db98f6d2135",
+          "available_quantity": 9,
+          "observed_at": "2026-11-10T08:00:00Z",
+          "recorded_at": "2026-11-10T09:05:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "OBS-DEMO-B-3",
+          "available_quantity": 1200,
+          "observed_at": "2026-10-10T08:30:00Z",
+          "recorded_at": "2026-10-10T08:35:00Z",
+          "data_status": "stale"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "OBS-0c6b71b7-d72e-4f6e-a621-68214ffea0e6",
+          "available_quantity": 8,
+          "observed_at": "2026-11-10T08:00:00Z",
+          "recorded_at": "2026-11-10T09:05:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-11-10T09:10:00Z",
+      "stale_after_hours": 24
+    }
+  ],
+  "schema_version": 1
+}

@@ -54,6 +54,8 @@ Manual incident entry remains available without AI. Feature 6 allocation runs
 (saved transfer proposals from a frozen simulation) exist in the backend; the
 OR-Tools engine and planning screen are connected: reviewed constraints create and save a monitor-transfer proposal, and its URL reopens the frozen result. Feature 7 investment runs (saved funding
 packages from a saved allocation proposal) and the starter catalog exist in the
-backend; the OR-Tools investment engine and screen are connected. Projects are evaluated against frozen post-allocation quantities, independently verified and persisted for reopening. Domain routers are
+backend; the OR-Tools investment engine and screen are connected. Projects are evaluated against frozen post-allocation quantities, independently verified and persisted for reopening. Feature 8 decisions (frozen proposal expectations, legal transitions, action
+tracking and captured outcome reviews) exist in the backend; the outcome engine and
+decision board are not merged yet. Approval never changes hospital inventory. Domain routers are
 registered in `app/routes.py`. Authentication is not implemented. Paid AI behavior
 requires live account verification.

@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "version_conflict",
+    "message": "The decision changed since you loaded it; reload and retry.",
+    "fields": [],
+    "current_version": 2,
+    "existing_decision_id": null
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "idempotency_conflict",
+    "message": "This request_id was already used with a different request.",
+    "fields": [],
+    "current_version": null,
+    "existing_decision_id": null
+  }
+}

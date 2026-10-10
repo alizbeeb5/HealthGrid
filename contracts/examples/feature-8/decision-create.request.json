@@ -1,0 +1,11 @@
+{
+  "source_type": "investment",
+  "source_run_id": "INVRUN-DEMO-IMPROVED",
+  "title": "Repair and commission five idle monitors at Demo Hospital B",
+  "owner_name": "Biomedical engineering lead (demo)",
+  "rationale": "Cheapest package that closes the modeled gap at B by the evaluation date.",
+  "target_completion_at": "2026-10-21T00:00:00Z",
+  "actor_name": "Demo planner",
+  "prerequisite_decision_id": "DEC-DEMO-TRANSFER",
+  "supersedes_decision_id": null
+}

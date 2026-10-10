@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "prerequisite_not_met",
+    "message": "Complete ACT-INV-B-REPAIR-5-IDLE before ACT-INV-B-COMMISSION-5-REPAIRED.",
+    "fields": [],
+    "current_version": null,
+    "existing_decision_id": null
+  }
+}

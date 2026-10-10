@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "duplicate_source_decision",
+    "message": "This source run already has an active or completed decision.",
+    "fields": [],
+    "current_version": null,
+    "existing_decision_id": "DEC-DEMO-REPAIR"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "error": {
+    "code": "invalid_transition",
+    "message": "Cannot approve a decision that is draft.",
+    "fields": [],
+    "current_version": null,
+    "existing_decision_id": null
+  }
+}

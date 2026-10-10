@@ -1,6 +1,44 @@
 # Feature 8 — Decision tracking and outcome review
 
-Status: implementation plan. Features 6 and 7 provide saved allocation/investment
+Status: backend implemented — `modules/decisions` (schemas, pure `transitions.py`
+state machine, router, service, repository, models), migration `0007_decisions`,
+all six endpoints (registered in `app/routes.py`), OpenAPI and examples in
+`contracts/examples/feature-8/`. Review capture returns HTTP 500 until
+`engines/outcomes.py` provides `evaluate_outcome`; decision tracking works now.
+
+Backend interface decisions for the outcome-engine owner (`decisions/schemas.py`):
+- `OutcomeEvaluationInput`: `service_id`, `capacity_unit`, frozen `requirement`,
+  `expected_at`, `target_completion_at` (separate), `observation_window_starts_at`,
+  `captured_at`, `stale_after_hours`, `decision_status`, `facilities` (frozen
+  required places, `capacity_before`, `expected_capacity` and the snapshot captured
+  at review time) and the source's `excluded_facilities`.
+- `OutcomeEvaluationResult`: `engine_version`, `timing` (`too_early` /
+  `on_or_after_expected`), signed `captured_offset_minutes`, per-facility
+  `FacilityOutcome` (classification, expected/observed capacity, difference, the
+  capacity-engine result, per-resource `evidence`, reasons and
+  `unmet_against_planned_demand`), `coverage` and reasons.
+- Evidence rule (`decisions.service.evidence_status`): `missing` without an
+  observation; `outside_window` before the window or after capture; `stale` when the
+  captured report is not current; otherwise `fresh`. A row is comparable only when
+  the review is on/after the expected date and every required resource is fresh;
+  observed capacity must equal the capacity engine on the captured snapshot. A
+  limited reported service is therefore `not_comparable` (capacity not quantified).
+- The backend re-checks rows, expected values, evidence, timing, comparability and
+  observed capacity before saving; a failing evaluation is a 500 and is never saved.
+- Decision record: frozen `expectation` (expected date, facilities, profile,
+  proposed costs split from optional actual costs), generated `actions`
+  (`ACT-<route_id>` / `ACT-<candidate_id>`, prerequisites mapped) and the event
+  timeline. `start` and `occurred_at` are explicit; future times beyond the 5-minute
+  skew are 422. Correct a completed action with `correct_action_report`.
+- Errors: shared envelope with `invalid_request` (422), `source_run_not_found`,
+  `decision_not_found`, `review_not_found` (404), `invalid_transition`,
+  `prerequisite_not_met`, `duplicate_source_decision`, `version_conflict`,
+  `idempotency_conflict` (409); `current_version` / `existing_decision_id` when set.
+- Examples come from the live API with the real allocation and investment engines
+  and a contract-faithful reference evaluator. Event/decision IDs are generated, so
+  tests compare examples after normalizing ID values.
+
+Features 6 and 7 provide saved allocation/investment
 proposals; this milestone records human choices, reported execution and follow-up
 evidence. It does not change or rerun those proposals.
 
