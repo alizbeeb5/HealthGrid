@@ -26,6 +26,7 @@ services:
       - "127.0.0.1:8000:8000"
     volumes:
       - ./apps/api:/workspace/apps/api
+      - ./data/synthetic:/workspace/data/synthetic:ro
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     depends_on:
       db:

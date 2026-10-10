@@ -59,6 +59,10 @@ def list_facilities(db: Session) -> FacilityListResponse:
     return FacilityListResponse(items=[_facility(row) for row in repository.list_facilities(db)])
 
 
+def list_resource_definitions(db: Session) -> list[ResourceDefinition]:
+    return [_definition(resource) for resource in repository.list_resource_definitions(db)]
+
+
 def get_snapshot(db: Session, facility_id: str, now: datetime) -> FacilitySnapshotResponse:
     row = repository.get_facility(db, facility_id)
     if row is None:

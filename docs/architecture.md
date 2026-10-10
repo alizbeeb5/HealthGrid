@@ -39,5 +39,7 @@ The hospital snapshot frontend connects to Feature 1 facility persistence:
 facilities, services, resource definitions and append-only observations, with list,
 snapshot and observation endpoints. An optional synthetic demo stores updates in
 the browser. Other frontend routes remain page shells. The API liveness endpoint,
-database connection setup and migration infrastructure exist. Capacity,
-authentication, forecasting and optimization are not implemented. No AI requests execute.
+database connection setup and migration infrastructure exist. The Feature 2
+capacity endpoint and schemas exist, but the capacity engine is not merged yet, so
+capacity results are not available. Authentication, forecasting and optimization are
+not implemented. No AI requests execute.

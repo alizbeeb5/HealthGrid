@@ -144,6 +144,61 @@
         }
       }
     },
+    "/api/v1/capacity/facilities/{facility_id}": {
+      "get": {
+        "tags": [
+          "capacity"
+        ],
+        "summary": "Get Facility Capacity",
+        "description": "Modeled single-service capacity from reported resources.\n\nA resource-based estimate under demo requirement profiles, not confirmed spare\nadmission capacity. Unknown capacity is a successful result, not an error.",
+        "operationId": "get_facility_capacity",
+        "parameters": [
+          {
+            "name": "facility_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Facility Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FacilityCapacityResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Facility does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request or observation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "tags": [
@@ -169,6 +224,16 @@
   },
   "components": {
     "schemas": {
+      "CapacityStatus": {
+        "type": "string",
+        "enum": [
+          "calculated",
+          "unknown",
+          "unavailable",
+          "not_configured"
+        ],
+        "title": "CapacityStatus"
+      },
       "DataStatus": {
         "type": "string",
         "enum": [
@@ -273,6 +338,49 @@
           "last_reported_at"
         ],
         "title": "Facility"
+      },
+      "FacilityCapacityResponse": {
+        "properties": {
+          "facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id"
+          },
+          "as_of": {
+            "type": "string",
+            "format": "date-time",
+            "title": "As Of"
+          },
+          "stale_after_hours": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Stale After Hours"
+          },
+          "calculation_scope": {
+            "type": "string",
+            "const": "single_service",
+            "title": "Calculation Scope"
+          },
+          "services": {
+            "items": {
+              "$ref": "#/components/schemas/ServiceCapacityResult"
+            },
+            "type": "array",
+            "title": "Services"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility_id",
+          "as_of",
+          "stale_after_hours",
+          "calculation_scope",
+          "services"
+        ],
+        "title": "FacilityCapacityResponse"
       },
       "FacilityListResponse": {
         "properties": {
@@ -493,6 +601,102 @@
         ],
         "title": "ObservationResponse"
       },
+      "ReasonCode": {
+        "type": "string",
+        "enum": [
+          "service_unavailable",
+          "requirements_not_configured",
+          "service_restriction_unquantified",
+          "missing_required_observation",
+          "stale_required_observation"
+        ],
+        "title": "ReasonCode"
+      },
+      "ResourceCapacityLimit": {
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/ResourceUnit"
+          },
+          "required_per_capacity_unit": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Required Per Capacity Unit"
+          },
+          "available_quantity": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Available Quantity"
+          },
+          "capacity_limit": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Capacity Limit"
+          },
+          "data_status": {
+            "$ref": "#/components/schemas/DataStatus"
+          },
+          "observation_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observation Id"
+          },
+          "observed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_id",
+          "unit",
+          "required_per_capacity_unit",
+          "available_quantity",
+          "capacity_limit",
+          "data_status",
+          "observation_id",
+          "observed_at"
+        ],
+        "title": "ResourceCapacityLimit"
+      },
       "ResourceCategory": {
         "type": "string",
         "enum": [
@@ -608,6 +812,91 @@
           "liter"
         ],
         "title": "ResourceUnit"
+      },
+      "ServiceCapacityResult": {
+        "properties": {
+          "service_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Service Id"
+          },
+          "service_status": {
+            "$ref": "#/components/schemas/ServiceStatus"
+          },
+          "profile_version": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profile Version"
+          },
+          "capacity_unit": {
+            "type": "string",
+            "const": "simultaneous_service_place",
+            "title": "Capacity Unit"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CapacityStatus"
+          },
+          "estimated_capacity": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Estimated Capacity"
+          },
+          "bottleneck_resource_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Bottleneck Resource Ids"
+          },
+          "resource_limits": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceCapacityLimit"
+            },
+            "type": "array",
+            "title": "Resource Limits"
+          },
+          "reason_codes": {
+            "items": {
+              "$ref": "#/components/schemas/ReasonCode"
+            },
+            "type": "array",
+            "title": "Reason Codes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "service_id",
+          "service_status",
+          "profile_version",
+          "capacity_unit",
+          "status",
+          "estimated_capacity",
+          "bottleneck_resource_ids",
+          "resource_limits",
+          "reason_codes"
+        ],
+        "title": "ServiceCapacityResult"
       },
       "ServiceStatus": {
         "type": "string",

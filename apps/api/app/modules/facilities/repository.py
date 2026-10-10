@@ -48,6 +48,10 @@ def list_services(db: Session, facility_id: str) -> list[Row[tuple[FacilityServi
     return list(db.execute(stmt))
 
 
+def list_resource_definitions(db: Session) -> list[ResourceDefinition]:
+    return list(db.scalars(select(ResourceDefinition).order_by(ResourceDefinition.resource_id)))
+
+
 def list_applicable_resources(db: Session, facility_id: str) -> list[ResourceDefinition]:
     stmt = (
         select(ResourceDefinition)

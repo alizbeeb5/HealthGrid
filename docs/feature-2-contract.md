@@ -1,7 +1,10 @@
 # Feature 2: Current capacity and bottlenecks
 
-Status: agreed implementation brief; the endpoint and engine below are proposed,
-not implemented. Keep the existing stack and Feature 1 wire names.
+Status: the backend schemas and endpoint are implemented and included in
+`contracts/openapi.json`. The endpoint returns HTTP 500 until the capacity engine
+(`engines/capacity.py`) and the runtime profile
+`data/synthetic/feature-2/service-requirements.json` (one profile object, or a
+list of them) are merged. Keep the existing stack and Feature 1 wire names.
 
 ## User outcome
 
