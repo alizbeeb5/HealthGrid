@@ -1,3 +1,6 @@
+> Superseded draft: use [feature-5-contract.md](feature-5-contract.md) for the
+> active Feature 5 agreement, which includes deterministic impact simulation.
+
 # Feature 5: Emergency intake and confirmed incident baseline
 
 Status: design only. No incident endpoints, persistence or model calls are implemented

@@ -1,11 +1,11 @@
 # Three-person workflow
 
 See `product-scope.md` for the finalized routine/crisis workflow and `next-tasks.md`
-for broad workstreams. The active Feature 4 assignments and shared interfaces
-are in `feature-4-forecast-contract.md`. Frontend owns the forecast screen;
-backend owns daily history, imports, migrations and shared contracts;
-the third teammate owns the forecasting engine and synthetic history.
-Features 1–3 remain the observation, capacity and network contracts.
+for broad workstreams. The active Feature 5 assignments and shared interfaces
+are in `feature-5-contract.md`. Frontend owns emergency review/comparison screens;
+backend owns incident persistence, immutable baselines and the simulation engine;
+the third teammate owns Decisions/Responses adapters and report evaluation cases.
+Features 1–4 remain the observation, capacity, network and forecast contracts.
 
 | Owner | Primary files | Deliverable |
 | --- | --- | --- |
