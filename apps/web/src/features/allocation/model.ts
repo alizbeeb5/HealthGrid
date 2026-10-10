@@ -22,6 +22,8 @@ export type Proposal = {
   transfers: { route_id: string; from: string; to: string; quantity: number; unit: "item"; lead_time_minutes: number; cost_minor_units: number }[];
   total_cost_minor_units: number | null; remaining_gap_reasons: string[];
   validation_passed: boolean; review_required: boolean; objective: string; solve_duration_ms: number | null;
+  engine_version?: string; solver_version?: string;
+  solver_settings?: { time_limit_seconds: number; objective_order: string[] };
 };
 export function blankConstraint(facility_id: string): FacilityConstraint {
   return { facility_id, required_service_places: "", minimum_retained_service_places: "", minimum_retained_resource_quantity: "", transferable_quantity: "", maximum_inbound_quantity: "", source_note: "", confirmed_at: "" };
@@ -55,7 +57,7 @@ export function validatePlanning(form: PlanningForm, source: PlanningSource): st
     if (!route.route_id.trim() || routeIds.has(route.route_id) || directions.has(pair)) errors.push("Routes require unique IDs and directed hospital pairs.");
     routeIds.add(route.route_id); directions.add(pair);
     if (route.from_facility_id === route.to_facility_id || !included.has(route.from_facility_id) || !included.has(route.to_facility_id)) errors.push("Routes must connect two different included hospitals.");
-    integer(route.lead_time_minutes, `${route.route_id} — lead time`); integer(route.cost_per_unit_minor_units, `${route.route_id} — cost per item (USD cents)`); integer(route.maximum_quantity, `${route.route_id} — route quantity limit`);
+    integer(route.lead_time_minutes, `${route.route_id} — lead time`); integer(route.cost_per_unit_minor_units, `${route.route_id} — cost per item (USD cents)`); integer(route.maximum_quantity, `${route.route_id} — route quantity limit`, true);
     provenance(route.source_note, route.confirmed_at, route.route_id);
   }
   if (form.assumptions.some((item) => !item.trim())) errors.push("Enter or remove empty assumptions.");

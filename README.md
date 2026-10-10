@@ -11,7 +11,7 @@ should we fund?
 
 This is a development scaffold with a hospital snapshot frontend, `/health` and
 the Feature 1 facility endpoints (list, snapshot, append observation). The network
-overview and seven-day forecast screen/API are implemented. Allocations, investments,
+overview and seven-day forecast screen/API are implemented. Incident simulation and monitor allocation screens/APIs are connected. Investments,
 authentication and remaining domain models are placeholders. Existing PyCharm `main.py` is preserved and is not the API entry point.
 
 ## Requirements

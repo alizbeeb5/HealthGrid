@@ -52,6 +52,6 @@ incident screen. Decisions assessment and Responses extraction are server-side
 endpoints invoked only by explicit review actions when configured with an API key.
 Manual incident entry remains available without AI. Feature 6 allocation runs
 (saved transfer proposals from a frozen simulation) exist in the backend; the
-OR-Tools engine and planning screen are not merged yet. Domain routers are
+OR-Tools engine and planning screen are connected: reviewed constraints create and save a monitor-transfer proposal, and its URL reopens the frozen result. Domain routers are
 registered in `app/routes.py`. Authentication is not implemented. Paid AI behavior
 requires live account verification.

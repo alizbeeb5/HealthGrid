@@ -237,6 +237,47 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/allocation/runs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Allocation Run
+         * @description Solve and save a transfer proposal from a saved simulation's frozen scenario.
+         *     Needs-inputs, no-improvement and no-solution outcomes are saved results too.
+         */
+        post: operations["create_allocation_run"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/allocation/runs/{allocation_run_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Allocation Run
+         * @description The saved proposal as computed; reopening never re-solves.
+         */
+        get: operations["get_allocation_run"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/intelligence/incidents/advice": {
         parameters: {
             query?: never;
@@ -319,6 +360,101 @@ export interface components {
             /** Value */
             value: string | number | boolean | null;
         };
+        /** AllocationErrorDetail */
+        AllocationErrorDetail: {
+            /**
+             * Code
+             * @enum {string}
+             */
+            code: "invalid_request" | "simulation_run_not_found" | "allocation_run_not_found";
+            /** Message */
+            message: string;
+            /** Fields */
+            fields: components["schemas"]["FieldError"][];
+        };
+        /** AllocationErrorResponse */
+        AllocationErrorResponse: {
+            error: components["schemas"]["AllocationErrorDetail"];
+        };
+        /**
+         * AllocationRun
+         * @description Saved proposal. Reopening returns this record; it is never re-solved.
+         */
+        AllocationRun: {
+            /** Engine Version */
+            engine_version: string;
+            /** Solver Version */
+            solver_version: string;
+            solver_status: components["schemas"]["SolverStatus"];
+            plan_outcome: components["schemas"]["PlanOutcome"];
+            coverage: components["schemas"]["Coverage"];
+            baseline_summary: components["schemas"]["PlanSummary"];
+            proposed_summary: components["schemas"]["PlanSummary"] | null;
+            /** Transfers */
+            transfers: components["schemas"]["Transfer"][];
+            /** Total Cost Minor Units */
+            total_cost_minor_units: number;
+            /** Remaining Gap Reasons */
+            remaining_gap_reasons: string[];
+            /** Validation Passed */
+            validation_passed: boolean;
+            /**
+             * Review Required
+             * @constant
+             */
+            review_required: true;
+            /** Objective Description */
+            objective_description: string;
+            /** Solve Duration Ms */
+            solve_duration_ms: number;
+            /** Allocation Run Id */
+            allocation_run_id: string;
+            /** Simulation Run Id */
+            simulation_run_id: string;
+            /** Incident Id */
+            incident_id: string;
+            /** Revision Id */
+            revision_id: string;
+            /** Baseline Id */
+            baseline_id: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Schema Version
+             * @constant
+             */
+            schema_version: 1;
+            input: components["schemas"]["AllocationRunRequest"];
+            solver_settings: components["schemas"]["SolverSettings"];
+        };
+        /** AllocationRunRequest */
+        AllocationRunRequest: {
+            /** Simulation Run Id */
+            simulation_run_id: string;
+            /**
+             * Resource Id
+             * @constant
+             */
+            resource_id: "working-monitors";
+            /** Planning Horizon Minutes */
+            planning_horizon_minutes: number;
+            /** Budget Minor Units */
+            budget_minor_units: number;
+            /**
+             * Currency
+             * @constant
+             */
+            currency: "USD";
+            /** Facility Constraints */
+            facility_constraints: components["schemas"]["FacilityConstraint"][];
+            /** Routes */
+            routes: components["schemas"]["RouteConstraint"][];
+            /** Assumptions */
+            assumptions: string[];
+        };
         /**
          * AppliedResourceOverride
          * @description Scenario quantity is a planner assumption, not a reported observation.
@@ -375,6 +511,13 @@ export interface components {
          * @enum {string}
          */
         CapacityStatus: "calculated" | "unknown" | "unavailable" | "not_configured";
+        /** Coverage */
+        Coverage: {
+            /** Included Facility Ids */
+            included_facility_ids: string[];
+            /** Excluded */
+            excluded: components["schemas"]["FacilityExclusion"][];
+        };
         /**
          * DataQuality
          * @enum {string}
@@ -463,6 +606,11 @@ export interface components {
             /** Source Excerpt */
             source_excerpt: string;
         };
+        /**
+         * ExclusionReason
+         * @enum {string}
+         */
+        ExclusionReason: "no_planning_constraints" | "service_unavailable" | "service_limited" | "requirements_not_configured" | "missing_required_evidence" | "stale_required_evidence";
         /** ExtractionResponse[IncidentDraftInput] */
         ExtractionResponse_IncidentDraftInput_: {
             /**
@@ -514,6 +662,39 @@ export interface components {
             /** Services */
             services: components["schemas"]["ServiceCapacityResult"][];
         };
+        /**
+         * FacilityConstraint
+         * @description Planner-confirmed limits for one facility. transferable_quantity is explicitly
+         *     approved movable inventory, not all reported equipment.
+         */
+        FacilityConstraint: {
+            /** Facility Id */
+            facility_id: string;
+            /** Required Service Places */
+            required_service_places: number;
+            /** Minimum Retained Service Places */
+            minimum_retained_service_places: number;
+            /** Minimum Retained Resource Quantity */
+            minimum_retained_resource_quantity: number;
+            /** Transferable Quantity */
+            transferable_quantity: number;
+            /** Maximum Inbound Quantity */
+            maximum_inbound_quantity: number;
+            /** Source Note */
+            source_note: string;
+            /**
+             * Confirmed At
+             * Format: date-time
+             */
+            confirmed_at: string;
+        };
+        /** FacilityExclusion */
+        FacilityExclusion: {
+            /** Facility Id */
+            facility_id: string;
+            /** Reasons */
+            reasons: components["schemas"]["ExclusionReason"][];
+        };
         /** FacilityForecastResponse */
         FacilityForecastResponse: {
             /** Facility Id */
@@ -550,6 +731,24 @@ export interface components {
         FacilityListResponse: {
             /** Items */
             items: components["schemas"]["Facility"][];
+        };
+        /** FacilityPlanRow */
+        FacilityPlanRow: {
+            /** Facility Id */
+            facility_id: string;
+            service_status: components["schemas"]["ServiceStatus"];
+            /** Required Service Places */
+            required_service_places: number;
+            /** Resource Quantity */
+            resource_quantity: number | null;
+            /** Estimated Capacity */
+            estimated_capacity: number | null;
+            /** Covered Service Places */
+            covered_service_places: number | null;
+            /** Unmet Service Places */
+            unmet_service_places: number | null;
+            /** Bottleneck Resource Ids */
+            bottleneck_resource_ids: string[];
         };
         /** FacilityService */
         FacilityService: {
@@ -889,6 +1088,27 @@ export interface components {
             recorded_at: string;
         };
         /**
+         * PlanOutcome
+         * @enum {string}
+         */
+        PlanOutcome: "needs_inputs" | "improved" | "no_improvement" | "no_solution";
+        /**
+         * PlanSummary
+         * @description Totals over included facilities only; excluded demand is not counted as zero.
+         */
+        PlanSummary: {
+            /** Included Facility Ids */
+            included_facility_ids: string[];
+            /** Required Service Places */
+            required_service_places: number;
+            /** Covered Service Places */
+            covered_service_places: number;
+            /** Unmet Service Places */
+            unmet_service_places: number;
+            /** Rows */
+            rows: components["schemas"]["FacilityPlanRow"][];
+        };
+        /**
          * ReasonCode
          * @enum {string}
          */
@@ -978,6 +1198,31 @@ export interface components {
          * @enum {string}
          */
         RevisionStatus: "draft" | "confirmed";
+        /**
+         * RouteConstraint
+         * @description An explicitly approved directed route; coordinates never imply one.
+         */
+        RouteConstraint: {
+            /** Route Id */
+            route_id: string;
+            /** From Facility Id */
+            from_facility_id: string;
+            /** To Facility Id */
+            to_facility_id: string;
+            /** Lead Time Minutes */
+            lead_time_minutes: number;
+            /** Cost Per Unit Minor Units */
+            cost_per_unit_minor_units: number;
+            /** Maximum Quantity */
+            maximum_quantity: number;
+            /** Source Note */
+            source_note: string;
+            /**
+             * Confirmed At
+             * Format: date-time
+             */
+            confirmed_at: string;
+        };
         /** ScenarioErrorDetail */
         ScenarioErrorDetail: {
             /**
@@ -1050,6 +1295,36 @@ export interface components {
              */
             schema_version: 1;
             impact: components["schemas"]["IncidentImpact"];
+        };
+        /** SolverSettings */
+        SolverSettings: {
+            /** Time Limit Seconds */
+            time_limit_seconds: number;
+            /** Objective Order */
+            objective_order: string[];
+        };
+        /**
+         * SolverStatus
+         * @enum {string}
+         */
+        SolverStatus: "not_run" | "optimal" | "feasible" | "infeasible" | "unknown";
+        /** Transfer */
+        Transfer: {
+            /** Route Id */
+            route_id: string;
+            /** From Facility Id */
+            from_facility_id: string;
+            /** To Facility Id */
+            to_facility_id: string;
+            /** Resource Id */
+            resource_id: string;
+            /** Quantity */
+            quantity: number;
+            unit: components["schemas"]["ResourceUnit"];
+            /** Lead Time Minutes */
+            lead_time_minutes: number;
+            /** Cost Minor Units */
+            cost_minor_units: number;
         };
         /** ValidationError */
         ValidationError: {
@@ -1552,6 +1827,88 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ScenarioErrorResponse"];
+                };
+            };
+        };
+    };
+    create_allocation_run: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AllocationRunRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AllocationRun"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AllocationErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AllocationErrorResponse"];
+                };
+            };
+        };
+    };
+    get_allocation_run: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                allocation_run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AllocationRun"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AllocationErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AllocationErrorResponse"];
                 };
             };
         };

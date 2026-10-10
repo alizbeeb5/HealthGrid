@@ -1,0 +1,66 @@
+{
+  "title": "Fictional monitor-loss allocation demonstration",
+  "report_text": "Fictional planning scenario: Demo Hospital A operates with 12 beds, 6 nurses and 4 monitors. Demo Hospital B operates with 18 beds, 9 nurses and 2 monitors after a monitor loss. These are confirmed synthetic assumptions, not reported observations.",
+  "service_id": "emergency-care",
+  "starts_at": "2026-10-10T09:00:00Z",
+  "expected_ends_at": null,
+  "affected_facility_ids": [
+    "DEMO-A",
+    "DEMO-B"
+  ],
+  "service_overrides": [
+    {
+      "facility_id": "DEMO-A",
+      "service_id": "emergency-care",
+      "status": "operating",
+      "restriction_note": null
+    },
+    {
+      "facility_id": "DEMO-B",
+      "service_id": "emergency-care",
+      "status": "operating",
+      "restriction_note": null
+    }
+  ],
+  "resource_overrides": [
+    {
+      "facility_id": "DEMO-A",
+      "resource_id": "available-beds",
+      "available_quantity": 12.0,
+      "unit": "bed"
+    },
+    {
+      "facility_id": "DEMO-A",
+      "resource_id": "nurses-on-duty",
+      "available_quantity": 6.0,
+      "unit": "person"
+    },
+    {
+      "facility_id": "DEMO-A",
+      "resource_id": "working-monitors",
+      "available_quantity": 4.0,
+      "unit": "item"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "resource_id": "available-beds",
+      "available_quantity": 18.0,
+      "unit": "bed"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "resource_id": "nurses-on-duty",
+      "available_quantity": 9.0,
+      "unit": "person"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "resource_id": "working-monitors",
+      "available_quantity": 2.0,
+      "unit": "item"
+    }
+  ],
+  "assumptions": [
+    "Fictional compatible-equipment demonstration; manual demand and transport approvals are provided separately."
+  ]
+}

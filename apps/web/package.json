@@ -20,7 +20,8 @@
     "test:forecasting": "tsc -p tsconfig.test.json && node --test --experimental-test-isolation=none .test-build/apps/web/tests/forecasting.test.js",
     "test:intelligence": "tsc -p tsconfig.test.json && node --test --experimental-test-isolation=none .test-build/apps/web/tests/intelligence.test.js",
     "generate:api": "openapi-typescript ../../contracts/openapi.json -o src/lib/api/schema.d.ts",
-    "generate:feature-1": "openapi-typescript ../../contracts/feature-1.openapi.json -o src/lib/api/feature-1-schema.d.ts"
+    "generate:feature-1": "openapi-typescript ../../contracts/feature-1.openapi.json -o src/lib/api/feature-1-schema.d.ts",
+    "test:allocation": "tsc -p tsconfig.test.json && node --test --experimental-test-isolation=none .test-build/apps/web/tests/allocation.test.js"
   },
   "dependencies": {
     "next": "^16.0.0",

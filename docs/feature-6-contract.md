@@ -2,8 +2,9 @@
 
 Status: backend implemented — `modules/allocation` schemas/router/service/models,
 migration `0005_allocation_runs`, both endpoints, OpenAPI and examples in
-`contracts/examples/feature-6/`. `POST /allocation/runs` returns HTTP 500 until the
-OR-Tools engine `optimize_allocation` is merged; the frontend is pending.
+`contracts/examples/feature-6/`. The pure OR-Tools engine and frontend are connected:
+reviewed constraints create and save a checked proposal, and its URL retrieves the
+immutable result. Real-engine integration tests cover all four shared outcomes.
 
 Backend interface decisions for the engine owner to review (`allocation/schemas.py`):
 - `AllocationEngineInput`: `service_id`, `resource_id`, `unit`, `capacity_unit`,

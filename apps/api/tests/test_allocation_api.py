@@ -431,3 +431,22 @@ def test_equipment_cannot_reopen_a_closed_service(client, clock):
     excluded = {e["facility_id"]: e["reasons"] for e in run["coverage"]["excluded"]}
     assert "service_unavailable" in excluded["DEMO-B"]
     assert run["transfers"] == []
+
+
+@needs_engine
+def test_real_saved_plan_and_frozen_input_survive_later_updates(client, simulation):
+    first = client.post(URL, json=request_for(simulation))
+    assert first.status_code == 201, first.text
+    run = first.json()
+    assert run["proposed_summary"]["covered_service_places"] == 6
+    before = client.get("/api/v1/facilities/DEMO-B/snapshot").json()
+    assert next(r for r in before["resources"] if r["resource_id"] == "working-monitors")["available_quantity"] == 5
+    update = {"resource_id": "working-monitors", "available_quantity": 9, "unit": "item",
+              "observed_at": "2026-10-10T09:14:00Z"}
+    assert client.post("/api/v1/facilities/DEMO-B/observations", json=update).status_code == 201
+    assert client.get(f"{URL}/{run['allocation_run_id']}").json() == run
+    repeated = client.post(URL, json=request_for(simulation))
+    assert repeated.status_code == 201, repeated.text
+    assert repeated.json()["baseline_summary"] == run["baseline_summary"]
+    assert repeated.json()["proposed_summary"] == run["proposed_summary"]
+    assert repeated.json()["transfers"] == run["transfers"]
