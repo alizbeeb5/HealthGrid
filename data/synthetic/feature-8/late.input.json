@@ -1,0 +1,258 @@
+{
+  "synthetic": true,
+  "service_id": "emergency-care",
+  "capacity_unit": "simultaneous_service_place",
+  "expected_profile_version": "demo-v1",
+  "baseline_captured_at": "2026-10-10T09:00:00Z",
+  "expected_at": "2026-11-09T11:00:00Z",
+  "captured_at": "2026-11-11T11:00:00Z",
+  "observation_window_starts_at": "2026-10-10T11:00:00Z",
+  "requirement": {
+    "service_id": "emergency-care",
+    "profile_version": "demo-v1",
+    "capacity_unit": "simultaneous_service_place",
+    "requirements": [
+      {
+        "resource_id": "available-beds",
+        "unit": "bed",
+        "required_per_capacity_unit": 1
+      },
+      {
+        "resource_id": "nurses-on-duty",
+        "unit": "person",
+        "required_per_capacity_unit": 0.5
+      },
+      {
+        "resource_id": "working-monitors",
+        "unit": "item",
+        "required_per_capacity_unit": 1
+      }
+    ]
+  },
+  "expectations": [
+    {
+      "facility_id": "DEMO-A",
+      "expected_capacity": 3,
+      "required_service_places": 3
+    },
+    {
+      "facility_id": "DEMO-B",
+      "expected_capacity": 8,
+      "required_service_places": 8
+    },
+    {
+      "facility_id": "DEMO-C",
+      "expected_capacity": null,
+      "required_service_places": null
+    }
+  ],
+  "snapshots": [
+    {
+      "facility": {
+        "facility_id": "DEMO-A",
+        "name": "Demo Hospital A",
+        "latitude": 33.9,
+        "longitude": 35.5,
+        "last_reported_at": "2026-11-11T10:58:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-A",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "FOLLOWUP-DEMO-A-available-beds",
+          "available_quantity": 12,
+          "observed_at": "2026-11-11T10:58:00Z",
+          "recorded_at": "2026-11-11T10:59:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "FOLLOWUP-DEMO-A-nurses-on-duty",
+          "available_quantity": 6,
+          "observed_at": "2026-11-11T10:58:00Z",
+          "recorded_at": "2026-11-11T10:59:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "OBS-DEMO-A-3",
+          "available_quantity": 800.5,
+          "observed_at": "2026-10-10T08:30:00Z",
+          "recorded_at": "2026-10-10T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "FOLLOWUP-DEMO-A-working-monitors",
+          "available_quantity": 3.0,
+          "observed_at": "2026-11-11T10:58:00Z",
+          "recorded_at": "2026-11-11T10:59:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-11-11T11:00:00Z",
+      "stale_after_hours": 24
+    },
+    {
+      "facility": {
+        "facility_id": "DEMO-B",
+        "name": "Demo Hospital B",
+        "latitude": 33.88,
+        "longitude": 35.53,
+        "last_reported_at": "2026-11-11T10:58:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-B",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "operating"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "FOLLOWUP-DEMO-B-available-beds",
+          "available_quantity": 18,
+          "observed_at": "2026-11-11T10:58:00Z",
+          "recorded_at": "2026-11-11T10:59:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "FOLLOWUP-DEMO-B-nurses-on-duty",
+          "available_quantity": 9,
+          "observed_at": "2026-11-11T10:58:00Z",
+          "recorded_at": "2026-11-11T10:59:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "OBS-DEMO-B-3",
+          "available_quantity": 1200,
+          "observed_at": "2026-10-10T08:30:00Z",
+          "recorded_at": "2026-10-10T08:35:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "FOLLOWUP-DEMO-B-working-monitors",
+          "available_quantity": 8,
+          "observed_at": "2026-11-11T10:58:00Z",
+          "recorded_at": "2026-11-11T10:59:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-11-11T11:00:00Z",
+      "stale_after_hours": 24
+    },
+    {
+      "facility": {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "latitude": 33.86,
+        "longitude": 35.51,
+        "last_reported_at": "2026-11-11T10:58:00Z"
+      },
+      "services": [
+        {
+          "facility_id": "DEMO-C",
+          "service_id": "emergency-care",
+          "name": "Emergency care",
+          "status": "unavailable"
+        }
+      ],
+      "resources": [
+        {
+          "resource_id": "available-beds",
+          "name": "Available physical beds",
+          "category": "beds",
+          "unit": "bed",
+          "allows_fractional": false,
+          "observation_id": "FOLLOWUP-DEMO-C-available-beds",
+          "available_quantity": 0,
+          "observed_at": "2026-11-11T10:58:00Z",
+          "recorded_at": "2026-11-11T10:59:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "nurses-on-duty",
+          "name": "Nurses on duty",
+          "category": "staff",
+          "unit": "person",
+          "allows_fractional": false,
+          "observation_id": "FOLLOWUP-DEMO-C-nurses-on-duty",
+          "available_quantity": 2,
+          "observed_at": "2026-11-11T10:58:00Z",
+          "recorded_at": "2026-11-11T10:59:00Z",
+          "data_status": "current"
+        },
+        {
+          "resource_id": "oxygen-stock",
+          "name": "Available oxygen stock",
+          "category": "supplies",
+          "unit": "liter",
+          "allows_fractional": true,
+          "observation_id": "OBS-DEMO-C-3",
+          "available_quantity": 0,
+          "observed_at": "2026-10-09T07:00:00Z",
+          "recorded_at": "2026-10-09T07:05:00Z",
+          "data_status": "stale"
+        },
+        {
+          "resource_id": "working-monitors",
+          "name": "Working monitors",
+          "category": "equipment",
+          "unit": "item",
+          "allows_fractional": false,
+          "observation_id": "FOLLOWUP-DEMO-C-working-monitors",
+          "available_quantity": 1,
+          "observed_at": "2026-11-11T10:58:00Z",
+          "recorded_at": "2026-11-11T10:59:00Z",
+          "data_status": "current"
+        }
+      ],
+      "as_of": "2026-11-11T11:00:00Z",
+      "stale_after_hours": 24
+    }
+  ]
+}

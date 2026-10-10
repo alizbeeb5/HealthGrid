@@ -1,10 +1,10 @@
 # Feature 8 — Decision tracking and outcome review
 
-Status: backend implemented — `modules/decisions` (schemas, pure `transitions.py`
-state machine, router, service, repository, models), migration `0007_decisions`,
-all six endpoints (registered in `app/routes.py`), OpenAPI and examples in
-`contracts/examples/feature-8/`. Review capture returns HTTP 500 until
-`engines/outcomes.py` provides `evaluate_outcome`; decision tracking works now.
+Status: integrated — decision board and API connect to the pure outcome engine.
+Decisions/events and captured reviews persist; review history is available through
+an additional read-only GET on `/decisions/{decision_id}/reviews`. No approval or
+execution report changes hospital inventory. Canonical schemas/examples and
+generated frontend types are aligned, including `reviews.response.json`.
 
 Backend interface decisions for the outcome-engine owner (`decisions/schemas.py`):
 - `OutcomeEvaluationInput`: `service_id`, `capacity_unit`, frozen `requirement`,
@@ -18,18 +18,19 @@ Backend interface decisions for the outcome-engine owner (`decisions/schemas.py`
   capacity-engine result, per-resource `evidence`, reasons and
   `unmet_against_planned_demand`), `coverage` and reasons.
 - Evidence rule (`decisions.service.evidence_status`): `missing` without an
-  observation; `outside_window` before the window or after capture; `stale` when the
-  captured report is not current; otherwise `fresh`. A row is comparable only when
-  the review is on/after the expected date and every required resource is fresh;
-  observed capacity must equal the capacity engine on the captured snapshot. A
+  ID, quantity, observation or receipt timestamp; `outside_window` outside the window
+  or with future/inconsistent receipts; `stale` beyond the capture freshness threshold,
+  irrespective of a cached label; otherwise `fresh`. Comparable operating services
+  require all resource evidence fresh and capture on/after the expected date. Reported
+  unavailable services preserve modeled zero with resource warnings. Observed capacity
+  is independently recomputed using evidence-normalized snapshot copies. A
   limited reported service is therefore `not_comparable` (capacity not quantified).
 - The backend re-checks rows, expected values, evidence, timing, comparability and
   observed capacity before saving; a failing evaluation is a 500 and is never saved.
 - Decision record: frozen `expectation` (expected date, facilities, profile,
   proposed costs split from optional actual costs), generated `actions`
   (`ACT-<route_id>` / `ACT-<candidate_id>`, prerequisites mapped) and the event
-  timeline. `start` and `occurred_at` are explicit; future times beyond the 5-minute
-  skew are 422. Correct a completed action with `correct_action_report`.
+  timeline. `start` and `occurred_at` are explicit; any future execution times are 422. Correct a completed action with `correct_action_report`.
 - Errors: shared envelope with `invalid_request` (422), `source_run_not_found`,
   `decision_not_found`, `review_not_found` (404), `invalid_transition`,
   `prerequisite_not_met`, `duplicate_source_decision`, `version_conflict`,
@@ -127,6 +128,7 @@ GET  /api/v1/decisions
 GET  /api/v1/decisions/{decision_id}
 POST /api/v1/decisions/{decision_id}/events
 POST /api/v1/decisions/{decision_id}/reviews
+GET  /api/v1/decisions/{decision_id}/reviews
 GET  /api/v1/decisions/{decision_id}/reviews/{review_id}
 ```
 

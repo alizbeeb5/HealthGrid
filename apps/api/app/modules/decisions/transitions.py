@@ -8,7 +8,7 @@ No database, clock or inventory access: recording a decision never changes hospi
 reports. Prerequisite decision status is passed in by the caller.
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from app.modules.decisions.errors import DecisionError, invalid
 from app.modules.decisions.schemas import (
@@ -21,7 +21,6 @@ from app.modules.decisions.schemas import (
     DecisionStatus,
 )
 
-CLOCK_SKEW = timedelta(minutes=5)  # same tolerance as Feature 1 observations
 S, A = DecisionStatus, ActionStatus
 ACTION_MOVES = {
     A.PENDING: {A.IN_PROGRESS, A.BLOCKED},
@@ -37,7 +36,7 @@ def _transition(name: str, current: DecisionStatus, allowed: set[DecisionStatus]
 
 
 def _not_future(field: str, value: datetime | None, now: datetime) -> None:
-    if value is not None and value > now + CLOCK_SKEW:
+    if value is not None and value > now:
         raise invalid(field, "Reported execution times cannot be in the future.")
 
 

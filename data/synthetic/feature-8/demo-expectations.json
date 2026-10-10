@@ -1,0 +1,240 @@
+{
+  "synthetic": true,
+  "cases": {
+    "supported": {
+      "rows": [
+        {
+          "facility_id": "DEMO-A",
+          "observed_capacity": 3,
+          "capacity_difference": 0,
+          "status": "at_or_above_expected"
+        },
+        {
+          "facility_id": "DEMO-B",
+          "observed_capacity": 8,
+          "capacity_difference": 0,
+          "status": "at_or_above_expected"
+        },
+        {
+          "facility_id": "DEMO-C",
+          "observed_capacity": 0,
+          "capacity_difference": null,
+          "status": "not_comparable"
+        }
+      ],
+      "comparable_facility_ids": [
+        "DEMO-A",
+        "DEMO-B"
+      ],
+      "seconds_from_expected_at": 300
+    },
+    "shortfall": {
+      "rows": [
+        {
+          "facility_id": "DEMO-A",
+          "observed_capacity": 3,
+          "capacity_difference": 0,
+          "status": "at_or_above_expected"
+        },
+        {
+          "facility_id": "DEMO-B",
+          "observed_capacity": 6,
+          "capacity_difference": -2,
+          "status": "below_expected"
+        },
+        {
+          "facility_id": "DEMO-C",
+          "observed_capacity": 0,
+          "capacity_difference": null,
+          "status": "not_comparable"
+        }
+      ],
+      "comparable_facility_ids": [
+        "DEMO-A",
+        "DEMO-B"
+      ],
+      "seconds_from_expected_at": 300
+    },
+    "zero": {
+      "rows": [
+        {
+          "facility_id": "DEMO-A",
+          "observed_capacity": 3,
+          "capacity_difference": 0,
+          "status": "at_or_above_expected"
+        },
+        {
+          "facility_id": "DEMO-B",
+          "observed_capacity": 0,
+          "capacity_difference": -8,
+          "status": "below_expected"
+        },
+        {
+          "facility_id": "DEMO-C",
+          "observed_capacity": 0,
+          "capacity_difference": null,
+          "status": "not_comparable"
+        }
+      ],
+      "comparable_facility_ids": [
+        "DEMO-A",
+        "DEMO-B"
+      ],
+      "seconds_from_expected_at": 300
+    },
+    "unavailable": {
+      "rows": [
+        {
+          "facility_id": "DEMO-A",
+          "observed_capacity": 3,
+          "capacity_difference": 0,
+          "status": "at_or_above_expected"
+        },
+        {
+          "facility_id": "DEMO-B",
+          "observed_capacity": 0,
+          "capacity_difference": -8,
+          "status": "below_expected"
+        },
+        {
+          "facility_id": "DEMO-C",
+          "observed_capacity": 0,
+          "capacity_difference": null,
+          "status": "not_comparable"
+        }
+      ],
+      "comparable_facility_ids": [
+        "DEMO-A",
+        "DEMO-B"
+      ],
+      "seconds_from_expected_at": 300
+    },
+    "insufficient": {
+      "rows": [
+        {
+          "facility_id": "DEMO-A",
+          "observed_capacity": null,
+          "capacity_difference": null,
+          "status": "insufficient_evidence"
+        },
+        {
+          "facility_id": "DEMO-B",
+          "observed_capacity": null,
+          "capacity_difference": null,
+          "status": "insufficient_evidence"
+        },
+        {
+          "facility_id": "DEMO-C",
+          "observed_capacity": 0,
+          "capacity_difference": null,
+          "status": "not_comparable"
+        }
+      ],
+      "comparable_facility_ids": [],
+      "seconds_from_expected_at": 300
+    },
+    "stale": {
+      "rows": [
+        {
+          "facility_id": "DEMO-A",
+          "observed_capacity": 3,
+          "capacity_difference": 0,
+          "status": "at_or_above_expected"
+        },
+        {
+          "facility_id": "DEMO-B",
+          "observed_capacity": null,
+          "capacity_difference": null,
+          "status": "insufficient_evidence"
+        },
+        {
+          "facility_id": "DEMO-C",
+          "observed_capacity": 0,
+          "capacity_difference": null,
+          "status": "not_comparable"
+        }
+      ],
+      "comparable_facility_ids": [
+        "DEMO-A"
+      ],
+      "seconds_from_expected_at": 300
+    },
+    "partial": {
+      "rows": [
+        {
+          "facility_id": "DEMO-A",
+          "observed_capacity": null,
+          "capacity_difference": null,
+          "status": "insufficient_evidence"
+        },
+        {
+          "facility_id": "DEMO-B",
+          "observed_capacity": 8,
+          "capacity_difference": 0,
+          "status": "at_or_above_expected"
+        },
+        {
+          "facility_id": "DEMO-C",
+          "observed_capacity": 0,
+          "capacity_difference": null,
+          "status": "not_comparable"
+        }
+      ],
+      "comparable_facility_ids": [
+        "DEMO-B"
+      ],
+      "seconds_from_expected_at": 300
+    },
+    "early": {
+      "rows": [
+        {
+          "facility_id": "DEMO-A",
+          "observed_capacity": 3,
+          "capacity_difference": null,
+          "status": "too_early"
+        },
+        {
+          "facility_id": "DEMO-B",
+          "observed_capacity": 8,
+          "capacity_difference": null,
+          "status": "too_early"
+        },
+        {
+          "facility_id": "DEMO-C",
+          "observed_capacity": 0,
+          "capacity_difference": null,
+          "status": "not_comparable"
+        }
+      ],
+      "comparable_facility_ids": [],
+      "seconds_from_expected_at": -3600
+    },
+    "late": {
+      "rows": [
+        {
+          "facility_id": "DEMO-A",
+          "observed_capacity": 3,
+          "capacity_difference": 0,
+          "status": "at_or_above_expected"
+        },
+        {
+          "facility_id": "DEMO-B",
+          "observed_capacity": 8,
+          "capacity_difference": 0,
+          "status": "at_or_above_expected"
+        },
+        {
+          "facility_id": "DEMO-C",
+          "observed_capacity": 0,
+          "capacity_difference": null,
+          "status": "not_comparable"
+        }
+      ],
+      "comparable_facility_ids": [
+        "DEMO-A",
+        "DEMO-B"
+      ],
+      "seconds_from_expected_at": 172800
+    }
+  }
+}

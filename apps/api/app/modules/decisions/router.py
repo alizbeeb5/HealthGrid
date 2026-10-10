@@ -17,6 +17,7 @@ from app.modules.decisions.schemas import (
     DecisionRecord,
     DecisionStatus,
     OutcomeReview,
+    OutcomeReviewListResponse,
     OutcomeReviewRequest,
 )
 from app.modules.facilities.router import server_now
@@ -91,3 +92,12 @@ def get_outcome_review(
     decision_id: str = Id(), review_id: str = Id(), db: Session = Depends(get_session)
 ) -> OutcomeReview:
     return service.get_review(db, decision_id, review_id)
+
+
+
+@router.get("/{decision_id}/reviews", operation_id="list_outcome_reviews", responses=ERRORS)
+def list_outcome_reviews(
+    decision_id: str = Id(), db: Session = Depends(get_session)
+) -> OutcomeReviewListResponse:
+    """Return saved review history, newest first; never recapture or recalculate."""
+    return OutcomeReviewListResponse(items=service.list_reviews(db, decision_id))

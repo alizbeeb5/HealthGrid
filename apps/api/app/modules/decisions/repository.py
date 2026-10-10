@@ -50,3 +50,10 @@ def review_for_request(db: Session, decision_id: str, request_id: str) -> Outcom
     stmt = select(OutcomeReview).where(OutcomeReview.decision_id == decision_id,
                                        OutcomeReview.request_id == request_id)
     return db.scalars(stmt).first()
+
+
+
+def list_reviews(db: Session, decision_id: str) -> list[OutcomeReview]:
+    stmt = select(OutcomeReview).where(OutcomeReview.decision_id == decision_id).order_by(
+        OutcomeReview.captured_at.desc(), OutcomeReview.review_id)
+    return list(db.scalars(stmt))

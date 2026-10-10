@@ -692,8 +692,13 @@ def test_real_engine_reproduces_the_three_reviews(client, clock, journey):
             expected["facilities"][1]["classification"])
         assert saved["facilities"][1]["observed_capacity"] == (
             expected["facilities"][1]["observed_capacity"])
-    url = f"{URL}/{decision['decision_id']}/reviews/{first['review_id']}"
-    assert ok(client.get(url), 200) == first  # later reports never rewrite a review
+    for saved in (first, second, third):
+        url = f"{URL}/{decision['decision_id']}/reviews/{saved['review_id']}"
+        assert ok(client.get(url), 200) == saved  # later reports never rewrite any review
+    assert ok(review(client, decision, "REQ-REVIEW-2"), 200) == second
+    listed = ok(client.get(f"{URL}/{decision['decision_id']}/reviews"), 200)
+    assert listed["items"] == [third, second, first]
+    assert ok(client.get(f"{URL}/{decision['decision_id']}"), 200) == decision
 
 
 @needs_engine
@@ -704,3 +709,29 @@ def test_real_engine_marks_early_reviews(client, clock, journey):
     assert saved["timing"] == "too_early"
     assert {f["classification"] for f in saved["facilities"]} == {"too_early"}
 
+
+
+@pytest.mark.parametrize("event_type", ["start", "complete", "update_action"])
+def test_execution_timestamp_even_one_second_in_future_is_rejected(
+    client, clock, sources, event_type
+):
+    at(clock, "2026-10-10T10:50:00Z")
+    decision = create_allocation_decision(client, sources)
+    decision = ok(send(client, decision, "submit", "REQ-FUTURE-SUBMIT"))
+    decision = ok(send(client, decision, "approve", "REQ-FUTURE-APPROVE", note="Approved."))
+    timestamp = (clock.now + timedelta(seconds=1)).isoformat()
+    payload = {"occurred_at": timestamp}
+    if event_type == "update_action":
+        payload = action(decision["actions"][0]["action_id"], "in_progress", timestamp)
+    response = send(client, decision, event_type, "REQ-FUTURE-SECOND", payload, note="Demo report")
+    assert response.status_code == 422, response.text
+    assert "payload.occurred_at" in [f["field"] for f in response.json()["error"]["fields"]]
+
+
+
+def test_review_history_requires_existing_decision_and_starts_empty(client, clock, sources):
+    decision = create_allocation_decision(client, sources)
+    assert ok(client.get(f"{URL}/{decision['decision_id']}/reviews"), 200) == {"items": []}
+    response = client.get(f"{URL}/DEC-MISSING/reviews")
+    assert response.status_code == 404
+    assert response.json()["error"]["code"] == "decision_not_found"

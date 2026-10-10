@@ -1,64 +1,41 @@
-# Decision tracking frontend
+# Connected decision tracking
 
-Feature 8 follows `docs/feature-8-contract.md`. The decision schemas, shared API
-examples, persistence endpoints and Python outcome engine are not implemented in
-this checkout. This module does not invent a wire contract or calculate capacity.
+`/decisions` loads the API decision board. Saved allocation/investment panels link
+here with source IDs. Enter an owner, rationale, UTC deadline and demo actor to
+save a draft, submit it and record review. Generated backend types define requests;
+the server owns transitions, prerequisites, concurrency and idempotency.
 
-## Review the workflow
+After approval, record the decision as started. Pending actions can start or become
+blocked. Actions in progress can become blocked or reported completed. Blocked
+work must resume before completion. Investment work requires the exact completed
+allocation decision, and commissioning requires reported repair completion.
+Terminal reports use appended corrections, retaining previous reported values.
+Optional actual costs stay unknown when blank and separate from proposal costs.
 
-Open `/decisions?mode=example`. This explicitly enables synthetic browser-local
-records, stored under `healthgrid:decision-ui-preview:v1`. Records and fixed evidence
-samples can be reopened from the board and their decision/review URLs in the same
-browser. They are not server records and are not shared with other users.
+The screen keeps approval, reported execution and outcome evidence distinct. It
+never writes hospital inventory through a decision event. Use the facility links
+to append real resource reports; then choose an explicit observation window and
+capture a review. The server controls capture time and evaluates the frozen profile.
+Owner deadlines do not replace expected modeled dates. Early evidence can show a
+fresh observation but cannot claim target achievement. Later evidence does not
+establish on-time completion or causation. Limited service remains not comparable;
+reported unavailable service preserves modeled zero and missing resource warnings.
 
-1. Choose the transfer example. Enter a demo actor, owner, title, UTC deadline and
-   rationale. Save the draft, submit, and record approval with an explanation.
-2. Report the transfer action complete with a nonfuture UTC timestamp and evidence
-   note, then mark the decision reported completed with an explanation. Blank
-   actual cost means unknown, rather than zero.
-3. Create the investment example and select that exact allocation decision as its
-   prerequisite. Approve it, report repair completed, then commissioning completed.
-   Dependencies and the allocation prerequisite block premature execution.
-4. Save an explicitly selected evidence sample and reopen it. Missing evidence,
-   matching capacity, below-expected capacity and early review are separate samples.
-   Completing actions does not automatically create supported evidence.
+Decision and review URLs reopen API records. Review history is returned by
+`GET /api/v1/decisions/{decision_id}/reviews`, newest first, and never re-evaluated.
+The review view retains captured status/version, resource and receipt times,
+profile, units, coverage and evaluation versions. Null never becomes zero.
 
-Approval, execution reports and evidence support remain separate. Blockers are
-visible on the filtered board. Corrections append a reason and revised report while
-retaining the original. Terminal records remain available; reconsideration creates
-a linked new record. Preview guards reject duplicate active/completed source
-decisions and outdated local versions, but browser storage is not a transactional
-or authenticated service and does not provide server idempotency guarantees.
+Writes are sent once. Field errors, duplicate-source errors and stale-version
+conflicts remain visible; failures never silently fall back to browser examples.
+Older requests cannot replace a newly selected workspace. Actor identities are
+explicitly self-reported demo names until authentication exists.
 
-## Integration boundary
+`mode=example` remains an isolated synthetic browser workflow with fixed evidence
+samples. It does not call decision or outcome endpoints. No AI or OR-Tools call is
+needed for decision events or evidence comparisons.
 
-`/decisions` defaults to the saved-proposal view. Existing generated API types are
-used to inspect validated allocation and investment runs read-only via
-`source_type` and `source_run_id`. Saved proposal panels link here. Decision writes
-and live evidence capture remain disabled until agreed backend contracts arrive;
-request errors never trigger an automatic example fallback.
-
-The existing allocation response does not supply the complete expected-date and
-baseline capture context required by decisions. Those fields remain unknown in
-the read-only adapter. Investment evaluation time comes from its saved input and
-is separate from the human deadline. Source transfers are not duplicated as
-investment actions.
-
-`demo-display.json` contains frontend-only synthetic display fixtures, not shared
-backend payloads. Their observation windows, capture clocks, capacity differences
-and classifications are fixed examples, never computed from live reports. A fixture
-capture timestamp is not the time a user saved its local preview. Reviews retain
-the decision version, sample evidence, observation IDs, units, profile, exclusions
-and comparison coverage. They do not establish causation or clinical benefit.
-
-When teammates implement the domain, regenerate OpenAPI/frontend types and replace
-the preview adapter with the agreed endpoints for decisions, append-only events
-and immutable outcome reviews. State transitions, exact-source prerequisites,
-authorization, transactions, expected-version conflicts and request idempotency
-must be enforced server-side. Python owns expected/observed capacity, freshness,
-review windows and comparison classifications. No action report here writes
-hospital observations, dispatches equipment, purchases projects or sends messages.
-
-Per the Feature 8 agreement, user review supplies browser validation. Frontend
-tests, builds and automated browser checks require an explicit request; TypeScript
-and whitespace checks can run independently.
+Checks: TypeScript, `npm run test:decisions --prefix apps/web`, the full frontend
+suites and production webpack build. Backend tests cover real proposal -> decision
+-> review persistence and immutable review history. Live PostgreSQL/browser review
+are separate from these SQLite API and rendered-component checks.

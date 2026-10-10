@@ -342,7 +342,7 @@ class FacilityOutcome(ContractModel):
     facility_id: Identifier
     classification: OutcomeClassification
     expected_capacity: Count
-    observed_capacity: Count | None  # null unless every required resource is fresh
+    observed_capacity: Count | None  # null without comparison; unavailable is explicit zero
     capacity_difference: int | None  # observed - expected, when comparable
     observed: ServiceCapacityResult | None
     evidence: list[ResourceEvidence]
@@ -417,6 +417,10 @@ class OutcomeReview(OutcomeEvaluationResult):
     requirement: ServiceRequirement
     snapshots: list[FacilitySnapshotResponse]
     schema_version: Literal[1]
+
+
+class OutcomeReviewListResponse(ContractModel):
+    items: list[OutcomeReview]
 
 
 # Errors.

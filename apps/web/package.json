@@ -21,6 +21,7 @@
     "test:intelligence": "tsc -p tsconfig.test.json && node --test --experimental-test-isolation=none .test-build/apps/web/tests/intelligence.test.js",
     "generate:api": "openapi-typescript ../../contracts/openapi.json -o src/lib/api/schema.d.ts",
     "generate:feature-1": "openapi-typescript ../../contracts/feature-1.openapi.json -o src/lib/api/feature-1-schema.d.ts",
+    "test:decisions": "tsc -p tsconfig.test.json && node --test --experimental-test-isolation=none .test-build/apps/web/tests/decisions.test.js",
     "test:investments": "tsc -p tsconfig.test.json && node --test --experimental-test-isolation=none .test-build/apps/web/tests/investments.test.js",
     "test:allocation": "tsc -p tsconfig.test.json && node --test --experimental-test-isolation=none .test-build/apps/web/tests/allocation.test.js"
   },

@@ -339,6 +339,107 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/decisions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Decisions */
+        get: operations["list_decisions"];
+        put?: never;
+        /**
+         * Create Decision
+         * @description Record a draft decision for a validated saved proposal. Freezes its expectation.
+         */
+        post: operations["create_decision"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/decisions/{decision_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Decision */
+        get: operations["get_decision"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/decisions/{decision_id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Apply Decision Event
+         * @description Apply one command. 201 when applied; 200 returns the saved result of a retried
+         *     request_id. Outdated expected_version is 409.
+         */
+        post: operations["apply_decision_event"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/decisions/{decision_id}/reviews": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Outcome Reviews
+         * @description Return saved review history, newest first; never recapture or recalculate.
+         */
+        get: operations["list_outcome_reviews"];
+        put?: never;
+        /**
+         * Create Outcome Review
+         * @description Capture current reports and compare them with the frozen expectation. The
+         *     capture time is the server's; reopening returns this review unchanged.
+         */
+        post: operations["create_outcome_review"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/decisions/{decision_id}/reviews/{review_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Outcome Review */
+        get: operations["get_outcome_review"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/intelligence/incidents/advice": {
         parameters: {
             query?: never;
@@ -414,6 +515,64 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** ActionCorrection */
+        ActionCorrection: {
+            /**
+             * Corrected At
+             * Format: date-time
+             */
+            corrected_at: string;
+            /** Actor Name */
+            actor_name: string;
+            /** Reason */
+            reason: string;
+            /** Previous Completed At */
+            previous_completed_at: string | null;
+            /** Previous Evidence Note */
+            previous_evidence_note: string | null;
+            /** Previous Actual Cost Minor Units */
+            previous_actual_cost_minor_units: number | null;
+        };
+        /** ActionItem */
+        ActionItem: {
+            /** Action Id */
+            action_id: string;
+            /**
+             * Action Type
+             * @enum {string}
+             */
+            action_type: "transfer" | "project";
+            /** Reference Id */
+            reference_id: string;
+            /** Description */
+            description: string;
+            /** Facility Ids */
+            facility_ids: string[];
+            /** Requires Action Ids */
+            requires_action_ids: string[];
+            status: components["schemas"]["ActionStatus"];
+            /** Proposed Cost Minor Units */
+            proposed_cost_minor_units: number;
+            /** Proposed Ready At */
+            proposed_ready_at: string | null;
+            /** Reported Started At */
+            reported_started_at: string | null;
+            /** Reported Completed At */
+            reported_completed_at: string | null;
+            /** Actual Cost Minor Units */
+            actual_cost_minor_units: number | null;
+            /** Evidence Note */
+            evidence_note: string | null;
+            /** Blocker Note */
+            blocker_note: string | null;
+            /** Corrections */
+            corrections: components["schemas"]["ActionCorrection"][];
+        };
+        /**
+         * ActionStatus
+         * @enum {string}
+         */
+        ActionStatus: "pending" | "in_progress" | "blocked" | "completed" | "cancelled";
         /** AdviceEvidence */
         AdviceEvidence: {
             /** Path */
@@ -551,6 +710,14 @@ export interface components {
             /** Restriction Note */
             restriction_note: string | null;
         };
+        /** ApprovePayload */
+        ApprovePayload: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            event_type: "approve";
+        };
         /** AssessmentResponse */
         AssessmentResponse: {
             /**
@@ -566,6 +733,14 @@ export interface components {
             rubric_version: string;
             /** Elapsed Ms */
             elapsed_ms: number;
+        };
+        /** CancelPayload */
+        CancelPayload: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            event_type: "cancel";
         };
         /** CandidateExclusion */
         CandidateExclusion: {
@@ -584,6 +759,37 @@ export interface components {
          * @enum {string}
          */
         CapacityStatus: "calculated" | "unknown" | "unavailable" | "not_configured";
+        /** CompletePayload */
+        CompletePayload: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            event_type: "complete";
+            /**
+             * Occurred At
+             * Format: date-time
+             */
+            occurred_at: string;
+        };
+        /** CorrectActionReportPayload */
+        CorrectActionReportPayload: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            event_type: "correct_action_report";
+            /** Action Id */
+            action_id: string;
+            /** Reason */
+            reason: string;
+            /** Completed At */
+            completed_at: string | null;
+            /** Evidence Note */
+            evidence_note: string | null;
+            /** Actual Cost Minor Units */
+            actual_cost_minor_units: number | null;
+        };
         /** Coverage */
         Coverage: {
             /** Included Facility Ids */
@@ -601,6 +807,181 @@ export interface components {
          * @enum {string}
          */
         DataStatus: "current" | "stale" | "unknown";
+        /** DecisionCreateRequest */
+        DecisionCreateRequest: {
+            source_type: components["schemas"]["SourceType"];
+            /** Source Run Id */
+            source_run_id: string;
+            /** Title */
+            title: string;
+            /** Owner Name */
+            owner_name: string;
+            /** Rationale */
+            rationale: string;
+            /**
+             * Target Completion At
+             * Format: date-time
+             */
+            target_completion_at: string;
+            /** Actor Name */
+            actor_name: string;
+            /** Prerequisite Decision Id */
+            prerequisite_decision_id: string | null;
+            /** Supersedes Decision Id */
+            supersedes_decision_id: string | null;
+        };
+        /** DecisionErrorDetail */
+        DecisionErrorDetail: {
+            /**
+             * Code
+             * @enum {string}
+             */
+            code: "invalid_request" | "source_run_not_found" | "decision_not_found" | "review_not_found" | "invalid_transition" | "prerequisite_not_met" | "duplicate_source_decision" | "version_conflict" | "idempotency_conflict";
+            /** Message */
+            message: string;
+            /** Fields */
+            fields: components["schemas"]["FieldError"][];
+            /** Current Version */
+            current_version: number | null;
+            /** Existing Decision Id */
+            existing_decision_id: string | null;
+        };
+        /** DecisionErrorResponse */
+        DecisionErrorResponse: {
+            error: components["schemas"]["DecisionErrorDetail"];
+        };
+        /**
+         * DecisionEvent
+         * @description Append-only timeline entry. recorded_at is server time; occurred_at is the
+         *     human-reported time, when the event has one.
+         */
+        DecisionEvent: {
+            /** Event Id */
+            event_id: string;
+            /** Sequence */
+            sequence: number;
+            /** Event Type */
+            event_type: "create" | ("edit_draft" | "submit" | "approve" | "reject" | "start" | "update_action" | "complete" | "cancel" | "correct_action_report");
+            /** Request Id */
+            request_id: string | null;
+            /** Actor Name */
+            actor_name: string;
+            /**
+             * Identity Mode
+             * @constant
+             */
+            identity_mode: "demo_self_reported";
+            /** Note */
+            note: string | null;
+            /** Occurred At */
+            occurred_at: string | null;
+            /**
+             * Recorded At
+             * Format: date-time
+             */
+            recorded_at: string;
+            /** Payload */
+            payload: (components["schemas"]["EditDraftPayload"] | components["schemas"]["SubmitPayload"] | components["schemas"]["ApprovePayload"] | components["schemas"]["RejectPayload"] | components["schemas"]["StartPayload"] | components["schemas"]["UpdateActionPayload"] | components["schemas"]["CompletePayload"] | components["schemas"]["CancelPayload"] | components["schemas"]["CorrectActionReportPayload"]) | null;
+            status_after: components["schemas"]["DecisionStatus"];
+            /** Version After */
+            version_after: number;
+        };
+        /** DecisionEventRequest */
+        DecisionEventRequest: {
+            /**
+             * Event Type
+             * @enum {string}
+             */
+            event_type: "edit_draft" | "submit" | "approve" | "reject" | "start" | "update_action" | "complete" | "cancel" | "correct_action_report";
+            /** Expected Version */
+            expected_version: number;
+            /** Request Id */
+            request_id: string;
+            /** Actor Name */
+            actor_name: string;
+            /** Note */
+            note: string | null;
+            /** Payload */
+            payload: components["schemas"]["EditDraftPayload"] | components["schemas"]["SubmitPayload"] | components["schemas"]["ApprovePayload"] | components["schemas"]["RejectPayload"] | components["schemas"]["StartPayload"] | components["schemas"]["UpdateActionPayload"] | components["schemas"]["CompletePayload"] | components["schemas"]["CancelPayload"] | components["schemas"]["CorrectActionReportPayload"];
+        };
+        /** DecisionListResponse */
+        DecisionListResponse: {
+            /** Items */
+            items: components["schemas"]["DecisionRecord"][];
+        };
+        /** DecisionRecord */
+        DecisionRecord: {
+            /** Decision Id */
+            decision_id: string;
+            source_type: components["schemas"]["SourceType"];
+            /** Source Run Id */
+            source_run_id: string;
+            /** Incident Id */
+            incident_id: string;
+            /** Revision Id */
+            revision_id: string;
+            /** Baseline Id */
+            baseline_id: string;
+            /** Title */
+            title: string;
+            /** Owner Name */
+            owner_name: string;
+            /** Rationale */
+            rationale: string;
+            /**
+             * Target Completion At
+             * Format: date-time
+             */
+            target_completion_at: string;
+            status: components["schemas"]["DecisionStatus"];
+            /** Version */
+            version: number;
+            /**
+             * Identity Mode
+             * @constant
+             */
+            identity_mode: "demo_self_reported";
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Prerequisite Decision Id */
+            prerequisite_decision_id: string | null;
+            /** Supersedes Decision Id */
+            supersedes_decision_id: string | null;
+            expectation: components["schemas"]["SourceExpectation"];
+            /** Actions */
+            actions: components["schemas"]["ActionItem"][];
+            /** Events */
+            events: components["schemas"]["DecisionEvent"][];
+        };
+        /**
+         * DecisionStatus
+         * @enum {string}
+         */
+        DecisionStatus: "draft" | "pending_review" | "approved" | "in_progress" | "completed" | "rejected" | "cancelled";
+        /** EditDraftPayload */
+        EditDraftPayload: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            event_type: "edit_draft";
+            /** Title */
+            title: string | null;
+            /** Owner Name */
+            owner_name: string | null;
+            /** Rationale */
+            rationale: string | null;
+            /** Target Completion At */
+            target_completion_at: string | null;
+        };
         /** EmergencyAction */
         EmergencyAction: {
             /**
@@ -680,10 +1061,26 @@ export interface components {
             source_excerpt: string;
         };
         /**
+         * EvidenceStatus
+         * @enum {string}
+         */
+        EvidenceStatus: "fresh" | "outside_window" | "stale" | "missing";
+        /**
          * ExclusionReason
          * @enum {string}
          */
         ExclusionReason: "no_planning_constraints" | "service_unavailable" | "service_limited" | "requirements_not_configured" | "missing_required_evidence" | "stale_required_evidence";
+        /** ExpectedFacility */
+        ExpectedFacility: {
+            /** Facility Id */
+            facility_id: string;
+            /** Required Service Places */
+            required_service_places: number;
+            /** Capacity Before */
+            capacity_before: number;
+            /** Expected Capacity */
+            expected_capacity: number;
+        };
         /** ExtractionResponse[IncidentDraftInput] */
         ExtractionResponse_IncidentDraftInput_: {
             /**
@@ -804,6 +1201,25 @@ export interface components {
         FacilityListResponse: {
             /** Items */
             items: components["schemas"]["Facility"][];
+        };
+        /** FacilityOutcome */
+        FacilityOutcome: {
+            /** Facility Id */
+            facility_id: string;
+            classification: components["schemas"]["OutcomeClassification"];
+            /** Expected Capacity */
+            expected_capacity: number;
+            /** Observed Capacity */
+            observed_capacity: number | null;
+            /** Capacity Difference */
+            capacity_difference: number | null;
+            observed: components["schemas"]["ServiceCapacityResult"] | null;
+            /** Evidence */
+            evidence: components["schemas"]["ResourceEvidence"][];
+            /** Reasons */
+            reasons: string[];
+            /** Unmet Against Planned Demand */
+            unmet_against_planned_demand: number | null;
         };
         /** FacilityPlanRow */
         FacilityPlanRow: {
@@ -1365,6 +1781,108 @@ export interface components {
             recorded_at: string;
         };
         /**
+         * OutcomeClassification
+         * @enum {string}
+         */
+        OutcomeClassification: "at_or_above_expected" | "below_expected" | "insufficient_evidence" | "too_early" | "not_comparable";
+        /** OutcomeCoverage */
+        OutcomeCoverage: {
+            /** Comparable Facility Ids */
+            comparable_facility_ids: string[];
+            /** Not Comparable Facility Ids */
+            not_comparable_facility_ids: string[];
+            /** Excluded Facilities */
+            excluded_facilities: components["schemas"]["FacilityExclusion"][];
+        };
+        /**
+         * OutcomeReview
+         * @description Captured follow-up review. Reopening returns it; later reports create a new one.
+         */
+        OutcomeReview: {
+            /** Engine Version */
+            engine_version: string;
+            /**
+             * Timing
+             * @enum {string}
+             */
+            timing: "too_early" | "on_or_after_expected";
+            /** Captured Offset Minutes */
+            captured_offset_minutes: number;
+            /** Facilities */
+            facilities: components["schemas"]["FacilityOutcome"][];
+            coverage: components["schemas"]["OutcomeCoverage"];
+            /** Reasons */
+            reasons: string[];
+            /** Review Id */
+            review_id: string;
+            /** Decision Id */
+            decision_id: string;
+            source_type: components["schemas"]["SourceType"];
+            /** Source Run Id */
+            source_run_id: string;
+            /** Request Id */
+            request_id: string;
+            /** Actor Name */
+            actor_name: string;
+            /**
+             * Identity Mode
+             * @constant
+             */
+            identity_mode: "demo_self_reported";
+            /** Note */
+            note: string | null;
+            /**
+             * Captured At
+             * Format: date-time
+             */
+            captured_at: string;
+            /**
+             * Observation Window Starts At
+             * Format: date-time
+             */
+            observation_window_starts_at: string;
+            /**
+             * Expected At
+             * Format: date-time
+             */
+            expected_at: string;
+            /**
+             * Target Completion At
+             * Format: date-time
+             */
+            target_completion_at: string;
+            decision_status: components["schemas"]["DecisionStatus"];
+            /** Decision Version */
+            decision_version: number;
+            requirement: components["schemas"]["ServiceRequirement"];
+            /** Snapshots */
+            snapshots: components["schemas"]["FacilitySnapshotResponse"][];
+            /**
+             * Schema Version
+             * @constant
+             */
+            schema_version: 1;
+        };
+        /** OutcomeReviewListResponse */
+        OutcomeReviewListResponse: {
+            /** Items */
+            items: components["schemas"]["OutcomeReview"][];
+        };
+        /** OutcomeReviewRequest */
+        OutcomeReviewRequest: {
+            /** Actor Name */
+            actor_name: string;
+            /** Note */
+            note: string | null;
+            /** Request Id */
+            request_id: string;
+            /**
+             * Observation Window Starts At
+             * Format: date-time
+             */
+            observation_window_starts_at: string;
+        };
+        /**
          * PlanOutcome
          * @enum {string}
          */
@@ -1390,6 +1908,14 @@ export interface components {
          * @enum {string}
          */
         ReasonCode: "service_unavailable" | "requirements_not_configured" | "service_restriction_unquantified" | "missing_required_observation" | "stale_required_observation";
+        /** RejectPayload */
+        RejectPayload: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            event_type: "reject";
+        };
         /** ReportRequest */
         ReportRequest: {
             /** Report Text */
@@ -1425,6 +1951,19 @@ export interface components {
             quantity_delta: number;
             unit: components["schemas"]["ResourceUnit"];
         };
+        /** ResourceEvidence */
+        ResourceEvidence: {
+            /** Resource Id */
+            resource_id: string;
+            /** Observation Id */
+            observation_id: string | null;
+            /** Available Quantity */
+            available_quantity: number | null;
+            /** Observed At */
+            observed_at: string | null;
+            data_status: components["schemas"]["DataStatus"];
+            evidence_status: components["schemas"]["EvidenceStatus"];
+        };
         /**
          * ResourceOverride
          * @description Absolute scenario availability, not a loss to subtract. Zero is explicit zero.
@@ -1444,6 +1983,14 @@ export interface components {
             resource_id: string;
             /** Quantity */
             quantity: number;
+        };
+        /** ResourceRequirement */
+        ResourceRequirement: {
+            /** Resource Id */
+            resource_id: string;
+            unit: components["schemas"]["ResourceUnit"];
+            /** Required Per Capacity Unit */
+            required_per_capacity_unit: number;
         };
         /** ResourceSnapshot */
         ResourceSnapshot: {
@@ -1588,6 +2135,23 @@ export interface components {
             restriction_note: string | null;
         };
         /**
+         * ServiceRequirement
+         * @description Configurable requirement profile; demo values are not clinical standards.
+         */
+        ServiceRequirement: {
+            /** Service Id */
+            service_id: string;
+            /** Profile Version */
+            profile_version: string;
+            /**
+             * Capacity Unit
+             * @constant
+             */
+            capacity_unit: "simultaneous_service_place";
+            /** Requirements */
+            requirements: components["schemas"]["ResourceRequirement"][];
+        };
+        /**
          * ServiceStatus
          * @enum {string}
          */
@@ -1622,6 +2186,94 @@ export interface components {
          * @enum {string}
          */
         SolverStatus: "not_run" | "optimal" | "feasible" | "infeasible" | "unknown";
+        /**
+         * SourceExpectation
+         * @description Frozen at decision creation from the saved source run; never recomputed.
+         */
+        SourceExpectation: {
+            source_type: components["schemas"]["SourceType"];
+            /** Source Run Id */
+            source_run_id: string;
+            /** Source Engine Version */
+            source_engine_version: string;
+            /**
+             * Source Created At
+             * Format: date-time
+             */
+            source_created_at: string;
+            /**
+             * Plan Outcome
+             * @enum {string}
+             */
+            plan_outcome: "improved" | "no_improvement";
+            /** Incident Id */
+            incident_id: string;
+            /** Revision Id */
+            revision_id: string;
+            /** Baseline Id */
+            baseline_id: string;
+            /**
+             * Baseline Captured At
+             * Format: date-time
+             */
+            baseline_captured_at: string;
+            /** Service Id */
+            service_id: string;
+            /**
+             * Capacity Unit
+             * @constant
+             */
+            capacity_unit: "simultaneous_service_place";
+            requirement: components["schemas"]["ServiceRequirement"];
+            /**
+             * Expected At
+             * Format: date-time
+             */
+            expected_at: string;
+            /** Facilities */
+            facilities: components["schemas"]["ExpectedFacility"][];
+            /** Excluded Facilities */
+            excluded_facilities: components["schemas"]["FacilityExclusion"][];
+            /** Expected Unmet Service Places */
+            expected_unmet_service_places: number;
+            /** Proposed Cost Minor Units */
+            proposed_cost_minor_units: number;
+            /** Proposed Capital Cost Minor Units */
+            proposed_capital_cost_minor_units: number | null;
+            /** Proposed Operating Cost Minor Units */
+            proposed_operating_cost_minor_units: number | null;
+            /**
+             * Currency
+             * @constant
+             */
+            currency: "USD";
+        };
+        /**
+         * SourceType
+         * @enum {string}
+         */
+        SourceType: "allocation" | "investment";
+        /** StartPayload */
+        StartPayload: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            event_type: "start";
+            /**
+             * Occurred At
+             * Format: date-time
+             */
+            occurred_at: string;
+        };
+        /** SubmitPayload */
+        SubmitPayload: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            event_type: "submit";
+        };
         /** Transfer */
         Transfer: {
             /** Route Id */
@@ -1639,6 +2291,32 @@ export interface components {
             lead_time_minutes: number;
             /** Cost Minor Units */
             cost_minor_units: number;
+        };
+        /** UpdateActionPayload */
+        UpdateActionPayload: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            event_type: "update_action";
+            /** Action Id */
+            action_id: string;
+            /**
+             * Status
+             * @enum {string}
+             */
+            status: "in_progress" | "blocked" | "completed";
+            /**
+             * Occurred At
+             * Format: date-time
+             */
+            occurred_at: string;
+            /** Evidence Note */
+            evidence_note: string | null;
+            /** Actual Cost Minor Units */
+            actual_cost_minor_units: number | null;
+            /** Blocker Note */
+            blocker_note: string | null;
         };
         /** ValidationError */
         ValidationError: {
@@ -2325,6 +3003,360 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["InvestmentErrorResponse"];
+                };
+            };
+        };
+    };
+    list_decisions: {
+        parameters: {
+            query?: {
+                status?: components["schemas"]["DecisionStatus"] | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_decision: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DecisionCreateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionRecord"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+        };
+    };
+    get_decision: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                decision_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionRecord"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+        };
+    };
+    apply_decision_event: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                decision_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DecisionEventRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionRecord"];
+                };
+            };
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionRecord"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+        };
+    };
+    list_outcome_reviews: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                decision_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OutcomeReviewListResponse"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+        };
+    };
+    create_outcome_review: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                decision_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OutcomeReviewRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OutcomeReview"];
+                };
+            };
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OutcomeReview"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+        };
+    };
+    get_outcome_review: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                decision_id: string;
+                review_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OutcomeReview"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Content */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DecisionErrorResponse"];
                 };
             };
         };

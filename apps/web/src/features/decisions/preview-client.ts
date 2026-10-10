@@ -23,7 +23,7 @@ export function decisionPreviewStore(storage: Pick<Storage, "getItem" | "setItem
   return {
     list: read,
     create(source: DecisionSource, details: DecisionDetails, actor: string) {
-      if (!source.example) throw new Error("Server decision contracts are pending. API proposals cannot be saved to the browser preview.");
+      if (!source.example) throw new Error("API proposals must use the decision API; they cannot be saved to the browser preview.");
       const errors = validateDetails(details, actor); if (errors.length) throw new Error(errors.join(" "));
       const data = read();
       if (data.decisions.some((item) => item.source.source_type === source.source_type && item.source.source_run_id === source.source_run_id && !["rejected", "cancelled"].includes(item.status))) throw new Error("This example source already has an active or completed decision. Reopen it instead of tracking duplicate execution.");

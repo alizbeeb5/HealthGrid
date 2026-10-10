@@ -300,22 +300,27 @@ def apply_event(db: Session, decision_id: str, command: DecisionEventRequest, no
 # Outcome reviews.
 
 
-def evidence_status(snapshot_resource, window_start: datetime, captured_at: datetime
-                    ) -> EvidenceStatus:
-    """Freshness of one reported resource for a follow-up review."""
-    observed_at = snapshot_resource.observed_at
-    if snapshot_resource.observation_id is None or observed_at is None:
+def evidence_status(snapshot_resource, window_start: datetime, captured_at: datetime,
+                    stale_after_hours: int = 24) -> EvidenceStatus:
+    """Check captured provenance and timing, independently of cached freshness labels."""
+    if snapshot_resource is None:
         return EvidenceStatus.MISSING
-    if observed_at < window_start or observed_at > captured_at:
+    observed_at = snapshot_resource.observed_at
+    recorded_at = snapshot_resource.recorded_at
+    if (not snapshot_resource.observation_id or observed_at is None or recorded_at is None
+            or snapshot_resource.available_quantity is None):
+        return EvidenceStatus.MISSING
+    if (observed_at < window_start or observed_at > captured_at or recorded_at > captured_at
+            or recorded_at < observed_at):
         return EvidenceStatus.OUTSIDE_WINDOW
-    if snapshot_resource.data_status != "current":
+    if (captured_at - observed_at).total_seconds() > stale_after_hours * 3600:
         return EvidenceStatus.STALE
     return EvidenceStatus.FRESH
 
 
 def check_outcome(inputs: OutcomeEvaluationInput, result: OutcomeEvaluationResult
                   ) -> list[str]:
-    """Independent check of the engine's evaluation. Empty means valid."""
+    """Independently recompute evidence, timing and expected/observed comparisons."""
     problems: list[str] = []
     expected = {f.facility_id: f for f in inputs.facilities}
     if [f.facility_id for f in result.facilities] != sorted(expected):
@@ -334,38 +339,51 @@ def check_outcome(inputs: OutcomeEvaluationInput, result: OutcomeEvaluationResul
         if row.expected_capacity != facility.expected_capacity:
             problems.append(f"{row.facility_id} expected capacity differs from the frozen plan.")
         resources = {r.resource_id: r for r in facility.snapshot.resources}
+        if [e.resource_id for e in row.evidence] != required:
+            problems.append(f"{row.facility_id} lacks evidence for the required resource IDs.")
         evidence = {e.resource_id: e for e in row.evidence}
-        fresh = True
+        statuses = {}
         for resource_id in required:
             resource, item = resources.get(resource_id), evidence.get(resource_id)
-            if resource is None or item is None:
-                problems.append(f"{row.facility_id} lacks evidence for {resource_id}.")
-                fresh = False
-                continue
             status = evidence_status(resource, inputs.observation_window_starts_at,
-                                     inputs.captured_at)
-            if (item.observation_id, item.available_quantity, item.observed_at,
-                    item.data_status, item.evidence_status) != (
-                    resource.observation_id, resource.available_quantity, resource.observed_at,
-                    resource.data_status, status):
+                                     inputs.captured_at, inputs.stale_after_hours)
+            statuses[resource_id] = status
+            values = (resource.observation_id, resource.available_quantity, resource.observed_at,
+                      resource.data_status, status) if resource is not None else (
+                          None, None, None, "unknown", EvidenceStatus.MISSING)
+            if item is None or (item.observation_id, item.available_quantity, item.observed_at,
+                                item.data_status, item.evidence_status) != values:
                 problems.append(f"{row.facility_id} evidence for {resource_id} does not match "
                                 "the captured report.")
-            fresh = fresh and status == EvidenceStatus.FRESH
-        if row.observed_capacity is not None:
-            if too_early or not fresh:
-                problems.append(f"{row.facility_id} is compared without fresh in-window "
-                                "evidence.")
-            service = next((s for s in facility.snapshot.services
-                            if s.service_id == inputs.service_id), None)
-            observed = (capacity_engine.calculate_service_capacity(
-                facility.snapshot, service, inputs.requirement) if service else None)
-            if observed is None or observed != row.observed or (
-                    observed.estimated_capacity != row.observed_capacity):
-                problems.append(f"{row.facility_id} observed capacity does not match the "
-                                "capacity engine.")
-            elif row.unmet_against_planned_demand != max(
-                    0, facility.required_service_places - row.observed_capacity):
-                problems.append(f"{row.facility_id} unmet demand is wrong.")
+        fresh = all(status == EvidenceStatus.FRESH for status in statuses.values())
+        normalized = facility.snapshot.model_copy(update={"resources": [
+            r.model_copy(update={"data_status": "current" if statuses[r.resource_id] ==
+                                EvidenceStatus.FRESH else "stale" if statuses[r.resource_id] ==
+                                EvidenceStatus.STALE else "unknown"})
+            if r.resource_id in statuses else r for r in facility.snapshot.resources]})
+        service = next((s for s in normalized.services if s.service_id == inputs.service_id), None)
+        unavailable = service is not None and service.status == "unavailable"
+        observed = (capacity_engine.calculate_service_capacity(normalized, service,
+                    inputs.requirement) if service is not None and (fresh or unavailable) else None)
+        estimate = observed.estimated_capacity if observed is not None else None
+        classification = ("too_early" if too_early else "insufficient_evidence"
+                          if not fresh and not unavailable else "not_comparable"
+                          if estimate is None else "at_or_above_expected"
+                          if estimate >= facility.expected_capacity else "below_expected")
+        comparable = classification in ("at_or_above_expected", "below_expected")
+        if row.observed_capacity is not None and (too_early or (not fresh and not unavailable)):
+            problems.append(f"{row.facility_id} is compared without fresh in-window evidence.")
+        if row.classification != classification:
+            problems.append(f"{row.facility_id} classification does not match the evidence.")
+        if row.observed != observed or row.observed_capacity != (estimate if comparable else None):
+            problems.append(f"{row.facility_id} observed capacity does not match "
+                            "the capacity engine.")
+        difference = estimate - facility.expected_capacity if comparable else None
+        if row.capacity_difference != difference:
+            problems.append(f"{row.facility_id} capacity difference is wrong.")
+        if row.unmet_against_planned_demand != (max(0, facility.required_service_places - estimate)
+                                              if comparable else None):
+            problems.append(f"{row.facility_id} unmet demand is wrong.")
     return problems
 
 
@@ -441,3 +459,10 @@ def get_review(db: Session, decision_id: str, review_id: str) -> OutcomeReview:
     if row is None or row.decision_id != decision_id:
         raise DecisionError("review_not_found", f"Review {review_id} was not found.")
     return OutcomeReview.model_validate(row.payload)
+
+
+
+def list_reviews(db: Session, decision_id: str) -> list[OutcomeReview]:
+    _require(db, decision_id)
+    return [OutcomeReview.model_validate(row.payload)
+            for row in repository.list_reviews(db, decision_id)]

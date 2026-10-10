@@ -163,3 +163,24 @@ Explicit `/investments?mode=example` remains an isolated fixed browser demonstra
 
 Additional checks: `npm run test:investments --prefix apps/web` and
 `python -m pytest apps/api/tests/test_investments_api.py apps/api/tests/test_investment_engine.py`.
+
+
+## Decision tracking and outcome reviews
+
+Apply migration `0007_decisions` before using `/decisions`. Open a saved allocation
+or investment proposal and choose **Record a decision**. Supply the owner,
+rationale and deadline, submit and record approval. Record work started before
+reporting action progress/completion; prerequisites are enforced by the backend.
+Approval and reported completion do not alter hospital inventory.
+
+Append resource reports using the hospital screen, select an explicit follow-up
+observation window, and **Capture and save current evidence**. Reviews compare the
+frozen proposal with reported capacity, show missing/stale reports and retain
+capture time/status/version. The board reopens saved decisions and their review
+history; later reports create a new review rather than changing previous evidence.
+Expected proposal dates and human deadlines remain separate. Before the proposal's
+expected date, reviews correctly return `too_early`. Identities are simulated demo
+names. This feature uses no AI/optimization calls.
+
+Additional checks: `npm run test:decisions --prefix apps/web` and
+`python -m pytest apps/api/tests/test_decisions_api.py apps/api/tests/test_outcome_contract.py`.
