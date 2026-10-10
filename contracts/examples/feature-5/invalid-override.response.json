@@ -1,0 +1,17 @@
+{
+  "error": {
+    "code": "invalid_request",
+    "message": "The request is invalid.",
+    "fields": [
+      {
+        "field": "resource_overrides.0.unit",
+        "message": "Expected item for working-monitors."
+      },
+      {
+        "field": "resource_overrides.0.available_quantity",
+        "message": "Use a whole number for working-monitors."
+      }
+    ],
+    "existing_revision_id": null
+  }
+}

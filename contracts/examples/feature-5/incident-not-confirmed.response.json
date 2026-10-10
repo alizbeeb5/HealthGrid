@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "incident_not_confirmed",
+    "message": "Only a confirmed revision can be simulated.",
+    "fields": [],
+    "existing_revision_id": null
+  }
+}

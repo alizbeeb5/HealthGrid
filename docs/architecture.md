@@ -46,4 +46,7 @@ endpoints and overview dashboard compare hospitals per service. Feature 4 daily
 history storage/import, forecasting engine, seven-day forecast endpoint and screen
 are connected. Forecasts use complete UTC daily history and preserve historical
 service status. Missing or stale history returns an insufficient-history state.
-Authentication and optimization are not implemented. No AI requests execute.
+Feature 5 incident drafts, confirmed revisions, immutable baselines and saved
+baseline-versus-scenario simulation runs exist in the backend; the AI assessment
+endpoints and incident screens are not implemented yet. Authentication and
+optimization are not implemented. No AI requests execute.

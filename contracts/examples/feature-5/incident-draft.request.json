@@ -1,0 +1,22 @@
+{
+  "title": "Demo Hospital B power failure",
+  "report_text": "Demo Hospital B's emergency service is unavailable after a power failure. The disruption started at 10:00 UTC and is expected to last six hours.",
+  "service_id": "emergency-care",
+  "starts_at": "2026-10-10T10:00:00Z",
+  "expected_ends_at": "2026-10-10T16:00:00Z",
+  "affected_facility_ids": [
+    "DEMO-B"
+  ],
+  "service_overrides": [
+    {
+      "facility_id": "DEMO-B",
+      "service_id": "emergency-care",
+      "status": "unavailable",
+      "restriction_note": null
+    }
+  ],
+  "resource_overrides": [],
+  "assumptions": [
+    "Emergency care at DEMO-B is unavailable for the whole modeled state; recovery after the expected end is not modeled."
+  ]
+}

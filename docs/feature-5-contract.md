@@ -1,7 +1,21 @@
 # Feature 5: Emergency assessment and capacity-impact simulation
 
-Status: design only. This agreement supersedes the earlier emergency-intake draft.
+Status: backend implemented — scenarios schemas, persistence (migration
+`0004_incident_scenarios`), the pure overlay `engines/scenarios.py`, all six
+`/scenarios` endpoints, OpenAPI and examples in `contracts/examples/feature-5/`
+(generated from the live flow at the fixture clock). The intelligence endpoints and
+the frontend are pending. This agreement supersedes the earlier emergency-intake draft.
 Use the existing stack. Features 1–4 remain the reported-data and forecast foundations.
+
+Backend additions to the field lists below (in `modules/scenarios/schemas.py`):
+- `IncidentImpact.baseline_captured_at` so results show the baseline timestamp.
+- `applied_overrides` items are `AppliedServiceOverride` (`override_type:
+  service_status`, baseline/scenario status, note) or `AppliedResourceOverride`
+  (`override_type: resource_quantity`, unit, baseline quantity and data status,
+  scenario quantity, `affects_modeled_estimate` — false outside the profile).
+- Scenario errors add `existing_revision_id` (set on 409 when a revision exists).
+- Validation errors use payload paths, e.g. `input.resource_overrides.0.unit`.
+- The extraction `candidate` is `IncidentDraftInput`; import it from scenarios schemas.
 
 ## Outcome
 

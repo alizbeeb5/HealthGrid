@@ -1,0 +1,8 @@
+{
+  "error": {
+    "code": "revision_conflict",
+    "message": "This incident has already been confirmed.",
+    "fields": [],
+    "existing_revision_id": "REV-DEMO-B-CONFIRMED"
+  }
+}

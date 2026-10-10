@@ -333,6 +333,347 @@
         }
       }
     },
+    "/api/v1/scenarios/incidents": {
+      "get": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "List Incidents",
+        "operationId": "list_incidents",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncidentListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Create Incident Draft",
+        "description": "Save a draft. A draft is not an operational approval.",
+        "operationId": "create_incident_draft",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncidentDraftInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncidentRevision"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/incidents/{incident_id}/revisions/{revision_id}": {
+      "get": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Get Incident Revision",
+        "operationId": "get_incident_revision",
+        "parameters": [
+          {
+            "name": "incident_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Incident Id"
+            }
+          },
+          {
+            "name": "revision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Revision Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncidentRevision"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/incidents/{incident_id}/confirm": {
+      "post": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Confirm Incident",
+        "description": "Confirm reviewed inputs and capture the baseline atomically. Do not auto-retry;\na repeated or concurrent confirmation returns 409 with the existing revision.",
+        "operationId": "confirm_incident",
+        "parameters": [
+          {
+            "name": "incident_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Incident Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncidentConfirmRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IncidentRevision"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/incidents/{incident_id}/revisions/{revision_id}/simulate": {
+      "post": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Simulate Incident",
+        "description": "201 with a new saved run, or 200 with the run already saved for this revision.",
+        "operationId": "simulate_incident",
+        "parameters": [
+          {
+            "name": "incident_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Incident Id"
+            }
+          },
+          {
+            "name": "revision_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Revision Id"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulationRun"
+                }
+              }
+            }
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulationRun"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioErrorResponse"
+                }
+              }
+            },
+            "description": "Conflict"
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/runs/{run_id}": {
+      "get": {
+        "tags": [
+          "scenarios"
+        ],
+        "summary": "Get Simulation Run",
+        "operationId": "get_simulation_run",
+        "parameters": [
+          {
+            "name": "run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SimulationRun"
+                }
+              }
+            }
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "tags": [
@@ -358,6 +699,107 @@
   },
   "components": {
     "schemas": {
+      "AppliedResourceOverride": {
+        "properties": {
+          "override_type": {
+            "type": "string",
+            "const": "resource_quantity",
+            "title": "Override Type"
+          },
+          "resource_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/ResourceUnit"
+          },
+          "baseline_quantity": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Baseline Quantity"
+          },
+          "baseline_data_status": {
+            "$ref": "#/components/schemas/DataStatus"
+          },
+          "scenario_quantity": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Scenario Quantity"
+          },
+          "affects_modeled_estimate": {
+            "type": "boolean",
+            "title": "Affects Modeled Estimate"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "override_type",
+          "resource_id",
+          "unit",
+          "baseline_quantity",
+          "baseline_data_status",
+          "scenario_quantity",
+          "affects_modeled_estimate"
+        ],
+        "title": "AppliedResourceOverride",
+        "description": "Scenario quantity is a planner assumption, not a reported observation."
+      },
+      "AppliedServiceOverride": {
+        "properties": {
+          "override_type": {
+            "type": "string",
+            "const": "service_status",
+            "title": "Override Type"
+          },
+          "service_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Service Id"
+          },
+          "baseline_status": {
+            "$ref": "#/components/schemas/ServiceStatus"
+          },
+          "scenario_status": {
+            "$ref": "#/components/schemas/ServiceStatus"
+          },
+          "restriction_note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Restriction Note"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "override_type",
+          "service_id",
+          "baseline_status",
+          "scenario_status",
+          "restriction_note"
+        ],
+        "title": "AppliedServiceOverride"
+      },
       "CapacityStatus": {
         "type": "string",
         "enum": [
@@ -975,6 +1417,468 @@
         ],
         "title": "HistoryDay"
       },
+      "ImpactRow": {
+        "properties": {
+          "facility": {
+            "$ref": "#/components/schemas/Facility"
+          },
+          "baseline_capacity": {
+            "$ref": "#/components/schemas/ServiceCapacityResult"
+          },
+          "scenario_capacity": {
+            "$ref": "#/components/schemas/ServiceCapacityResult"
+          },
+          "capacity_change": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Capacity Change"
+          },
+          "affected": {
+            "type": "boolean",
+            "title": "Affected"
+          },
+          "applied_overrides": {
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/AppliedServiceOverride"
+                },
+                {
+                  "$ref": "#/components/schemas/AppliedResourceOverride"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "override_type",
+                "mapping": {
+                  "resource_quantity": "#/components/schemas/AppliedResourceOverride",
+                  "service_status": "#/components/schemas/AppliedServiceOverride"
+                }
+              }
+            },
+            "type": "array",
+            "title": "Applied Overrides"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility",
+          "baseline_capacity",
+          "scenario_capacity",
+          "capacity_change",
+          "affected",
+          "applied_overrides"
+        ],
+        "title": "ImpactRow"
+      },
+      "IncidentConfirmRequest": {
+        "properties": {
+          "draft_revision_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Draft Revision Id"
+          },
+          "input": {
+            "$ref": "#/components/schemas/IncidentInput"
+          },
+          "confirmed_by": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Confirmed By"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "draft_revision_id",
+          "input",
+          "confirmed_by"
+        ],
+        "title": "IncidentConfirmRequest"
+      },
+      "IncidentDraftInput": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "report_text": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 10000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Report Text"
+          },
+          "service_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Service Id"
+          },
+          "starts_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Starts At"
+          },
+          "expected_ends_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Ends At"
+          },
+          "affected_facility_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Affected Facility Ids"
+          },
+          "service_overrides": {
+            "items": {
+              "$ref": "#/components/schemas/ServiceOverride"
+            },
+            "type": "array",
+            "title": "Service Overrides"
+          },
+          "resource_overrides": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceOverride"
+            },
+            "type": "array",
+            "title": "Resource Overrides"
+          },
+          "assumptions": {
+            "items": {
+              "type": "string",
+              "maxLength": 500,
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Assumptions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title",
+          "report_text",
+          "service_id",
+          "starts_at",
+          "expected_ends_at",
+          "affected_facility_ids",
+          "service_overrides",
+          "resource_overrides",
+          "assumptions"
+        ],
+        "title": "IncidentDraftInput"
+      },
+      "IncidentImpact": {
+        "properties": {
+          "incident_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Incident Id"
+          },
+          "revision_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Revision Id"
+          },
+          "baseline_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Baseline Id"
+          },
+          "baseline_captured_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Baseline Captured At"
+          },
+          "service_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Service Id"
+          },
+          "capacity_unit": {
+            "type": "string",
+            "const": "simultaneous_service_place",
+            "title": "Capacity Unit"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/ImpactRow"
+            },
+            "type": "array",
+            "title": "Rows"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "incident_id",
+          "revision_id",
+          "baseline_id",
+          "baseline_captured_at",
+          "service_id",
+          "capacity_unit",
+          "rows"
+        ],
+        "title": "IncidentImpact"
+      },
+      "IncidentInput": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "report_text": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 10000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Report Text"
+          },
+          "service_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Service Id"
+          },
+          "starts_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Starts At"
+          },
+          "expected_ends_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Ends At"
+          },
+          "affected_facility_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Affected Facility Ids"
+          },
+          "service_overrides": {
+            "items": {
+              "$ref": "#/components/schemas/ServiceOverride"
+            },
+            "type": "array",
+            "title": "Service Overrides"
+          },
+          "resource_overrides": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceOverride"
+            },
+            "type": "array",
+            "title": "Resource Overrides"
+          },
+          "assumptions": {
+            "items": {
+              "type": "string",
+              "maxLength": 500,
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Assumptions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title",
+          "report_text",
+          "service_id",
+          "starts_at",
+          "expected_ends_at",
+          "affected_facility_ids",
+          "service_overrides",
+          "resource_overrides",
+          "assumptions"
+        ],
+        "title": "IncidentInput",
+        "description": "Confirmed input: same shape, with the selection and start time required."
+      },
+      "IncidentListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/IncidentRevision"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "IncidentListResponse"
+      },
+      "IncidentRevision": {
+        "properties": {
+          "incident_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Incident Id"
+          },
+          "revision_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Revision Id"
+          },
+          "parent_revision_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parent Revision Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/RevisionStatus"
+          },
+          "input": {
+            "$ref": "#/components/schemas/IncidentDraftInput"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "confirmed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed At"
+          },
+          "confirmed_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed By"
+          },
+          "baseline_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Baseline Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "incident_id",
+          "revision_id",
+          "parent_revision_id",
+          "status",
+          "input",
+          "created_at",
+          "confirmed_at",
+          "confirmed_by",
+          "baseline_id"
+        ],
+        "title": "IncidentRevision"
+      },
       "NetworkFacilityResult": {
         "properties": {
           "facility": {
@@ -1292,6 +2196,42 @@
         ],
         "title": "ResourceCategory"
       },
+      "ResourceOverride": {
+        "properties": {
+          "facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id"
+          },
+          "resource_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id"
+          },
+          "available_quantity": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Available Quantity"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/ResourceUnit"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility_id",
+          "resource_id",
+          "available_quantity",
+          "unit"
+        ],
+        "title": "ResourceOverride",
+        "description": "Absolute scenario availability, not a loss to subtract. Zero is explicit zero."
+      },
       "ResourceSnapshot": {
         "properties": {
           "resource_id": {
@@ -1397,6 +2337,77 @@
         ],
         "title": "ResourceUnit"
       },
+      "RevisionStatus": {
+        "type": "string",
+        "enum": [
+          "draft",
+          "confirmed"
+        ],
+        "title": "RevisionStatus"
+      },
+      "ScenarioErrorDetail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "invalid_request",
+              "incident_not_found",
+              "revision_not_found",
+              "run_not_found",
+              "revision_conflict",
+              "incident_not_confirmed"
+            ],
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/FieldError"
+            },
+            "type": "array",
+            "title": "Fields"
+          },
+          "existing_revision_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Existing Revision Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "fields",
+          "existing_revision_id"
+        ],
+        "title": "ScenarioErrorDetail"
+      },
+      "ScenarioErrorResponse": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ScenarioErrorDetail"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "ScenarioErrorResponse"
+      },
       "ServiceCapacityResult": {
         "properties": {
           "service_id": {
@@ -1482,6 +2493,49 @@
         ],
         "title": "ServiceCapacityResult"
       },
+      "ServiceOverride": {
+        "properties": {
+          "facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id"
+          },
+          "service_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Service Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ServiceStatus"
+          },
+          "restriction_note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Restriction Note"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility_id",
+          "service_id",
+          "status",
+          "restriction_note"
+        ],
+        "title": "ServiceOverride"
+      },
       "ServiceStatus": {
         "type": "string",
         "enum": [
@@ -1490,6 +2544,46 @@
           "unavailable"
         ],
         "title": "ServiceStatus"
+      },
+      "SimulationRun": {
+        "properties": {
+          "run_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Run Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "engine_version": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Engine Version"
+          },
+          "schema_version": {
+            "type": "integer",
+            "const": 1,
+            "title": "Schema Version"
+          },
+          "impact": {
+            "$ref": "#/components/schemas/IncidentImpact"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "run_id",
+          "created_at",
+          "engine_version",
+          "schema_version",
+          "impact"
+        ],
+        "title": "SimulationRun"
       }
     }
   }

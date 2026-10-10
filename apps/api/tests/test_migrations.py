@@ -8,6 +8,7 @@ from sqlalchemy import create_engine, inspect
 
 import app.modules.facilities.models  # noqa: F401
 import app.modules.forecasting.models  # noqa: F401
+import app.modules.scenarios.models  # noqa: F401
 from app.core.database import Base
 
 ALEMBIC_INI = Path(__file__).resolve().parents[1] / "alembic.ini"
