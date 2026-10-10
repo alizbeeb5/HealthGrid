@@ -1,0 +1,3 @@
+# Shared constraints resolved on Python 3.12 (Linux).
+-c requirements.lock
+-r apps/api/requirements.txt

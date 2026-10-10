@@ -1,0 +1,607 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "HealthGrid Feature 1 \u2014 Planned Contract",
+    "version": "1.0.0",
+    "description": "Shared interface for implementation; these endpoints are not live yet."
+  },
+  "paths": {
+    "/api/v1/facilities": {
+      "get": {
+        "operationId": "list_facilities",
+        "responses": {
+          "200": {
+            "description": "Facility list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FacilityListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/facilities/{facility_id}/snapshot": {
+      "get": {
+        "operationId": "get_facility_snapshot",
+        "parameters": [
+          {
+            "name": "facility_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current resource observations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FacilitySnapshotResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Facility does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request or observation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/facilities/{facility_id}/observations": {
+      "post": {
+        "operationId": "create_resource_observation",
+        "parameters": [
+          {
+            "name": "facility_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ObservationCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "New observation stored",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ObservationResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Facility does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request or observation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DataStatus": {
+        "enum": [
+          "current",
+          "stale",
+          "unknown"
+        ],
+        "title": "DataStatus",
+        "type": "string"
+      },
+      "ErrorDetail": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "enum": [
+              "facility_not_found",
+              "invalid_observation",
+              "invalid_request"
+            ],
+            "title": "Code",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/FieldError"
+            },
+            "title": "Fields",
+            "type": "array"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "fields"
+        ],
+        "title": "ErrorDetail",
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorDetail"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "ErrorResponse",
+        "type": "object"
+      },
+      "Facility": {
+        "additionalProperties": false,
+        "properties": {
+          "facility_id": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "latitude": {
+            "maximum": 90,
+            "minimum": -90,
+            "title": "Latitude",
+            "type": "number"
+          },
+          "longitude": {
+            "maximum": 180,
+            "minimum": -180,
+            "title": "Longitude",
+            "type": "number"
+          },
+          "last_reported_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Reported At"
+          }
+        },
+        "required": [
+          "facility_id",
+          "name",
+          "latitude",
+          "longitude",
+          "last_reported_at"
+        ],
+        "title": "Facility",
+        "type": "object"
+      },
+      "FacilityListResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/Facility"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "title": "FacilityListResponse",
+        "type": "object"
+      },
+      "FacilityService": {
+        "additionalProperties": false,
+        "properties": {
+          "facility_id": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id",
+            "type": "string"
+          },
+          "service_id": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Service Id",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ServiceStatus"
+          }
+        },
+        "required": [
+          "facility_id",
+          "service_id",
+          "name",
+          "status"
+        ],
+        "title": "FacilityService",
+        "type": "object"
+      },
+      "FacilitySnapshotResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "facility": {
+            "$ref": "#/components/schemas/Facility"
+          },
+          "services": {
+            "items": {
+              "$ref": "#/components/schemas/FacilityService"
+            },
+            "title": "Services",
+            "type": "array"
+          },
+          "resources": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceSnapshot"
+            },
+            "title": "Resources",
+            "type": "array"
+          },
+          "as_of": {
+            "format": "date-time",
+            "title": "As Of",
+            "type": "string"
+          },
+          "stale_after_hours": {
+            "exclusiveMinimum": 0,
+            "title": "Stale After Hours",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "facility",
+          "services",
+          "resources",
+          "as_of",
+          "stale_after_hours"
+        ],
+        "title": "FacilitySnapshotResponse",
+        "type": "object"
+      },
+      "FieldError": {
+        "additionalProperties": false,
+        "properties": {
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "field",
+          "message"
+        ],
+        "title": "FieldError",
+        "type": "object"
+      },
+      "ObservationCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "resource_id": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id",
+            "type": "string"
+          },
+          "available_quantity": {
+            "minimum": 0,
+            "title": "Available Quantity",
+            "type": "number"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/ResourceUnit"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "resource_id",
+          "available_quantity",
+          "unit",
+          "observed_at"
+        ],
+        "title": "ObservationCreate",
+        "type": "object"
+      },
+      "ObservationResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "resource_id": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id",
+            "type": "string"
+          },
+          "available_quantity": {
+            "minimum": 0,
+            "title": "Available Quantity",
+            "type": "number"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/ResourceUnit"
+          },
+          "observed_at": {
+            "format": "date-time",
+            "title": "Observed At",
+            "type": "string"
+          },
+          "observation_id": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Observation Id",
+            "type": "string"
+          },
+          "facility_id": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id",
+            "type": "string"
+          },
+          "recorded_at": {
+            "format": "date-time",
+            "title": "Recorded At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "resource_id",
+          "available_quantity",
+          "unit",
+          "observed_at",
+          "observation_id",
+          "facility_id",
+          "recorded_at"
+        ],
+        "title": "ObservationResponse",
+        "type": "object"
+      },
+      "ResourceCategory": {
+        "enum": [
+          "beds",
+          "staff",
+          "equipment",
+          "supplies",
+          "infrastructure"
+        ],
+        "title": "ResourceCategory",
+        "type": "string"
+      },
+      "ResourceDefinition": {
+        "additionalProperties": false,
+        "properties": {
+          "resource_id": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/ResourceCategory"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/ResourceUnit"
+          },
+          "allows_fractional": {
+            "title": "Allows Fractional",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "resource_id",
+          "name",
+          "category",
+          "unit",
+          "allows_fractional"
+        ],
+        "title": "ResourceDefinition",
+        "type": "object"
+      },
+      "ResourceSnapshot": {
+        "additionalProperties": false,
+        "properties": {
+          "resource_id": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/ResourceCategory"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/ResourceUnit"
+          },
+          "allows_fractional": {
+            "title": "Allows Fractional",
+            "type": "boolean"
+          },
+          "observation_id": {
+            "anyOf": [
+              {
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observation Id"
+          },
+          "available_quantity": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Available Quantity"
+          },
+          "observed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Observed At"
+          },
+          "recorded_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recorded At"
+          },
+          "data_status": {
+            "$ref": "#/components/schemas/DataStatus"
+          }
+        },
+        "required": [
+          "resource_id",
+          "name",
+          "category",
+          "unit",
+          "allows_fractional",
+          "observation_id",
+          "available_quantity",
+          "observed_at",
+          "recorded_at",
+          "data_status"
+        ],
+        "title": "ResourceSnapshot",
+        "type": "object"
+      },
+      "ResourceUnit": {
+        "enum": [
+          "bed",
+          "person",
+          "item",
+          "liter"
+        ],
+        "title": "ResourceUnit",
+        "type": "string"
+      },
+      "ServiceStatus": {
+        "enum": [
+          "operating",
+          "limited",
+          "unavailable"
+        ],
+        "title": "ServiceStatus",
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "facility_id": "DEMO-A",
+      "name": "Demo Hospital A",
+      "latitude": 33.9,
+      "longitude": 35.5,
+      "last_reported_at": "2026-10-10T08:35:00Z"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "name": "Demo Hospital B",
+      "latitude": 33.88,
+      "longitude": 35.53,
+      "last_reported_at": "2026-10-10T08:35:00Z"
+    },
+    {
+      "facility_id": "DEMO-C",
+      "name": "Demo Hospital C",
+      "latitude": 33.86,
+      "longitude": 35.51,
+      "last_reported_at": "2026-10-09T07:05:00Z"
+    }
+  ]
+}

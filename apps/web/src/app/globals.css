@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+:root { color-scheme: light; }
+body { margin: 0; background: #f5f7fa; color: #152638; font-family: Arial, sans-serif; }
+a { text-underline-offset: 4px; }

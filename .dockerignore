@@ -1,0 +1,9 @@
+.git
+.idea
+.venv
+**/node_modules
+**/.next
+**/__pycache__
+.env
+.env.*
+work

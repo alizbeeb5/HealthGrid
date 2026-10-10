@@ -1,0 +1,30 @@
+[
+  {
+    "resource_id": "available-beds",
+    "name": "Available physical beds",
+    "category": "beds",
+    "unit": "bed",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "nurses-on-duty",
+    "name": "Nurses on duty",
+    "category": "staff",
+    "unit": "person",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "oxygen-stock",
+    "name": "Available oxygen stock",
+    "category": "supplies",
+    "unit": "liter",
+    "allows_fractional": true
+  },
+  {
+    "resource_id": "working-monitors",
+    "name": "Working monitors",
+    "category": "equipment",
+    "unit": "item",
+    "allows_fractional": false
+  }
+]

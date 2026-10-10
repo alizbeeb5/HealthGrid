@@ -1,0 +1,18 @@
+# Target Python 3.12. These are version ranges, not a reproducible lockfile.
+# Web API and settings
+fastapi>=0.115,<1
+uvicorn[standard]>=0.34,<1
+pydantic>=2.10,<3
+pydantic-settings>=2.8,<3
+python-multipart>=0.0.20,<1
+# PostgreSQL and migrations
+SQLAlchemy>=2.0,<3
+alembic>=1.15,<2
+psycopg[binary]>=3.2,<4
+# Numerical forecasting and optimization
+numpy>=2.0,<3
+pandas>=2.2,<3
+statsmodels>=0.14,<0.15
+ortools>=9.12,<10
+# Server-side AI integration (no API calls in this scaffold)
+openai>=3.26,<4

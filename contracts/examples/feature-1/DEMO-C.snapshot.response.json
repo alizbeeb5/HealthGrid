@@ -1,0 +1,69 @@
+{
+  "facility": {
+    "facility_id": "DEMO-C",
+    "name": "Demo Hospital C",
+    "latitude": 33.86,
+    "longitude": 35.51,
+    "last_reported_at": "2026-10-09T07:05:00Z"
+  },
+  "services": [
+    {
+      "facility_id": "DEMO-C",
+      "service_id": "emergency-care",
+      "name": "Emergency care",
+      "status": "unavailable"
+    }
+  ],
+  "resources": [
+    {
+      "resource_id": "available-beds",
+      "name": "Available physical beds",
+      "category": "beds",
+      "unit": "bed",
+      "allows_fractional": false,
+      "observation_id": "OBS-DEMO-C-1",
+      "available_quantity": 0,
+      "observed_at": "2026-10-09T07:00:00Z",
+      "recorded_at": "2026-10-09T07:05:00Z",
+      "data_status": "stale"
+    },
+    {
+      "resource_id": "nurses-on-duty",
+      "name": "Nurses on duty",
+      "category": "staff",
+      "unit": "person",
+      "allows_fractional": false,
+      "observation_id": "OBS-DEMO-C-2",
+      "available_quantity": 2,
+      "observed_at": "2026-10-09T07:00:00Z",
+      "recorded_at": "2026-10-09T07:05:00Z",
+      "data_status": "stale"
+    },
+    {
+      "resource_id": "oxygen-stock",
+      "name": "Available oxygen stock",
+      "category": "supplies",
+      "unit": "liter",
+      "allows_fractional": true,
+      "observation_id": "OBS-DEMO-C-3",
+      "available_quantity": 0,
+      "observed_at": "2026-10-09T07:00:00Z",
+      "recorded_at": "2026-10-09T07:05:00Z",
+      "data_status": "stale"
+    },
+    {
+      "resource_id": "working-monitors",
+      "name": "Working monitors",
+      "category": "equipment",
+      "unit": "item",
+      "allows_fractional": false,
+      "observation_id": "OBS-DEMO-C-4",
+      "available_quantity": 1,
+      "observed_at": "2026-10-09T07:00:00Z",
+      "recorded_at": "2026-10-09T07:05:00Z",
+      "data_status": "stale"
+    }
+  ],
+  "as_of": "2026-10-10T09:00:00Z",
+  "stale_after_hours": 24
+}

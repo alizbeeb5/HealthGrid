@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "invalid_observation",
+    "message": "The observation could not be saved.",
+    "fields": [
+      {
+        "field": "unit",
+        "message": "Expected bed for resource available-beds."
+      }
+    ]
+  }
+}

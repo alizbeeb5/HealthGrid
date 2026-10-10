@@ -1,0 +1,19 @@
+{
+  "status": "design_fixture_not_an_implemented_endpoint",
+  "synthetic": true,
+  "name": "Fictional service disruption",
+  "facility_ids": [
+    "DEMO-A",
+    "DEMO-B",
+    "DEMO-C"
+  ],
+  "assumptions": {
+    "disrupted_facility_id": "DEMO-A",
+    "capacity_reduction_fraction": 0.5,
+    "horizon_days": 7,
+    "budget": {
+      "amount": 50000,
+      "currency": "USD"
+    }
+  }
+}

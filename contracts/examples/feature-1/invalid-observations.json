@@ -1,0 +1,135 @@
+[
+  {
+    "case": "negative-quantity",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "shape",
+    "expected_field": "available_quantity",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": -1,
+      "unit": "bed",
+      "observed_at": "2026-10-10T08:55:00Z"
+    }
+  },
+  {
+    "case": "wrong-unit",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "resource_lookup",
+    "expected_field": "unit",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": 10,
+      "unit": "liter",
+      "observed_at": "2026-10-10T08:55:00Z"
+    }
+  },
+  {
+    "case": "unknown-resource",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "resource_lookup",
+    "expected_field": "resource_id",
+    "request": {
+      "resource_id": "does-not-exist",
+      "available_quantity": 10,
+      "unit": "bed",
+      "observed_at": "2026-10-10T08:55:00Z"
+    }
+  },
+  {
+    "case": "fractional-count",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "resource_lookup",
+    "expected_field": "available_quantity",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": 1.5,
+      "unit": "bed",
+      "observed_at": "2026-10-10T08:55:00Z"
+    }
+  },
+  {
+    "case": "timezone-missing",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "shape",
+    "expected_field": "observed_at",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": 10,
+      "unit": "bed",
+      "observed_at": "2026-10-10T08:55:00"
+    }
+  },
+  {
+    "case": "future-time",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "server_clock",
+    "expected_field": "observed_at",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": 10,
+      "unit": "bed",
+      "observed_at": "2026-10-10T09:10:00Z"
+    }
+  },
+  {
+    "case": "unexpected-field",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "shape",
+    "expected_field": "capacity",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": 10,
+      "unit": "bed",
+      "observed_at": "2026-10-10T08:55:00Z",
+      "capacity": 200
+    }
+  },
+  {
+    "case": "null-quantity",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "shape",
+    "expected_field": "available_quantity",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": null,
+      "unit": "bed",
+      "observed_at": "2026-10-10T08:55:00Z"
+    }
+  },
+  {
+    "case": "numeric-timestamp",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "shape",
+    "expected_field": "observed_at",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": 10,
+      "unit": "bed",
+      "observed_at": 1791622500
+    }
+  },
+  {
+    "case": "boolean-quantity",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "shape",
+    "expected_field": "available_quantity",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": true,
+      "unit": "bed",
+      "observed_at": "2026-10-10T08:55:00Z"
+    }
+  },
+  {
+    "case": "string-quantity",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "shape",
+    "expected_field": "available_quantity",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": "10",
+      "unit": "bed",
+      "observed_at": "2026-10-10T08:55:00Z"
+    }
+  }
+]

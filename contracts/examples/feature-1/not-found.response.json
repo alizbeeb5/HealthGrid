@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "facility_not_found",
+    "message": "Facility DEMO-X was not found.",
+    "fields": []
+  }
+}
