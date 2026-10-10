@@ -1,0 +1,76 @@
+{
+  "resource_records": [
+    {
+      "facility_id": "DEMO-B",
+      "resource_id": "available-beds",
+      "date": "2026-10-08",
+      "available_quantity": 18,
+      "unit": "bed",
+      "source": "synthetic-demo-v1",
+      "data_quality": "reported"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "resource_id": "nurses-on-duty",
+      "date": "2026-10-08",
+      "available_quantity": 9,
+      "unit": "person",
+      "source": "synthetic-demo-v1",
+      "data_quality": "reported"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "resource_id": "working-monitors",
+      "date": "2026-10-08",
+      "available_quantity": 5,
+      "unit": "item",
+      "source": "synthetic-demo-v1",
+      "data_quality": "reported"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "resource_id": "available-beds",
+      "date": "2026-10-09",
+      "available_quantity": 18,
+      "unit": "bed",
+      "source": "synthetic-demo-v1",
+      "data_quality": "reported"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "resource_id": "nurses-on-duty",
+      "date": "2026-10-09",
+      "available_quantity": 9,
+      "unit": "person",
+      "source": "synthetic-demo-v1",
+      "data_quality": "reported"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "resource_id": "working-monitors",
+      "date": "2026-10-09",
+      "available_quantity": 5,
+      "unit": "item",
+      "source": "synthetic-demo-v1",
+      "data_quality": "reported"
+    }
+  ],
+  "demand_records": [
+    {
+      "facility_id": "DEMO-B",
+      "service_id": "emergency-care",
+      "date": "2026-10-08",
+      "peak_required_places": 5,
+      "source": "synthetic-demo-v1",
+      "data_quality": "reported"
+    },
+    {
+      "facility_id": "DEMO-B",
+      "service_id": "emergency-care",
+      "date": "2026-10-09",
+      "peak_required_places": 4,
+      "source": "synthetic-demo-v1",
+      "data_quality": "reported"
+    }
+  ]
+}

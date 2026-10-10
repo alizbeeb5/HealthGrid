@@ -42,6 +42,7 @@ the browser. Other frontend routes remain page shells. The API liveness endpoint
 database connection setup and migration infrastructure exist. The Feature 2
 capacity endpoint, engine and hospital capacity panel return and show modeled
 single-service capacity from demo requirement profiles. The Feature 3 network
-endpoints (`/network/services`, `/network/overview`) exist; the overview dashboard
-UI and display-summary helper are not implemented yet. Authentication, forecasting and optimization are
-not implemented. No AI requests execute.
+endpoints and overview dashboard compare hospitals per service. Feature 4 daily
+history storage/import and the forecast endpoint exist, but the forecasting engine,
+dataset and forecast screen are not merged, so forecasts are not available yet.
+Authentication and optimization are not implemented. No AI requests execute.

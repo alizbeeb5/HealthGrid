@@ -266,6 +266,73 @@
         }
       }
     },
+    "/api/v1/forecasts/facilities/{facility_id}": {
+      "get": {
+        "tags": [
+          "forecasts"
+        ],
+        "summary": "Get Facility Forecast",
+        "description": "Seven-day modeled capacity and demand forecast for one facility service.\n\nInsufficient history is a successful result with status insufficient_history.\nPredicted gaps are not calibrated shortage probabilities. Synthetic demo data.",
+        "operationId": "get_facility_forecast",
+        "parameters": [
+          {
+            "name": "facility_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Facility Id"
+            }
+          },
+          {
+            "name": "service_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+              "title": "Service Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FacilityForecastResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Facility does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Invalid request or observation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/health": {
       "get": {
         "tags": [
@@ -300,6 +367,14 @@
           "not_configured"
         ],
         "title": "CapacityStatus"
+      },
+      "DataQuality": {
+        "type": "string",
+        "enum": [
+          "reported",
+          "estimated"
+        ],
+        "title": "DataQuality"
       },
       "DataStatus": {
         "type": "string",
@@ -449,6 +524,102 @@
         ],
         "title": "FacilityCapacityResponse"
       },
+      "FacilityForecastResponse": {
+        "properties": {
+          "facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id"
+          },
+          "service_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Service Id"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Generated At"
+          },
+          "horizon_days": {
+            "type": "integer",
+            "const": 7,
+            "title": "Horizon Days"
+          },
+          "capacity_unit": {
+            "type": "string",
+            "const": "simultaneous_service_place",
+            "title": "Capacity Unit"
+          },
+          "profile_version": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profile Version"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ForecastStatus"
+          },
+          "history": {
+            "items": {
+              "$ref": "#/components/schemas/HistoryDay"
+            },
+            "type": "array",
+            "title": "History"
+          },
+          "forecast": {
+            "items": {
+              "$ref": "#/components/schemas/ForecastDay"
+            },
+            "type": "array",
+            "title": "Forecast"
+          },
+          "alerts": {
+            "items": {
+              "$ref": "#/components/schemas/ForecastAlert"
+            },
+            "type": "array",
+            "title": "Alerts"
+          },
+          "validation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ForecastValidation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility_id",
+          "service_id",
+          "generated_at",
+          "horizon_days",
+          "capacity_unit",
+          "profile_version",
+          "status",
+          "history",
+          "forecast",
+          "alerts",
+          "validation"
+        ],
+        "title": "FacilityForecastResponse"
+      },
       "FacilityListResponse": {
         "properties": {
           "items": {
@@ -562,6 +733,168 @@
         ],
         "title": "FieldError"
       },
+      "ForecastAlert": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "code": {
+            "type": "string",
+            "const": "predicted_gap",
+            "title": "Code"
+          },
+          "expected_gap": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Expected Gap"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Message"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "date",
+          "code",
+          "expected_gap",
+          "message"
+        ],
+        "title": "ForecastAlert",
+        "description": "A predicted gap; not a calibrated shortage probability."
+      },
+      "ForecastDay": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "predicted_capacity": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Predicted Capacity"
+          },
+          "predicted_demand": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Predicted Demand"
+          },
+          "capacity_lower": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Capacity Lower"
+          },
+          "capacity_upper": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Capacity Upper"
+          },
+          "demand_lower": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Demand Lower"
+          },
+          "demand_upper": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Demand Upper"
+          },
+          "expected_gap": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Expected Gap"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "date",
+          "predicted_capacity",
+          "predicted_demand",
+          "capacity_lower",
+          "capacity_upper",
+          "demand_lower",
+          "demand_upper",
+          "expected_gap"
+        ],
+        "title": "ForecastDay"
+      },
+      "ForecastStatus": {
+        "type": "string",
+        "enum": [
+          "forecasted",
+          "insufficient_history",
+          "not_configured"
+        ],
+        "title": "ForecastStatus"
+      },
+      "ForecastValidation": {
+        "properties": {
+          "method": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Method"
+          },
+          "holdout_days": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Holdout Days"
+          },
+          "evaluated_from": {
+            "type": "string",
+            "format": "date",
+            "title": "Evaluated From"
+          },
+          "evaluated_to": {
+            "type": "string",
+            "format": "date",
+            "title": "Evaluated To"
+          },
+          "capacity_mae": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Capacity Mae"
+          },
+          "demand_mae": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Demand Mae"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "method",
+          "holdout_days",
+          "evaluated_from",
+          "evaluated_to",
+          "capacity_mae",
+          "demand_mae"
+        ],
+        "title": "ForecastValidation",
+        "description": "Error on withheld historical days, in simultaneous service places."
+      },
       "HealthResponse": {
         "properties": {
           "status": {
@@ -579,6 +912,68 @@
         },
         "type": "object",
         "title": "HealthResponse"
+      },
+      "HistoryDay": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Date"
+          },
+          "capacity": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Capacity"
+          },
+          "demand": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Demand"
+          },
+          "sources": {
+            "items": {
+              "type": "string",
+              "maxLength": 200,
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "data_quality": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DataQuality"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "date",
+          "capacity",
+          "demand",
+          "sources",
+          "data_quality"
+        ],
+        "title": "HistoryDay"
       },
       "NetworkFacilityResult": {
         "properties": {
