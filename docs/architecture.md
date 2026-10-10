@@ -35,6 +35,7 @@ AI-generated interpretations require evidence and review, and cannot override ha
 constraints. Human approval is required before any operational action.
 
 ## Current state
-Only the frontend page shells, API liveness endpoint, database connection setup
-and migration infrastructure exist. Domain behavior, authentication, persistence
-models, forecasting and optimization are not implemented. No AI requests execute.
+The frontend page shells, API liveness endpoint and Feature 1 facility persistence
+exist: facilities, services, resource definitions and append-only observations, with
+list, snapshot and observation endpoints. Capacity, authentication, forecasting and
+optimization are not implemented. No AI requests execute.

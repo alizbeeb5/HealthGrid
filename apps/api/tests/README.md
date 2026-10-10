@@ -17,7 +17,11 @@ The backend resolves facility existence and resource applicability, then calls
 An empty list means valid; otherwise map the returned FieldError entries to the
 agreed 422 ErrorResponse. Map Pydantic shape errors to the same envelope. A missing
 facility is 404; an unknown or inapplicable resource is a `resource_id` field error.
-These lookup and HTTP behaviors still require backend integration tests.
+These lookup and HTTP behaviors are covered by `test_facilities_api.py` (pytest).
+
+Facility API and migration tests (`test_facilities_api.py`, `test_migrations.py`)
+run on in-memory SQLite seeded from `data/synthetic/feature-1/` and the shared
+examples; PostgreSQL-specific behavior still needs a live check.
 
 Shared valid and invalid cases live in `contracts/examples/feature-1/`.
 `validation_layer` is fixture metadata: `shape` means Pydantic, `catalog` means

@@ -2,8 +2,8 @@
 
 This is the active feature for all three teammates. Implement only the hospital
 operational snapshot and resource updates before moving to capacity calculations.
-The domain endpoints below are planned, not yet live. The live API still exposes
-only its health endpoint. Product scope remains in product-scope.md.
+The three endpoints below are live in the backend and included in
+`contracts/openapi.json`. Product scope remains in product-scope.md.
 
 ## One source of truth
 

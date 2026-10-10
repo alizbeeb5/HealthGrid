@@ -9,9 +9,10 @@ should we fund?
 - `data`: synthetic fixtures and import templates.
 - `docs`: architecture, team ownership and demo scenario.
 
-This is a development scaffold. Frontend routes and `/health` are implemented;
-forecasting, allocations, investments, ingestion, authentication and domain models
-are placeholders. Existing PyCharm `main.py` is preserved and is not the API entry point.
+This is a development scaffold. Frontend routes, `/health` and the Feature 1
+facility endpoints (list, snapshot, append observation) are implemented; forecasting,
+allocations, investments, import, authentication and remaining domain models are
+placeholders. Existing PyCharm `main.py` is preserved and is not the API entry point.
 
 ## Requirements
 Use Python **3.12**, Node.js **22** with npm **9.5+**, and PostgreSQL **17** (or Docker Compose).
@@ -48,8 +49,8 @@ npm ci
 npm run dev
 ```
 Frontend page shells and the API `/health` endpoint work without a database or
-OpenAI key. Domain endpoints are not implemented yet. For a separately configured
-PostgreSQL instance, update DATABASE_URL in the root `.env`.
+OpenAI key. The facility endpoints need migrated, seeded tables (see below). For a
+separately configured PostgreSQL instance, update DATABASE_URL in the root `.env`.
 
 ## Contracts and checks
 ```bash
@@ -59,8 +60,8 @@ npm run generate:api
 npm run typecheck
 npm run build
 ```
-From the repository root, `ruff check apps/api` checks Python style. Add meaningful
-feature tests under `apps/api/tests`; pytest currently has no tests to collect.
+From the repository root, `ruff check apps/api` checks Python style and `pytest`
+runs the API and migration tests on in-memory SQLite (no PostgreSQL needed).
 
 ## Database migrations
 ```bash
@@ -68,7 +69,12 @@ alembic -c apps/api/alembic.ini revision --autogenerate -m "describe change"
 alembic -c apps/api/alembic.ini upgrade head
 ```
 Add ORM models and register them in `migrations/env.py` first; inspect generated
-migrations before applying. No tables or migration revisions exist yet.
+migrations before applying. Revision `0001_facility_snapshot` creates the Feature 1
+tables. Load the synthetic fixtures from `contracts/examples/feature-1` (safe to rerun;
+existing observations are never modified):
+```bash
+python apps/api/scripts/seed_feature_1.py
+```
 
 ## Team handoff
 The finalized product workflow is in `docs/product-scope.md`; the next three
