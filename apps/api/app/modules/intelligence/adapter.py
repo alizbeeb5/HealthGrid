@@ -2,9 +2,10 @@
 
 import json
 from contextlib import asynccontextmanager
+from functools import lru_cache
 
 from openai import AsyncOpenAI
-from pydantic import BaseModel
+from pydantic import BaseModel, create_model
 
 from app.modules.intelligence.advice_schemas import EmergencyAdviceProposal
 from app.modules.intelligence.catalog import ReportCatalog
@@ -34,7 +35,20 @@ Resource overrides are ABSOLUTE availability, not losses or baseline-minus-loss 
 A report of lost monitors needs a question about remaining availability. Limited services
 need a note, never a numeric capacity reduction. No invented assumptions or default times.
 Evidence links text; it does not verify factual truth. Include review questions/warnings.
+Evidence field_path is relative to candidate: never prefix it with 'candidate.'.
+Do not add evidence for report_text itself, null fields, empty arrays or whole objects.
+Use a separate evidence entry for each populated scalar leaf, including override IDs,
+status and non-null restriction_note. Each excerpt must be copied exactly, with no
+ellipsis or paraphrase. Do not write assumptions that the report does not state.
 """
+
+
+@lru_cache
+def _provider_extraction_model(proposal_model: type[BaseModel]) -> type[BaseModel]:
+    # The SDK uses __name__ as text.format.name. Generic Pydantic names include
+    # brackets, which OpenAI rejects. A named subclass preserves the shared fields
+    # and validators without changing the public incident/extraction contracts.
+    return create_model("IncidentExtractionProposal", __base__=proposal_model)
 
 
 class OpenAIReportProvider:
@@ -115,7 +129,7 @@ class OpenAIReportProvider:
                     ),
                 }
             ],
-            text_format=proposal_model,
+            text_format=_provider_extraction_model(proposal_model),
             tools=[],
             store=False,
         )

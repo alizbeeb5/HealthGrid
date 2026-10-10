@@ -11,6 +11,7 @@ from app.modules.intelligence.advice_schemas import (
     EmergencyAdviceResponse,
 )
 from app.modules.intelligence.config import IntelligenceSettings
+from app.modules.intelligence.failures import failure_warning
 
 WARNINGS = [
     "AI suggestions require review by the responsible emergency coordinator.",
@@ -54,6 +55,7 @@ async def emergency_advice(
         return response(
             "unavailable", warning="Emergency guidance is not configured on the server."
         )
+    stage = "provider"
     try:
         async with asyncio.timeout(settings.openai_intelligence_timeout_seconds):
             result = await provider.advise(context, settings.openai_emergency_model)
@@ -67,7 +69,9 @@ async def emergency_advice(
             return response(
                 "failed", warning="Guidance was incomplete. Try again or continue manually."
             )
+        stage = "schema"
         proposal = EmergencyAdviceProposal.model_validate(result.output_parsed)
+        stage = "evidence"
         evidence = {}
         for action in proposal.actions:
             if any(fid not in context["hospitals"] for fid in action.facility_ids):
@@ -77,9 +81,8 @@ async def emergency_advice(
                     raise ValueError("Invalid evidence source.")
                 evidence[path] = AdviceEvidence(path=path, value=evidence_value(context, path))
         return response("completed", proposal, list(evidence.values()), model=result.model)
-    except Exception:
+    except Exception as error:
         return response(
             "failed",
-            warning="Guidance could not be completed or validated. "
-            "Your incident fields are unchanged.",
+            warning=failure_warning(error, stage),
         )

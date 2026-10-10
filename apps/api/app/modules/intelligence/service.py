@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from app.modules.intelligence.adapter import QUESTIONS, RUBRIC_VERSION
 from app.modules.intelligence.catalog import ReportCatalog
 from app.modules.intelligence.config import IntelligenceSettings
+from app.modules.intelligence.failures import failure_warning
 from app.modules.intelligence.schemas import (
     AssessmentResponse,
     ExtractionProposal,
@@ -100,6 +101,7 @@ async def extract_report(
 
     if not settings.openai_api_key.get_secret_value() or not model or provider is None:
         return failure("unavailable", "AI extraction is unavailable. Continue with manual entry.")
+    stage = "provider"
     try:
         async with asyncio.timeout(settings.openai_intelligence_timeout_seconds):
             result = await provider.extract(
@@ -113,7 +115,9 @@ async def extract_report(
             return failure("refused", "AI extraction was refused. Continue with manual entry.")
         if result.status != "completed" or result.output_parsed is None:
             return failure("failed", "AI returned incomplete output. Continue with manual entry.")
+        stage = "schema"
         proposal = ExtractionProposal[candidate_model].model_validate(result.output_parsed)
+        stage = "evidence"
         questions = validate_proposal(proposal.candidate, proposal.evidence, report_text, catalog)
         return response_model(
             extraction_status="completed",
@@ -128,5 +132,5 @@ async def extract_report(
             model=result.model,
             elapsed_ms=_elapsed(start),
         )
-    except Exception:
-        return failure("failed", "AI proposal could not be validated. Continue with manual entry.")
+    except Exception as error:
+        return failure("failed", failure_warning(error, stage))

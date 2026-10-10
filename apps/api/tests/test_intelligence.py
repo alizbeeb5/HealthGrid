@@ -256,7 +256,25 @@ def test_sdk_requests_use_actual_api_shapes_without_tools(catalog):
     )
     kwargs = client.responses.parse.call_args.kwargs
     assert kwargs["tools"] == [] and kwargs["store"] is False
-    assert kwargs["text_format"] is ExtractionProposal[IncidentDraftInput]
+    output_model = kwargs["text_format"]
+    assert issubclass(output_model, ExtractionProposal[IncidentDraftInput])
+    # Exercise the actual SDK serialization: this formerly emitted an invalid
+    # generic class name and OpenAI rejected the request before generation.
+    import re
+
+    from openai.lib._parsing._responses import type_to_text_format_param
+
+    provider_format = type_to_text_format_param(output_model)
+    assert re.fullmatch(r"[A-Za-z0-9_-]{1,64}", provider_format["name"])
+    assert provider_format["strict"] is True
+    assert (
+        provider_format["schema"]["$defs"]["IncidentDraftInput"]
+        == (
+            ExtractionProposal[IncidentDraftInput].model_json_schema()["$defs"][
+                "IncidentDraftInput"
+            ]
+        )
+    )
     assert len(kwargs["input"]) == 1 and kwargs["input"][0]["role"] == "user"
 
 

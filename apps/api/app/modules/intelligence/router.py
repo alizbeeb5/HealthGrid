@@ -26,6 +26,7 @@ from app.modules.intelligence.advice_schemas import (
 from app.modules.intelligence.catalog import ReportCatalog, load_report_catalog
 from app.modules.intelligence.config import IntelligenceSettings
 from app.modules.intelligence.emergency import WARNINGS, emergency_advice
+from app.modules.intelligence.failures import failure_warning
 from app.modules.intelligence.schemas import (
     AssessmentResponse,
     ExtractionResponse,
@@ -107,12 +108,12 @@ async def advise_incident(
     try:
         async with openai_provider(settings) as provider:
             return await emergency_advice(request, context, settings, now, provider)
-    except Exception:
+    except Exception as error:
         return EmergencyAdviceResponse(
             advice_status="failed",
             proposal=None,
             evidence=[],
-            warnings=[*WARNINGS, "Emergency guidance could not connect. Continue manually."],
+            warnings=[*WARNINGS, failure_warning(error, "provider")],
             model=settings.openai_emergency_model,
             elapsed_ms=0,
             as_of=now,
@@ -165,13 +166,13 @@ def bind_extraction_route(candidate_model: type[BaseModel], target: APIRouter = 
                 return await extract_report(
                     request.report_text, catalog, candidate_model, settings, provider
                 )
-        except Exception:
+        except Exception as error:
             return ExtractionResponse[candidate_model](
                 extraction_status="failed",
                 candidate=None,
                 evidence=[],
                 questions=[],
-                warnings=["AI initialization failed. Continue with manual entry."],
+                warnings=[failure_warning(error, "provider")],
                 model=settings.openai_extraction_model,
                 elapsed_ms=max(0, round((monotonic() - started) * 1000)),
             )

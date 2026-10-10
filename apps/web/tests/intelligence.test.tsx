@@ -8,6 +8,17 @@ import { requestEmergencyAdvice, EmergencyAdviceResult } from "../src/features/s
 import guidance from "../../../contracts/examples/feature-5/emergency-advice.response.json";
 import type { EmergencyAdvice } from "../src/features/scenarios/emergency-advice";
 
+test("emergency guidance displays the backend field errors instead of hiding the invalid input", async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = async () => Response.json({ error: { fields: [
+    { field: "incident.affected_facility_ids.0", message: "Unknown facility DEMO-X." },
+  ] } }, { status: 422 });
+  try {
+    await assert.rejects(requestEmergencyAdvice(outageExample()),
+      /incident\.affected_facility_ids\.0: Unknown facility DEMO-X/);
+  } finally { globalThis.fetch = original; }
+});
+
 test("connected assessment posts the actual report once and displays provider flags and metadata", async () => {
   const original = globalThis.fetch;
   const calls: { url: string; init?: RequestInit }[] = [];

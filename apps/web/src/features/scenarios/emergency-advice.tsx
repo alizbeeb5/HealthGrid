@@ -16,7 +16,18 @@ export async function requestEmergencyAdvice(incident: IncidentFields): Promise<
       body: JSON.stringify({ incident: { ...incident, title: incident.title.trim() || "Incident report" } }),
     });
   } catch { throw new Error("Could not reach emergency guidance. Your incident is unchanged."); }
-  if (!response.ok) throw new Error(response.status === 422 ? "Check the report and incident fields before requesting guidance." : "Emergency guidance is unavailable. Your incident is unchanged.");
+  if (!response.ok) {
+    let fields: { field: string; message: string }[] = [];
+    if (response.status === 422) {
+      try {
+        const body = await response.json();
+        if (Array.isArray(body?.error?.fields)) fields = body.error.fields;
+      } catch { /* Keep the status-specific message if the error body is unreadable. */ }
+    }
+    throw new Error(response.status === 422
+      ? ["Check the report and incident fields before requesting guidance.", ...fields.map((item) => `${item.field}: ${item.message}`)].join("\n")
+      : "Emergency guidance is unavailable. Your incident is unchanged.");
+  }
   try { return await response.json() as EmergencyAdvice; }
   catch { throw new Error("Emergency guidance returned an unreadable response."); }
 }
@@ -58,7 +69,7 @@ export function EmergencyAdvicePanel({ incident, disabled }: { incident: Inciden
     <button className={secondaryClass} disabled={disabled || !incident.report_text?.trim() || state.phase === "loading"} onClick={() => void request()}>{state.phase === "loading" ? "Preparing next steps…" : "Suggest emergency next steps · live"}</button>
     {state.phase === "idle" && <p className="text-xs text-slate-500">Add a report or load the fictional Hospital B outage to begin. Changing incident details clears previous guidance.</p>}
     {state.phase === "loading" && <p role="status" className="text-sm">Reviewing the report, hospital service status, resources and modeled capacity…</p>}
-    {state.phase === "error" && <p role="alert" className="text-sm text-rose-800">{state.message}</p>}
+    {state.phase === "error" && <p role="alert" className="whitespace-pre-line text-sm text-rose-800">{state.message}</p>}
     {state.phase === "ready" && <EmergencyAdviceResult data={state.data} />}
   </section>;
 }
