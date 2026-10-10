@@ -1,0 +1,17 @@
+/** Frontend preview models, not decision API contracts. Backend schemas are pending. */
+export const decisionStatuses = ["draft", "pending_review", "approved", "in_progress", "completed", "rejected", "cancelled"] as const;
+export type DecisionStatus = typeof decisionStatuses[number];
+export type ActionStatus = "pending" | "in_progress" | "blocked" | "completed" | "cancelled";
+export type Action = { action_id: string; title: string; requires_action_ids: string[]; status: ActionStatus; note: string; occurred_at: string | null; actual_cost_minor_units: number | null; corrections: { actor: string; reason: string; occurred_at: string; evidence_note: string; actual_cost_minor_units: number | null; recorded_at: string }[] };
+export type DecisionSource = { source_type: "allocation" | "investment"; source_run_id: string; allocation_run_id: string | null; has_transfer_prerequisite: boolean; example: boolean; total_cost_minor_units: number; expected_at: string | null; baseline_at: string | null; expectations: { facility_id: string; capacity: number | null; planned_demand: number }[]; exclusions: string[]; actions: { action_id: string; title: string; requires_action_ids: string[] }[]; evidence: string[] };
+export type DecisionDetails = { title: string; owner_name: string; rationale: string; target_completion_at: string; prerequisite_decision_id: string | null; supersedes_decision_id: string | null };
+export type Decision = DecisionDetails & { decision_id: string; source: DecisionSource; status: DecisionStatus; version: number; created_at: string; identity_mode: "demo_self_reported"; actions: Action[]; events: { event_id: string; type: string; actor: string; note: string; recorded_at: string; occurred_at: string | null; payload: unknown }[] };
+export type OutcomeRow = { facility_id: string; expected: number | null; observed: number | null; capacity_difference: number | null; classification: "at_or_above_expected" | "below_expected" | "insufficient_evidence" | "too_early" | "not_comparable"; reasons: string[]; observations: { observation_id: string; resource_id: string; quantity: number; unit: string; observed_at: string; data_status: string }[] };
+export type OutcomeReview = { review_id: string; decision_id: string; captured_at: string; expected_at: string; window_starts_at: string; actor: string; note: string; decision_status: DecisionStatus; decision_version: number; profile_version: string; rows: OutcomeRow[]; excluded: string[]; example: true; comparable_facility_ids: string[] };
+export const blankDetails = (): DecisionDetails => ({ title: "", owner_name: "", rationale: "", target_completion_at: "", prerequisite_decision_id: null, supersedes_decision_id: null });
+export function validateDetails(details: DecisionDetails, actor: string): string[] {
+  const errors: string[] = [];
+  if (!details.title.trim() || !details.owner_name.trim() || !details.rationale.trim() || !actor.trim()) errors.push("Enter a title, responsible owner, rationale and self-reported actor name.");
+  if (!details.target_completion_at.endsWith("Z") || !Number.isFinite(Date.parse(details.target_completion_at))) errors.push("Enter a valid UTC target completion timestamp.");
+  return errors;
+}

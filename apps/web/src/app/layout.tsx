@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "Health capacity, response and investment planning",
 };
 
-const pages = ["overview", "facilities", "forecasts", "scenarios", "investments"];
+const pages = ["overview", "facilities", "forecasts", "scenarios", "investments", "decisions"];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,0 +1,15 @@
+import examples from "./demo-display.json";
+import type { components } from "../../lib/api/schema";
+import { facilityRequest } from "../../lib/api/facilities";
+import type { DecisionSource } from "./model";
+export const exampleSources = () => structuredClone(examples.sources) as DecisionSource[];
+export async function loadDecisionSource(type: "allocation" | "investment", id: string): Promise<DecisionSource> {
+  if (type === "allocation") {
+    const run = await facilityRequest<components["schemas"]["AllocationRun"]>(`/api/v1/allocation/runs/${encodeURIComponent(id)}`);
+    if (run.allocation_run_id !== id || !run.validation_passed || !run.proposed_summary || !["optimal", "feasible"].includes(run.solver_status)) throw new Error("Choose a saved validated allocation with a proposed summary.");
+    return { source_type: type, source_run_id: id, allocation_run_id: null, has_transfer_prerequisite: false, example: false, total_cost_minor_units: run.total_cost_minor_units, expected_at: null, baseline_at: null, expectations: run.proposed_summary.rows.map((row) => ({ facility_id: row.facility_id, capacity: row.estimated_capacity, planned_demand: row.required_service_places })), exclusions: run.coverage.excluded.map((item) => `${item.facility_id}: ${item.reasons.join(", ")}`), actions: run.transfers.map((item) => ({ action_id: item.route_id, title: `${item.quantity} ${item.unit} ${item.resource_id}: ${item.from_facility_id} → ${item.to_facility_id}`, requires_action_ids: [] })), evidence: ["Saved validated allocation; source expectations and actions are frozen.", "Expected date and baseline capture require the forthcoming decision service, not an invented browser timestamp."] };
+  }
+  const run = await facilityRequest<components["schemas"]["InvestmentRun"]>(`/api/v1/investments/runs/${encodeURIComponent(id)}`);
+  if (run.investment_run_id !== id || !run.validation_passed || !run.proposed_summary || !["optimal", "feasible"].includes(run.solver_status)) throw new Error("Choose a saved validated investment with a proposed summary.");
+  return { source_type: type, source_run_id: id, allocation_run_id: run.allocation_run_id, has_transfer_prerequisite: run.assumed_transfers.length > 0, example: false, total_cost_minor_units: run.total_cost_minor_units, expected_at: run.input.evaluation_at, baseline_at: null, expectations: run.proposed_summary.rows.map((row) => ({ facility_id: row.facility_id, capacity: row.estimated_capacity, planned_demand: row.required_service_places })), exclusions: run.coverage.excluded_facilities.map((item) => `${item.facility_id}: ${item.reasons.join(", ")}`), actions: run.selected_projects.map((item) => ({ action_id: item.candidate_id, title: run.input.candidates.find((candidate) => candidate.candidate_id === item.candidate_id)?.name ?? item.candidate_id, requires_action_ids: item.requires_candidate_ids })), evidence: ["Saved investment evaluation date is separate from the human target completion date.", "Proposed operating allowances and optional reported actual payments are separate measures."] };
+}

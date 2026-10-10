@@ -1,0 +1,762 @@
+{
+  "sources": [
+    {
+      "source_type": "allocation",
+      "source_run_id": "FRONTEND-TRANSFER-SOURCE",
+      "allocation_run_id": null,
+      "has_transfer_prerequisite": false,
+      "example": true,
+      "total_cost_minor_units": 10000,
+      "expected_at": "2026-10-10T11:00:00Z",
+      "baseline_at": "2026-10-10T09:00:00Z",
+      "expectations": [
+        {
+          "facility_id": "DEMO-A",
+          "capacity": 3,
+          "planned_demand": 3
+        },
+        {
+          "facility_id": "DEMO-B",
+          "capacity": 3,
+          "planned_demand": 8
+        }
+      ],
+      "exclusions": [
+        "DEMO-C unavailable; its demand is excluded, not zero."
+      ],
+      "actions": [
+        {
+          "action_id": "TRANSFER-A-B",
+          "title": "Report transfer of one working monitor A \u2192 B",
+          "requires_action_ids": []
+        }
+      ],
+      "evidence": [
+        "Fixed synthetic Feature 6 display source, not a saved API run.",
+        "A 4 \u2192 3 and B 2 \u2192 3; moving inventory is an assumption until reports support it."
+      ]
+    },
+    {
+      "source_type": "investment",
+      "source_run_id": "FRONTEND-FUNDING-SOURCE",
+      "allocation_run_id": "FRONTEND-TRANSFER-SOURCE",
+      "has_transfer_prerequisite": true,
+      "example": true,
+      "total_cost_minor_units": 240000,
+      "expected_at": "2026-11-09T11:00:00Z",
+      "baseline_at": "2026-10-10T09:00:00Z",
+      "expectations": [
+        {
+          "facility_id": "DEMO-A",
+          "capacity": 3,
+          "planned_demand": 3
+        },
+        {
+          "facility_id": "DEMO-B",
+          "capacity": 8,
+          "planned_demand": 8
+        }
+      ],
+      "exclusions": [
+        "DEMO-C unavailable; its demand is excluded, not zero."
+      ],
+      "actions": [
+        {
+          "action_id": "REPAIR",
+          "title": "Repair five confirmed idle monitors",
+          "requires_action_ids": []
+        },
+        {
+          "action_id": "COMMISSION",
+          "title": "Commission repaired working monitors",
+          "requires_action_ids": [
+            "REPAIR"
+          ]
+        }
+      ],
+      "evidence": [
+        "Fixed synthetic Feature 7 display source, not a saved API run.",
+        "USD 1,500 capital plus USD 900 full operating allowance; partial actual payments are a different accounting measure.",
+        "Commissioning depends on repair; transfer completion is a separate prerequisite decision."
+      ]
+    }
+  ],
+  "reviews": {
+    "allocation": {
+      "insufficient": {
+        "captured_at": "2026-11-10T11:00:00Z",
+        "expected_at": "2026-10-10T11:00:00Z",
+        "window_starts_at": "2026-11-09T11:00:00Z",
+        "profile_version": "demo-v1",
+        "rows": [
+          {
+            "facility_id": "DEMO-A",
+            "expected": 3,
+            "observed": 3,
+            "capacity_difference": 0,
+            "classification": "at_or_above_expected",
+            "reasons": [
+              "Fresh synthetic reports inside the displayed window; later evidence does not prove on-time achievement."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-allocation-insufficient-DEMO-A-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 12,
+                "unit": "bed",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-insufficient-DEMO-A-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 6,
+                "unit": "person",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-insufficient-DEMO-A-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 3,
+                "unit": "item",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              }
+            ]
+          },
+          {
+            "facility_id": "DEMO-B",
+            "expected": 3,
+            "observed": null,
+            "capacity_difference": null,
+            "classification": "insufficient_evidence",
+            "reasons": [
+              "Fresh in-window monitor evidence is missing."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-allocation-insufficient-DEMO-B-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 18,
+                "unit": "bed",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-insufficient-DEMO-B-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 9,
+                "unit": "person",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              }
+            ]
+          }
+        ],
+        "excluded": [
+          "DEMO-C unavailable; its demand is excluded, not zero."
+        ],
+        "comparable_facility_ids": [
+          "DEMO-A"
+        ]
+      },
+      "supported": {
+        "captured_at": "2026-11-10T11:00:00Z",
+        "expected_at": "2026-10-10T11:00:00Z",
+        "window_starts_at": "2026-11-09T11:00:00Z",
+        "profile_version": "demo-v1",
+        "rows": [
+          {
+            "facility_id": "DEMO-A",
+            "expected": 3,
+            "observed": 3,
+            "capacity_difference": 0,
+            "classification": "at_or_above_expected",
+            "reasons": [
+              "Fresh synthetic reports inside the displayed window; later evidence does not prove on-time achievement."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-allocation-supported-DEMO-A-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 12,
+                "unit": "bed",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-supported-DEMO-A-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 6,
+                "unit": "person",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-supported-DEMO-A-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 3,
+                "unit": "item",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              }
+            ]
+          },
+          {
+            "facility_id": "DEMO-B",
+            "expected": 3,
+            "observed": 3,
+            "capacity_difference": 0,
+            "classification": "at_or_above_expected",
+            "reasons": [
+              "Fresh synthetic reports inside the displayed window; later evidence does not prove on-time achievement."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-allocation-supported-DEMO-B-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 18,
+                "unit": "bed",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-supported-DEMO-B-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 9,
+                "unit": "person",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-supported-DEMO-B-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 3,
+                "unit": "item",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              }
+            ]
+          }
+        ],
+        "excluded": [
+          "DEMO-C unavailable; its demand is excluded, not zero."
+        ],
+        "comparable_facility_ids": [
+          "DEMO-A",
+          "DEMO-B"
+        ]
+      },
+      "below": {
+        "captured_at": "2026-11-10T11:00:00Z",
+        "expected_at": "2026-10-10T11:00:00Z",
+        "window_starts_at": "2026-11-09T11:00:00Z",
+        "profile_version": "demo-v1",
+        "rows": [
+          {
+            "facility_id": "DEMO-A",
+            "expected": 3,
+            "observed": 3,
+            "capacity_difference": 0,
+            "classification": "at_or_above_expected",
+            "reasons": [
+              "Fresh synthetic reports inside the displayed window; later evidence does not prove on-time achievement."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-allocation-below-DEMO-A-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 12,
+                "unit": "bed",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-below-DEMO-A-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 6,
+                "unit": "person",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-below-DEMO-A-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 3,
+                "unit": "item",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              }
+            ]
+          },
+          {
+            "facility_id": "DEMO-B",
+            "expected": 3,
+            "observed": 2,
+            "capacity_difference": -1,
+            "classification": "below_expected",
+            "reasons": [
+              "Fresh synthetic reports inside the displayed window; later evidence does not prove on-time achievement."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-allocation-below-DEMO-B-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 18,
+                "unit": "bed",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-below-DEMO-B-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 9,
+                "unit": "person",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-below-DEMO-B-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 2,
+                "unit": "item",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              }
+            ]
+          }
+        ],
+        "excluded": [
+          "DEMO-C unavailable; its demand is excluded, not zero."
+        ],
+        "comparable_facility_ids": [
+          "DEMO-A",
+          "DEMO-B"
+        ]
+      },
+      "early": {
+        "captured_at": "2026-10-10T10:00:00Z",
+        "expected_at": "2026-10-10T11:00:00Z",
+        "window_starts_at": "2026-10-10T09:00:00Z",
+        "profile_version": "demo-v1",
+        "rows": [
+          {
+            "facility_id": "DEMO-A",
+            "expected": 3,
+            "observed": 3,
+            "capacity_difference": null,
+            "classification": "too_early",
+            "reasons": [
+              "Review predates the expected date; no target achievement assessment."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-allocation-early-DEMO-A-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 12,
+                "unit": "bed",
+                "observed_at": "2026-10-10T09:30:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-early-DEMO-A-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 6,
+                "unit": "person",
+                "observed_at": "2026-10-10T09:30:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-early-DEMO-A-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 3,
+                "unit": "item",
+                "observed_at": "2026-10-10T09:30:00Z",
+                "data_status": "current"
+              }
+            ]
+          },
+          {
+            "facility_id": "DEMO-B",
+            "expected": 3,
+            "observed": 3,
+            "capacity_difference": null,
+            "classification": "too_early",
+            "reasons": [
+              "Review predates the expected date; no target achievement assessment."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-allocation-early-DEMO-B-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 18,
+                "unit": "bed",
+                "observed_at": "2026-10-10T09:30:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-early-DEMO-B-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 9,
+                "unit": "person",
+                "observed_at": "2026-10-10T09:30:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-allocation-early-DEMO-B-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 3,
+                "unit": "item",
+                "observed_at": "2026-10-10T09:30:00Z",
+                "data_status": "current"
+              }
+            ]
+          }
+        ],
+        "excluded": [
+          "DEMO-C unavailable; its demand is excluded, not zero."
+        ],
+        "comparable_facility_ids": []
+      }
+    },
+    "investment": {
+      "insufficient": {
+        "captured_at": "2026-11-10T11:00:00Z",
+        "expected_at": "2026-11-09T11:00:00Z",
+        "window_starts_at": "2026-11-09T11:00:00Z",
+        "profile_version": "demo-v1",
+        "rows": [
+          {
+            "facility_id": "DEMO-A",
+            "expected": 3,
+            "observed": 3,
+            "capacity_difference": 0,
+            "classification": "at_or_above_expected",
+            "reasons": [
+              "Fresh synthetic reports inside the displayed window; later evidence does not prove on-time achievement."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-investment-insufficient-DEMO-A-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 12,
+                "unit": "bed",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-insufficient-DEMO-A-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 6,
+                "unit": "person",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-insufficient-DEMO-A-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 3,
+                "unit": "item",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              }
+            ]
+          },
+          {
+            "facility_id": "DEMO-B",
+            "expected": 8,
+            "observed": null,
+            "capacity_difference": null,
+            "classification": "insufficient_evidence",
+            "reasons": [
+              "Fresh in-window monitor evidence is missing."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-investment-insufficient-DEMO-B-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 18,
+                "unit": "bed",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-insufficient-DEMO-B-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 9,
+                "unit": "person",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              }
+            ]
+          }
+        ],
+        "excluded": [
+          "DEMO-C unavailable; its demand is excluded, not zero."
+        ],
+        "comparable_facility_ids": [
+          "DEMO-A"
+        ]
+      },
+      "supported": {
+        "captured_at": "2026-11-10T11:00:00Z",
+        "expected_at": "2026-11-09T11:00:00Z",
+        "window_starts_at": "2026-11-09T11:00:00Z",
+        "profile_version": "demo-v1",
+        "rows": [
+          {
+            "facility_id": "DEMO-A",
+            "expected": 3,
+            "observed": 3,
+            "capacity_difference": 0,
+            "classification": "at_or_above_expected",
+            "reasons": [
+              "Fresh synthetic reports inside the displayed window; later evidence does not prove on-time achievement."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-investment-supported-DEMO-A-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 12,
+                "unit": "bed",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-supported-DEMO-A-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 6,
+                "unit": "person",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-supported-DEMO-A-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 3,
+                "unit": "item",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              }
+            ]
+          },
+          {
+            "facility_id": "DEMO-B",
+            "expected": 8,
+            "observed": 8,
+            "capacity_difference": 0,
+            "classification": "at_or_above_expected",
+            "reasons": [
+              "Fresh synthetic reports inside the displayed window; later evidence does not prove on-time achievement."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-investment-supported-DEMO-B-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 18,
+                "unit": "bed",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-supported-DEMO-B-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 9,
+                "unit": "person",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-supported-DEMO-B-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 8,
+                "unit": "item",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              }
+            ]
+          }
+        ],
+        "excluded": [
+          "DEMO-C unavailable; its demand is excluded, not zero."
+        ],
+        "comparable_facility_ids": [
+          "DEMO-A",
+          "DEMO-B"
+        ]
+      },
+      "below": {
+        "captured_at": "2026-11-10T11:00:00Z",
+        "expected_at": "2026-11-09T11:00:00Z",
+        "window_starts_at": "2026-11-09T11:00:00Z",
+        "profile_version": "demo-v1",
+        "rows": [
+          {
+            "facility_id": "DEMO-A",
+            "expected": 3,
+            "observed": 3,
+            "capacity_difference": 0,
+            "classification": "at_or_above_expected",
+            "reasons": [
+              "Fresh synthetic reports inside the displayed window; later evidence does not prove on-time achievement."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-investment-below-DEMO-A-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 12,
+                "unit": "bed",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-below-DEMO-A-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 6,
+                "unit": "person",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-below-DEMO-A-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 3,
+                "unit": "item",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              }
+            ]
+          },
+          {
+            "facility_id": "DEMO-B",
+            "expected": 8,
+            "observed": 6,
+            "capacity_difference": -2,
+            "classification": "below_expected",
+            "reasons": [
+              "Fresh synthetic reports inside the displayed window; later evidence does not prove on-time achievement."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-investment-below-DEMO-B-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 18,
+                "unit": "bed",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-below-DEMO-B-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 9,
+                "unit": "person",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-below-DEMO-B-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 6,
+                "unit": "item",
+                "observed_at": "2026-11-10T10:00:00Z",
+                "data_status": "current"
+              }
+            ]
+          }
+        ],
+        "excluded": [
+          "DEMO-C unavailable; its demand is excluded, not zero."
+        ],
+        "comparable_facility_ids": [
+          "DEMO-A",
+          "DEMO-B"
+        ]
+      },
+      "early": {
+        "captured_at": "2026-10-10T10:00:00Z",
+        "expected_at": "2026-11-09T11:00:00Z",
+        "window_starts_at": "2026-10-10T09:00:00Z",
+        "profile_version": "demo-v1",
+        "rows": [
+          {
+            "facility_id": "DEMO-A",
+            "expected": 3,
+            "observed": 3,
+            "capacity_difference": null,
+            "classification": "too_early",
+            "reasons": [
+              "Review predates the expected date; no target achievement assessment."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-investment-early-DEMO-A-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 12,
+                "unit": "bed",
+                "observed_at": "2026-10-10T09:30:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-early-DEMO-A-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 6,
+                "unit": "person",
+                "observed_at": "2026-10-10T09:30:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-early-DEMO-A-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 3,
+                "unit": "item",
+                "observed_at": "2026-10-10T09:30:00Z",
+                "data_status": "current"
+              }
+            ]
+          },
+          {
+            "facility_id": "DEMO-B",
+            "expected": 8,
+            "observed": 8,
+            "capacity_difference": null,
+            "classification": "too_early",
+            "reasons": [
+              "Review predates the expected date; no target achievement assessment."
+            ],
+            "observations": [
+              {
+                "observation_id": "UI-investment-early-DEMO-B-available-beds",
+                "resource_id": "available-beds",
+                "quantity": 18,
+                "unit": "bed",
+                "observed_at": "2026-10-10T09:30:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-early-DEMO-B-nurses-on-duty",
+                "resource_id": "nurses-on-duty",
+                "quantity": 9,
+                "unit": "person",
+                "observed_at": "2026-10-10T09:30:00Z",
+                "data_status": "current"
+              },
+              {
+                "observation_id": "UI-investment-early-DEMO-B-working-monitors",
+                "resource_id": "working-monitors",
+                "quantity": 8,
+                "unit": "item",
+                "observed_at": "2026-10-10T09:30:00Z",
+                "data_status": "current"
+              }
+            ]
+          }
+        ],
+        "excluded": [
+          "DEMO-C unavailable; its demand is excluded, not zero."
+        ],
+        "comparable_facility_ids": []
+      }
+    }
+  }
+}
