@@ -13,3 +13,9 @@ Feature 2's `capacity.ts` uses the implemented GET capacity route without fallin
 back to samples. `feature-2.ts` aliases the backend-owned types in generated
 `schema.d.ts`. Resource saves refetch both snapshot and capacity. The panel never
 calculates capacity; the optional browser demo labels its fixed samples as frozen.
+
+Feature 3's `network.ts` exports generated network aliases and a client for the
+service catalog and one selected-service overview. API mode never falls back to
+fixtures. Explicit example mode uses the published, frozen Feature 3 responses.
+See `../../features/network/README.md` for filtering, summary-helper ownership,
+navigation and acceptance checks.

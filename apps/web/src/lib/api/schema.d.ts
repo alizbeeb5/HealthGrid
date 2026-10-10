@@ -78,6 +78,46 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/network/services": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Network Services */
+        get: operations["list_network_services"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/network/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Network Overview
+         * @description Modeled single-service capacity for every facility offering the service.
+         *
+         *     An unknown service_id returns 200 with service_name null and no facilities.
+         *     Estimates are demo resource-based models, not spare admission capacity.
+         */
+        get: operations["get_network_overview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -211,6 +251,52 @@ export interface components {
              * @constant
              */
             service: "healthgrid-api";
+        };
+        /** NetworkFacilityResult */
+        NetworkFacilityResult: {
+            facility: components["schemas"]["Facility"];
+            capacity: components["schemas"]["ServiceCapacityResult"];
+        };
+        /** NetworkOverviewResponse */
+        NetworkOverviewResponse: {
+            /** Service Id */
+            service_id: string;
+            /** Service Name */
+            service_name: string | null;
+            /**
+             * As Of
+             * Format: date-time
+             */
+            as_of: string;
+            /** Stale After Hours */
+            stale_after_hours: number;
+            /**
+             * Calculation Scope
+             * @constant
+             */
+            calculation_scope: "single_service";
+            /**
+             * Capacity Unit
+             * @constant
+             */
+            capacity_unit: "simultaneous_service_place";
+            /** Facilities */
+            facilities: components["schemas"]["NetworkFacilityResult"][];
+        };
+        /** NetworkService */
+        NetworkService: {
+            /** Service Id */
+            service_id: string;
+            /** Name */
+            name: string;
+        };
+        /**
+         * NetworkServiceListResponse
+         * @description Services offered by at least one facility, ordered by service_id.
+         */
+        NetworkServiceListResponse: {
+            /** Items */
+            items: components["schemas"]["NetworkService"][];
         };
         /** ObservationCreate */
         ObservationCreate: {
@@ -466,6 +552,57 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+            /** @description Invalid request or observation */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_network_services: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NetworkServiceListResponse"];
+                };
+            };
+        };
+    };
+    get_network_overview: {
+        parameters: {
+            query: {
+                service_id: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NetworkOverviewResponse"];
                 };
             };
             /** @description Invalid request or observation */

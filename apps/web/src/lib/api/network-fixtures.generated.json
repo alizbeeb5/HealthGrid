@@ -1,0 +1,190 @@
+{
+  "services": {
+    "items": [
+      {
+        "service_id": "emergency-care",
+        "name": "Emergency care"
+      }
+    ]
+  },
+  "overview": {
+    "service_id": "emergency-care",
+    "service_name": "Emergency care",
+    "as_of": "2026-10-10T09:00:00Z",
+    "stale_after_hours": 24,
+    "calculation_scope": "single_service",
+    "capacity_unit": "simultaneous_service_place",
+    "facilities": [
+      {
+        "facility": {
+          "facility_id": "DEMO-A",
+          "name": "Demo Hospital A",
+          "latitude": 33.9,
+          "longitude": 35.5,
+          "last_reported_at": "2026-10-10T08:35:00Z"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "service_status": "limited",
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place",
+          "status": "unknown",
+          "estimated_capacity": null,
+          "bottleneck_resource_ids": [],
+          "resource_limits": [
+            {
+              "resource_id": "available-beds",
+              "unit": "bed",
+              "required_per_capacity_unit": 1,
+              "available_quantity": 12,
+              "capacity_limit": 12,
+              "data_status": "current",
+              "observation_id": "OBS-DEMO-A-1",
+              "observed_at": "2026-10-10T08:30:00Z"
+            },
+            {
+              "resource_id": "nurses-on-duty",
+              "unit": "person",
+              "required_per_capacity_unit": 0.5,
+              "available_quantity": 6,
+              "capacity_limit": 12,
+              "data_status": "current",
+              "observation_id": "OBS-DEMO-A-2",
+              "observed_at": "2026-10-10T08:30:00Z"
+            },
+            {
+              "resource_id": "working-monitors",
+              "unit": "item",
+              "required_per_capacity_unit": 1,
+              "available_quantity": null,
+              "capacity_limit": null,
+              "data_status": "unknown",
+              "observation_id": null,
+              "observed_at": null
+            }
+          ],
+          "reason_codes": [
+            "missing_required_observation",
+            "service_restriction_unquantified"
+          ]
+        }
+      },
+      {
+        "facility": {
+          "facility_id": "DEMO-B",
+          "name": "Demo Hospital B",
+          "latitude": 33.88,
+          "longitude": 35.53,
+          "last_reported_at": "2026-10-10T08:35:00Z"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "service_status": "operating",
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place",
+          "status": "calculated",
+          "estimated_capacity": 5,
+          "bottleneck_resource_ids": [
+            "working-monitors"
+          ],
+          "resource_limits": [
+            {
+              "resource_id": "available-beds",
+              "unit": "bed",
+              "required_per_capacity_unit": 1,
+              "available_quantity": 18,
+              "capacity_limit": 18,
+              "data_status": "current",
+              "observation_id": "OBS-DEMO-B-1",
+              "observed_at": "2026-10-10T08:30:00Z"
+            },
+            {
+              "resource_id": "nurses-on-duty",
+              "unit": "person",
+              "required_per_capacity_unit": 0.5,
+              "available_quantity": 9,
+              "capacity_limit": 18,
+              "data_status": "current",
+              "observation_id": "OBS-DEMO-B-2",
+              "observed_at": "2026-10-10T08:30:00Z"
+            },
+            {
+              "resource_id": "working-monitors",
+              "unit": "item",
+              "required_per_capacity_unit": 1,
+              "available_quantity": 5,
+              "capacity_limit": 5,
+              "data_status": "current",
+              "observation_id": "OBS-DEMO-B-4",
+              "observed_at": "2026-10-10T08:30:00Z"
+            }
+          ],
+          "reason_codes": []
+        }
+      },
+      {
+        "facility": {
+          "facility_id": "DEMO-C",
+          "name": "Demo Hospital C",
+          "latitude": 33.86,
+          "longitude": 35.51,
+          "last_reported_at": "2026-10-09T07:05:00Z"
+        },
+        "capacity": {
+          "service_id": "emergency-care",
+          "service_status": "unavailable",
+          "profile_version": "demo-v1",
+          "capacity_unit": "simultaneous_service_place",
+          "status": "unavailable",
+          "estimated_capacity": 0,
+          "bottleneck_resource_ids": [],
+          "resource_limits": [
+            {
+              "resource_id": "available-beds",
+              "unit": "bed",
+              "required_per_capacity_unit": 1,
+              "available_quantity": 0,
+              "capacity_limit": null,
+              "data_status": "stale",
+              "observation_id": "OBS-DEMO-C-1",
+              "observed_at": "2026-10-09T07:00:00Z"
+            },
+            {
+              "resource_id": "nurses-on-duty",
+              "unit": "person",
+              "required_per_capacity_unit": 0.5,
+              "available_quantity": 2,
+              "capacity_limit": null,
+              "data_status": "stale",
+              "observation_id": "OBS-DEMO-C-2",
+              "observed_at": "2026-10-09T07:00:00Z"
+            },
+            {
+              "resource_id": "working-monitors",
+              "unit": "item",
+              "required_per_capacity_unit": 1,
+              "available_quantity": 1,
+              "capacity_limit": null,
+              "data_status": "stale",
+              "observation_id": "OBS-DEMO-C-4",
+              "observed_at": "2026-10-09T07:00:00Z"
+            }
+          ],
+          "reason_codes": [
+            "service_unavailable",
+            "stale_required_observation"
+          ]
+        }
+      }
+    ]
+  },
+  "unknownService": {
+    "service_id": "maternity",
+    "service_name": null,
+    "as_of": "2026-10-10T09:00:00Z",
+    "stale_after_hours": 24,
+    "calculation_scope": "single_service",
+    "capacity_unit": "simultaneous_service_place",
+    "facilities": []
+  }
+}

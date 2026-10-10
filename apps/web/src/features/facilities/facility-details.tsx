@@ -8,7 +8,7 @@ import { ObservationForm } from "./observation-form";
 import { CapacityPanel } from "./capacity-panel";
 import { useCapacity } from "./use-capacity";
 
-export function FacilityDetails({ facilityId }: { facilityId: string }) {
+export function FacilityDetails({ facilityId, returnTo }: { facilityId: string; returnTo?: string }) {
   const capacity = useCapacity(facilityId);
   const [snapshot, setSnapshot] = useState<FacilitySnapshotResponse>();
   const [loading, setLoading] = useState(true);
@@ -44,7 +44,7 @@ export function FacilityDetails({ facilityId }: { facilityId: string }) {
   }
 
   return <>
-    <BackLink />
+    <BackLink returnTo={returnTo} />
     <ModeNotice />
     {loading ? <LoadingState detail /> : notFound ? <div className={`${panelClass} p-8`}><h1 className="text-xl font-semibold">Hospital not found</h1><p className="mt-3 text-sm text-slate-600">This hospital ID is not available in the selected data source.</p></div>
       : !snapshot ? <LoadError message={error ?? "No snapshot available."} retry={() => setAttempt((value) => value + 1)} /> : <>

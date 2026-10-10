@@ -1,5 +1,6 @@
-import { PagePlaceholder } from "@/components/page-placeholder";
+import { Suspense } from "react";
+import { NetworkDashboard } from "@/features/network/network-dashboard";
 
 export default function Page() {
-  return <PagePlaceholder title="National health overview" description="Monitor usable service capacity, emerging gaps and priorities across facilities." />;
+  return <Suspense fallback={<p role="status">Loading network overview…</p>}><NetworkDashboard /></Suspense>;
 }

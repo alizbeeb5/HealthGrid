@@ -38,8 +38,8 @@ export function StatusBadge({ status }: { status: string }) {
   return <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold capitalize ring-1 ring-inset ${colors[status] ?? colors.unknown}`}>{status}</span>;
 }
 
-export function BackLink() {
-  return <Link href="/facilities" className="mb-5 inline-flex items-center gap-2 text-sm font-medium text-teal-800 hover:underline"><ArrowLeft size={16} />All hospitals</Link>;
+export function BackLink({ returnTo }: { returnTo?: string } = {}) {
+  return <Link href={returnTo ?? "/facilities"} className="mb-5 inline-flex items-center gap-2 text-sm font-medium text-teal-800 hover:underline"><ArrowLeft size={16} />{returnTo ? "Back to network overview" : "All hospitals"}</Link>;
 }
 
 export function LoadingState({ detail = false }: { detail?: boolean }) {
