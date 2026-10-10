@@ -60,3 +60,28 @@ decision board are connected. Saved review history reopens frozen evidence witho
 recalculating. Approval never changes hospital inventory. Domain routers are
 registered in `app/routes.py`. Authentication is not implemented. Paid AI behavior
 requires live account verification.
+
+## Isolated Beirut exercise
+
+`modules/demo` orchestrates existing domain services; it contains no alternative
+capacity, optimization or forecasting engine. `run_beirut_demo.py` selects a
+separate SQLite file and `DEMO_SCENARIO=beirut` before importing application settings.
+Migration 0008 stores its phase, server-controlled clock and saved-run manifest.
+Normal databases keep their ordinary clock, resource profiles and investment catalog.
+
+The demo stage endpoint owns an outer transaction with SQLite write serialization.
+Domain-service commits use savepoints, so a failed stage rolls back decision events,
+new observations, reviews and the phase together. Repeating an applied stage does
+not duplicate reports. Exercise reports are append-only. Frozen scenarios and plans
+remain unchanged. The launcher refuses to seed over an existing hospital dataset.
+
+The frontend loads the exercise manifest before mounting pages, selects API mode,
+and preserves saved-run links. Stage controls deliberately simulate human actions
+and separate report arrivals; they are not production approval automation. There
+is no authentication on this local prototype. See `demo-contract.md`.
+
+The demo launcher repairs missing synthetic daily history on resume; the stage
+transaction appends completed follow-up days before advancing its clock. Existing
+daily rows and reports are retained. Dedicated Beirut views use existing domain
+API contracts, with no frontend capacity/optimization calculations. AI advice is
+an explicit request beside the incident; generic editors are an advanced path.

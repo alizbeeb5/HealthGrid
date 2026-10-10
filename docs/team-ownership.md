@@ -1,12 +1,12 @@
 # Three-person workflow
 
-See `product-scope.md` for the finalized routine/crisis workflow and `next-tasks.md`
-for broad workstreams. The active Feature 8 assignments and shared interfaces
-are in `feature-8-contract.md`. Frontend owns the decision board, timeline and
-follow-up views; backend/data owns decision contracts, state transitions, event
-persistence and evidence capture; the third teammate owns the pure outcome
-evaluation engine and evidence fixtures/tests. Features 1–7 retain their existing
-contracts and ownership.
+For the Beirut enhancement milestone, the user assigned implementation across all
+modules to Codex as the sole driver. No teammate handoff is required. Preserve the
+module boundaries below; shared changes include migration 0008, the exercise
+contracts and generated frontend types. See `beirut-demo-enhancements.md` for the
+implemented scope and `demo-scenario.md` for rehearsal steps.
+
+The three-person ownership map below remains the reference for future collaboration.
 
 | Owner | Primary files | Deliverable |
 | --- | --- | --- |

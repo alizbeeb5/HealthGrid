@@ -1,5 +1,6 @@
 "use client";
 
+import { useExercise } from "../exercise/context";
 import { useRef, useState } from "react";
 import type { FacilitySnapshotResponse, ObservationResponse } from "../../lib/api/feature-1";
 import { createResourceObservation, FacilityClientError, facilityDataMode } from "../../lib/api/facilities";
@@ -13,9 +14,10 @@ export function ObservationForm({ snapshot, onSaved, onRefresh }: {
   onSaved: () => Promise<void>;
   onRefresh: () => Promise<void>;
 }) {
+  const exercise = useExercise();
   const [resourceId, setResourceId] = useState(snapshot.resources[0]?.resource_id ?? "");
   const [quantity, setQuantity] = useState("");
-  const [observedAt, setObservedAt] = useState(toLocalInput(new Date(facilityDataMode === "demo" ? snapshot.as_of : Date.now())));
+  const [observedAt, setObservedAt] = useState(toLocalInput(new Date(snapshot.as_of)));
   const [errors, setErrors] = useState<ObservationErrors>({});
   const [message, setMessage] = useState<string>();
   const [saved, setSaved] = useState<ObservationResponse>();
@@ -32,7 +34,7 @@ export function ObservationForm({ snapshot, onSaved, onRefresh }: {
     event.preventDefault();
     if (lock.current || needsRefresh) return;
     clearFeedback();
-    const validation = validateObservationInput(resource, quantity, observedAt, new Date(facilityDataMode === "demo" ? snapshot.as_of : Date.now()));
+    const validation = validateObservationInput(resource, quantity, observedAt, new Date(exercise?.clock ?? (facilityDataMode === "demo" ? snapshot.as_of : Date.now())));
     if (!validation.payload) {
       setErrors(validation.errors); setMessage("Review the highlighted fields.");
       requestAnimationFrame(() => errorSummary.current?.focus());

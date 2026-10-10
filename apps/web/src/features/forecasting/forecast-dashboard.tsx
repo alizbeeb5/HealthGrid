@@ -1,4 +1,6 @@
 "use client";
+import { NextStep } from "../exercise/journey";
+import { useExercise } from "../exercise/context";
 
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
@@ -14,9 +16,10 @@ const ForecastChart = dynamic(() => import("./forecast-chart"), { ssr: false, lo
 const inputClass = "mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm focus:border-teal-700 focus:outline-2 focus:outline-teal-100";
 
 export function ForecastDashboard() {
+  const exercise = useExercise();
   const params = useSearchParams();
   const [attempt, setAttempt] = useState(0);
-  const mode = params.get("mode") === "example" ? "example" : "api";
+  const mode = !exercise?.enabled && params.get("mode") === "example" ? "example" : "api";
   const [catalog, setCatalog] = useState<ReturnType<typeof forecastCatalog>>([]);
   const [catalogError, setCatalogError] = useState<string>();
   useEffect(() => {
@@ -25,7 +28,7 @@ export function ForecastDashboard() {
     void loadForecastCatalog(mode).then((items) => { if (active) setCatalog(items); }).catch((error) => { if (active) setCatalogError(error instanceof Error ? error.message : "Could not load hospital catalog."); });
     return () => { active = false; };
   }, [mode, attempt]);
-  const facilityId = params.get("facility_id") ?? "DEMO-B";
+  const facilityId = params.get("facility_id") ?? (exercise?.enabled ? "BEI-WEST" : catalog[0]?.facility.facility_id ?? "DEMO-B");
   const hospital = catalog.find((item) => item.facility.facility_id === facilityId);
   const serviceId = params.get("service_id") ?? hospital?.services.find((service) => service.service_id === "emergency-care")?.service_id ?? hospital?.services[0]?.service_id ?? "emergency-care";
   const service = hospital?.services.find((item) => item.service_id === serviceId);
@@ -50,16 +53,15 @@ export function ForecastDashboard() {
   return <div className="space-y-6">
     <header className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.18em] text-teal-700">Ministry / Preventive planning</p><h1 className="mt-2 text-3xl font-bold tracking-tight">Capacity and demand forecasts</h1><p className="mt-3 text-sm text-slate-600">Inspect seven-day modeled capacity, expected simultaneous demand and possible gaps.</p></div><button className={buttonClass} disabled={pending} onClick={refresh}><RefreshCw size={16} aria-hidden="true" />{pending ? "Refreshing…" : "Refresh forecast"}</button></header>
 
-    <div role="note" className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950"><strong>{mode === "example" ? "Shared synthetic example" : "Resource-based forecast"}</strong><p className="mt-1">{mode === "example" ? "Frozen shared JSON examples; refresh does not change their values." : "Loaded from the forecast API. Synthetic history is labeled in the evidence below."} Forecasts use separate daily history, so updating a current resource observation does not automatically rewrite historical records. Estimates are not confirmed spare admission capacity.</p><a className="mt-2 inline-block font-semibold underline" href={mode === "example" ? "/forecasts" : "/forecasts?mode=example"}>{mode === "example" ? "Open live API view" : "Open shared example view"}</a></div>
-
+    {exercise?.enabled ? <p className="text-sm leading-6 text-slate-500">Seven-day projections from synthetic daily history, updated with completed exercise days. Current incident losses and future funded changes are reviewed separately; this trend does not predict the explosion.</p> : <p className="text-sm text-slate-500">Forecasts use daily history. Current resource updates do not rewrite that history.</p>}
     {catalogError && <LoadError message={catalogError} retry={refresh} />}
-    <section className={`${panelClass} grid gap-4 p-5 sm:grid-cols-2`} aria-label="Forecast selection">
+    <section className={`${panelClass} grid gap-4 p-5 ${exercise?.enabled ? "" : "sm:grid-cols-2"}`} aria-label="Forecast selection">
       <label className="text-xs font-semibold text-slate-600">Hospital<select className={inputClass} value={facilityId} onChange={(event) => {
         const next = catalog.find((item) => item.facility.facility_id === event.target.value);
         const nextService = next?.services.find((item) => item.service_id === "emergency-care") ?? next?.services[0];
         select({ facility_id: event.target.value, service_id: nextService?.service_id ?? "" });
       }}>{!hospital && <option value={facilityId}>Hospital not listed ({facilityId})</option>}{catalog.map((item) => <option key={item.facility.facility_id} value={item.facility.facility_id}>{item.facility.name}</option>)}</select></label>
-      <label className="text-xs font-semibold text-slate-600">Service<select className={inputClass} value={serviceId} onChange={(event) => select({ service_id: event.target.value })} disabled={!hospital?.services.length}>{!service && <option value={serviceId}>Service not listed ({serviceId})</option>}{hospital?.services.map((item) => <option key={item.service_id} value={item.service_id}>{item.name}</option>)}</select></label>
+      {!exercise?.enabled && <label className="text-xs font-semibold text-slate-600">Service<select className={inputClass} value={serviceId} onChange={(event) => select({ service_id: event.target.value })} disabled={!hospital?.services.length}>{!service && <option value={serviceId}>Service not listed ({serviceId})</option>}{hospital?.services.map((item) => <option key={item.service_id} value={item.service_id}>{item.name}</option>)}</select></label>}
     </section>
 
     {pending ? <ForecastLoading updating={state.phase !== "loading"} />
@@ -77,8 +79,9 @@ export function ForecastDashboard() {
           <ForecastTable data={data} />
           <details className={`${panelClass} p-5`}><summary className="cursor-pointer text-sm font-semibold text-teal-800">View historical values and sources</summary><div className="mt-4 overflow-x-auto"><table className="w-full text-left text-sm"><caption className="sr-only">Historical simultaneous capacity and demand</caption><thead><tr>{["Date", "Modeled capacity", "Demand", "Sources / quality"].map((heading) => <th scope="col" key={heading} className="py-2 pr-4 text-xs text-slate-500">{heading}</th>)}</tr></thead><tbody>{data.history.map((point) => <tr key={point.date} className="border-t border-slate-100"><th scope="row" className="py-2 pr-4 font-normal"><time dateTime={point.date}>{forecastDate(point.date)}</time></th><td className="py-2 pr-4">{point.capacity === null ? "Unknown" : `${point.capacity} places`}</td><td className="py-2">{point.demand === null ? "Unknown" : `${point.demand} places`}</td><td className="py-2 text-xs">{point.sources.join(", ") || "Unknown source"} · {point.data_quality ?? "Unknown quality"}</td></tr>)}</tbody></table></div></details>
         </>}
-        <ForecastEvidence data={data} />
+        <details className={`${panelClass} p-5`}><summary className="cursor-pointer text-sm font-medium text-teal-800">Forecast method, sources and uncertainty</summary><div className="mt-4"><ForecastEvidence data={data} /></div></details>
       </>}
+    {exercise?.enabled && <NextStep to="scenarios">Review the sudden incident with AI</NextStep>}
   </div>;
 }
 

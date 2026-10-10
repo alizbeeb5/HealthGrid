@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { getFacilitySnapshot, FacilityClientError } from "../../lib/api/facilities";
 import type { FacilitySnapshotResponse } from "../../lib/api/feature-1";
 import { BackLink, displayError, LoadError, LoadingState, Location, ModeNotice, panelClass, secondaryClass, StatusBadge, Timestamp } from "./shared";
+import { ResourceGroups } from "./resource-groups";
 import { ObservationForm } from "./observation-form";
 import { CapacityPanel } from "./capacity-panel";
 import { useCapacity } from "./use-capacity";
@@ -68,16 +69,7 @@ export function FacilityDetails({ facilityId, returnTo }: { facilityId: string; 
               {snapshot.services.length ? <ul className="mt-4 divide-y divide-slate-100">{snapshot.services.map((service) => <li key={service.service_id} className="flex items-center justify-between gap-3 py-3 first:pt-0 last:pb-0"><span className="text-sm font-medium">{service.name}</span><StatusBadge status={service.status} /></li>)}</ul>
                 : <p className="mt-3 text-sm text-slate-500">No services have been listed for this hospital.</p>}
             </section>
-            <section className={`${panelClass} overflow-hidden`} aria-labelledby="resources-heading">
-              <div className="border-b border-slate-100 p-5"><h2 id="resources-heading" className="text-lg font-semibold">Resource availability</h2>
-                <p className="mt-1 text-xs leading-relaxed text-slate-500">Reported inventory, with units and observation times. Unknown means no report; zero is a reported quantity.</p>
-              </div>
-              {snapshot.resources.length ? <ul className="divide-y divide-slate-100">{snapshot.resources.map((resource) => <li key={resource.resource_id} className="p-5">
-                <div className="flex flex-wrap items-start justify-between gap-3"><div><p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-slate-500">{resource.category}</p><h3 className="text-sm font-semibold">{resource.name}</h3></div><StatusBadge status={resource.data_status} /></div>
-                <p className="my-3 text-2xl font-bold tabular-nums">{resource.available_quantity === null ? <span className="text-lg font-medium text-slate-500">Unknown</span> : resource.available_quantity.toLocaleString(undefined, { maximumFractionDigits: 20 })} <span className="text-sm font-normal text-slate-500">{resource.unit}</span></p>
-                <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-slate-500"><p>Observed: <Timestamp value={resource.observed_at} /></p><p>Received: <Timestamp value={resource.recorded_at} /></p></div>
-              </li>)}</ul> : <p className="p-5 text-sm text-slate-500">No applicable resources are configured for this hospital.</p>}
-            </section>
+            <ResourceGroups snapshot={snapshot} />
             <p className="text-xs leading-relaxed text-slate-500">Freshness is measured against the snapshot time. Reports older than {snapshot.stale_after_hours} hours are marked stale (demo policy). All times use your local timezone; timestamps show their UTC value on hover. Reported beds and staffing counts do not establish usable service capacity.</p>
           </div>
           <ObservationForm key={facilityId} snapshot={snapshot} onSaved={refreshSnapshot} onRefresh={refreshSnapshot} />

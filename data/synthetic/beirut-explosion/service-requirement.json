@@ -1,0 +1,32 @@
+{
+  "service_id": "emergency-care",
+  "profile_version": "demo-beirut-v1",
+  "capacity_unit": "simultaneous_service_place",
+  "requirements": [
+    {
+      "resource_id": "available-beds",
+      "unit": "bed",
+      "required_per_capacity_unit": 1.0
+    },
+    {
+      "resource_id": "nurses-on-duty",
+      "unit": "person",
+      "required_per_capacity_unit": 0.5
+    },
+    {
+      "resource_id": "emergency-physicians",
+      "unit": "person",
+      "required_per_capacity_unit": 0.25
+    },
+    {
+      "resource_id": "working-monitors",
+      "unit": "item",
+      "required_per_capacity_unit": 1.0
+    },
+    {
+      "resource_id": "functional-oxygen-points",
+      "unit": "item",
+      "required_per_capacity_unit": 1.0
+    }
+  ]
+}

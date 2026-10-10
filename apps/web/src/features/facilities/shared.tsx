@@ -1,3 +1,4 @@
+import { useExercise } from "../exercise/context";
 import Link from "next/link";
 import { ArrowLeft, Database, MapPin } from "lucide-react";
 import { facilityDataMode } from "../../lib/api/facilities";
@@ -19,6 +20,8 @@ export function Location({ latitude, longitude }: { latitude: number; longitude:
 }
 
 export function ModeNotice() {
+  const exercise = useExercise();
+  if (exercise?.enabled) return null;
   return <div className="mb-7 flex items-start gap-3 rounded-lg border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-teal-950">
     <Database size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
     <div><strong>{facilityDataMode === "demo" ? "Synthetic demo" : "Connected API"}</strong>

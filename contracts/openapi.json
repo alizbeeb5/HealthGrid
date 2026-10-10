@@ -382,7 +382,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Content",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
@@ -444,7 +444,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -509,7 +509,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -595,7 +595,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -659,7 +659,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -714,7 +714,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Content",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
@@ -776,7 +776,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           }
         }
       }
@@ -843,7 +843,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Content",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
@@ -905,7 +905,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           }
         }
       }
@@ -967,7 +967,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           }
         }
       },
@@ -1078,7 +1078,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           }
         }
       }
@@ -1163,7 +1163,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           }
         }
       }
@@ -1248,7 +1248,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           }
         }
       },
@@ -1311,7 +1311,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           }
         }
       }
@@ -1386,7 +1386,69 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/demo": {
+      "get": {
+        "tags": [
+          "exercise"
+        ],
+        "summary": "Get Context",
+        "operationId": "get_exercise_context",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExerciseContext"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/demo/advance": {
+      "post": {
+        "tags": [
+          "exercise"
+        ],
+        "summary": "Advance",
+        "operationId": "advance_exercise",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdvanceExercise"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExerciseContext"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
           }
         }
       }
@@ -1779,6 +1841,34 @@
           "cancelled"
         ],
         "title": "ActionStatus"
+      },
+      "AdvanceExercise": {
+        "properties": {
+          "expected_phase": {
+            "type": "string",
+            "enum": [
+              "assessment",
+              "response",
+              "recovery"
+            ],
+            "title": "Expected Phase"
+          },
+          "target_phase": {
+            "type": "string",
+            "enum": [
+              "response",
+              "recovery"
+            ],
+            "title": "Target Phase"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "expected_phase",
+          "target_phase"
+        ],
+        "title": "AdvanceExercise"
       },
       "AdviceEvidence": {
         "properties": {
@@ -3437,6 +3527,224 @@
           "stale_required_evidence"
         ],
         "title": "ExclusionReason"
+      },
+      "ExerciseContext": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "default": "Beirut explosion exercise"
+          },
+          "synthetic": {
+            "type": "boolean",
+            "const": true,
+            "title": "Synthetic",
+            "default": true
+          },
+          "phase": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "assessment",
+                  "response",
+                  "recovery"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phase"
+          },
+          "clock": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clock"
+          },
+          "links": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Links"
+          },
+          "hospitals": {
+            "items": {
+              "$ref": "#/components/schemas/ExerciseHospital"
+            },
+            "type": "array",
+            "title": "Hospitals"
+          },
+          "resources": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceDefinition"
+            },
+            "type": "array",
+            "title": "Resources"
+          },
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/ExerciseMetric"
+            },
+            "type": "array",
+            "title": "Metrics"
+          },
+          "incident_input": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/IncidentDraftInput"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "allocation_input": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AllocationRunRequest"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "investment_input": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InvestmentRunRequest"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "allocation_decision_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Allocation Decision Id"
+          },
+          "investment_decision_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Investment Decision Id"
+          },
+          "missing_review_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Missing Review Id"
+          },
+          "supported_review_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supported Review Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "enabled"
+        ],
+        "title": "ExerciseContext"
+      },
+      "ExerciseHospital": {
+        "properties": {
+          "facility_id": {
+            "type": "string",
+            "title": "Facility Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "cause": {
+            "type": "string",
+            "title": "Cause"
+          },
+          "next_action": {
+            "type": "string",
+            "title": "Next Action"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility_id",
+          "name",
+          "role",
+          "cause",
+          "next_action"
+        ],
+        "title": "ExerciseHospital"
+      },
+      "ExerciseMetric": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "covered": {
+            "type": "integer",
+            "title": "Covered"
+          },
+          "unmet": {
+            "type": "integer",
+            "title": "Unmet"
+          },
+          "cost_minor_units": {
+            "type": "integer",
+            "title": "Cost Minor Units"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "label",
+          "covered",
+          "unmet",
+          "cost_minor_units"
+        ],
+        "title": "ExerciseMetric"
       },
       "ExpectedFacility": {
         "properties": {
@@ -6129,6 +6437,43 @@
           "infrastructure"
         ],
         "title": "ResourceCategory"
+      },
+      "ResourceDefinition": {
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "category": {
+            "$ref": "#/components/schemas/ResourceCategory"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/ResourceUnit"
+          },
+          "allows_fractional": {
+            "type": "boolean",
+            "title": "Allows Fractional"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_id",
+          "name",
+          "category",
+          "unit",
+          "allows_fractional"
+        ],
+        "title": "ResourceDefinition"
       },
       "ResourceEffect": {
         "properties": {

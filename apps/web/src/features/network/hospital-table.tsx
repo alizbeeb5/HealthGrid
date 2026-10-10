@@ -1,7 +1,8 @@
+import { useExerciseNames } from "../exercise/context";
 import Link from "next/link";
 import type { NetworkFacilityResult } from "../../lib/api/network";
 import { panelClass, Timestamp } from "../facilities/shared";
-import { capacityLabels, evidenceWarnings, facilityLink, resourceLabel } from "./presentation";
+import { capacityLabels, evidenceWarnings, facilityLink } from "./presentation";
 
 export function CapacityBadge({ row }: { row: NetworkFacilityResult }) {
   const colors = { calculated: "bg-teal-50 text-teal-900 ring-teal-200", unknown: "bg-amber-50 text-amber-900 ring-amber-200", unavailable: "bg-rose-50 text-rose-900 ring-rose-200", not_configured: "bg-slate-100 text-slate-700 ring-slate-200" };
@@ -13,6 +14,7 @@ export function ModeledPlaces({ row }: { row: NetworkFacilityResult }) {
 }
 
 export function HospitalTable({ rows, returnTo }: { rows: NetworkFacilityResult[]; returnTo: string }) {
+  const { resource: resourceLabel } = useExerciseNames();
   return <section className={`${panelClass} overflow-hidden`} aria-labelledby="hospital-table-heading">
     <div className="p-5"><h2 id="hospital-table-heading" className="text-lg font-semibold">Hospital comparison</h2><p className="mt-1 text-xs text-slate-500">Latest report is a receipt time; individual resources can still be missing or stale.</p></div>
     <div className="overflow-x-auto">
@@ -31,6 +33,7 @@ export function HospitalTable({ rows, returnTo }: { rows: NetworkFacilityResult[
 }
 
 export function EvidenceDetails({ row }: { row: NetworkFacilityResult }) {
+  const { resource: resourceLabel } = useExerciseNames();
   const warnings = evidenceWarnings(row);
   return <>
     {warnings.length ? <ul className="space-y-1 text-xs text-amber-950">{warnings.map((warning) => <li key={warning}>{warning}</li>)}</ul> : <p className="text-xs text-slate-500">Required reports are current.</p>}

@@ -1,0 +1,1364 @@
+{
+  "service_id": "emergency-care",
+  "resource_id": "working-monitors",
+  "unit": "item",
+  "capacity_unit": "simultaneous_service_place",
+  "requirement": {
+    "service_id": "emergency-care",
+    "profile_version": "demo-beirut-v1",
+    "capacity_unit": "simultaneous_service_place",
+    "requirements": [
+      {
+        "resource_id": "available-beds",
+        "unit": "bed",
+        "required_per_capacity_unit": 1.0
+      },
+      {
+        "resource_id": "nurses-on-duty",
+        "unit": "person",
+        "required_per_capacity_unit": 0.5
+      },
+      {
+        "resource_id": "emergency-physicians",
+        "unit": "person",
+        "required_per_capacity_unit": 0.25
+      },
+      {
+        "resource_id": "working-monitors",
+        "unit": "item",
+        "required_per_capacity_unit": 1.0
+      },
+      {
+        "resource_id": "functional-oxygen-points",
+        "unit": "item",
+        "required_per_capacity_unit": 1.0
+      }
+    ]
+  },
+  "facilities": [
+    {
+      "snapshot": {
+        "facility": {
+          "facility_id": "BEI-EAST",
+          "name": "East Beirut receiving hospital \u2014 fictional",
+          "latitude": 33.876,
+          "longitude": 35.548,
+          "last_reported_at": "2020-08-04T16:00:00Z"
+        },
+        "services": [
+          {
+            "facility_id": "BEI-EAST",
+            "service_id": "emergency-care",
+            "name": "Emergency stabilization",
+            "status": "operating"
+          }
+        ],
+        "resources": [
+          {
+            "resource_id": "available-beds",
+            "name": "Emergency treatment spaces",
+            "category": "beds",
+            "unit": "bed",
+            "allows_fractional": false,
+            "available_quantity": 20.0,
+            "observation_id": "OBS-BEI-EAST-incident-available-beds",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "name": "Nurses assigned to emergency care",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 4.0,
+            "observation_id": "OBS-BEI-EAST-incident-nurses-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "name": "Physicians assigned to emergency care",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 5.0,
+            "observation_id": "OBS-BEI-EAST-incident-emergency-physicians",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-monitors",
+            "name": "Working patient monitors",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 16.0,
+            "observation_id": "OBS-BEI-EAST-incident-working-monitors",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "name": "Functional supplied oxygen points",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 20.0,
+            "observation_id": "OBS-BEI-EAST-incident-functional-oxygen-points",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "oxygen-stock",
+            "name": "Oxygen stock (gas-equivalent liters)",
+            "category": "supplies",
+            "unit": "liter",
+            "allows_fractional": true,
+            "available_quantity": 4000.0,
+            "observation_id": "OBS-BEI-EAST-incident-oxygen-stock",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "trauma-dressing-kits",
+            "name": "Trauma dressing kits",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 100.0,
+            "observation_id": "OBS-BEI-EAST-incident-trauma-dressing-kits",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "sterile-surgical-kits",
+            "name": "Sterile surgical instrument sets",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 8.0,
+            "observation_id": "OBS-BEI-EAST-incident-sterile-surgical-kits",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "rbc-o-positive",
+            "name": "Red-cell units O positive (inventory only)",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 12.0,
+            "observation_id": "OBS-BEI-EAST-incident-rbc-o-positive",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "rbc-o-negative",
+            "name": "Red-cell units O negative (inventory only)",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 4.0,
+            "observation_id": "OBS-BEI-EAST-incident-rbc-o-negative",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "operating-theatres",
+            "name": "Functional operating theatres",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 2.0,
+            "observation_id": "OBS-BEI-EAST-incident-operating-theatres",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "surgeons-on-duty",
+            "name": "Surgeons on duty",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 3.0,
+            "observation_id": "OBS-BEI-EAST-incident-surgeons-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "anesthetists-on-duty",
+            "name": "Anesthesia clinicians on duty",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 2.0,
+            "observation_id": "OBS-BEI-EAST-incident-anesthetists-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-ventilators",
+            "name": "Working ventilators",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 4.0,
+            "observation_id": "OBS-BEI-EAST-incident-working-ventilators",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-ct-scanners",
+            "name": "Working CT scanners",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 1.0,
+            "observation_id": "OBS-BEI-EAST-incident-working-ct-scanners",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-xray-units",
+            "name": "Working X-ray units",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 2.0,
+            "observation_id": "OBS-BEI-EAST-incident-working-xray-units",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "available-ambulances",
+            "name": "Ambulances reported available",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 3.0,
+            "observation_id": "OBS-BEI-EAST-incident-available-ambulances",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "generator-fuel",
+            "name": "Generator diesel stock",
+            "category": "supplies",
+            "unit": "liter",
+            "allows_fractional": true,
+            "available_quantity": 150.0,
+            "observation_id": "OBS-BEI-EAST-incident-generator-fuel",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-generators",
+            "name": "Working backup generators",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 2.0,
+            "observation_id": "OBS-BEI-EAST-incident-working-generators",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          }
+        ],
+        "as_of": "2020-08-04T16:00:00Z",
+        "stale_after_hours": 24
+      },
+      "applied_overrides": [],
+      "constraint": {
+        "facility_id": "BEI-EAST",
+        "required_service_places": 16,
+        "minimum_retained_service_places": 0,
+        "minimum_retained_resource_quantity": 0,
+        "transferable_quantity": 0,
+        "maximum_inbound_quantity": 0,
+        "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+        "confirmed_at": "2020-08-04T16:00:00Z"
+      }
+    },
+    {
+      "snapshot": {
+        "facility": {
+          "facility_id": "BEI-MOUNT",
+          "name": "Mount Lebanon reserve hospital \u2014 fictional",
+          "latitude": 33.871,
+          "longitude": 35.61,
+          "last_reported_at": "2020-08-04T16:00:00Z"
+        },
+        "services": [
+          {
+            "facility_id": "BEI-MOUNT",
+            "service_id": "emergency-care",
+            "name": "Emergency stabilization",
+            "status": "operating"
+          }
+        ],
+        "resources": [
+          {
+            "resource_id": "available-beds",
+            "name": "Emergency treatment spaces",
+            "category": "beds",
+            "unit": "bed",
+            "allows_fractional": false,
+            "available_quantity": 24.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-available-beds",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "name": "Nurses assigned to emergency care",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 12.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-nurses-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "name": "Physicians assigned to emergency care",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 6.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-emergency-physicians",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-monitors",
+            "name": "Working patient monitors",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 24.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-working-monitors",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "name": "Functional supplied oxygen points",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 24.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-functional-oxygen-points",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "oxygen-stock",
+            "name": "Oxygen stock (gas-equivalent liters)",
+            "category": "supplies",
+            "unit": "liter",
+            "allows_fractional": true,
+            "available_quantity": 4001.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-oxygen-stock",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "trauma-dressing-kits",
+            "name": "Trauma dressing kits",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 101.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-trauma-dressing-kits",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "sterile-surgical-kits",
+            "name": "Sterile surgical instrument sets",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 9.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-sterile-surgical-kits",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "rbc-o-positive",
+            "name": "Red-cell units O positive (inventory only)",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 13.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-rbc-o-positive",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "rbc-o-negative",
+            "name": "Red-cell units O negative (inventory only)",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 5.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-rbc-o-negative",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "operating-theatres",
+            "name": "Functional operating theatres",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 3.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-operating-theatres",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "surgeons-on-duty",
+            "name": "Surgeons on duty",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 4.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-surgeons-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "anesthetists-on-duty",
+            "name": "Anesthesia clinicians on duty",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 3.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-anesthetists-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-ventilators",
+            "name": "Working ventilators",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 5.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-working-ventilators",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-ct-scanners",
+            "name": "Working CT scanners",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 2.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-working-ct-scanners",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-xray-units",
+            "name": "Working X-ray units",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 3.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-working-xray-units",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "available-ambulances",
+            "name": "Ambulances reported available",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 4.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-available-ambulances",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "generator-fuel",
+            "name": "Generator diesel stock",
+            "category": "supplies",
+            "unit": "liter",
+            "allows_fractional": true,
+            "available_quantity": 601.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-generator-fuel",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-generators",
+            "name": "Working backup generators",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 3.0,
+            "observation_id": "OBS-BEI-MOUNT-incident-working-generators",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          }
+        ],
+        "as_of": "2020-08-04T16:00:00Z",
+        "stale_after_hours": 24
+      },
+      "applied_overrides": [],
+      "constraint": {
+        "facility_id": "BEI-MOUNT",
+        "required_service_places": 12,
+        "minimum_retained_service_places": 12,
+        "minimum_retained_resource_quantity": 12,
+        "transferable_quantity": 8,
+        "maximum_inbound_quantity": 0,
+        "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+        "confirmed_at": "2020-08-04T16:00:00Z"
+      }
+    },
+    {
+      "snapshot": {
+        "facility": {
+          "facility_id": "BEI-PORT",
+          "name": "Port-area hospital \u2014 fictional",
+          "latitude": 33.902,
+          "longitude": 35.526,
+          "last_reported_at": "2020-08-04T16:00:00Z"
+        },
+        "services": [
+          {
+            "facility_id": "BEI-PORT",
+            "service_id": "emergency-care",
+            "name": "Emergency stabilization",
+            "status": "unavailable"
+          }
+        ],
+        "resources": [
+          {
+            "resource_id": "available-beds",
+            "name": "Emergency treatment spaces",
+            "category": "beds",
+            "unit": "bed",
+            "allows_fractional": false,
+            "available_quantity": 20.0,
+            "observation_id": "OBS-BEI-PORT-incident-available-beds",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "name": "Nurses assigned to emergency care",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 10.0,
+            "observation_id": "OBS-BEI-PORT-incident-nurses-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "name": "Physicians assigned to emergency care",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 5.0,
+            "observation_id": "OBS-BEI-PORT-incident-emergency-physicians",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-monitors",
+            "name": "Working patient monitors",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 20.0,
+            "observation_id": "OBS-BEI-PORT-incident-working-monitors",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "name": "Functional supplied oxygen points",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 0.0,
+            "observation_id": "OBS-BEI-PORT-incident-functional-oxygen-points",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "oxygen-stock",
+            "name": "Oxygen stock (gas-equivalent liters)",
+            "category": "supplies",
+            "unit": "liter",
+            "allows_fractional": true,
+            "available_quantity": 4002.0,
+            "observation_id": "OBS-BEI-PORT-incident-oxygen-stock",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "trauma-dressing-kits",
+            "name": "Trauma dressing kits",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 102.0,
+            "observation_id": "OBS-BEI-PORT-incident-trauma-dressing-kits",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "sterile-surgical-kits",
+            "name": "Sterile surgical instrument sets",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 10.0,
+            "observation_id": "OBS-BEI-PORT-incident-sterile-surgical-kits",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "rbc-o-positive",
+            "name": "Red-cell units O positive (inventory only)",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 14.0,
+            "observation_id": "OBS-BEI-PORT-incident-rbc-o-positive",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "rbc-o-negative",
+            "name": "Red-cell units O negative (inventory only)",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 6.0,
+            "observation_id": "OBS-BEI-PORT-incident-rbc-o-negative",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "operating-theatres",
+            "name": "Functional operating theatres",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 0.0,
+            "observation_id": "OBS-BEI-PORT-incident-operating-theatres",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "surgeons-on-duty",
+            "name": "Surgeons on duty",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 5.0,
+            "observation_id": "OBS-BEI-PORT-incident-surgeons-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "anesthetists-on-duty",
+            "name": "Anesthesia clinicians on duty",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 4.0,
+            "observation_id": "OBS-BEI-PORT-incident-anesthetists-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-ventilators",
+            "name": "Working ventilators",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 6.0,
+            "observation_id": "OBS-BEI-PORT-incident-working-ventilators",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-ct-scanners",
+            "name": "Working CT scanners",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 0.0,
+            "observation_id": "OBS-BEI-PORT-incident-working-ct-scanners",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-xray-units",
+            "name": "Working X-ray units",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 4.0,
+            "observation_id": "OBS-BEI-PORT-incident-working-xray-units",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "available-ambulances",
+            "name": "Ambulances reported available",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 5.0,
+            "observation_id": "OBS-BEI-PORT-incident-available-ambulances",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "generator-fuel",
+            "name": "Generator diesel stock",
+            "category": "supplies",
+            "unit": "liter",
+            "allows_fractional": true,
+            "available_quantity": 602.0,
+            "observation_id": "OBS-BEI-PORT-incident-generator-fuel",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-generators",
+            "name": "Working backup generators",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 0.0,
+            "observation_id": "OBS-BEI-PORT-incident-working-generators",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          }
+        ],
+        "as_of": "2020-08-04T16:00:00Z",
+        "stale_after_hours": 24
+      },
+      "applied_overrides": [],
+      "constraint": {
+        "facility_id": "BEI-PORT",
+        "required_service_places": 0,
+        "minimum_retained_service_places": 0,
+        "minimum_retained_resource_quantity": 0,
+        "transferable_quantity": 0,
+        "maximum_inbound_quantity": 0,
+        "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+        "confirmed_at": "2020-08-04T16:00:00Z"
+      }
+    },
+    {
+      "snapshot": {
+        "facility": {
+          "facility_id": "BEI-UNCONFIRMED",
+          "name": "Unconfirmed Beirut facility \u2014 fictional",
+          "latitude": 33.859,
+          "longitude": 35.504,
+          "last_reported_at": "2020-08-04T16:00:00Z"
+        },
+        "services": [
+          {
+            "facility_id": "BEI-UNCONFIRMED",
+            "service_id": "emergency-care",
+            "name": "Emergency stabilization",
+            "status": "operating"
+          }
+        ],
+        "resources": [
+          {
+            "resource_id": "available-beds",
+            "name": "Emergency treatment spaces",
+            "category": "beds",
+            "unit": "bed",
+            "allows_fractional": false,
+            "available_quantity": 15.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-available-beds",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "name": "Nurses assigned to emergency care",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": null,
+            "observation_id": null,
+            "observed_at": null,
+            "recorded_at": null,
+            "data_status": "unknown"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "name": "Physicians assigned to emergency care",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 3.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-emergency-physicians",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-monitors",
+            "name": "Working patient monitors",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 10.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-working-monitors",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "name": "Functional supplied oxygen points",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 10.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-functional-oxygen-points",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "oxygen-stock",
+            "name": "Oxygen stock (gas-equivalent liters)",
+            "category": "supplies",
+            "unit": "liter",
+            "allows_fractional": true,
+            "available_quantity": 4003.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-oxygen-stock",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "trauma-dressing-kits",
+            "name": "Trauma dressing kits",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 103.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-trauma-dressing-kits",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "sterile-surgical-kits",
+            "name": "Sterile surgical instrument sets",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 11.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-sterile-surgical-kits",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "rbc-o-positive",
+            "name": "Red-cell units O positive (inventory only)",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 15.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-rbc-o-positive",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "rbc-o-negative",
+            "name": "Red-cell units O negative (inventory only)",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 7.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-rbc-o-negative",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "operating-theatres",
+            "name": "Functional operating theatres",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 5.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-operating-theatres",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "surgeons-on-duty",
+            "name": "Surgeons on duty",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 6.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-surgeons-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "anesthetists-on-duty",
+            "name": "Anesthesia clinicians on duty",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 5.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-anesthetists-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-ventilators",
+            "name": "Working ventilators",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 7.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-working-ventilators",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-ct-scanners",
+            "name": "Working CT scanners",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 4.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-working-ct-scanners",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-xray-units",
+            "name": "Working X-ray units",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 5.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-working-xray-units",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "available-ambulances",
+            "name": "Ambulances reported available",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 6.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-available-ambulances",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "generator-fuel",
+            "name": "Generator diesel stock",
+            "category": "supplies",
+            "unit": "liter",
+            "allows_fractional": true,
+            "available_quantity": 603.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-generator-fuel",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-generators",
+            "name": "Working backup generators",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 5.0,
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-working-generators",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          }
+        ],
+        "as_of": "2020-08-04T16:00:00Z",
+        "stale_after_hours": 24
+      },
+      "applied_overrides": [],
+      "constraint": null
+    },
+    {
+      "snapshot": {
+        "facility": {
+          "facility_id": "BEI-WEST",
+          "name": "West Beirut receiving hospital \u2014 fictional",
+          "latitude": 33.891,
+          "longitude": 35.477,
+          "last_reported_at": "2020-08-04T16:00:00Z"
+        },
+        "services": [
+          {
+            "facility_id": "BEI-WEST",
+            "service_id": "emergency-care",
+            "name": "Emergency stabilization",
+            "status": "operating"
+          }
+        ],
+        "resources": [
+          {
+            "resource_id": "available-beds",
+            "name": "Emergency treatment spaces",
+            "category": "beds",
+            "unit": "bed",
+            "allows_fractional": false,
+            "available_quantity": 30.0,
+            "observation_id": "OBS-BEI-WEST-incident-available-beds",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "name": "Nurses assigned to emergency care",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 12.0,
+            "observation_id": "OBS-BEI-WEST-incident-nurses-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "name": "Physicians assigned to emergency care",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 6.0,
+            "observation_id": "OBS-BEI-WEST-incident-emergency-physicians",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-monitors",
+            "name": "Working patient monitors",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 8.0,
+            "observation_id": "OBS-BEI-WEST-incident-working-monitors",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "name": "Functional supplied oxygen points",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 24.0,
+            "observation_id": "OBS-BEI-WEST-incident-functional-oxygen-points",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "oxygen-stock",
+            "name": "Oxygen stock (gas-equivalent liters)",
+            "category": "supplies",
+            "unit": "liter",
+            "allows_fractional": true,
+            "available_quantity": 4004.0,
+            "observation_id": "OBS-BEI-WEST-incident-oxygen-stock",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "trauma-dressing-kits",
+            "name": "Trauma dressing kits",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 25.0,
+            "observation_id": "OBS-BEI-WEST-incident-trauma-dressing-kits",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "sterile-surgical-kits",
+            "name": "Sterile surgical instrument sets",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 12.0,
+            "observation_id": "OBS-BEI-WEST-incident-sterile-surgical-kits",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "rbc-o-positive",
+            "name": "Red-cell units O positive (inventory only)",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 16.0,
+            "observation_id": "OBS-BEI-WEST-incident-rbc-o-positive",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "rbc-o-negative",
+            "name": "Red-cell units O negative (inventory only)",
+            "category": "supplies",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 2.0,
+            "observation_id": "OBS-BEI-WEST-incident-rbc-o-negative",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "operating-theatres",
+            "name": "Functional operating theatres",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 6.0,
+            "observation_id": "OBS-BEI-WEST-incident-operating-theatres",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "surgeons-on-duty",
+            "name": "Surgeons on duty",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 7.0,
+            "observation_id": "OBS-BEI-WEST-incident-surgeons-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "anesthetists-on-duty",
+            "name": "Anesthesia clinicians on duty",
+            "category": "staff",
+            "unit": "person",
+            "allows_fractional": false,
+            "available_quantity": 6.0,
+            "observation_id": "OBS-BEI-WEST-incident-anesthetists-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-ventilators",
+            "name": "Working ventilators",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 8.0,
+            "observation_id": "OBS-BEI-WEST-incident-working-ventilators",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-ct-scanners",
+            "name": "Working CT scanners",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 5.0,
+            "observation_id": "OBS-BEI-WEST-incident-working-ct-scanners",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-xray-units",
+            "name": "Working X-ray units",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 6.0,
+            "observation_id": "OBS-BEI-WEST-incident-working-xray-units",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "available-ambulances",
+            "name": "Ambulances reported available",
+            "category": "equipment",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 7.0,
+            "observation_id": "OBS-BEI-WEST-incident-available-ambulances",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "generator-fuel",
+            "name": "Generator diesel stock",
+            "category": "supplies",
+            "unit": "liter",
+            "allows_fractional": true,
+            "available_quantity": 604.0,
+            "observation_id": "OBS-BEI-WEST-incident-generator-fuel",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          },
+          {
+            "resource_id": "working-generators",
+            "name": "Working backup generators",
+            "category": "infrastructure",
+            "unit": "item",
+            "allows_fractional": false,
+            "available_quantity": 6.0,
+            "observation_id": "OBS-BEI-WEST-incident-working-generators",
+            "observed_at": "2020-08-04T16:00:00Z",
+            "recorded_at": "2020-08-04T16:00:00Z",
+            "data_status": "current"
+          }
+        ],
+        "as_of": "2020-08-04T16:00:00Z",
+        "stale_after_hours": 24
+      },
+      "applied_overrides": [],
+      "constraint": {
+        "facility_id": "BEI-WEST",
+        "required_service_places": 20,
+        "minimum_retained_service_places": 0,
+        "minimum_retained_resource_quantity": 0,
+        "transferable_quantity": 0,
+        "maximum_inbound_quantity": 8,
+        "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+        "confirmed_at": "2020-08-04T16:00:00Z"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "route_id": "BEI-MOUNT-WEST",
+      "from_facility_id": "BEI-MOUNT",
+      "to_facility_id": "BEI-WEST",
+      "lead_time_minutes": 45,
+      "cost_per_unit_minor_units": 10000,
+      "maximum_quantity": 8,
+      "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+      "confirmed_at": "2020-08-04T16:00:00Z"
+    }
+  ],
+  "planning_horizon_minutes": 60,
+  "budget_minor_units": 80000,
+  "currency": "USD",
+  "solver_settings": {
+    "time_limit_seconds": 5.0,
+    "objective_order": [
+      "minimize_unmet_demand",
+      "minimize_transfer_cost",
+      "minimize_moved_items"
+    ]
+  }
+}

@@ -3,7 +3,12 @@ import { createDemoClient } from "./facilities-demo";
 import { FacilityClientError } from "./facilities-error";
 
 export { FacilityClientError } from "./facilities-error";
-export const facilityDataMode = process.env.NEXT_PUBLIC_FACILITIES_DATA_MODE === "demo" ? "demo" : "api";
+export let facilityDataMode: "demo" | "api" = process.env.NEXT_PUBLIC_FACILITIES_DATA_MODE === "demo" ? "demo" : "api";
+
+/** Set before page children mount to avoid mixing browser fixtures with a saved exercise. */
+export function configureExerciseMode(enabled: boolean) {
+  facilityDataMode = enabled ? "api" : process.env.NEXT_PUBLIC_FACILITIES_DATA_MODE === "demo" ? "demo" : "api";
+}
 
 /** Same-origin requests use the existing Next.js server proxy. Never retry POST. */
 export async function facilityRequest<T>(path: string, init?: RequestInit): Promise<T> {

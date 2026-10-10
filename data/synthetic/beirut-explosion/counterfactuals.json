@@ -1,0 +1,29 @@
+{
+  "synthetic": true,
+  "cases": [
+    {
+      "facility_id": "BEI-EAST",
+      "resource_id": "working-monitors",
+      "assumed_quantity_added": 8,
+      "capacity_before": 8,
+      "capacity_after": 8,
+      "explanation": "Adding monitors does not address the nurse bottleneck."
+    },
+    {
+      "facility_id": "BEI-WEST",
+      "resource_id": "available-beds",
+      "assumed_quantity_added": 10,
+      "capacity_before": 8,
+      "capacity_after": 8,
+      "explanation": "Adding physical spaces does not address the monitor bottleneck."
+    },
+    {
+      "facility_id": "BEI-PORT",
+      "resource_id": "working-monitors",
+      "assumed_quantity_added": 8,
+      "capacity_before": 0,
+      "capacity_after": 0,
+      "explanation": "Equipment does not reopen an unavailable service."
+    }
+  ]
+}

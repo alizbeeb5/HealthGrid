@@ -29,14 +29,14 @@ export function presentReview(review: ReviewWire): import("./model").OutcomeRevi
   return { ...review, actor: review.actor_name, note: review.note ?? "", window_starts_at: review.observation_window_starts_at, profile_version: review.requirement.profile_version, example: false, comparable_facility_ids: review.coverage.comparable_facility_ids, excluded: review.coverage.excluded_facilities.map((f) => `${f.facility_id}: ${f.reasons.join(", ")}`), rows: review.facilities.map((f) => { const snapshot = review.snapshots.find((s) => s.facility.facility_id === f.facility_id); return { facility_id: f.facility_id, expected: f.expected_capacity, observed: f.observed?.estimated_capacity ?? f.observed_capacity, capacity_difference: f.capacity_difference, classification: f.classification, reasons: f.reasons, service_status: f.observed?.service_status ?? snapshot?.services.find((s) => s.service_id === review.requirement.service_id)?.status, observations: f.evidence.map((e) => { const resource = snapshot?.resources.find((r) => r.resource_id === e.resource_id); return { observation_id: e.observation_id, resource_id: e.resource_id, quantity: e.available_quantity, unit: resource?.unit ?? review.requirement.requirements.find((rule) => rule.resource_id === e.resource_id)?.unit ?? "Unknown unit", observed_at: e.observed_at, recorded_at: resource?.recorded_at ?? null, data_status: e.data_status, evidence_status: e.evidence_status }; }) }; }) };
 }
 
-export function decisionEventRequest(version: number, actor: string, note: string, command: Command, requestId: string): EventRequest {
+export function decisionEventRequest(version: number, actor: string, note: string, command: Command, requestId: string, occurredAt?: string): EventRequest {
   if (!actor.trim()) throw new Error("Enter a self-reported actor name.");
   if (["approve", "reject", "cancel", "complete", "correct_action_report"].includes(command.type) && !note.trim()) throw new Error("This action requires an explanation.");
   if ("actual_cost_minor_units" in command && command.actual_cost_minor_units !== null && (!Number.isSafeInteger(command.actual_cost_minor_units) || command.actual_cost_minor_units < 0)) throw new Error("Actual cost must be a nonnegative whole USD-cent amount or blank.");
   let payload: EventRequest["payload"];
   switch (command.type) {
     case "edit_draft": payload = { event_type: "edit_draft", title: command.details.title, owner_name: command.details.owner_name, rationale: command.details.rationale, target_completion_at: command.details.target_completion_at }; break;
-    case "start": case "complete": payload = { event_type: command.type, occurred_at: new Date().toISOString() }; break;
+    case "start": case "complete": payload = { event_type: command.type, occurred_at: occurredAt ?? new Date().toISOString() }; break;
     case "update_action":
       if (!["in_progress", "blocked", "completed"].includes(command.status)) throw new Error("Choose a supported progress status.");
       if (!command.occurred_at) throw new Error("Enter the reported progress time in UTC.");

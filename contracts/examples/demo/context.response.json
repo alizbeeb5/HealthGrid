@@ -1,0 +1,441 @@
+{
+  "enabled": true,
+  "title": "Beirut explosion exercise",
+  "synthetic": true,
+  "phase": "assessment",
+  "clock": "2020-08-04T16:10:00Z",
+  "links": {
+    "overview": "/overview",
+    "facilities": "/facilities",
+    "forecasts": "/forecasts?facility_id=BEI-WEST&service_id=emergency-care",
+    "scenarios": "/scenarios?run_id=RUN-1d21d5ed-b280-4e02-8407-d82ddefcca17",
+    "allocation": "/allocation?proposal_id=ALLOC-2b7da391-7511-4a99-ac94-1009895bde63",
+    "investments": "/investments?proposal_id=INVRUN-15be4996-e605-4e60-ae84-6990b7aab641",
+    "decisions": "/decisions?decision_id=DEC-831cf14d-ee56-4723-9148-96ed6f20608a"
+  },
+  "hospitals": [
+    {
+      "facility_id": "BEI-EAST",
+      "name": "East Beirut receiving hospital — fictional",
+      "role": "Staff bottleneck",
+      "cause": "16 monitors are available, but 4 assigned nurses limit capacity to 8.",
+      "next_action": "Fund confirmed staff coverage; more monitors alone do not help."
+    },
+    {
+      "facility_id": "BEI-MOUNT",
+      "name": "Mount Lebanon reserve hospital — fictional",
+      "role": "Protected reserve",
+      "cause": "Resources may support a receiver while retaining local capacity.",
+      "next_action": "Check donor reserves and the reviewed route."
+    },
+    {
+      "facility_id": "BEI-PORT",
+      "name": "Port-area hospital — fictional",
+      "role": "Service interrupted",
+      "cause": "Physical resources do not establish a functioning service.",
+      "next_action": "Keep excluded from receiving plans until service is restored."
+    },
+    {
+      "facility_id": "BEI-UNCONFIRMED",
+      "name": "Unconfirmed Beirut facility — fictional",
+      "role": "Report needed",
+      "cause": "Required nurse evidence is missing.",
+      "next_action": "Request a resource update; unknown is not zero."
+    },
+    {
+      "facility_id": "BEI-WEST",
+      "name": "West Beirut receiving hospital — fictional",
+      "role": "Equipment bottleneck",
+      "cause": "30 treatment spaces, but only 8 monitors constrain the initial estimate.",
+      "next_action": "Review the protected monitor transfer."
+    }
+  ],
+  "resources": [
+    {
+      "resource_id": "available-beds",
+      "name": "Emergency treatment spaces",
+      "category": "beds",
+      "unit": "bed",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "nurses-on-duty",
+      "name": "Nurses assigned to emergency care",
+      "category": "staff",
+      "unit": "person",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "emergency-physicians",
+      "name": "Physicians assigned to emergency care",
+      "category": "staff",
+      "unit": "person",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "working-monitors",
+      "name": "Working patient monitors",
+      "category": "equipment",
+      "unit": "item",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "functional-oxygen-points",
+      "name": "Functional supplied oxygen points",
+      "category": "infrastructure",
+      "unit": "item",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "oxygen-stock",
+      "name": "Oxygen stock (gas-equivalent liters)",
+      "category": "supplies",
+      "unit": "liter",
+      "allows_fractional": true
+    },
+    {
+      "resource_id": "trauma-dressing-kits",
+      "name": "Trauma dressing kits",
+      "category": "supplies",
+      "unit": "item",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "sterile-surgical-kits",
+      "name": "Sterile surgical instrument sets",
+      "category": "equipment",
+      "unit": "item",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "rbc-o-positive",
+      "name": "Red-cell units O positive (inventory only)",
+      "category": "supplies",
+      "unit": "item",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "rbc-o-negative",
+      "name": "Red-cell units O negative (inventory only)",
+      "category": "supplies",
+      "unit": "item",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "operating-theatres",
+      "name": "Functional operating theatres",
+      "category": "infrastructure",
+      "unit": "item",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "surgeons-on-duty",
+      "name": "Surgeons on duty",
+      "category": "staff",
+      "unit": "person",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "anesthetists-on-duty",
+      "name": "Anesthesia clinicians on duty",
+      "category": "staff",
+      "unit": "person",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "working-ventilators",
+      "name": "Working ventilators",
+      "category": "equipment",
+      "unit": "item",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "working-ct-scanners",
+      "name": "Working CT scanners",
+      "category": "equipment",
+      "unit": "item",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "working-xray-units",
+      "name": "Working X-ray units",
+      "category": "equipment",
+      "unit": "item",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "available-ambulances",
+      "name": "Ambulances reported available",
+      "category": "equipment",
+      "unit": "item",
+      "allows_fractional": false
+    },
+    {
+      "resource_id": "generator-fuel",
+      "name": "Generator diesel stock",
+      "category": "supplies",
+      "unit": "liter",
+      "allows_fractional": true
+    },
+    {
+      "resource_id": "working-generators",
+      "name": "Working backup generators",
+      "category": "infrastructure",
+      "unit": "item",
+      "allows_fractional": false
+    }
+  ],
+  "metrics": [
+    {
+      "label": "Incident / no response",
+      "covered": 28,
+      "unmet": 20,
+      "cost_minor_units": 0
+    },
+    {
+      "label": "Proposed immediate response",
+      "covered": 36,
+      "unmet": 12,
+      "cost_minor_units": 80000
+    },
+    {
+      "label": "Proposed recovery / 11 August",
+      "covered": 48,
+      "unmet": 0,
+      "cost_minor_units": 1000000
+    }
+  ],
+  "incident_input": {
+    "title": "Beirut explosion exercise: interrupted care and receiving-hospital pressure",
+    "report_text": "Synthetic exercise inspired by 4 August 2020. Port-area hospital emergency service is unavailable. West Beirut receiver has 8 working monitors. East Beirut receiver has 4 nurses assigned to emergency care and 16 monitors. Mount Lebanon reserve can release 8 monitors while protecting its own planned demand. The unconfirmed facility has no reliable nurse count. Quantities, routes and identities are fictional; confirm before planning.",
+    "service_id": "emergency-care",
+    "starts_at": "2020-08-04T16:00:00Z",
+    "expected_ends_at": "2020-08-12T16:00:00Z",
+    "affected_facility_ids": [
+      "BEI-EAST",
+      "BEI-PORT",
+      "BEI-WEST"
+    ],
+    "service_overrides": [
+      {
+        "facility_id": "BEI-PORT",
+        "service_id": "emergency-care",
+        "status": "unavailable",
+        "restriction_note": "Simulated structural and infrastructure damage; not reopened by equipment delivery."
+      }
+    ],
+    "resource_overrides": [
+      {
+        "facility_id": "BEI-EAST",
+        "resource_id": "nurses-on-duty",
+        "available_quantity": 4.0,
+        "unit": "person"
+      },
+      {
+        "facility_id": "BEI-EAST",
+        "resource_id": "working-monitors",
+        "available_quantity": 16.0,
+        "unit": "item"
+      },
+      {
+        "facility_id": "BEI-EAST",
+        "resource_id": "generator-fuel",
+        "available_quantity": 150.0,
+        "unit": "liter"
+      },
+      {
+        "facility_id": "BEI-PORT",
+        "resource_id": "functional-oxygen-points",
+        "available_quantity": 0.0,
+        "unit": "item"
+      },
+      {
+        "facility_id": "BEI-PORT",
+        "resource_id": "operating-theatres",
+        "available_quantity": 0.0,
+        "unit": "item"
+      },
+      {
+        "facility_id": "BEI-PORT",
+        "resource_id": "working-ct-scanners",
+        "available_quantity": 0.0,
+        "unit": "item"
+      },
+      {
+        "facility_id": "BEI-PORT",
+        "resource_id": "working-generators",
+        "available_quantity": 0.0,
+        "unit": "item"
+      },
+      {
+        "facility_id": "BEI-WEST",
+        "resource_id": "working-monitors",
+        "available_quantity": 8.0,
+        "unit": "item"
+      },
+      {
+        "facility_id": "BEI-WEST",
+        "resource_id": "trauma-dressing-kits",
+        "available_quantity": 25.0,
+        "unit": "item"
+      },
+      {
+        "facility_id": "BEI-WEST",
+        "resource_id": "rbc-o-negative",
+        "available_quantity": 2.0,
+        "unit": "item"
+      }
+    ],
+    "assumptions": [
+      "All operational inputs are fictional exercise assumptions.",
+      "Demand of 48 simultaneous places is assigned across three operating receivers; it is not a casualty count.",
+      "Recovery assumes the same demand at the evaluation date, not a forecast."
+    ]
+  },
+  "allocation_input": {
+    "simulation_run_id": "RUN-1d21d5ed-b280-4e02-8407-d82ddefcca17",
+    "resource_id": "working-monitors",
+    "planning_horizon_minutes": 60,
+    "budget_minor_units": 80000,
+    "currency": "USD",
+    "facility_constraints": [
+      {
+        "facility_id": "BEI-EAST",
+        "required_service_places": 16,
+        "minimum_retained_service_places": 0,
+        "minimum_retained_resource_quantity": 0,
+        "transferable_quantity": 0,
+        "maximum_inbound_quantity": 0,
+        "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+        "confirmed_at": "2020-08-04T16:00:00Z"
+      },
+      {
+        "facility_id": "BEI-MOUNT",
+        "required_service_places": 12,
+        "minimum_retained_service_places": 12,
+        "minimum_retained_resource_quantity": 12,
+        "transferable_quantity": 8,
+        "maximum_inbound_quantity": 0,
+        "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+        "confirmed_at": "2020-08-04T16:00:00Z"
+      },
+      {
+        "facility_id": "BEI-PORT",
+        "required_service_places": 0,
+        "minimum_retained_service_places": 0,
+        "minimum_retained_resource_quantity": 0,
+        "transferable_quantity": 0,
+        "maximum_inbound_quantity": 0,
+        "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+        "confirmed_at": "2020-08-04T16:00:00Z"
+      },
+      {
+        "facility_id": "BEI-WEST",
+        "required_service_places": 20,
+        "minimum_retained_service_places": 0,
+        "minimum_retained_resource_quantity": 0,
+        "transferable_quantity": 0,
+        "maximum_inbound_quantity": 8,
+        "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+        "confirmed_at": "2020-08-04T16:00:00Z"
+      }
+    ],
+    "routes": [
+      {
+        "route_id": "BEI-MOUNT-WEST",
+        "from_facility_id": "BEI-MOUNT",
+        "to_facility_id": "BEI-WEST",
+        "lead_time_minutes": 45,
+        "cost_per_unit_minor_units": 10000,
+        "maximum_quantity": 8,
+        "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+        "confirmed_at": "2020-08-04T16:00:00Z"
+      }
+    ],
+    "assumptions": [
+      "All operational inputs are fictional exercise assumptions.",
+      "Demand of 48 simultaneous places is assigned across three operating receivers; it is not a casualty count.",
+      "Recovery assumes the same demand at the evaluation date, not a forecast."
+    ]
+  },
+  "investment_input": {
+    "allocation_run_id": "ALLOC-2b7da391-7511-4a99-ac94-1009895bde63",
+    "planning_starts_at": "2020-08-04T17:00:00Z",
+    "evaluation_at": "2020-08-11T17:00:00Z",
+    "operating_cost_months": 1,
+    "budget_minor_units": 1000000,
+    "currency": "USD",
+    "catalog_version": "demo-beirut-v1",
+    "candidates": [
+      {
+        "candidate_id": "BEI-MONITOR-RESTORE",
+        "name": "Restore four confirmed repairable monitors",
+        "facility_id": "BEI-WEST",
+        "service_id": "emergency-care",
+        "capital_cost_minor_units": 400000,
+        "monthly_operating_cost_minor_units": 100000,
+        "implementation_days": 2,
+        "resource_effects": [
+          {
+            "resource_id": "working-monitors",
+            "quantity_delta": 4,
+            "unit": "item"
+          }
+        ],
+        "requires_candidate_ids": [],
+        "exclusive_group_id": null,
+        "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+        "confirmed_at": "2020-08-04T16:00:00Z"
+      },
+      {
+        "candidate_id": "BEI-NURSE-COVER",
+        "name": "Fund four additional confirmed nurses for the evaluation shift",
+        "facility_id": "BEI-EAST",
+        "service_id": "emergency-care",
+        "capital_cost_minor_units": 100000,
+        "monthly_operating_cost_minor_units": 400000,
+        "implementation_days": 2,
+        "resource_effects": [
+          {
+            "resource_id": "nurses-on-duty",
+            "quantity_delta": 4,
+            "unit": "person"
+          }
+        ],
+        "requires_candidate_ids": [],
+        "exclusive_group_id": null,
+        "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+        "confirmed_at": "2020-08-04T16:00:00Z"
+      },
+      {
+        "candidate_id": "BEI-MORE-MONITORS",
+        "name": "Buy additional monitors at the staff-limited hospital",
+        "facility_id": "BEI-EAST",
+        "service_id": "emergency-care",
+        "capital_cost_minor_units": 500000,
+        "monthly_operating_cost_minor_units": 100000,
+        "implementation_days": 2,
+        "resource_effects": [
+          {
+            "resource_id": "working-monitors",
+            "quantity_delta": 8,
+            "unit": "item"
+          }
+        ],
+        "requires_candidate_ids": [],
+        "exclusive_group_id": null,
+        "source_note": "Synthetic planner-confirmed exercise assumption; not a historical hospital report.",
+        "confirmed_at": "2020-08-04T16:00:00Z"
+      }
+    ],
+    "assumptions": [
+      "All operational inputs are fictional exercise assumptions.",
+      "Demand of 48 simultaneous places is assigned across three operating receivers; it is not a casualty count.",
+      "Recovery assumes the same demand at the evaluation date, not a forecast."
+    ]
+  },
+  "allocation_decision_id": "DEC-831cf14d-ee56-4723-9148-96ed6f20608a",
+  "investment_decision_id": "DEC-357c8b9a-1cc5-4ce7-aa57-af0ab578a968",
+  "missing_review_id": null,
+  "supported_review_id": null
+}

@@ -1,0 +1,18 @@
+{
+  "enabled": false,
+  "title": "Beirut explosion exercise",
+  "synthetic": true,
+  "phase": null,
+  "clock": null,
+  "links": {},
+  "hospitals": [],
+  "resources": [],
+  "metrics": [],
+  "incident_input": null,
+  "allocation_input": null,
+  "investment_input": null,
+  "allocation_decision_id": null,
+  "investment_decision_id": null,
+  "missing_review_id": null,
+  "supported_review_id": null
+}

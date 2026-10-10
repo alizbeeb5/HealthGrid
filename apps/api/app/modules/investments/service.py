@@ -9,6 +9,7 @@ from pathlib import Path
 
 from sqlalchemy.orm import Session
 
+from app.core.config import get_settings
 from app.engines import investments as investments_engine
 from app.engines.capacity import calculate_service_capacity
 from app.modules.allocation import service as allocation
@@ -36,8 +37,17 @@ class InvestmentEngineError(RuntimeError):
     proposal is never published or saved."""
 
 
-@lru_cache
 def get_catalog() -> InvestmentCatalog:
+    if get_settings().demo_scenario == "beirut":
+        path = (Path(__file__).resolve().parents[5]
+                / "data/synthetic/beirut-explosion/investment.input.json")
+        return InvestmentCatalog(catalog_version="demo-beirut-v1", currency="USD", synthetic=True,
+                                 candidates=json.loads(path.read_text())["candidates"])
+    return _default_catalog()
+
+
+@lru_cache
+def _default_catalog() -> InvestmentCatalog:
     return InvestmentCatalog.model_validate(json.loads(CATALOG_PATH.read_text("utf-8")))
 
 

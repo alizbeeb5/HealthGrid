@@ -102,7 +102,7 @@ async def advise_incident(
             "minimum_retained_resources",
             "transport_availability",
             "travel_times",
-            "backup_power_inventory",
+            "backup_power_runtime_and_consumption",
         ],
     }
     try:

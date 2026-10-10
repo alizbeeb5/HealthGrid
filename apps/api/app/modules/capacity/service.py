@@ -8,6 +8,7 @@ from pathlib import Path
 from pydantic import TypeAdapter, ValidationError
 from sqlalchemy.orm import Session
 
+from app.core.config import get_settings
 from app.engines import capacity as capacity_engine
 from app.modules.capacity.schemas import (
     FacilityCapacityResponse,
@@ -50,7 +51,10 @@ def _load_profiles(path: Path) -> tuple[ServiceRequirement, ...]:
 
 def get_profiles(db: Session) -> dict[str, ServiceRequirement]:
     """Load profiles and validate them against the complete resource catalog."""
-    profiles = _load_profiles(PROFILES_PATH)
+    path = PROFILES_PATH
+    if get_settings().demo_scenario == "beirut":
+        path = path.parents[1] / "beirut-explosion" / "service-requirement.json"
+    profiles = _load_profiles(path)
     try:
         capacity_engine.validate_requirement_profiles(
             profiles, facilities.list_resource_definitions(db)

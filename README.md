@@ -2,6 +2,45 @@
 Ministry-level health planning: what can we deliver, what should we do, and what
 should we fund?
 
+## Run the Beirut demonstration
+
+Use your installed Python 3.12 environment. From the repository root:
+
+```bash
+python apps/api/scripts/run_beirut_demo.py
+```
+
+In a second terminal:
+
+```bash
+cd apps/web
+API_BASE_URL=http://127.0.0.1:8000 NEXT_PUBLIC_FACILITIES_DATA_MODE=api npm run dev
+```
+
+Open **http://localhost:3000/overview**. Stop any older HealthGrid server occupying
+these ports first. Install the dependencies below if this is a fresh checkout.
+No PostgreSQL or OpenAI key is needed for this exercise.
+
+The launcher creates/resumes a dedicated SQLite file under `work/beirut-demo/`,
+applies migrations, and calculates saved incident, response and investment runs.
+It does not use or overwrite the normal database in `.env`. To restart the story,
+stop the demo API and run `python apps/api/scripts/run_beirut_demo.py --fresh`;
+old exercise files remain available. `--prepare-only` prepares without serving.
+Restart the frontend if changing its proxy/data-mode environment.
+
+The banner holds the exercise clock in August 2020. Use the Outcomes screen’s rehearsal buttons to
+advance from assessment to simulated transfer reports, then recovery evidence.
+These controls explicitly simulate approvals, completion and separate report
+arrivals; normal approval buttons never change inventory. The presenter script
+is in [docs/demo-scenario.md](docs/demo-scenario.md).
+
+All five hospitals and operational values are fictional. Nineteen resource types
+are displayed; five constrain emergency stabilization capacity. Saved calculations
+show 28 → 36 → 48 supported simultaneous places under explicit assumptions.
+Only monitors are transferred by the current allocator. Live AI buttons remain
+optional billable requests when a server-side key is configured; startup and
+rehearsal controls make no AI calls.
+
 ## Structure
 - `apps/web`: Next.js, TypeScript, Tailwind, shadcn configuration, Recharts and React Leaflet.
 - `apps/api`: modular FastAPI backend, PostgreSQL/SQLAlchemy/Alembic, numerical engines.
@@ -9,9 +48,9 @@ should we fund?
 - `data`: synthetic fixtures and import templates.
 - `docs`: architecture, team ownership and demo scenario.
 
-This is a development scaffold with a hospital snapshot frontend, `/health` and
-the Feature 1 facility endpoints (list, snapshot, append observation). The network
-overview and seven-day forecast screen/API are implemented. Incident simulation and monitor allocation screens/APIs are connected. Investment planning is connected to the OR-Tools package solver and saved-run API. Authentication and remaining domain models are placeholders. Existing PyCharm `main.py` is preserved and is not the API entry point.
+The hospital snapshot frontend includes `/health` and
+facility endpoints (list, snapshot, append observation). The network
+overview and seven-day forecast screen/API are implemented. Incident simulation and monitor allocation screens/APIs are connected. Investment planning is connected to the OR-Tools package solver and saved-run API. Decision tracking and outcome review are connected. Authentication is not implemented. Existing PyCharm `main.py` is preserved and is not the API entry point.
 
 ## Requirements
 Use Python **3.12**, Node.js **22** with npm **9.5+**, and PostgreSQL **17** (or Docker Compose).

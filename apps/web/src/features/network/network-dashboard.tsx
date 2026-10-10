@@ -14,17 +14,20 @@ import { createNetworkLoader, type NetworkState } from "./network-loader";
 import { capacityFilter, capacityLabels, filterHospitals, initialService } from "./presentation";
 import { summarizeNetwork, type NetworkSummary } from "./summary";
 import { SummaryCards } from "./summary-cards";
+import { ExerciseOverview } from "../exercise/overview";
+import { useExercise } from "../exercise/context";
 
 const HospitalMap = dynamic(() => import("./hospital-map"), {
   ssr: false,
   loading: () => <p role="status" className="p-8 text-sm text-slate-600">Loading hospital map… The comparison table is available below.</p>,
 });
-const inputClass = "rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm focus:border-teal-700 focus:outline-2 focus:outline-teal-100";
+const inputClass = "rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-teal-700 focus:outline-2 focus:outline-teal-100";
 
 export function NetworkDashboard() {
+  const exercise = useExercise();
   const params = useSearchParams();
   const requested = params.get("service_id");
-  const mode: NetworkMode = facilityDataMode === "demo" || params.get("mode") === "example" ? "example" : "api";
+  const mode: NetworkMode = !exercise?.enabled && (facilityDataMode === "demo" || params.get("mode") === "example") ? "example" : "api";
   const name = params.get("name") ?? "";
   const status = capacityFilter(params.get("status"));
   const [state, setState] = useState<NetworkState>({ phase: "loading" });
@@ -72,47 +75,47 @@ export function NetworkDashboard() {
   const unknownSelection = selected !== undefined && !services.some((service) => service.service_id === selected);
   const fictional = ready?.data.facilities.some((row) => row.capacity.profile_version?.startsWith("demo-"));
 
-  return <div className="space-y-6">
+  return <div className="space-y-4">
     <header className="flex flex-wrap items-start justify-between gap-4">
-      <div><p className="text-xs font-bold uppercase tracking-[0.18em] text-teal-700">Ministry / Network overview</p><h1 className="mt-2 text-3xl font-bold tracking-tight">Hospital capacity overview</h1><p className="mt-3 text-sm text-slate-600">Compare reported capacity for one service, inspect the evidence, and open a hospital to update its resources.</p></div>
-      <div className="flex flex-wrap gap-2"><Link className={secondaryClass} href="/scenarios">Declare incident</Link><button className={buttonClass} onClick={refresh} disabled={pending}><RefreshCw size={16} aria-hidden="true" />{pending ? "Refreshing…" : "Refresh"}</button></div>
+      <div><h1 className="text-2xl font-semibold tracking-tight">{exercise?.enabled ? "Beirut hospital situation" : "Hospital situation"}</h1><p className="mt-1 text-sm text-slate-500">Current capacity, interrupted services and reports needing attention.</p></div>
+      <div className="flex flex-wrap gap-2"><Link className={secondaryClass} href={exercise?.enabled ? exercise.links?.scenarios ?? "/scenarios" : "/scenarios"}>Assess emergency</Link><button className={buttonClass} onClick={refresh} disabled={pending}><RefreshCw size={16} aria-hidden="true" />{pending ? "Refreshing…" : "Refresh"}</button></div>
     </header>
 
-    <section className={`${panelClass} p-5`} aria-label="Dashboard filters">
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <label className="space-y-2 text-xs font-semibold text-slate-600"><span className="block">Service</span><select className={`${inputClass} w-full`} value={selected ?? ""} onChange={(event) => updateQuery({ service_id: event.target.value }, true)} disabled={!services.length}>
+    <section className="rounded-xl border border-slate-200 bg-white p-3" aria-label="Dashboard filters">
+      <div className={`grid gap-4 md:grid-cols-2 ${exercise?.enabled ? "" : "lg:grid-cols-4"}`}>
+        {!exercise?.enabled && <label className="space-y-1 text-xs font-medium text-slate-600"><span className="block">Service</span><select className={`${inputClass} w-full`} value={selected ?? ""} onChange={(event) => updateQuery({ service_id: event.target.value }, true)} disabled={!services.length}>
           {!services.length && <option value="">{pending ? "Loading services…" : "No services available"}</option>}
           {unknownSelection && <option value={selected}>Service not listed ({selected})</option>}
           {services.map((service) => <option key={service.service_id} value={service.service_id}>{service.name}</option>)}
-        </select></label>
-        <label className="space-y-2 text-xs font-semibold text-slate-600"><span className="block">Hospital name</span><span className="relative block"><Search size={15} className="absolute left-3 top-3 text-slate-400" aria-hidden="true" /><input type="search" className={`${inputClass} w-full pl-9`} placeholder="Search hospital name" value={name} onChange={(event) => updateQuery({ name: event.target.value })} /></span></label>
-        <label className="space-y-2 text-xs font-semibold text-slate-600"><span className="block">Capacity status</span><select className={`${inputClass} w-full`} value={status} onChange={(event) => updateQuery({ status: event.target.value === "all" ? null : event.target.value })}><option value="all">All statuses</option>{Object.entries(capacityLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
-        <label className="space-y-2 text-xs font-semibold text-slate-600"><span className="block">Reports</span><select className={`${inputClass} w-full`} value={mode} onChange={(event) => updateQuery({ mode: event.target.value }, true)}><option value="api" disabled={facilityDataMode === "demo"}>Connected reports</option><option value="example">Shared demo examples (frozen)</option></select></label>
+        </select></label>}
+        <label className="space-y-1 text-xs font-medium text-slate-600"><span className="block">Hospital name</span><span className="relative block"><Search size={15} className="absolute left-3 top-2.5 text-slate-400" aria-hidden="true" /><input type="search" className={`${inputClass} w-full pl-9`} placeholder="Search hospital name" value={name} onChange={(event) => updateQuery({ name: event.target.value })} /></span></label>
+        <label className="space-y-1 text-xs font-medium text-slate-600"><span className="block">Capacity status</span><select className={`${inputClass} w-full`} value={status} onChange={(event) => updateQuery({ status: event.target.value === "all" ? null : event.target.value })}><option value="all">All statuses</option>{Object.entries(capacityLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>
+        {!exercise?.enabled && <label className="space-y-1 text-xs font-medium text-slate-600"><span className="block">Reports</span><select className={`${inputClass} w-full`} value={mode} onChange={(event) => updateQuery({ mode: event.target.value }, true)}><option value="api" disabled={facilityDataMode === "demo"}>Connected reports</option>{!exercise?.enabled && <option value="example">Shared demo examples (frozen)</option>}</select></label>}
       </div>
       {(name || status !== "all") && <button className="mt-3 text-xs font-semibold text-teal-800 hover:underline" onClick={() => updateQuery({ name: null, status: null })}>Clear name and status filters</button>}
     </section>
 
     {mode === "example" && <div role="note" className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950"><strong>Frozen synthetic preview</strong><p className="mt-1">Shared examples use the fixture clock. Refresh reloads these fixed examples and does not incorporate resource updates. {facilityDataMode === "api" ? "Hospital details open connected reports; return to Connected reports after saving an update." : "Hospital details use the browser demo; capacity previews do not include its saved observations."}</p></div>}
-    {fictional && <p role="note" className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-950">Fictional demo rules and synthetic hospitals. Requirement profiles are illustrative, not clinical staffing standards.</p>}
+    {fictional && !exercise?.enabled && <p role="note" className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-950">Fictional demo rules and synthetic hospitals. Requirement profiles are illustrative, not clinical staffing standards.</p>}
 
     {pending ? <section role="status" aria-live="polite" aria-busy="true" className={`${panelClass} p-8`}><p className="text-sm text-slate-600">{state.phase === "loading" ? "Loading services and network capacity…" : "Updating network capacity… Previous results are hidden until the refresh completes."}</p><div aria-hidden="true" className="mt-5 grid animate-pulse grid-cols-3 gap-3">{[1, 2, 3].map((id) => <div key={id} className="h-24 rounded-lg bg-slate-100" />)}</div></section>
       : state.phase === "error" ? <LoadError message={state.message} retry={refresh} />
       : state.phase === "empty" ? <EmptyNetwork title="No services available" message="Services will appear when participating hospitals report them." />
       : summaryError ? <LoadError message={summaryError} retry={refresh} />
       : ready && summary && <>
-        <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600"><p>{rows.length} of {ready.data.facilities.length} hospitals shown · {ready.data.service_name ?? ready.data.service_id}</p><p>Assessment as of: <Timestamp value={ready.data.as_of} /></p></div>
-        <SummaryCards summary={summary} />
         {!ready.data.facilities.length ? <EmptyNetwork title={ready.data.service_name === null ? "Service not found" : "No hospitals offer this service"} message="Select an available service. Hospitals that do not offer this service are excluded, not counted as unavailable." />
           : !rows.length ? <EmptyNetwork title="No matching hospitals" message="Change the hospital name or capacity status filter." clear={() => updateQuery({ name: null, status: null })} />
           : <>
-            <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-              <section className={`${panelClass} overflow-hidden`} aria-labelledby="hospital-map-heading"><div className="p-5"><h2 id="hospital-map-heading" className="flex items-center gap-2 text-lg font-semibold"><Map size={18} aria-hidden="true" />Hospitals on the map</h2><p className="mt-1 text-xs text-slate-500">{rows.length} filtered hospitals · Select a marker to inspect its reports.</p></div><HospitalMap rows={rows} returnTo={returnTo} /></section>
+            <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_300px]">
+              <section className={`${panelClass} overflow-hidden`} aria-labelledby="hospital-map-heading"><div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3"><div><h2 id="hospital-map-heading" className="flex items-center gap-2 text-lg font-semibold"><Map size={18} aria-hidden="true" />Hospitals on the map</h2><p className="mt-1 text-xs text-slate-500">{rows.length} of {ready.data.facilities.length} hospitals · Select a marker for details.</p></div><p className="text-xs text-slate-500">Updated <Timestamp value={ready.data.as_of} /></p></div><HospitalMap rows={rows} returnTo={returnTo} /></section>
               <AttentionList rows={rows} attentionIds={summary.attention_facility_ids} returnTo={returnTo} />
             </div>
+            <details className={`${panelClass} p-4`}><summary className="cursor-pointer text-sm font-medium text-teal-800">Network totals and reporting coverage</summary><div className="mt-4"><SummaryCards summary={summary} /></div></details>
             <HospitalTable rows={rows} returnTo={returnTo} />
           </>}
         <p className="text-xs leading-relaxed text-slate-500">Reports older than {ready.data.stale_after_hours} hours are stale. Receipt time does not establish freshness for every required resource. Times are shown in your local timezone; hover a timestamp for UTC. Report updates can occur while the network is assessed.</p>
       </>}
+    <ExerciseOverview />
   </div>;
 }
 

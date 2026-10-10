@@ -1,7 +1,11 @@
 # Full-product workstreams (reference)
 
-**Active milestone:** build Feature 8, using `feature-8-contract.md`. Its
-three small assignments supersede the broad workstreams below for the current step.
+**Current milestone:** Beirut demonstration and Ministry interface enhancements
+are implemented by one driver. Next: user browser rehearsal using `demo-scenario.md`,
+then address observed presentation issues. Backend checks are recorded in
+`beirut-demo-enhancements.md`. Frontend tests/builds/browser checks were intentionally
+not run at the user's request. The workstreams below are historical reference,
+not outstanding implementation assignments.
 
 Read product-scope.md first. Keep the agreed stack and modular monolith. Work on
 separate branches and local databases. Integrate one complete scenario early.

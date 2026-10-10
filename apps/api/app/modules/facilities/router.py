@@ -25,7 +25,11 @@ ERRORS = {
 }
 
 
-def server_now() -> datetime:
+def server_now(db: Session = Depends(get_session)) -> datetime:
+    from app.core.config import get_settings
+    if get_settings().demo_scenario == "beirut":
+        from app.modules.demo.service import require_exercise
+        return require_exercise(db).clock
     return datetime.now(UTC)
 
 

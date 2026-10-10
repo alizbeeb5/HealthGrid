@@ -1,8 +1,9 @@
 "use client";
 
+import { useExerciseNames, useExercise } from "../exercise/context";
 import { useEffect, useRef, useState } from "react";
 import type { components } from "../../lib/api/schema";
-import { secondaryClass, panelClass, Timestamp } from "../facilities/shared";
+import { buttonClass, panelClass, Timestamp } from "../facilities/shared";
 import type { IncidentFields } from "./model";
 import type { ComponentState } from "./review-panel";
 
@@ -33,22 +34,24 @@ export async function requestEmergencyAdvice(incident: IncidentFields): Promise<
 }
 
 export function EmergencyAdviceResult({ data }: { data: EmergencyAdvice }) {
+  const names = useExerciseNames();
   return <div className="space-y-4">
     <p role="status" className="text-sm">{data.advice_status === "completed" ? data.proposal?.summary : data.advice_status === "unavailable" ? "Emergency guidance is unavailable. Configure the server API key or continue manually." : data.advice_status === "refused" ? "The model declined this request. Continue manually." : "The guidance request failed. Try again or continue manually."}</p>
     {data.proposal && <><ol className="space-y-3">{data.proposal.actions.map((action, i) => <li key={i} className="rounded-lg border border-slate-200 p-4">
-      <p className="text-xs font-semibold uppercase text-teal-700">{action.priority === "immediate" ? "First steps" : "Follow-up"} · {action.facility_ids.join(", ") || "Network coordination"}</p>
+      <p className="text-xs font-semibold uppercase text-teal-700">{action.priority === "immediate" ? "First steps" : "Follow-up"} · {action.facility_ids.map(names.hospital).join(", ") || "Network coordination"}</p>
       <h3 className="mt-1 font-semibold">{i + 1}. {action.title}</h3>
       <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">{action.steps.map((step, j) => <li key={j}>{step}</li>)}</ul>
       <p className="mt-3 text-sm text-slate-600">Why: {action.rationale}</p>
       <p className="mt-3 text-xs font-semibold">Verify before acting</p><ul className="mt-1 list-disc space-y-1 pl-5 text-xs">{action.prerequisites.map((item, j) => <li key={j}>{item}</li>)}</ul>
       <details className="mt-3 text-xs"><summary className="cursor-pointer font-medium">Supporting report and hospital data</summary><ul className="mt-2 space-y-2">{action.evidence_paths.map((path) => <li key={path}><span className="break-all font-medium">{path}</span>: {String(data.evidence.find((item) => item.path === path)?.value ?? "Unknown (null)")}</li>)}</ul></details>
     </li>)}</ol>{data.proposal.questions.length > 0 && <div><h3 className="text-sm font-semibold">Information needed</h3><ul className="mt-2 list-disc space-y-1 pl-5 text-sm">{data.proposal.questions.map((question, i) => <li key={i}>{question}</li>)}</ul></div>}</>}
-    <ul className="space-y-1 text-xs text-amber-900">{data.warnings.map((warning, i) => <li key={i}>{warning}</li>)}</ul>
-    <p className="text-xs text-slate-500">Model: {data.model ?? "Not supplied"} · {data.elapsed_ms} ms · Hospital data as of <Timestamp value={data.as_of} /></p>
+    <details className="text-xs text-slate-500"><summary className="cursor-pointer">Sources, limitations and model details</summary><ul className="mt-3 space-y-1">{data.warnings.map((warning, i) => <li key={i}>{warning}</li>)}</ul>
+    <p className="text-xs text-slate-500">Model: {data.model ?? "Not supplied"} · {data.elapsed_ms} ms · Hospital data as of <Timestamp value={data.as_of} /></p></details>
   </div>;
 }
 
 export function EmergencyAdvicePanel({ incident, disabled }: { incident: IncidentFields; disabled: boolean }) {
+  const exercise = useExercise();
   const [state, setState] = useState<ComponentState<EmergencyAdvice>>({ phase: "idle" });
   const generation = useRef(0);
   const input = JSON.stringify(incident);
@@ -64,10 +67,10 @@ export function EmergencyAdvicePanel({ incident, disabled }: { incident: Inciden
     }
   }
   return <section className={`${panelClass} space-y-4 p-5`}>
-    <h2 className="text-lg font-semibold">Emergency next steps</h2>
-    <p className="text-sm text-slate-600">Get prioritized suggestions using this incident and current hospital reports. Suggested resource moves need confirmation; no action runs automatically.</p>
-    <button className={secondaryClass} disabled={disabled || !incident.report_text?.trim() || state.phase === "loading"} onClick={() => void request()}>{state.phase === "loading" ? "Preparing next steps…" : "Suggest emergency next steps · live"}</button>
-    {state.phase === "idle" && <p className="text-xs text-slate-500">Add a report or load the fictional Hospital B outage to begin. Changing incident details clears previous guidance.</p>}
+    <h2 className="text-lg font-semibold">AI response recommendations</h2>
+    <p className="text-sm text-slate-600">Generate a prioritized action brief from the situation report and current hospital evidence. Review its reasons and prerequisites, then compare feasible resource moves in the next step.</p>
+    <button className={buttonClass} disabled={disabled || !incident.report_text?.trim() || state.phase === "loading"} onClick={() => void request()}>{state.phase === "loading" ? "Preparing next steps…" : "Generate recommendations · live AI"}</button>
+    {state.phase === "idle" && <p className="text-xs text-slate-500">{exercise?.enabled ? "The Beirut report is ready. Generate recommendations when you want a live analysis; no model runs automatically." : "Add a situation report to begin. Editing it clears previous guidance."}</p>}
     {state.phase === "loading" && <p role="status" className="text-sm">Reviewing the report, hospital service status, resources and modeled capacity…</p>}
     {state.phase === "error" && <p role="alert" className="whitespace-pre-line text-sm text-rose-800">{state.message}</p>}
     {state.phase === "ready" && <EmergencyAdviceResult data={state.data} />}

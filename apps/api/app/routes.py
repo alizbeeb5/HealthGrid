@@ -6,6 +6,7 @@ from fastapi import APIRouter
 from app.modules.allocation.router import router as allocation_router
 from app.modules.capacity.router import router as capacity_router
 from app.modules.decisions.router import router as decisions_router
+from app.modules.demo.router import router as demo_router
 from app.modules.facilities.router import router as facilities_router
 from app.modules.forecasting.router import router as forecasting_router
 from app.modules.ingestion.router import router as ingestion_router
@@ -24,4 +25,5 @@ router.include_router(scenarios_router)
 router.include_router(allocation_router)
 router.include_router(investments_router)
 router.include_router(decisions_router)
+router.include_router(demo_router)
 router.include_router(intelligence_router)

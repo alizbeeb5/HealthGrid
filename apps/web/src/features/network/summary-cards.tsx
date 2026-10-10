@@ -5,10 +5,10 @@ import type { NetworkSummary } from "./summary";
 export function SummaryCards({ summary }: { summary: NetworkSummary }) {
   const cards = [
     ["Reporting hospitals", summary.facility_count],
-    ["Calculated estimates", summary.calculated_count],
-    ["Unknown estimates", summary.unknown_count],
-    ["Unavailable services", summary.unavailable_count],
-    ["Unconfigured profiles", summary.not_configured_count],
+    ["Capacity assessed", summary.calculated_count],
+    ["Reports need clarification", summary.unknown_count],
+    ["Services interrupted", summary.unavailable_count],
+    ["Assessment rules needed", summary.not_configured_count],
   ] as const;
   return <section aria-label="Filtered network summary" className="space-y-4">
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">

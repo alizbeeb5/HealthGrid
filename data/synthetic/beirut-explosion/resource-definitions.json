@@ -1,0 +1,135 @@
+[
+  {
+    "resource_id": "available-beds",
+    "name": "Emergency treatment spaces",
+    "category": "beds",
+    "unit": "bed",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "nurses-on-duty",
+    "name": "Nurses assigned to emergency care",
+    "category": "staff",
+    "unit": "person",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "emergency-physicians",
+    "name": "Physicians assigned to emergency care",
+    "category": "staff",
+    "unit": "person",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "working-monitors",
+    "name": "Working patient monitors",
+    "category": "equipment",
+    "unit": "item",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "functional-oxygen-points",
+    "name": "Functional supplied oxygen points",
+    "category": "infrastructure",
+    "unit": "item",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "oxygen-stock",
+    "name": "Oxygen stock (gas-equivalent liters)",
+    "category": "supplies",
+    "unit": "liter",
+    "allows_fractional": true
+  },
+  {
+    "resource_id": "trauma-dressing-kits",
+    "name": "Trauma dressing kits",
+    "category": "supplies",
+    "unit": "item",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "sterile-surgical-kits",
+    "name": "Sterile surgical instrument sets",
+    "category": "equipment",
+    "unit": "item",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "rbc-o-positive",
+    "name": "Red-cell units O positive (inventory only)",
+    "category": "supplies",
+    "unit": "item",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "rbc-o-negative",
+    "name": "Red-cell units O negative (inventory only)",
+    "category": "supplies",
+    "unit": "item",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "operating-theatres",
+    "name": "Functional operating theatres",
+    "category": "infrastructure",
+    "unit": "item",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "surgeons-on-duty",
+    "name": "Surgeons on duty",
+    "category": "staff",
+    "unit": "person",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "anesthetists-on-duty",
+    "name": "Anesthesia clinicians on duty",
+    "category": "staff",
+    "unit": "person",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "working-ventilators",
+    "name": "Working ventilators",
+    "category": "equipment",
+    "unit": "item",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "working-ct-scanners",
+    "name": "Working CT scanners",
+    "category": "equipment",
+    "unit": "item",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "working-xray-units",
+    "name": "Working X-ray units",
+    "category": "equipment",
+    "unit": "item",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "available-ambulances",
+    "name": "Ambulances reported available",
+    "category": "equipment",
+    "unit": "item",
+    "allows_fractional": false
+  },
+  {
+    "resource_id": "generator-fuel",
+    "name": "Generator diesel stock",
+    "category": "supplies",
+    "unit": "liter",
+    "allows_fractional": true
+  },
+  {
+    "resource_id": "working-generators",
+    "name": "Working backup generators",
+    "category": "infrastructure",
+    "unit": "item",
+    "allows_fractional": false
+  }
+]

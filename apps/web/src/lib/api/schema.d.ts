@@ -440,6 +440,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/demo": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Context */
+        get: operations["get_exercise_context"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/demo/advance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Advance */
+        post: operations["advance_exercise"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/intelligence/incidents/advice": {
         parameters: {
             query?: never;
@@ -573,6 +607,19 @@ export interface components {
          * @enum {string}
          */
         ActionStatus: "pending" | "in_progress" | "blocked" | "completed" | "cancelled";
+        /** AdvanceExercise */
+        AdvanceExercise: {
+            /**
+             * Expected Phase
+             * @enum {string}
+             */
+            expected_phase: "assessment" | "response" | "recovery";
+            /**
+             * Target Phase
+             * @enum {string}
+             */
+            target_phase: "response" | "recovery";
+        };
         /** AdviceEvidence */
         AdviceEvidence: {
             /** Path */
@@ -1070,6 +1117,71 @@ export interface components {
          * @enum {string}
          */
         ExclusionReason: "no_planning_constraints" | "service_unavailable" | "service_limited" | "requirements_not_configured" | "missing_required_evidence" | "stale_required_evidence";
+        /** ExerciseContext */
+        ExerciseContext: {
+            /** Enabled */
+            enabled: boolean;
+            /**
+             * Title
+             * @default Beirut explosion exercise
+             */
+            title: string;
+            /**
+             * Synthetic
+             * @default true
+             * @constant
+             */
+            synthetic: true;
+            /** Phase */
+            phase?: ("assessment" | "response" | "recovery") | null;
+            /** Clock */
+            clock?: string | null;
+            /** Links */
+            links?: {
+                [key: string]: string;
+            };
+            /** Hospitals */
+            hospitals?: components["schemas"]["ExerciseHospital"][];
+            /** Resources */
+            resources?: components["schemas"]["ResourceDefinition"][];
+            /** Metrics */
+            metrics?: components["schemas"]["ExerciseMetric"][];
+            incident_input?: components["schemas"]["IncidentDraftInput"] | null;
+            allocation_input?: components["schemas"]["AllocationRunRequest"] | null;
+            investment_input?: components["schemas"]["InvestmentRunRequest"] | null;
+            /** Allocation Decision Id */
+            allocation_decision_id?: string | null;
+            /** Investment Decision Id */
+            investment_decision_id?: string | null;
+            /** Missing Review Id */
+            missing_review_id?: string | null;
+            /** Supported Review Id */
+            supported_review_id?: string | null;
+        };
+        /** ExerciseHospital */
+        ExerciseHospital: {
+            /** Facility Id */
+            facility_id: string;
+            /** Name */
+            name: string;
+            /** Role */
+            role: string;
+            /** Cause */
+            cause: string;
+            /** Next Action */
+            next_action: string;
+        };
+        /** ExerciseMetric */
+        ExerciseMetric: {
+            /** Label */
+            label: string;
+            /** Covered */
+            covered: number;
+            /** Unmet */
+            unmet: number;
+            /** Cost Minor Units */
+            cost_minor_units: number;
+        };
         /** ExpectedFacility */
         ExpectedFacility: {
             /** Facility Id */
@@ -1943,6 +2055,17 @@ export interface components {
          * @enum {string}
          */
         ResourceCategory: "beds" | "staff" | "equipment" | "supplies" | "infrastructure";
+        /** ResourceDefinition */
+        ResourceDefinition: {
+            /** Resource Id */
+            resource_id: string;
+            /** Name */
+            name: string;
+            category: components["schemas"]["ResourceCategory"];
+            unit: components["schemas"]["ResourceUnit"];
+            /** Allows Fractional */
+            allows_fractional: boolean;
+        };
         /** ResourceEffect */
         ResourceEffect: {
             /** Resource Id */
@@ -2619,7 +2742,7 @@ export interface operations {
                     "application/json": components["schemas"]["IncidentRevision"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -2660,7 +2783,7 @@ export interface operations {
                     "application/json": components["schemas"]["ScenarioErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -2713,7 +2836,7 @@ export interface operations {
                     "application/json": components["schemas"]["ScenarioErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -2772,7 +2895,7 @@ export interface operations {
                     "application/json": components["schemas"]["ScenarioErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -2812,7 +2935,7 @@ export interface operations {
                     "application/json": components["schemas"]["ScenarioErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -2854,7 +2977,7 @@ export interface operations {
                     "application/json": components["schemas"]["AllocationErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -2894,7 +3017,7 @@ export interface operations {
                     "application/json": components["schemas"]["AllocationErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -2956,7 +3079,7 @@ export interface operations {
                     "application/json": components["schemas"]["InvestmentErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -2996,7 +3119,7 @@ export interface operations {
                     "application/json": components["schemas"]["InvestmentErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -3078,7 +3201,7 @@ export interface operations {
                     "application/json": components["schemas"]["DecisionErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -3127,7 +3250,7 @@ export interface operations {
                     "application/json": components["schemas"]["DecisionErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -3189,7 +3312,7 @@ export interface operations {
                     "application/json": components["schemas"]["DecisionErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -3238,7 +3361,7 @@ export interface operations {
                     "application/json": components["schemas"]["DecisionErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -3300,7 +3423,7 @@ export interface operations {
                     "application/json": components["schemas"]["DecisionErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
@@ -3350,13 +3473,66 @@ export interface operations {
                     "application/json": components["schemas"]["DecisionErrorResponse"];
                 };
             };
-            /** @description Unprocessable Content */
+            /** @description Unprocessable Entity */
             422: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
                     "application/json": components["schemas"]["DecisionErrorResponse"];
+                };
+            };
+        };
+    };
+    get_exercise_context: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExerciseContext"];
+                };
+            };
+        };
+    };
+    advance_exercise: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AdvanceExercise"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ExerciseContext"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

@@ -2,6 +2,7 @@
 
 from functools import lru_cache
 from pathlib import Path
+from typing import Literal
 
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -13,6 +14,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=ROOT / ".env", extra="ignore")
     database_url: str = "postgresql+psycopg://healthgrid:healthgrid_local@localhost:5432/healthgrid"
     openai_api_key: SecretStr = SecretStr("")
+    demo_scenario: Literal["beirut"] | None = None
 
 
 @lru_cache

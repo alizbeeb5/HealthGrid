@@ -33,6 +33,8 @@ export function requestFromForm(form: InvestmentForm): WireRequest {
   return { ...form, operating_cost_months: Number(form.operating_cost_months), budget_minor_units: Number(form.budget_minor_units), candidates: form.candidates.map((c) => ({ ...c, capital_cost_minor_units: Number(c.capital_cost_minor_units), monthly_operating_cost_minor_units: Number(c.monthly_operating_cost_minor_units), implementation_days: Number(c.implementation_days), source_note: c.source_note.trim() || null, confirmed_at: c.confirmed_at || null, requires_candidate_ids: [...c.requires_candidate_ids].sort(), resource_effects: c.resource_effects.map((e) => ({ ...e, quantity_delta: Number(e.quantity_delta), unit: e.unit as components["schemas"]["ResourceUnit"] })) })) };
 }
 export async function loadCatalogForm(id: string): Promise<InvestmentForm> {
+  const exercise = await facilityRequest<components["schemas"]["ExerciseContext"]>("/api/v1/demo");
+  if (exercise.enabled && exercise.investment_input?.allocation_run_id === id) return formFromRequest(exercise.investment_input);
   const catalog = await facilityRequest<components["schemas"]["InvestmentCatalog"]>("/api/v1/investments/catalog");
   return formFromRequest({ allocation_run_id: id, planning_starts_at: "", evaluation_at: "", operating_cost_months: 3, budget_minor_units: 300000, currency: catalog.currency, catalog_version: catalog.catalog_version, candidates: catalog.candidates, assumptions: ["Source transfers are assumed completed by planning_starts_at; they are not executed.", "Inherited demand persists to evaluation_at; it is not a forecast."] });
 }

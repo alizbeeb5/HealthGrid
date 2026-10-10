@@ -29,18 +29,22 @@ async function allocationRequest(path: string, payload?: AllocationRequest): Pro
     ...(body?.error?.fields ?? []).map((field: { field: string; message: string }) => `${field.field}: ${field.message}`)].join("\n"));
   return body as AllocationRun;
 }
+export function planningFormFromRequest(input: AllocationRequest): PlanningForm {
+  return {
+    ...input, planning_horizon_minutes: String(input.planning_horizon_minutes), budget_minor_units: String(input.budget_minor_units),
+    facility_constraints: input.facility_constraints.map((row) => ({ ...row, required_service_places: String(row.required_service_places),
+      minimum_retained_service_places: String(row.minimum_retained_service_places), minimum_retained_resource_quantity: String(row.minimum_retained_resource_quantity),
+      transferable_quantity: String(row.transferable_quantity), maximum_inbound_quantity: String(row.maximum_inbound_quantity) })),
+    routes: input.routes.map((row) => ({ ...row, lead_time_minutes: String(row.lead_time_minutes), cost_per_unit_minor_units: String(row.cost_per_unit_minor_units), maximum_quantity: String(row.maximum_quantity) })),
+
+  };
+}
 export function presentAllocation(run: AllocationRun, source: PlanningSource): Proposal {
   const summary = (value: AllocationRun["baseline_summary"]) => ({ covered: value.covered_service_places,
     unmet: value.unmet_service_places, rows: value.rows.map((row) => ({ facility_id: row.facility_id,
       demand: row.required_service_places, capacity: row.estimated_capacity, covered: row.covered_service_places,
       unmet: row.unmet_service_places, bottlenecks: row.bottleneck_resource_ids })) });
-  return { id: run.allocation_run_id, saved_at: run.created_at, source, input: {
-    ...run.input, planning_horizon_minutes: String(run.input.planning_horizon_minutes), budget_minor_units: String(run.input.budget_minor_units),
-    facility_constraints: run.input.facility_constraints.map((row) => ({ ...row, required_service_places: String(row.required_service_places),
-      minimum_retained_service_places: String(row.minimum_retained_service_places), minimum_retained_resource_quantity: String(row.minimum_retained_resource_quantity),
-      transferable_quantity: String(row.transferable_quantity), maximum_inbound_quantity: String(row.maximum_inbound_quantity) })),
-    routes: run.input.routes.map((row) => ({ ...row, lead_time_minutes: String(row.lead_time_minutes), cost_per_unit_minor_units: String(row.cost_per_unit_minor_units), maximum_quantity: String(row.maximum_quantity) })),
-  }, solver_status: run.solver_status, plan_outcome: run.plan_outcome, included: run.coverage.included_facility_ids,
+  return { id: run.allocation_run_id, saved_at: run.created_at, source, input: planningFormFromRequest(run.input), solver_status: run.solver_status, plan_outcome: run.plan_outcome, included: run.coverage.included_facility_ids,
     excluded: run.coverage.excluded.map((row) => ({ facility_id: row.facility_id, reason: row.reasons.join(", ") })),
     baseline: summary(run.baseline_summary), proposed: run.proposed_summary ? summary(run.proposed_summary) : null,
     transfers: run.transfers.map((row) => ({ route_id: row.route_id, from: row.from_facility_id, to: row.to_facility_id,

@@ -3,3 +3,8 @@
 :root { color-scheme: light; }
 body { margin: 0; background: #f5f7fa; color: #152638; font-family: Arial, sans-serif; }
 a { text-underline-offset: 4px; }
+button, summary, select { cursor: pointer; }
+button:disabled { cursor: wait; }
+:focus-visible { outline: 2px solid #0f766e; outline-offset: 3px; }
+::selection { background: #ccfbf1; color: #134e4a; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }

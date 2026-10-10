@@ -1,0 +1,694 @@
+{
+  "synthetic": true,
+  "capacity": {
+    "before": {
+      "BEI-EAST": {
+        "service_id": "emergency-care",
+        "service_status": "operating",
+        "profile_version": "demo-beirut-v1",
+        "capacity_unit": "simultaneous_service_place",
+        "status": "calculated",
+        "estimated_capacity": 20,
+        "bottleneck_resource_ids": [
+          "available-beds",
+          "emergency-physicians",
+          "functional-oxygen-points",
+          "nurses-on-duty",
+          "working-monitors"
+        ],
+        "resource_limits": [
+          {
+            "resource_id": "available-beds",
+            "unit": "bed",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 20.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-EAST-before-available-beds",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "unit": "person",
+            "required_per_capacity_unit": 0.25,
+            "available_quantity": 5.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-EAST-before-emergency-physicians",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 20.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-EAST-before-functional-oxygen-points",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "unit": "person",
+            "required_per_capacity_unit": 0.5,
+            "available_quantity": 10.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-EAST-before-nurses-on-duty",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "working-monitors",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 20.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-EAST-before-working-monitors",
+            "observed_at": "2020-08-04T14:00:00Z"
+          }
+        ],
+        "reason_codes": []
+      },
+      "BEI-MOUNT": {
+        "service_id": "emergency-care",
+        "service_status": "operating",
+        "profile_version": "demo-beirut-v1",
+        "capacity_unit": "simultaneous_service_place",
+        "status": "calculated",
+        "estimated_capacity": 24,
+        "bottleneck_resource_ids": [
+          "available-beds",
+          "emergency-physicians",
+          "functional-oxygen-points",
+          "nurses-on-duty",
+          "working-monitors"
+        ],
+        "resource_limits": [
+          {
+            "resource_id": "available-beds",
+            "unit": "bed",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 24.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-MOUNT-before-available-beds",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "unit": "person",
+            "required_per_capacity_unit": 0.25,
+            "available_quantity": 6.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-MOUNT-before-emergency-physicians",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 24.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-MOUNT-before-functional-oxygen-points",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "unit": "person",
+            "required_per_capacity_unit": 0.5,
+            "available_quantity": 12.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-MOUNT-before-nurses-on-duty",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "working-monitors",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 24.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-MOUNT-before-working-monitors",
+            "observed_at": "2020-08-04T14:00:00Z"
+          }
+        ],
+        "reason_codes": []
+      },
+      "BEI-PORT": {
+        "service_id": "emergency-care",
+        "service_status": "operating",
+        "profile_version": "demo-beirut-v1",
+        "capacity_unit": "simultaneous_service_place",
+        "status": "calculated",
+        "estimated_capacity": 20,
+        "bottleneck_resource_ids": [
+          "available-beds",
+          "emergency-physicians",
+          "functional-oxygen-points",
+          "nurses-on-duty",
+          "working-monitors"
+        ],
+        "resource_limits": [
+          {
+            "resource_id": "available-beds",
+            "unit": "bed",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 20.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-PORT-before-available-beds",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "unit": "person",
+            "required_per_capacity_unit": 0.25,
+            "available_quantity": 5.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-PORT-before-emergency-physicians",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 20.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-PORT-before-functional-oxygen-points",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "unit": "person",
+            "required_per_capacity_unit": 0.5,
+            "available_quantity": 10.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-PORT-before-nurses-on-duty",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "working-monitors",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 20.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-PORT-before-working-monitors",
+            "observed_at": "2020-08-04T14:00:00Z"
+          }
+        ],
+        "reason_codes": []
+      },
+      "BEI-UNCONFIRMED": {
+        "service_id": "emergency-care",
+        "service_status": "operating",
+        "profile_version": "demo-beirut-v1",
+        "capacity_unit": "simultaneous_service_place",
+        "status": "unknown",
+        "estimated_capacity": null,
+        "bottleneck_resource_ids": [],
+        "resource_limits": [
+          {
+            "resource_id": "available-beds",
+            "unit": "bed",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 15.0,
+            "capacity_limit": 15,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-UNCONFIRMED-before-available-beds",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "unit": "person",
+            "required_per_capacity_unit": 0.25,
+            "available_quantity": 3.0,
+            "capacity_limit": 12,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-UNCONFIRMED-before-emergency-physicians",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 10.0,
+            "capacity_limit": 10,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-UNCONFIRMED-before-functional-oxygen-points",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "unit": "person",
+            "required_per_capacity_unit": 0.5,
+            "available_quantity": null,
+            "capacity_limit": null,
+            "data_status": "unknown",
+            "observation_id": null,
+            "observed_at": null
+          },
+          {
+            "resource_id": "working-monitors",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 10.0,
+            "capacity_limit": 10,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-UNCONFIRMED-before-working-monitors",
+            "observed_at": "2020-08-04T14:00:00Z"
+          }
+        ],
+        "reason_codes": [
+          "missing_required_observation"
+        ]
+      },
+      "BEI-WEST": {
+        "service_id": "emergency-care",
+        "service_status": "operating",
+        "profile_version": "demo-beirut-v1",
+        "capacity_unit": "simultaneous_service_place",
+        "status": "calculated",
+        "estimated_capacity": 24,
+        "bottleneck_resource_ids": [
+          "emergency-physicians",
+          "functional-oxygen-points",
+          "nurses-on-duty",
+          "working-monitors"
+        ],
+        "resource_limits": [
+          {
+            "resource_id": "available-beds",
+            "unit": "bed",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 30.0,
+            "capacity_limit": 30,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-WEST-before-available-beds",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "unit": "person",
+            "required_per_capacity_unit": 0.25,
+            "available_quantity": 6.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-WEST-before-emergency-physicians",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 24.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-WEST-before-functional-oxygen-points",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "unit": "person",
+            "required_per_capacity_unit": 0.5,
+            "available_quantity": 12.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-WEST-before-nurses-on-duty",
+            "observed_at": "2020-08-04T14:00:00Z"
+          },
+          {
+            "resource_id": "working-monitors",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 24.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-WEST-before-working-monitors",
+            "observed_at": "2020-08-04T14:00:00Z"
+          }
+        ],
+        "reason_codes": []
+      }
+    },
+    "incident": {
+      "BEI-EAST": {
+        "service_id": "emergency-care",
+        "service_status": "operating",
+        "profile_version": "demo-beirut-v1",
+        "capacity_unit": "simultaneous_service_place",
+        "status": "calculated",
+        "estimated_capacity": 8,
+        "bottleneck_resource_ids": [
+          "nurses-on-duty"
+        ],
+        "resource_limits": [
+          {
+            "resource_id": "available-beds",
+            "unit": "bed",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 20.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-EAST-incident-available-beds",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "unit": "person",
+            "required_per_capacity_unit": 0.25,
+            "available_quantity": 5.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-EAST-incident-emergency-physicians",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 20.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-EAST-incident-functional-oxygen-points",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "unit": "person",
+            "required_per_capacity_unit": 0.5,
+            "available_quantity": 4.0,
+            "capacity_limit": 8,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-EAST-incident-nurses-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "working-monitors",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 16.0,
+            "capacity_limit": 16,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-EAST-incident-working-monitors",
+            "observed_at": "2020-08-04T16:00:00Z"
+          }
+        ],
+        "reason_codes": []
+      },
+      "BEI-MOUNT": {
+        "service_id": "emergency-care",
+        "service_status": "operating",
+        "profile_version": "demo-beirut-v1",
+        "capacity_unit": "simultaneous_service_place",
+        "status": "calculated",
+        "estimated_capacity": 24,
+        "bottleneck_resource_ids": [
+          "available-beds",
+          "emergency-physicians",
+          "functional-oxygen-points",
+          "nurses-on-duty",
+          "working-monitors"
+        ],
+        "resource_limits": [
+          {
+            "resource_id": "available-beds",
+            "unit": "bed",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 24.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-MOUNT-incident-available-beds",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "unit": "person",
+            "required_per_capacity_unit": 0.25,
+            "available_quantity": 6.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-MOUNT-incident-emergency-physicians",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 24.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-MOUNT-incident-functional-oxygen-points",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "unit": "person",
+            "required_per_capacity_unit": 0.5,
+            "available_quantity": 12.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-MOUNT-incident-nurses-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "working-monitors",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 24.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-MOUNT-incident-working-monitors",
+            "observed_at": "2020-08-04T16:00:00Z"
+          }
+        ],
+        "reason_codes": []
+      },
+      "BEI-PORT": {
+        "service_id": "emergency-care",
+        "service_status": "unavailable",
+        "profile_version": "demo-beirut-v1",
+        "capacity_unit": "simultaneous_service_place",
+        "status": "unavailable",
+        "estimated_capacity": 0,
+        "bottleneck_resource_ids": [],
+        "resource_limits": [
+          {
+            "resource_id": "available-beds",
+            "unit": "bed",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 20.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-PORT-incident-available-beds",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "unit": "person",
+            "required_per_capacity_unit": 0.25,
+            "available_quantity": 5.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-PORT-incident-emergency-physicians",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 0.0,
+            "capacity_limit": 0,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-PORT-incident-functional-oxygen-points",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "unit": "person",
+            "required_per_capacity_unit": 0.5,
+            "available_quantity": 10.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-PORT-incident-nurses-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "working-monitors",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 20.0,
+            "capacity_limit": 20,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-PORT-incident-working-monitors",
+            "observed_at": "2020-08-04T16:00:00Z"
+          }
+        ],
+        "reason_codes": [
+          "service_unavailable"
+        ]
+      },
+      "BEI-UNCONFIRMED": {
+        "service_id": "emergency-care",
+        "service_status": "operating",
+        "profile_version": "demo-beirut-v1",
+        "capacity_unit": "simultaneous_service_place",
+        "status": "unknown",
+        "estimated_capacity": null,
+        "bottleneck_resource_ids": [],
+        "resource_limits": [
+          {
+            "resource_id": "available-beds",
+            "unit": "bed",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 15.0,
+            "capacity_limit": 15,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-available-beds",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "unit": "person",
+            "required_per_capacity_unit": 0.25,
+            "available_quantity": 3.0,
+            "capacity_limit": 12,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-emergency-physicians",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 10.0,
+            "capacity_limit": 10,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-functional-oxygen-points",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "unit": "person",
+            "required_per_capacity_unit": 0.5,
+            "available_quantity": null,
+            "capacity_limit": null,
+            "data_status": "unknown",
+            "observation_id": null,
+            "observed_at": null
+          },
+          {
+            "resource_id": "working-monitors",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 10.0,
+            "capacity_limit": 10,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-UNCONFIRMED-incident-working-monitors",
+            "observed_at": "2020-08-04T16:00:00Z"
+          }
+        ],
+        "reason_codes": [
+          "missing_required_observation"
+        ]
+      },
+      "BEI-WEST": {
+        "service_id": "emergency-care",
+        "service_status": "operating",
+        "profile_version": "demo-beirut-v1",
+        "capacity_unit": "simultaneous_service_place",
+        "status": "calculated",
+        "estimated_capacity": 8,
+        "bottleneck_resource_ids": [
+          "working-monitors"
+        ],
+        "resource_limits": [
+          {
+            "resource_id": "available-beds",
+            "unit": "bed",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 30.0,
+            "capacity_limit": 30,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-WEST-incident-available-beds",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "emergency-physicians",
+            "unit": "person",
+            "required_per_capacity_unit": 0.25,
+            "available_quantity": 6.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-WEST-incident-emergency-physicians",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "functional-oxygen-points",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 24.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-WEST-incident-functional-oxygen-points",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "unit": "person",
+            "required_per_capacity_unit": 0.5,
+            "available_quantity": 12.0,
+            "capacity_limit": 24,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-WEST-incident-nurses-on-duty",
+            "observed_at": "2020-08-04T16:00:00Z"
+          },
+          {
+            "resource_id": "working-monitors",
+            "unit": "item",
+            "required_per_capacity_unit": 1.0,
+            "available_quantity": 8.0,
+            "capacity_limit": 8,
+            "data_status": "current",
+            "observation_id": "OBS-BEI-WEST-incident-working-monitors",
+            "observed_at": "2020-08-04T16:00:00Z"
+          }
+        ],
+        "reason_codes": []
+      }
+    }
+  },
+  "allocation": {
+    "covered_before": 28,
+    "covered_after": 36,
+    "unmet_after": 12,
+    "transfers": [
+      {
+        "route_id": "BEI-MOUNT-WEST",
+        "from_facility_id": "BEI-MOUNT",
+        "to_facility_id": "BEI-WEST",
+        "resource_id": "working-monitors",
+        "quantity": 8,
+        "unit": "item",
+        "lead_time_minutes": 45,
+        "cost_minor_units": 80000
+      }
+    ]
+  },
+  "investment": {
+    "covered_after": 48,
+    "unmet_after": 0,
+    "total_cost_minor_units": 1000000,
+    "selected_candidate_ids": [
+      "BEI-MONITOR-RESTORE",
+      "BEI-NURSE-COVER"
+    ]
+  }
+}
