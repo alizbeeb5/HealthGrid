@@ -1,0 +1,177 @@
+{
+  "id": "frontend-improved-display",
+  "saved_at": null,
+  "source": {
+    "simulation_run_id": "FRONTEND-RESOURCE-LOSS-EXAMPLE",
+    "incident_id": "frontend-example",
+    "revision_id": "frontend-example",
+    "baseline_id": "frontend-example",
+    "baseline_at": "2026-10-10T10:00:00Z",
+    "service_id": "emergency-care",
+    "example": true,
+    "hospitals": [
+      {
+        "facility_id": "DEMO-A",
+        "name": "Demo Hospital A",
+        "capacity": 4,
+        "status": "calculated",
+        "monitors": 4,
+        "evidence": [
+          "Explicit synthetic operating-service assumption; 12 beds, 6 nurses and 4 monitors."
+        ]
+      },
+      {
+        "facility_id": "DEMO-B",
+        "name": "Demo Hospital B",
+        "capacity": 2,
+        "status": "calculated",
+        "monitors": 2,
+        "evidence": [
+          "Explicit synthetic operating-service assumption; 18 beds, 9 nurses and 2 monitors."
+        ]
+      },
+      {
+        "facility_id": "DEMO-C",
+        "name": "Demo Hospital C",
+        "capacity": 0,
+        "status": "unavailable",
+        "monitors": null,
+        "evidence": [
+          "Unavailable service; excluded from the sample allocation coverage."
+        ]
+      }
+    ],
+    "planning_start_at": "2026-10-10T10:00:00Z"
+  },
+  "input": {
+    "simulation_run_id": "FRONTEND-RESOURCE-LOSS-EXAMPLE",
+    "resource_id": "working-monitors",
+    "planning_horizon_minutes": "60",
+    "budget_minor_units": "10000",
+    "currency": "USD",
+    "facility_constraints": [
+      {
+        "facility_id": "DEMO-A",
+        "required_service_places": "3",
+        "minimum_retained_service_places": "3",
+        "minimum_retained_resource_quantity": "3",
+        "transferable_quantity": "1",
+        "maximum_inbound_quantity": "0",
+        "source_note": "Fictional approval: A may move one compatible monitor while retaining three monitors and three service places.",
+        "confirmed_at": "2026-10-10T10:00:00Z"
+      },
+      {
+        "facility_id": "DEMO-B",
+        "required_service_places": "8",
+        "minimum_retained_service_places": "0",
+        "minimum_retained_resource_quantity": "2",
+        "transferable_quantity": "0",
+        "maximum_inbound_quantity": "1",
+        "source_note": "Fictional planning demand of eight simultaneous places; compatible receiving limit one monitor.",
+        "confirmed_at": "2026-10-10T10:00:00Z"
+      }
+    ],
+    "routes": [
+      {
+        "route_id": "DEMO-A-TO-B",
+        "from_facility_id": "DEMO-A",
+        "to_facility_id": "DEMO-B",
+        "lead_time_minutes": "30",
+        "cost_per_unit_minor_units": "10000",
+        "maximum_quantity": "1",
+        "source_note": "Fictional explicitly approved direct A to B equipment route, not inferred from coordinates.",
+        "confirmed_at": "2026-10-10T10:00:00Z"
+      }
+    ],
+    "assumptions": [
+      "Synthetic manual demand assumptions, not forecast arrivals or patient counts.",
+      "Parallel direct transfers; transport scheduling is not modeled.",
+      "Beds and nurses still constrain capacity; only monitors can move."
+    ]
+  },
+  "solver_status": "optimal",
+  "plan_outcome": "improved",
+  "included": [
+    "DEMO-A",
+    "DEMO-B"
+  ],
+  "excluded": [
+    {
+      "facility_id": "DEMO-C",
+      "reason": "Unavailable emergency service; excluded demand remains uncounted, not zero."
+    }
+  ],
+  "baseline": {
+    "covered": 5,
+    "unmet": 6,
+    "rows": [
+      {
+        "facility_id": "DEMO-A",
+        "demand": 3,
+        "capacity": 4,
+        "covered": 3,
+        "unmet": 0,
+        "bottlenecks": [
+          "working-monitors"
+        ]
+      },
+      {
+        "facility_id": "DEMO-B",
+        "demand": 8,
+        "capacity": 2,
+        "covered": 2,
+        "unmet": 6,
+        "bottlenecks": [
+          "working-monitors"
+        ]
+      }
+    ]
+  },
+  "proposed": {
+    "covered": 6,
+    "unmet": 5,
+    "rows": [
+      {
+        "facility_id": "DEMO-A",
+        "demand": 3,
+        "capacity": 3,
+        "covered": 3,
+        "unmet": 0,
+        "bottlenecks": [
+          "working-monitors"
+        ]
+      },
+      {
+        "facility_id": "DEMO-B",
+        "demand": 8,
+        "capacity": 3,
+        "covered": 3,
+        "unmet": 5,
+        "bottlenecks": [
+          "working-monitors"
+        ]
+      }
+    ]
+  },
+  "transfers": [
+    {
+      "route_id": "DEMO-A-TO-B",
+      "from": "DEMO-A",
+      "to": "DEMO-B",
+      "quantity": 1,
+      "unit": "item",
+      "lead_time_minutes": 30,
+      "cost_minor_units": 10000
+    }
+  ],
+  "total_cost_minor_units": 10000,
+  "remaining_gap_reasons": [
+    "Hospital B still has five unmet modeled service places.",
+    "A may move only one approved monitor and must protect its own demand and reserves.",
+    "The recipient accepts at most one compatible monitor on the approved route."
+  ],
+  "validation_passed": true,
+  "review_required": true,
+  "objective": "Minimize unmet demand, then proven-optimal cost, then moved items; supplied display example only.",
+  "solve_duration_ms": null
+}
