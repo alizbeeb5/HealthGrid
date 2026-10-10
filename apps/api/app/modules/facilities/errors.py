@@ -21,6 +21,14 @@ class ObservationRejected(Exception):
         self.fields = fields
 
 
+class InvalidRequest(Exception):
+    """A well-formed request that refers to something that does not apply, e.g. a
+    service the facility does not offer."""
+
+    def __init__(self, fields: list[FieldError]):
+        self.fields = fields
+
+
 def error_response(status_code: int, code: str, message: str, fields: list[FieldError]):
     body = ErrorResponse(error=ErrorDetail(code=code, message=message, fields=fields))
     return JSONResponse(status_code=status_code, content=body.model_dump(mode="json"))
@@ -54,6 +62,8 @@ class FacilityRoute(APIRoute):
                 return error_response(
                     422, "invalid_observation", "The observation could not be saved.", exc.fields
                 )
+            except InvalidRequest as exc:
+                return error_response(422, "invalid_request", "The request is invalid.", exc.fields)
             except RequestValidationError as exc:
                 in_body, fields = _request_fields(exc)
                 if in_body:

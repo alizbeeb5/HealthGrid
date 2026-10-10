@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "invalid_request",
+    "message": "The request is invalid.",
+    "fields": [
+      {
+        "field": "service_id",
+        "message": "Facility DEMO-B does not offer service maternity."
+      }
+    ]
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "facility_id": "DEMO-C",
+  "service_id": "emergency-care",
+  "generated_at": "2026-10-10T09:00:00Z",
+  "horizon_days": 7,
+  "capacity_unit": "simultaneous_service_place",
+  "profile_version": "demo-v1",
+  "status": "insufficient_history",
+  "history": [
+    {
+      "date": "2026-09-30",
+      "capacity": null,
+      "demand": 2,
+      "sources": [
+        "synthetic-demo-v1"
+      ],
+      "data_quality": "reported"
+    },
+    {
+      "date": "2026-10-01",
+      "capacity": null,
+      "demand": 2,
+      "sources": [
+        "synthetic-demo-v1"
+      ],
+      "data_quality": "reported"
+    },
+    {
+      "date": "2026-10-02",
+      "capacity": null,
+      "demand": 2,
+      "sources": [
+        "synthetic-demo-v1"
+      ],
+      "data_quality": "reported"
+    },
+    {
+      "date": "2026-10-03",
+      "capacity": null,
+      "demand": 2,
+      "sources": [
+        "synthetic-demo-v1"
+      ],
+      "data_quality": "reported"
+    },
+    {
+      "date": "2026-10-04",
+      "capacity": null,
+      "demand": 2,
+      "sources": [
+        "synthetic-demo-v1"
+      ],
+      "data_quality": "reported"
+    },
+    {
+      "date": "2026-10-05",
+      "capacity": null,
+      "demand": 2,
+      "sources": [
+        "synthetic-demo-v1"
+      ],
+      "data_quality": "reported"
+    },
+    {
+      "date": "2026-10-06",
+      "capacity": null,
+      "demand": 2,
+      "sources": [
+        "synthetic-demo-v1"
+      ],
+      "data_quality": "reported"
+    },
+    {
+      "date": "2026-10-07",
+      "capacity": null,
+      "demand": 2,
+      "sources": [
+        "synthetic-demo-v1"
+      ],
+      "data_quality": "reported"
+    },
+    {
+      "date": "2026-10-08",
+      "capacity": null,
+      "demand": 2,
+      "sources": [
+        "synthetic-demo-v1"
+      ],
+      "data_quality": "reported"
+    },
+    {
+      "date": "2026-10-09",
+      "capacity": null,
+      "demand": 2,
+      "sources": [
+        "synthetic-demo-v1"
+      ],
+      "data_quality": "reported"
+    }
+  ],
+  "forecast": [],
+  "alerts": [],
+  "validation": null
+}

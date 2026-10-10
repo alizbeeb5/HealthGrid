@@ -84,6 +84,11 @@ existing observations are never modified):
 ```bash
 python apps/api/scripts/seed_feature_1.py
 ```
+Revision `0002_daily_history` adds the Feature 4 daily history tables. Import daily
+history after seeding (all-or-nothing; existing days are never overwritten):
+```bash
+python apps/api/scripts/import_daily_history.py [path/to/daily-history.json]
+```
 
 ## Team handoff
 The finalized product workflow is in `docs/product-scope.md`; the next three
