@@ -15,7 +15,6 @@ from app.modules.capacity.schemas import (
     ServiceRequirement,
 )
 from app.modules.facilities import service as facilities
-from app.modules.facilities.schemas import ResourceDefinition
 
 # Runtime copy of contracts/examples/feature-2/service-requirement.json, maintained
 # by the data/calculation owner. Fictional demo rules, not clinical standards.
@@ -24,7 +23,7 @@ PROFILES_PATH = (
     / "data"
     / "synthetic"
     / "feature-2"
-    / "service-requirements.json"
+    / "service-requirement.json"
 )
 
 _profiles_adapter = TypeAdapter(list[ServiceRequirement])
@@ -48,45 +47,27 @@ def _load_profiles(path: Path) -> tuple[ServiceRequirement, ...]:
     return tuple(profiles)
 
 
-def _validate_against_catalog(
-    profiles: tuple[ServiceRequirement, ...], catalog: list[ResourceDefinition]
-) -> dict[str, ServiceRequirement]:
-    service_ids = [profile.service_id for profile in profiles]
-    if len(service_ids) != len(set(service_ids)):
-        raise CapacityConfigurationError("Capacity profiles must have unique service IDs.")
-    units = {resource.resource_id: resource.unit for resource in catalog}
-    for profile in profiles:
-        for requirement in profile.requirements:
-            expected = units.get(requirement.resource_id)
-            if expected is None:
-                raise CapacityConfigurationError(
-                    f"Profile {profile.service_id} requires unknown resource "
-                    f"{requirement.resource_id}."
-                )
-            if requirement.unit != expected:
-                raise CapacityConfigurationError(
-                    f"Profile {profile.service_id} uses {requirement.unit} for "
-                    f"{requirement.resource_id}; the catalog unit is {expected}."
-                )
-    return {profile.service_id: profile for profile in profiles}
-
-
 def get_profiles(db: Session) -> dict[str, ServiceRequirement]:
-    return _validate_against_catalog(
-        _load_profiles(PROFILES_PATH), facilities.list_resource_definitions(db)
-    )
+    """Load profiles and validate them against the complete resource catalog."""
+    profiles = _load_profiles(PROFILES_PATH)
+    try:
+        capacity_engine.validate_requirement_profiles(
+            profiles, facilities.list_resource_definitions(db)
+        )
+    except ValueError as exc:
+        raise CapacityConfigurationError(f"Invalid capacity profiles: {exc}") from exc
+    return {profile.service_id: profile for profile in profiles}
 
 
 def get_facility_capacity(db: Session, facility_id: str, now: datetime) -> FacilityCapacityResponse:
     snapshot = facilities.get_snapshot(db, facility_id, now)  # raises FacilityNotFound
     profiles = get_profiles(db)
-    calculate = getattr(capacity_engine, "calculate_service_capacity", None)
-    if calculate is None:
-        raise CapacityConfigurationError("engines.capacity.calculate_service_capacity is missing.")
 
     results: list[ServiceCapacityResult] = []
     for service in sorted(snapshot.services, key=lambda s: s.service_id):
-        result = calculate(snapshot, service, profiles.get(service.service_id))
+        result = capacity_engine.calculate_service_capacity(
+            snapshot, service, profiles.get(service.service_id)
+        )
         if result.service_id != service.service_id:
             raise CapacityConfigurationError(
                 f"Engine returned {result.service_id} for service {service.service_id}."

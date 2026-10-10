@@ -1,10 +1,10 @@
 # Feature 2: Current capacity and bottlenecks
 
-Status: the backend schemas and endpoint are implemented and included in
-`contracts/openapi.json`. The endpoint returns HTTP 500 until the capacity engine
-(`engines/capacity.py`) and the runtime profile
-`data/synthetic/feature-2/service-requirements.json` (one profile object, or a
-list of them) are merged. Keep the existing stack and Feature 1 wire names.
+Status: backend schemas, endpoint and capacity engine are implemented; the endpoint
+is in `contracts/openapi.json`. It reads the runtime profile
+`data/synthetic/feature-2/service-requirement.json` (one profile object, or a list
+of them). The frontend panel is pending. Keep the existing stack and Feature 1 wire
+names.
 
 ## User outcome
 

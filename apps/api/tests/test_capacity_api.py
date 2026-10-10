@@ -21,7 +21,6 @@ from app.modules.facilities.seed import FIXTURES as FEATURE_1
 EXAMPLES = Path(__file__).resolve().parents[3] / "contracts" / "examples" / "feature-2"
 PROFILE = EXAMPLES / "service-requirement.json"
 URL = "/api/v1/capacity/facilities"
-ENGINE_READY = hasattr(capacity_engine, "calculate_service_capacity")
 
 
 def example(name: str):
@@ -29,9 +28,7 @@ def example(name: str):
 
 
 @pytest.fixture(autouse=True)
-def demo_profile(monkeypatch):
-    """Use the agreed contract profile until the runtime copy is merged."""
-    monkeypatch.setattr(capacity_service, "PROFILES_PATH", PROFILE)
+def fresh_profiles():
     capacity_service._load_profiles.cache_clear()
     yield
     capacity_service._load_profiles.cache_clear()
@@ -61,7 +58,7 @@ class StubEngine:
 @pytest.fixture
 def stub_engine(monkeypatch) -> StubEngine:
     stub = StubEngine()
-    monkeypatch.setattr(capacity_engine, "calculate_service_capacity", stub, raising=False)
+    monkeypatch.setattr(capacity_engine, "calculate_service_capacity", stub)
     return stub
 
 
@@ -88,6 +85,11 @@ def test_examples_match_schema(facility_id):
 
 def test_profile_example_matches_schema():
     ServiceRequirement.model_validate(example("service-requirement.json"))
+
+
+def test_runtime_profile_is_identical_to_contract_example():
+    runtime = json.loads(capacity_service.PROFILES_PATH.read_text(encoding="utf-8"))
+    assert runtime == example("service-requirement.json")
 
 
 @pytest.mark.parametrize(
@@ -217,29 +219,18 @@ def test_missing_profile_file_is_a_server_error(server_errors, stub_engine, tmp_
     assert server_errors.get(f"{URL}/DEMO-B").status_code == 500
 
 
-def test_missing_engine_is_a_server_error(server_errors, monkeypatch):
-    monkeypatch.delattr(capacity_engine, "calculate_service_capacity", raising=False)
-    assert server_errors.get(f"{URL}/DEMO-B").status_code == 500
-
-
 def test_engine_result_breaking_contract_is_a_server_error(server_errors, monkeypatch):
     def wrong_service(snapshot, service, requirement):
         return StubEngine()(snapshot, service.model_copy(update={"service_id": "other"}),
                             requirement)
 
-    monkeypatch.setattr(capacity_engine, "calculate_service_capacity", wrong_service,
-                        raising=False)
+    monkeypatch.setattr(capacity_engine, "calculate_service_capacity", wrong_service)
     assert server_errors.get(f"{URL}/DEMO-B").status_code == 500
 
 
-# Integration with the real engine (data/calculation owner). Skipped until merged.
-
-needs_engine = pytest.mark.skipif(
-    not ENGINE_READY, reason="engines.capacity.calculate_service_capacity not merged yet"
-)
+# Integration: real snapshot -> real engine, using the packaged runtime profile.
 
 
-@needs_engine
 @pytest.mark.parametrize("facility_id", ["DEMO-A", "DEMO-B", "DEMO-C"])
 def test_endpoint_matches_examples_at_fixture_clock(client, facility_id):
     response = client.get(f"{URL}/{facility_id}")
@@ -247,7 +238,6 @@ def test_endpoint_matches_examples_at_fixture_clock(client, facility_id):
     assert response.json() == example(f"{facility_id}.capacity.response.json")
 
 
-@needs_engine
 def test_saved_observation_changes_capacity_without_altering_history(client, clock, engine):
     assert client.get(f"{URL}/DEMO-B").json()["services"][0]["estimated_capacity"] == 5
     update = {
