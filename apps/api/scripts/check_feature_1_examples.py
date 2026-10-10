@@ -2,7 +2,7 @@
 
 import json
 import sys
-from datetime import timedelta
+from datetime import datetime, timedelta
 from pathlib import Path
 
 API_ROOT = Path(__file__).resolve().parents[1]
@@ -18,6 +18,7 @@ from app.modules.facilities.schemas import (  # noqa: E402
     ObservationResponse,
     ResourceDefinition,
 )
+from app.modules.ingestion.validation import validate_observation  # noqa: E402
 
 fixtures = API_ROOT.parents[1] / "contracts" / "examples" / "feature-1"
 
@@ -61,13 +62,31 @@ assert all(response.model_dump()[key] == value for key, value in request.model_d
 for name in ("validation-error.response.json", "not-found.response.json"):
     ErrorResponse.model_validate(read(name))
 for case in read("invalid-observations.json"):
-    if case["validation_layer"] != "shape":
-        continue  # Catalog/time rules are the next data-validation task, not implemented yet.
+    if case["validation_layer"] == "resource_lookup":
+        assert case["request"]["resource_id"] not in catalog
+        continue  # Backend owner maps failed resource lookup to a field-level 422.
+    if case["validation_layer"] == "catalog":
+        observation = ObservationCreate.model_validate(case["request"])
+        errors = validate_observation(
+            observation, catalog[observation.resource_id],
+            datetime.fromisoformat(case["server_now"]),
+        )
+        assert any(error.field == case["expected_field"] for error in errors), case["case"]
+        continue
+    assert case["validation_layer"] == "shape"
     try:
         ObservationCreate.model_validate(case["request"])
     except ValidationError as error:
         assert any(issue["loc"][0] == case["expected_field"] for issue in error.errors())
     else:
         raise AssertionError(f"Invalid shape was accepted: {case['case']}")
-print("Shared examples passed shape and snapshot consistency checks.")
-print("Catalog-aware and server-time validation cases remain implementation tasks.")
+for case in read("valid-observations.json"):
+    observation = ObservationCreate.model_validate(case["request"])
+    assert not validate_observation(
+        observation, catalog[observation.resource_id], datetime.fromisoformat(case["server_now"])
+    ), case["case"]
+assert not validate_observation(
+    request, catalog[request.resource_id], response.recorded_at
+)
+print("Shared examples passed shape, snapshot, catalog and timestamp checks.")
+print("HTTP errors, resource applicability and persistence require backend integration tests.")

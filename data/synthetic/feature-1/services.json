@@ -1,0 +1,20 @@
+[
+  {
+    "facility_id": "DEMO-A",
+    "service_id": "emergency-care",
+    "name": "Emergency care",
+    "status": "limited"
+  },
+  {
+    "facility_id": "DEMO-B",
+    "service_id": "emergency-care",
+    "name": "Emergency care",
+    "status": "operating"
+  },
+  {
+    "facility_id": "DEMO-C",
+    "service_id": "emergency-care",
+    "name": "Emergency care",
+    "status": "unavailable"
+  }
+]

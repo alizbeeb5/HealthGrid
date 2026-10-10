@@ -1,0 +1,101 @@
+[
+  {
+    "resource_id": "available-beds",
+    "available_quantity": 12,
+    "unit": "bed",
+    "observed_at": "2026-10-10T08:30:00Z",
+    "observation_id": "OBS-DEMO-A-1",
+    "facility_id": "DEMO-A",
+    "recorded_at": "2026-10-10T08:35:00Z"
+  },
+  {
+    "resource_id": "nurses-on-duty",
+    "available_quantity": 6,
+    "unit": "person",
+    "observed_at": "2026-10-10T08:30:00Z",
+    "observation_id": "OBS-DEMO-A-2",
+    "facility_id": "DEMO-A",
+    "recorded_at": "2026-10-10T08:35:00Z"
+  },
+  {
+    "resource_id": "oxygen-stock",
+    "available_quantity": 800.5,
+    "unit": "liter",
+    "observed_at": "2026-10-10T08:30:00Z",
+    "observation_id": "OBS-DEMO-A-3",
+    "facility_id": "DEMO-A",
+    "recorded_at": "2026-10-10T08:35:00Z"
+  },
+  {
+    "resource_id": "available-beds",
+    "available_quantity": 18,
+    "unit": "bed",
+    "observed_at": "2026-10-10T08:30:00Z",
+    "observation_id": "OBS-DEMO-B-1",
+    "facility_id": "DEMO-B",
+    "recorded_at": "2026-10-10T08:35:00Z"
+  },
+  {
+    "resource_id": "nurses-on-duty",
+    "available_quantity": 9,
+    "unit": "person",
+    "observed_at": "2026-10-10T08:30:00Z",
+    "observation_id": "OBS-DEMO-B-2",
+    "facility_id": "DEMO-B",
+    "recorded_at": "2026-10-10T08:35:00Z"
+  },
+  {
+    "resource_id": "oxygen-stock",
+    "available_quantity": 1200,
+    "unit": "liter",
+    "observed_at": "2026-10-10T08:30:00Z",
+    "observation_id": "OBS-DEMO-B-3",
+    "facility_id": "DEMO-B",
+    "recorded_at": "2026-10-10T08:35:00Z"
+  },
+  {
+    "resource_id": "working-monitors",
+    "available_quantity": 5,
+    "unit": "item",
+    "observed_at": "2026-10-10T08:30:00Z",
+    "observation_id": "OBS-DEMO-B-4",
+    "facility_id": "DEMO-B",
+    "recorded_at": "2026-10-10T08:35:00Z"
+  },
+  {
+    "resource_id": "available-beds",
+    "available_quantity": 0,
+    "unit": "bed",
+    "observed_at": "2026-10-09T07:00:00Z",
+    "observation_id": "OBS-DEMO-C-1",
+    "facility_id": "DEMO-C",
+    "recorded_at": "2026-10-09T07:05:00Z"
+  },
+  {
+    "resource_id": "nurses-on-duty",
+    "available_quantity": 2,
+    "unit": "person",
+    "observed_at": "2026-10-09T07:00:00Z",
+    "observation_id": "OBS-DEMO-C-2",
+    "facility_id": "DEMO-C",
+    "recorded_at": "2026-10-09T07:05:00Z"
+  },
+  {
+    "resource_id": "oxygen-stock",
+    "available_quantity": 0,
+    "unit": "liter",
+    "observed_at": "2026-10-09T07:00:00Z",
+    "observation_id": "OBS-DEMO-C-3",
+    "facility_id": "DEMO-C",
+    "recorded_at": "2026-10-09T07:05:00Z"
+  },
+  {
+    "resource_id": "working-monitors",
+    "available_quantity": 1,
+    "unit": "item",
+    "observed_at": "2026-10-09T07:00:00Z",
+    "observation_id": "OBS-DEMO-C-4",
+    "facility_id": "DEMO-C",
+    "recorded_at": "2026-10-09T07:05:00Z"
+  }
+]

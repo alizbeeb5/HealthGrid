@@ -14,7 +14,7 @@
   {
     "case": "wrong-unit",
     "server_now": "2026-10-10T09:00:00Z",
-    "validation_layer": "resource_lookup",
+    "validation_layer": "catalog",
     "expected_field": "unit",
     "request": {
       "resource_id": "available-beds",
@@ -38,7 +38,7 @@
   {
     "case": "fractional-count",
     "server_now": "2026-10-10T09:00:00Z",
-    "validation_layer": "resource_lookup",
+    "validation_layer": "catalog",
     "expected_field": "available_quantity",
     "request": {
       "resource_id": "available-beds",
@@ -62,7 +62,7 @@
   {
     "case": "future-time",
     "server_now": "2026-10-10T09:00:00Z",
-    "validation_layer": "server_clock",
+    "validation_layer": "catalog",
     "expected_field": "observed_at",
     "request": {
       "resource_id": "available-beds",
@@ -128,6 +128,54 @@
     "request": {
       "resource_id": "available-beds",
       "available_quantity": "10",
+      "unit": "bed",
+      "observed_at": "2026-10-10T08:55:00Z"
+    }
+  },
+  {
+    "case": "malformed-timestamp",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "shape",
+    "expected_field": "observed_at",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": 10,
+      "unit": "bed",
+      "observed_at": "not-a-date"
+    }
+  },
+  {
+    "case": "invalid-calendar-date",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "shape",
+    "expected_field": "observed_at",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": 10,
+      "unit": "bed",
+      "observed_at": "2026-02-30T08:00:00Z"
+    }
+  },
+  {
+    "case": "unsupported-unit",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "shape",
+    "expected_field": "unit",
+    "request": {
+      "resource_id": "available-beds",
+      "available_quantity": 10,
+      "unit": "kg",
+      "observed_at": "2026-10-10T08:55:00Z"
+    }
+  },
+  {
+    "case": "invalid-resource-id",
+    "server_now": "2026-10-10T09:00:00Z",
+    "validation_layer": "shape",
+    "expected_field": "resource_id",
+    "request": {
+      "resource_id": "bad id",
+      "available_quantity": 10,
       "unit": "bed",
       "observed_at": "2026-10-10T08:55:00Z"
     }

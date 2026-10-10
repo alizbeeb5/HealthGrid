@@ -6,8 +6,11 @@ Templates define initial import column conventions; no importer exists yet.
 Use stable string IDs, explicit resource units and ISO 8601 UTC observation times.
 Keep observations separate from assumptions. Never commit patient data, real
 facility reports, credentials, or private datasets. Historical demand and resource
-fixtures will be added when the team's shared domain schemas are agreed.
+fixtures will be extended as the team's shared domain schemas are agreed.
 
 Feature 1 canonical IDs, field names and mock snapshots are defined in
 `docs/feature-1-contract.md` and `contracts/examples/feature-1/` (repository-relative).
 Use those when preparing seed/import data; do not invent alternate field names.
+
+Feature 1 service, resource-applicability and observation seed fixtures are in
+`synthetic/feature-1/`. See its README for the shared inputs and expected cases.
