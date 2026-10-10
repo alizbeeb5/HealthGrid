@@ -141,6 +141,102 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/scenarios/incidents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Incidents */
+        get: operations["list_incidents"];
+        put?: never;
+        /**
+         * Create Incident Draft
+         * @description Save a draft. A draft is not an operational approval.
+         */
+        post: operations["create_incident_draft"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scenarios/incidents/{incident_id}/revisions/{revision_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Incident Revision */
+        get: operations["get_incident_revision"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scenarios/incidents/{incident_id}/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Confirm Incident
+         * @description Confirm reviewed inputs and capture the baseline atomically. Do not auto-retry;
+         *     a repeated or concurrent confirmation returns 409 with the existing revision.
+         */
+        post: operations["confirm_incident"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scenarios/incidents/{incident_id}/revisions/{revision_id}/simulate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Simulate Incident
+         * @description 201 with a new saved run, or 200 with the run already saved for this revision.
+         */
+        post: operations["simulate_incident"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/scenarios/runs/{run_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Simulation Run */
+        get: operations["get_simulation_run"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -165,6 +261,41 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /**
+         * AppliedResourceOverride
+         * @description Scenario quantity is a planner assumption, not a reported observation.
+         */
+        AppliedResourceOverride: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            override_type: "resource_quantity";
+            /** Resource Id */
+            resource_id: string;
+            unit: components["schemas"]["ResourceUnit"];
+            /** Baseline Quantity */
+            baseline_quantity: number | null;
+            baseline_data_status: components["schemas"]["DataStatus"];
+            /** Scenario Quantity */
+            scenario_quantity: number;
+            /** Affects Modeled Estimate */
+            affects_modeled_estimate: boolean;
+        };
+        /** AppliedServiceOverride */
+        AppliedServiceOverride: {
+            /**
+             * @description discriminator enum property added by openapi-typescript
+             * @enum {string}
+             */
+            override_type: "service_status";
+            /** Service Id */
+            service_id: string;
+            baseline_status: components["schemas"]["ServiceStatus"];
+            scenario_status: components["schemas"]["ServiceStatus"];
+            /** Restriction Note */
+            restriction_note: string | null;
+        };
         /**
          * CapacityStatus
          * @enum {string}
@@ -398,6 +529,124 @@ export interface components {
             sources: string[];
             data_quality: components["schemas"]["DataQuality"] | null;
         };
+        /** ImpactRow */
+        ImpactRow: {
+            facility: components["schemas"]["Facility"];
+            baseline_capacity: components["schemas"]["ServiceCapacityResult"];
+            scenario_capacity: components["schemas"]["ServiceCapacityResult"];
+            /** Capacity Change */
+            capacity_change: number | null;
+            /** Affected */
+            affected: boolean;
+            /** Applied Overrides */
+            applied_overrides: (components["schemas"]["AppliedServiceOverride"] | components["schemas"]["AppliedResourceOverride"])[];
+        };
+        /** IncidentConfirmRequest */
+        IncidentConfirmRequest: {
+            /** Draft Revision Id */
+            draft_revision_id: string;
+            input: components["schemas"]["IncidentInput"];
+            /** Confirmed By */
+            confirmed_by: string;
+        };
+        /** IncidentDraftInput */
+        IncidentDraftInput: {
+            /** Title */
+            title: string;
+            /** Report Text */
+            report_text: string | null;
+            /** Service Id */
+            service_id: string | null;
+            /** Starts At */
+            starts_at: string | null;
+            /** Expected Ends At */
+            expected_ends_at: string | null;
+            /** Affected Facility Ids */
+            affected_facility_ids: string[];
+            /** Service Overrides */
+            service_overrides: components["schemas"]["ServiceOverride"][];
+            /** Resource Overrides */
+            resource_overrides: components["schemas"]["ResourceOverride"][];
+            /** Assumptions */
+            assumptions: string[];
+        };
+        /** IncidentImpact */
+        IncidentImpact: {
+            /** Incident Id */
+            incident_id: string;
+            /** Revision Id */
+            revision_id: string;
+            /** Baseline Id */
+            baseline_id: string;
+            /**
+             * Baseline Captured At
+             * Format: date-time
+             */
+            baseline_captured_at: string;
+            /** Service Id */
+            service_id: string;
+            /**
+             * Capacity Unit
+             * @constant
+             */
+            capacity_unit: "simultaneous_service_place";
+            /** Rows */
+            rows: components["schemas"]["ImpactRow"][];
+        };
+        /**
+         * IncidentInput
+         * @description Confirmed input: same shape, with the selection and start time required.
+         */
+        IncidentInput: {
+            /** Title */
+            title: string;
+            /** Report Text */
+            report_text: string | null;
+            /** Service Id */
+            service_id: string;
+            /**
+             * Starts At
+             * Format: date-time
+             */
+            starts_at: string;
+            /** Expected Ends At */
+            expected_ends_at: string | null;
+            /** Affected Facility Ids */
+            affected_facility_ids: string[];
+            /** Service Overrides */
+            service_overrides: components["schemas"]["ServiceOverride"][];
+            /** Resource Overrides */
+            resource_overrides: components["schemas"]["ResourceOverride"][];
+            /** Assumptions */
+            assumptions: string[];
+        };
+        /** IncidentListResponse */
+        IncidentListResponse: {
+            /** Items */
+            items: components["schemas"]["IncidentRevision"][];
+        };
+        /** IncidentRevision */
+        IncidentRevision: {
+            /** Incident Id */
+            incident_id: string;
+            /** Revision Id */
+            revision_id: string;
+            /** Parent Revision Id */
+            parent_revision_id: string | null;
+            status: components["schemas"]["RevisionStatus"];
+            input: components["schemas"]["IncidentDraftInput"];
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Confirmed At */
+            confirmed_at: string | null;
+            /** Confirmed By */
+            confirmed_by: string | null;
+            /** Baseline Id */
+            baseline_id: string | null;
+        };
         /** NetworkFacilityResult */
         NetworkFacilityResult: {
             facility: components["schemas"]["Facility"];
@@ -506,6 +755,19 @@ export interface components {
          * @enum {string}
          */
         ResourceCategory: "beds" | "staff" | "equipment" | "supplies" | "infrastructure";
+        /**
+         * ResourceOverride
+         * @description Absolute scenario availability, not a loss to subtract. Zero is explicit zero.
+         */
+        ResourceOverride: {
+            /** Facility Id */
+            facility_id: string;
+            /** Resource Id */
+            resource_id: string;
+            /** Available Quantity */
+            available_quantity: number;
+            unit: components["schemas"]["ResourceUnit"];
+        };
         /** ResourceSnapshot */
         ResourceSnapshot: {
             /** Resource Id */
@@ -531,6 +793,29 @@ export interface components {
          * @enum {string}
          */
         ResourceUnit: "bed" | "person" | "item" | "liter";
+        /**
+         * RevisionStatus
+         * @enum {string}
+         */
+        RevisionStatus: "draft" | "confirmed";
+        /** ScenarioErrorDetail */
+        ScenarioErrorDetail: {
+            /**
+             * Code
+             * @enum {string}
+             */
+            code: "invalid_request" | "incident_not_found" | "revision_not_found" | "run_not_found" | "revision_conflict" | "incident_not_confirmed";
+            /** Message */
+            message: string;
+            /** Fields */
+            fields: components["schemas"]["FieldError"][];
+            /** Existing Revision Id */
+            existing_revision_id: string | null;
+        };
+        /** ScenarioErrorResponse */
+        ScenarioErrorResponse: {
+            error: components["schemas"]["ScenarioErrorDetail"];
+        };
         /** ServiceCapacityResult */
         ServiceCapacityResult: {
             /** Service Id */
@@ -553,11 +838,39 @@ export interface components {
             /** Reason Codes */
             reason_codes: components["schemas"]["ReasonCode"][];
         };
+        /** ServiceOverride */
+        ServiceOverride: {
+            /** Facility Id */
+            facility_id: string;
+            /** Service Id */
+            service_id: string;
+            status: components["schemas"]["ServiceStatus"];
+            /** Restriction Note */
+            restriction_note: string | null;
+        };
         /**
          * ServiceStatus
          * @enum {string}
          */
         ServiceStatus: "operating" | "limited" | "unavailable";
+        /** SimulationRun */
+        SimulationRun: {
+            /** Run Id */
+            run_id: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Engine Version */
+            engine_version: string;
+            /**
+             * Schema Version
+             * @constant
+             */
+            schema_version: 1;
+            impact: components["schemas"]["IncidentImpact"];
+        };
     };
     responses: never;
     parameters: never;
@@ -800,6 +1113,252 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    list_incidents: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IncidentListResponse"];
+                };
+            };
+        };
+    };
+    create_incident_draft: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["IncidentDraftInput"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IncidentRevision"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioErrorResponse"];
+                };
+            };
+        };
+    };
+    get_incident_revision: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                incident_id: string;
+                revision_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IncidentRevision"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioErrorResponse"];
+                };
+            };
+        };
+    };
+    confirm_incident: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                incident_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["IncidentConfirmRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["IncidentRevision"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioErrorResponse"];
+                };
+            };
+        };
+    };
+    simulate_incident: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                incident_id: string;
+                revision_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SimulationRun"];
+                };
+            };
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SimulationRun"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioErrorResponse"];
+                };
+            };
+            /** @description Conflict */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioErrorResponse"];
+                };
+            };
+        };
+    };
+    get_simulation_run: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                run_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SimulationRun"];
+                };
+            };
+            /** @description Not Found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioErrorResponse"];
+                };
+            };
+            /** @description Unprocessable Entity */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ScenarioErrorResponse"];
                 };
             };
         };

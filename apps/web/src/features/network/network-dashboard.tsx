@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Building2, Map, RefreshCw, Search } from "lucide-react";
@@ -74,7 +75,7 @@ export function NetworkDashboard() {
   return <div className="space-y-6">
     <header className="flex flex-wrap items-start justify-between gap-4">
       <div><p className="text-xs font-bold uppercase tracking-[0.18em] text-teal-700">Ministry / Network overview</p><h1 className="mt-2 text-3xl font-bold tracking-tight">Hospital capacity overview</h1><p className="mt-3 text-sm text-slate-600">Compare reported capacity for one service, inspect the evidence, and open a hospital to update its resources.</p></div>
-      <button className={buttonClass} onClick={refresh} disabled={pending}><RefreshCw size={16} aria-hidden="true" />{pending ? "Refreshing…" : "Refresh"}</button>
+      <div className="flex flex-wrap gap-2"><Link className={secondaryClass} href="/scenarios">Declare incident</Link><button className={buttonClass} onClick={refresh} disabled={pending}><RefreshCw size={16} aria-hidden="true" />{pending ? "Refreshing…" : "Refresh"}</button></div>
     </header>
 
     <section className={`${panelClass} p-5`} aria-label="Dashboard filters">
