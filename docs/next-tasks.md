@@ -1,6 +1,6 @@
 # Full-product workstreams (reference)
 
-**Active milestone:** build Feature 3, using `feature-3-contract.md`. Its
+**Active milestone:** build Feature 4, using `feature-4-contract.md`. Its
 three small assignments supersede the broad workstreams below for the current step.
 
 Read product-scope.md first. Keep the agreed stack and modular monolith. Work on

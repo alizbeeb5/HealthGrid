@@ -1,11 +1,11 @@
 # Three-person workflow
 
 See `product-scope.md` for the finalized routine/crisis workflow and `next-tasks.md`
-for broad workstreams. The active Feature 3 assignments and shared interfaces
-are in `feature-3-contract.md`. The third teammate owns display-summary rules,
-demo expectations and network API tests; frontend owns dashboard components,
-and backend owns the network API and wire schemas. Features 1 and 2 remain the
-observation and capacity contracts.
+for broad workstreams. The active Feature 4 assignments and shared interfaces
+are in `feature-4-contract.md`. Frontend owns emergency intake/review screens;
+backend owns incident persistence, baseline capture, migrations and shared contracts;
+the third teammate owns intelligence adapters and report evaluation cases.
+Features 1–3 remain the observation, capacity and network contracts.
 
 | Owner | Primary files | Deliverable |
 | --- | --- | --- |
