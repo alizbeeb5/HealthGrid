@@ -12,7 +12,8 @@ npm run generate:api
 and the two Feature 3 network endpoints are implemented. The Feature 4 forecast
 endpoint (`docs/feature-4-forecast-contract.md`) and the Feature 5 `/scenarios`
 incident, baseline and simulation endpoints, Feature 5 intelligence endpoints and the
-Feature 6 allocation run endpoints (pending the OR-Tools engine) are implemented. Other domain module
+Feature 6 allocation run endpoints and the Feature 7 investment catalog/run endpoints
+(pending the investment engine) are implemented. Other domain module
 routers remain placeholders. Examples for each feature are in `examples/feature-N/`.
 Before implementing a domain endpoint, agree on its request/response schemas,
 units and error cases, commit examples, then regenerate the contract and types.

@@ -9,6 +9,7 @@ from sqlalchemy import create_engine, inspect
 import app.modules.allocation.models  # noqa: F401
 import app.modules.facilities.models  # noqa: F401
 import app.modules.forecasting.models  # noqa: F401
+import app.modules.investments.models  # noqa: F401
 import app.modules.scenarios.models  # noqa: F401
 from app.core.database import Base
 

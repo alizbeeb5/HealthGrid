@@ -297,5 +297,32 @@ class AllocationRun(AllocationEngineResult):
     solver_settings: SolverSettings
 
 
+class PostAllocationFacility(ContractModel):
+    """A facility after the proposal's transfers; demand is null when excluded."""
+
+    snapshot: FacilitySnapshotResponse
+    required_service_places: Count | None
+
+
+class PostAllocationState(ContractModel):
+    """Public allocation contract for later planning (Feature 7): a saved proposal's
+    frozen scenario with its transfers reapplied once and verified against the saved
+    proposed summary. Never built from live observations."""
+
+    allocation_run_id: Identifier
+    simulation_run_id: Identifier
+    incident_id: Identifier
+    revision_id: Identifier
+    baseline_id: Identifier
+    service_id: Identifier
+    incident_starts_at: AwareDatetime
+    allocation_horizon_minutes: PositiveCount
+    requirement: ServiceRequirement
+    facilities: list[PostAllocationFacility]
+    included_facility_ids: list[Identifier]
+    excluded_facilities: list[FacilityExclusion]
+    transfers: list[Transfer]
+
+
 AllocationErrorCode = Literal["invalid_request", "simulation_run_not_found",
                               "allocation_run_not_found"]

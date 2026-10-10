@@ -382,7 +382,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Content",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
@@ -444,7 +444,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -509,7 +509,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -595,7 +595,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -659,7 +659,7 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
           },
           "404": {
             "content": {
@@ -714,7 +714,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Content",
+            "description": "Unprocessable Entity",
             "content": {
               "application/json": {
                 "schema": {
@@ -776,7 +776,136 @@
                 }
               }
             },
-            "description": "Unprocessable Content"
+            "description": "Unprocessable Entity"
+          }
+        }
+      }
+    },
+    "/api/v1/investments/catalog": {
+      "get": {
+        "tags": [
+          "investments"
+        ],
+        "summary": "Get Investment Catalog",
+        "description": "Versioned synthetic starter catalog. Requests carry their own reviewed copy.",
+        "operationId": "get_investment_catalog",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestmentCatalog"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/investments/runs": {
+      "post": {
+        "tags": [
+          "investments"
+        ],
+        "summary": "Create Investment Run",
+        "description": "Select and save a funding package from a saved allocation proposal's frozen\npost-transfer state. Every outcome, including no improvement, is saved.",
+        "operationId": "create_investment_run",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InvestmentRunRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestmentRun"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestmentErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestmentErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/investments/runs/{investment_run_id}": {
+      "get": {
+        "tags": [
+          "investments"
+        ],
+        "summary": "Get Investment Run",
+        "description": "The saved proposal as computed; reopening never re-solves or reloads the catalog.",
+        "operationId": "get_investment_run",
+        "parameters": [
+          {
+            "name": "investment_run_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64,
+              "title": "Investment Run Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestmentRun"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestmentErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvestmentErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
           }
         }
       }
@@ -1386,6 +1515,42 @@
           "elapsed_ms"
         ],
         "title": "AssessmentResponse"
+      },
+      "CandidateExclusion": {
+        "properties": {
+          "candidate_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Candidate Id"
+          },
+          "reasons": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateExclusionReason"
+            },
+            "type": "array",
+            "minItems": 1,
+            "title": "Reasons"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "reasons"
+        ],
+        "title": "CandidateExclusion"
+      },
+      "CandidateExclusionReason": {
+        "type": "string",
+        "enum": [
+          "missing_confirmation",
+          "facility_excluded",
+          "not_ready_by_evaluation",
+          "prerequisite_ineligible"
+        ],
+        "title": "CandidateExclusionReason"
       },
       "CapacityStatus": {
         "type": "string",
@@ -2993,6 +3158,620 @@
         ],
         "title": "IncidentRevision"
       },
+      "InvestmentCandidate": {
+        "properties": {
+          "candidate_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Candidate Id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id"
+          },
+          "service_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Service Id"
+          },
+          "capital_cost_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Capital Cost Minor Units"
+          },
+          "monthly_operating_cost_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Monthly Operating Cost Minor Units"
+          },
+          "implementation_days": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Implementation Days"
+          },
+          "resource_effects": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceEffect"
+            },
+            "type": "array",
+            "title": "Resource Effects"
+          },
+          "requires_candidate_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Requires Candidate Ids"
+          },
+          "exclusive_group_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exclusive Group Id"
+          },
+          "source_note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Note"
+          },
+          "confirmed_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "name",
+          "facility_id",
+          "service_id",
+          "capital_cost_minor_units",
+          "monthly_operating_cost_minor_units",
+          "implementation_days",
+          "resource_effects",
+          "requires_candidate_ids",
+          "exclusive_group_id",
+          "source_note",
+          "confirmed_at"
+        ],
+        "title": "InvestmentCandidate",
+        "description": "A supplied, human-reviewed project. Costs and times are estimates, never\ngenerated by the optimizer. Missing confirmation makes it ineligible."
+      },
+      "InvestmentCatalog": {
+        "properties": {
+          "catalog_version": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Catalog Version"
+          },
+          "currency": {
+            "type": "string",
+            "const": "USD",
+            "title": "Currency"
+          },
+          "synthetic": {
+            "type": "boolean",
+            "const": true,
+            "title": "Synthetic"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/InvestmentCandidate"
+            },
+            "type": "array",
+            "title": "Candidates"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "catalog_version",
+          "currency",
+          "synthetic",
+          "candidates"
+        ],
+        "title": "InvestmentCatalog",
+        "description": "Versioned starter catalog; a request copies and may edit it run-locally."
+      },
+      "InvestmentCoverage": {
+        "properties": {
+          "included_facility_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Included Facility Ids"
+          },
+          "excluded_facilities": {
+            "items": {
+              "$ref": "#/components/schemas/FacilityExclusion"
+            },
+            "type": "array",
+            "title": "Excluded Facilities"
+          },
+          "excluded_candidates": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateExclusion"
+            },
+            "type": "array",
+            "title": "Excluded Candidates"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "included_facility_ids",
+          "excluded_facilities",
+          "excluded_candidates"
+        ],
+        "title": "InvestmentCoverage"
+      },
+      "InvestmentErrorDetail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "invalid_request",
+              "allocation_run_not_found",
+              "investment_run_not_found"
+            ],
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "fields": {
+            "items": {
+              "$ref": "#/components/schemas/FieldError"
+            },
+            "type": "array",
+            "title": "Fields"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "fields"
+        ],
+        "title": "InvestmentErrorDetail"
+      },
+      "InvestmentErrorResponse": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/InvestmentErrorDetail"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "InvestmentErrorResponse"
+      },
+      "InvestmentFacilityRow": {
+        "properties": {
+          "facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id"
+          },
+          "service_status": {
+            "$ref": "#/components/schemas/ServiceStatus"
+          },
+          "required_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Required Service Places"
+          },
+          "resource_quantities": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceQuantity"
+            },
+            "type": "array",
+            "title": "Resource Quantities"
+          },
+          "estimated_capacity": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Estimated Capacity"
+          },
+          "covered_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Covered Service Places"
+          },
+          "unmet_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Unmet Service Places"
+          },
+          "bottleneck_resource_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Bottleneck Resource Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "facility_id",
+          "service_status",
+          "required_service_places",
+          "resource_quantities",
+          "estimated_capacity",
+          "covered_service_places",
+          "unmet_service_places",
+          "bottleneck_resource_ids"
+        ],
+        "title": "InvestmentFacilityRow"
+      },
+      "InvestmentRun": {
+        "properties": {
+          "engine_version": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Engine Version"
+          },
+          "solver_version": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Solver Version"
+          },
+          "solver_status": {
+            "$ref": "#/components/schemas/SolverStatus"
+          },
+          "plan_outcome": {
+            "$ref": "#/components/schemas/PlanOutcome"
+          },
+          "coverage": {
+            "$ref": "#/components/schemas/InvestmentCoverage"
+          },
+          "baseline_summary": {
+            "$ref": "#/components/schemas/InvestmentSummary"
+          },
+          "proposed_summary": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InvestmentSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "selected_projects": {
+            "items": {
+              "$ref": "#/components/schemas/SelectedProject"
+            },
+            "type": "array",
+            "title": "Selected Projects"
+          },
+          "total_capital_cost_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Capital Cost Minor Units"
+          },
+          "total_operating_cost_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Operating Cost Minor Units"
+          },
+          "total_cost_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Cost Minor Units"
+          },
+          "remaining_budget_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Remaining Budget Minor Units"
+          },
+          "remaining_gap_reasons": {
+            "items": {
+              "type": "string",
+              "maxLength": 500,
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Remaining Gap Reasons"
+          },
+          "validation_passed": {
+            "type": "boolean",
+            "title": "Validation Passed"
+          },
+          "review_required": {
+            "type": "boolean",
+            "const": true,
+            "title": "Review Required"
+          },
+          "objective_description": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1,
+            "title": "Objective Description"
+          },
+          "solve_duration_ms": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Solve Duration Ms"
+          },
+          "investment_run_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Investment Run Id"
+          },
+          "allocation_run_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Allocation Run Id"
+          },
+          "simulation_run_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Simulation Run Id"
+          },
+          "incident_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Incident Id"
+          },
+          "revision_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Revision Id"
+          },
+          "baseline_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Baseline Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "schema_version": {
+            "type": "integer",
+            "const": 1,
+            "title": "Schema Version"
+          },
+          "input": {
+            "$ref": "#/components/schemas/InvestmentRunRequest"
+          },
+          "solver_settings": {
+            "$ref": "#/components/schemas/SolverSettings"
+          },
+          "assumed_transfers": {
+            "items": {
+              "$ref": "#/components/schemas/Transfer"
+            },
+            "type": "array",
+            "title": "Assumed Transfers"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "engine_version",
+          "solver_version",
+          "solver_status",
+          "plan_outcome",
+          "coverage",
+          "baseline_summary",
+          "proposed_summary",
+          "selected_projects",
+          "total_capital_cost_minor_units",
+          "total_operating_cost_minor_units",
+          "total_cost_minor_units",
+          "remaining_budget_minor_units",
+          "remaining_gap_reasons",
+          "validation_passed",
+          "review_required",
+          "objective_description",
+          "solve_duration_ms",
+          "investment_run_id",
+          "allocation_run_id",
+          "simulation_run_id",
+          "incident_id",
+          "revision_id",
+          "baseline_id",
+          "created_at",
+          "schema_version",
+          "input",
+          "solver_settings",
+          "assumed_transfers"
+        ],
+        "title": "InvestmentRun",
+        "description": "Saved funding proposal. Reopening returns this record; it is never re-solved."
+      },
+      "InvestmentRunRequest": {
+        "properties": {
+          "allocation_run_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Allocation Run Id"
+          },
+          "planning_starts_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Planning Starts At"
+          },
+          "evaluation_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Evaluation At"
+          },
+          "operating_cost_months": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Operating Cost Months"
+          },
+          "budget_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Budget Minor Units"
+          },
+          "currency": {
+            "type": "string",
+            "const": "USD",
+            "title": "Currency"
+          },
+          "catalog_version": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Catalog Version"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/InvestmentCandidate"
+            },
+            "type": "array",
+            "title": "Candidates"
+          },
+          "assumptions": {
+            "items": {
+              "type": "string",
+              "maxLength": 500,
+              "minLength": 1
+            },
+            "type": "array",
+            "title": "Assumptions"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "allocation_run_id",
+          "planning_starts_at",
+          "evaluation_at",
+          "operating_cost_months",
+          "budget_minor_units",
+          "currency",
+          "catalog_version",
+          "candidates",
+          "assumptions"
+        ],
+        "title": "InvestmentRunRequest"
+      },
+      "InvestmentSummary": {
+        "properties": {
+          "included_facility_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Included Facility Ids"
+          },
+          "required_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Required Service Places"
+          },
+          "covered_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Covered Service Places"
+          },
+          "unmet_service_places": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Unmet Service Places"
+          },
+          "rows": {
+            "items": {
+              "$ref": "#/components/schemas/InvestmentFacilityRow"
+            },
+            "type": "array",
+            "title": "Rows"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "included_facility_ids",
+          "required_service_places",
+          "covered_service_places",
+          "unmet_service_places",
+          "rows"
+        ],
+        "title": "InvestmentSummary",
+        "description": "Totals over included facilities only at evaluation_at."
+      },
       "NetworkFacilityResult": {
         "properties": {
           "facility": {
@@ -3383,6 +4162,33 @@
         ],
         "title": "ResourceCategory"
       },
+      "ResourceEffect": {
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id"
+          },
+          "quantity_delta": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Quantity Delta"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/ResourceUnit"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_id",
+          "quantity_delta",
+          "unit"
+        ],
+        "title": "ResourceEffect"
+      },
       "ResourceOverride": {
         "properties": {
           "facility_id": {
@@ -3418,6 +4224,29 @@
         ],
         "title": "ResourceOverride",
         "description": "Absolute scenario availability, not a loss to subtract. Zero is explicit zero."
+      },
+      "ResourceQuantity": {
+        "properties": {
+          "resource_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Resource Id"
+          },
+          "quantity": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Quantity"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "resource_id",
+          "quantity"
+        ],
+        "title": "ResourceQuantity"
       },
       "ResourceSnapshot": {
         "properties": {
@@ -3705,6 +4534,74 @@
           "error"
         ],
         "title": "ScenarioErrorResponse"
+      },
+      "SelectedProject": {
+        "properties": {
+          "candidate_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Candidate Id"
+          },
+          "facility_id": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$",
+            "title": "Facility Id"
+          },
+          "ready_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Ready At"
+          },
+          "requires_candidate_ids": {
+            "items": {
+              "type": "string",
+              "maxLength": 64,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+            },
+            "type": "array",
+            "title": "Requires Candidate Ids"
+          },
+          "resource_effects": {
+            "items": {
+              "$ref": "#/components/schemas/ResourceEffect"
+            },
+            "type": "array",
+            "title": "Resource Effects"
+          },
+          "capital_cost_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Capital Cost Minor Units"
+          },
+          "operating_cost_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Operating Cost Minor Units"
+          },
+          "total_cost_minor_units": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Total Cost Minor Units"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "facility_id",
+          "ready_at",
+          "requires_candidate_ids",
+          "resource_effects",
+          "capital_cost_minor_units",
+          "operating_cost_minor_units",
+          "total_cost_minor_units"
+        ],
+        "title": "SelectedProject"
       },
       "ServiceCapacityResult": {
         "properties": {

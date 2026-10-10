@@ -440,7 +440,8 @@ def test_real_saved_plan_and_frozen_input_survive_later_updates(client, simulati
     run = first.json()
     assert run["proposed_summary"]["covered_service_places"] == 6
     before = client.get("/api/v1/facilities/DEMO-B/snapshot").json()
-    assert next(r for r in before["resources"] if r["resource_id"] == "working-monitors")["available_quantity"] == 5
+    monitors = next(r for r in before["resources"] if r["resource_id"] == "working-monitors")
+    assert monitors["available_quantity"] == 5
     update = {"resource_id": "working-monitors", "available_quantity": 9, "unit": "item",
               "observed_at": "2026-10-10T09:14:00Z"}
     assert client.post("/api/v1/facilities/DEMO-B/observations", json=update).status_code == 201

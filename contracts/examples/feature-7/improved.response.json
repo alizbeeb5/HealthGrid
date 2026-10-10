@@ -1,0 +1,305 @@
+{
+  "engine_version": "investment-cpsat-v1",
+  "solver_version": "ortools-cp-sat-9.15.6755",
+  "solver_status": "optimal",
+  "plan_outcome": "improved",
+  "coverage": {
+    "included_facility_ids": [
+      "DEMO-A",
+      "DEMO-B"
+    ],
+    "excluded_facilities": [
+      {
+        "facility_id": "DEMO-C",
+        "reasons": [
+          "no_planning_constraints",
+          "service_unavailable",
+          "stale_required_evidence"
+        ]
+      }
+    ],
+    "excluded_candidates": []
+  },
+  "baseline_summary": {
+    "included_facility_ids": [
+      "DEMO-A",
+      "DEMO-B"
+    ],
+    "required_service_places": 11,
+    "covered_service_places": 6,
+    "unmet_service_places": 5,
+    "rows": [
+      {
+        "facility_id": "DEMO-A",
+        "service_status": "operating",
+        "required_service_places": 3,
+        "resource_quantities": [
+          {
+            "resource_id": "available-beds",
+            "quantity": 12
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "quantity": 6
+          },
+          {
+            "resource_id": "working-monitors",
+            "quantity": 3
+          }
+        ],
+        "estimated_capacity": 3,
+        "covered_service_places": 3,
+        "unmet_service_places": 0,
+        "bottleneck_resource_ids": [
+          "working-monitors"
+        ]
+      },
+      {
+        "facility_id": "DEMO-B",
+        "service_status": "operating",
+        "required_service_places": 8,
+        "resource_quantities": [
+          {
+            "resource_id": "available-beds",
+            "quantity": 18
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "quantity": 9
+          },
+          {
+            "resource_id": "working-monitors",
+            "quantity": 3
+          }
+        ],
+        "estimated_capacity": 3,
+        "covered_service_places": 3,
+        "unmet_service_places": 5,
+        "bottleneck_resource_ids": [
+          "working-monitors"
+        ]
+      }
+    ]
+  },
+  "proposed_summary": {
+    "included_facility_ids": [
+      "DEMO-A",
+      "DEMO-B"
+    ],
+    "required_service_places": 11,
+    "covered_service_places": 11,
+    "unmet_service_places": 0,
+    "rows": [
+      {
+        "facility_id": "DEMO-A",
+        "service_status": "operating",
+        "required_service_places": 3,
+        "resource_quantities": [
+          {
+            "resource_id": "available-beds",
+            "quantity": 12
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "quantity": 6
+          },
+          {
+            "resource_id": "working-monitors",
+            "quantity": 3
+          }
+        ],
+        "estimated_capacity": 3,
+        "covered_service_places": 3,
+        "unmet_service_places": 0,
+        "bottleneck_resource_ids": [
+          "working-monitors"
+        ]
+      },
+      {
+        "facility_id": "DEMO-B",
+        "service_status": "operating",
+        "required_service_places": 8,
+        "resource_quantities": [
+          {
+            "resource_id": "available-beds",
+            "quantity": 18
+          },
+          {
+            "resource_id": "nurses-on-duty",
+            "quantity": 9
+          },
+          {
+            "resource_id": "working-monitors",
+            "quantity": 8
+          }
+        ],
+        "estimated_capacity": 8,
+        "covered_service_places": 8,
+        "unmet_service_places": 0,
+        "bottleneck_resource_ids": [
+          "working-monitors"
+        ]
+      }
+    ]
+  },
+  "selected_projects": [
+    {
+      "candidate_id": "INV-B-COMMISSION-5-REPAIRED",
+      "facility_id": "DEMO-B",
+      "ready_at": "2026-10-20T11:00:00Z",
+      "requires_candidate_ids": [
+        "INV-B-REPAIR-5-IDLE"
+      ],
+      "resource_effects": [
+        {
+          "resource_id": "working-monitors",
+          "quantity_delta": 5,
+          "unit": "item"
+        }
+      ],
+      "capital_cost_minor_units": 50000,
+      "operating_cost_minor_units": 90000,
+      "total_cost_minor_units": 140000
+    },
+    {
+      "candidate_id": "INV-B-REPAIR-5-IDLE",
+      "facility_id": "DEMO-B",
+      "ready_at": "2026-10-17T11:00:00Z",
+      "requires_candidate_ids": [],
+      "resource_effects": [],
+      "capital_cost_minor_units": 100000,
+      "operating_cost_minor_units": 0,
+      "total_cost_minor_units": 100000
+    }
+  ],
+  "total_capital_cost_minor_units": 150000,
+  "total_operating_cost_minor_units": 90000,
+  "total_cost_minor_units": 240000,
+  "remaining_budget_minor_units": 60000,
+  "remaining_gap_reasons": [
+    "DEMO-C is excluded (no_planning_constraints, service_unavailable, stale_required_evidence); its demand is not counted."
+  ],
+  "validation_passed": true,
+  "review_required": true,
+  "objective_description": "Minimize unmet modeled service places across included facilities at evaluation_at, then total cost (capital plus operating allowance), then the number of projects.",
+  "solve_duration_ms": 0,
+  "investment_run_id": "INVRUN-DEMO-IMPROVED",
+  "allocation_run_id": "ALLOC-DEMO-IMPROVED",
+  "simulation_run_id": "RUN-DEMO-MONITORS",
+  "incident_id": "INC-DEMO-MONITORS",
+  "revision_id": "REV-DEMO-MONITORS-CONFIRMED",
+  "baseline_id": "BASE-DEMO-MONITORS",
+  "created_at": "2026-10-10T09:30:00Z",
+  "schema_version": 1,
+  "input": {
+    "allocation_run_id": "ALLOC-DEMO-IMPROVED",
+    "planning_starts_at": "2026-10-10T11:00:00Z",
+    "evaluation_at": "2026-11-09T11:00:00Z",
+    "operating_cost_months": 3,
+    "budget_minor_units": 300000,
+    "currency": "USD",
+    "catalog_version": "demo-investments-v1",
+    "candidates": [
+      {
+        "candidate_id": "INV-B-BUY-1-MONITOR",
+        "name": "Buy one compatible monitor for Demo Hospital B",
+        "facility_id": "DEMO-B",
+        "service_id": "emergency-care",
+        "capital_cost_minor_units": 100000,
+        "monthly_operating_cost_minor_units": 6000,
+        "implementation_days": 14,
+        "resource_effects": [
+          {
+            "resource_id": "working-monitors",
+            "quantity_delta": 1,
+            "unit": "item"
+          }
+        ],
+        "requires_candidate_ids": [],
+        "exclusive_group_id": null,
+        "source_note": "Synthetic estimate: one compatible monitor delivered and installed in 14 days; space and staffing reviewed for the demo.",
+        "confirmed_at": "2026-10-10T09:20:00Z"
+      },
+      {
+        "candidate_id": "INV-B-BUY-5-MONITORS",
+        "name": "Buy five compatible monitors for Demo Hospital B",
+        "facility_id": "DEMO-B",
+        "service_id": "emergency-care",
+        "capital_cost_minor_units": 500000,
+        "monthly_operating_cost_minor_units": 30000,
+        "implementation_days": 14,
+        "resource_effects": [
+          {
+            "resource_id": "working-monitors",
+            "quantity_delta": 5,
+            "unit": "item"
+          }
+        ],
+        "requires_candidate_ids": [],
+        "exclusive_group_id": null,
+        "source_note": "Synthetic estimate: five compatible monitors delivered and installed in 14 days; space and staffing reviewed for the demo.",
+        "confirmed_at": "2026-10-10T09:20:00Z"
+      },
+      {
+        "candidate_id": "INV-B-COMMISSION-5-REPAIRED",
+        "name": "Commission five repaired monitors at Demo Hospital B",
+        "facility_id": "DEMO-B",
+        "service_id": "emergency-care",
+        "capital_cost_minor_units": 50000,
+        "monthly_operating_cost_minor_units": 30000,
+        "implementation_days": 3,
+        "resource_effects": [
+          {
+            "resource_id": "working-monitors",
+            "quantity_delta": 5,
+            "unit": "item"
+          }
+        ],
+        "requires_candidate_ids": [
+          "INV-B-REPAIR-5-IDLE"
+        ],
+        "exclusive_group_id": null,
+        "source_note": "Synthetic estimate: testing and commissioning takes 3 days after repair; the commissioned monitors are the working-resource effect.",
+        "confirmed_at": "2026-10-10T09:20:00Z"
+      },
+      {
+        "candidate_id": "INV-B-REPAIR-5-IDLE",
+        "name": "Repair five confirmed idle monitors at Demo Hospital B",
+        "facility_id": "DEMO-B",
+        "service_id": "emergency-care",
+        "capital_cost_minor_units": 100000,
+        "monthly_operating_cost_minor_units": 0,
+        "implementation_days": 7,
+        "resource_effects": [],
+        "requires_candidate_ids": [],
+        "exclusive_group_id": "DEMO-B-IDLE-MONITORS",
+        "source_note": "Synthetic evidence: five idle, compatible monitors confirmed in storage; repair alone adds no working monitors until commissioned.",
+        "confirmed_at": "2026-10-10T09:20:00Z"
+      }
+    ],
+    "assumptions": [
+      "The DEMO-A to DEMO-B monitor transfer is assumed completed by planning_starts_at.",
+      "Demand (A=3, B=8 places) persists to evaluation_at; it is not a forecast."
+    ]
+  },
+  "solver_settings": {
+    "time_limit_seconds": 5,
+    "objective_order": [
+      "minimize_unmet_demand",
+      "minimize_transfer_cost",
+      "minimize_moved_items"
+    ]
+  },
+  "assumed_transfers": [
+    {
+      "route_id": "ROUTE-A-B",
+      "from_facility_id": "DEMO-A",
+      "to_facility_id": "DEMO-B",
+      "resource_id": "working-monitors",
+      "quantity": 1,
+      "unit": "item",
+      "lead_time_minutes": 30,
+      "cost_minor_units": 10000
+    }
+  ]
+}

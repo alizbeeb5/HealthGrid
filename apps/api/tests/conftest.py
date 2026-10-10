@@ -10,6 +10,7 @@ from sqlalchemy.pool import StaticPool
 import app.modules.allocation.models  # noqa: F401
 import app.modules.facilities.models  # noqa: F401
 import app.modules.forecasting.models  # noqa: F401
+import app.modules.investments.models  # noqa: F401
 import app.modules.scenarios.models  # noqa: F401
 from app.core.database import Base, get_session
 from app.main import app

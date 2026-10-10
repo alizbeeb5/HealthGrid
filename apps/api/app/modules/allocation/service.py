@@ -17,6 +17,8 @@ from app.modules.allocation.schemas import (
     AllocationFacilityInput,
     AllocationRun,
     AllocationRunRequest,
+    PostAllocationFacility,
+    PostAllocationState,
 )
 from app.modules.facilities.schemas import FieldError, ServiceStatus
 from app.modules.scenarios import service as scenarios
@@ -214,6 +216,68 @@ def create_run(db: Session, request: AllocationRunRequest, now: datetime) -> All
     ))
     db.commit()
     return run
+
+
+class NoProposedPlan(ValueError):
+    """The saved allocation has no validated proposed summary to build on."""
+
+
+def get_post_allocation_state(db: Session, allocation_run_id: str) -> PostAllocationState:
+    """Public contract for investment planning. Rebuilds the frozen scenario, applies
+    the saved transfers once and checks the result against the saved proposal."""
+    run = get_run(db, allocation_run_id)  # raises allocation_run_not_found
+    if run.proposed_summary is None or not run.validation_passed:
+        raise NoProposedPlan(f"Allocation run {allocation_run_id} has no validated proposal.")
+    scenario = scenarios.get_effective_scenario(db, run.simulation_run_id)
+    profile = next(p for p in scenario.requirement_profiles if p.service_id == scenario.service_id)
+    resource_id = run.input.resource_id
+    delta: dict[str, int] = {}
+    for transfer in run.transfers:
+        source, target = transfer.from_facility_id, transfer.to_facility_id
+        delta[source] = delta.get(source, 0) - transfer.quantity
+        delta[target] = delta.get(target, 0) + transfer.quantity
+    demand = {c.facility_id: c.required_service_places for c in run.input.facility_constraints}
+    proposed = {row.facility_id: row for row in run.proposed_summary.rows}
+    included = set(run.coverage.included_facility_ids)
+
+    facilities = []
+    for f in scenario.facilities:
+        facility_id = f.snapshot.facility.facility_id
+        snapshot = f.snapshot
+        if delta.get(facility_id):
+            snapshot = snapshot.model_copy(update={"resources": [
+                r.model_copy(update={"available_quantity": r.available_quantity
+                                     + delta[facility_id]})
+                if r.resource_id == resource_id else r for r in snapshot.resources]})
+        if facility_id in included:
+            service = next(s for s in snapshot.services if s.service_id == scenario.service_id)
+            capacity = calculate_service_capacity(snapshot, service, profile)
+            quantity = next(r.available_quantity for r in snapshot.resources
+                            if r.resource_id == resource_id)
+            row = proposed[facility_id]
+            if (capacity.estimated_capacity, quantity) != (row.estimated_capacity,
+                                                           row.resource_quantity):
+                raise RuntimeError(f"Allocation {allocation_run_id} does not match its frozen "
+                                   f"inputs at {facility_id}.")
+        facilities.append(PostAllocationFacility(
+            snapshot=snapshot,
+            required_service_places=demand.get(facility_id) if facility_id in included else None,
+        ))
+    return PostAllocationState(
+        allocation_run_id=run.allocation_run_id,
+        simulation_run_id=run.simulation_run_id,
+        incident_id=run.incident_id,
+        revision_id=run.revision_id,
+        baseline_id=run.baseline_id,
+        service_id=scenario.service_id,
+        incident_starts_at=scenario.planning_starts_at,
+        allocation_horizon_minutes=run.input.planning_horizon_minutes,
+        requirement=profile,
+        facilities=facilities,
+        included_facility_ids=run.coverage.included_facility_ids,
+        excluded_facilities=run.coverage.excluded,
+        transfers=run.transfers,
+    )
 
 
 def get_run(db: Session, allocation_run_id: str) -> AllocationRun:

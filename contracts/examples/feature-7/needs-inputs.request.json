@@ -1,0 +1,91 @@
+{
+  "allocation_run_id": "ALLOC-DEMO-IMPROVED",
+  "planning_starts_at": "2026-10-10T11:00:00Z",
+  "evaluation_at": "2026-11-09T11:00:00Z",
+  "operating_cost_months": 3,
+  "budget_minor_units": 300000,
+  "currency": "USD",
+  "catalog_version": "demo-investments-v1",
+  "candidates": [
+    {
+      "candidate_id": "INV-B-BUY-1-MONITOR",
+      "name": "Buy one compatible monitor for Demo Hospital B",
+      "facility_id": "DEMO-B",
+      "service_id": "emergency-care",
+      "capital_cost_minor_units": 100000,
+      "monthly_operating_cost_minor_units": 6000,
+      "implementation_days": 14,
+      "resource_effects": [
+        {
+          "resource_id": "working-monitors",
+          "quantity_delta": 1,
+          "unit": "item"
+        }
+      ],
+      "requires_candidate_ids": [],
+      "exclusive_group_id": null,
+      "source_note": null,
+      "confirmed_at": null
+    },
+    {
+      "candidate_id": "INV-B-BUY-5-MONITORS",
+      "name": "Buy five compatible monitors for Demo Hospital B",
+      "facility_id": "DEMO-B",
+      "service_id": "emergency-care",
+      "capital_cost_minor_units": 500000,
+      "monthly_operating_cost_minor_units": 30000,
+      "implementation_days": 14,
+      "resource_effects": [
+        {
+          "resource_id": "working-monitors",
+          "quantity_delta": 5,
+          "unit": "item"
+        }
+      ],
+      "requires_candidate_ids": [],
+      "exclusive_group_id": null,
+      "source_note": null,
+      "confirmed_at": null
+    },
+    {
+      "candidate_id": "INV-B-COMMISSION-5-REPAIRED",
+      "name": "Commission five repaired monitors at Demo Hospital B",
+      "facility_id": "DEMO-B",
+      "service_id": "emergency-care",
+      "capital_cost_minor_units": 50000,
+      "monthly_operating_cost_minor_units": 30000,
+      "implementation_days": 3,
+      "resource_effects": [
+        {
+          "resource_id": "working-monitors",
+          "quantity_delta": 5,
+          "unit": "item"
+        }
+      ],
+      "requires_candidate_ids": [
+        "INV-B-REPAIR-5-IDLE"
+      ],
+      "exclusive_group_id": null,
+      "source_note": null,
+      "confirmed_at": null
+    },
+    {
+      "candidate_id": "INV-B-REPAIR-5-IDLE",
+      "name": "Repair five confirmed idle monitors at Demo Hospital B",
+      "facility_id": "DEMO-B",
+      "service_id": "emergency-care",
+      "capital_cost_minor_units": 100000,
+      "monthly_operating_cost_minor_units": 0,
+      "implementation_days": 7,
+      "resource_effects": [],
+      "requires_candidate_ids": [],
+      "exclusive_group_id": "DEMO-B-IDLE-MONITORS",
+      "source_note": null,
+      "confirmed_at": null
+    }
+  ],
+  "assumptions": [
+    "The DEMO-A to DEMO-B monitor transfer is assumed completed by planning_starts_at.",
+    "Demand (A=3, B=8 places) persists to evaluation_at; it is not a forecast."
+  ]
+}

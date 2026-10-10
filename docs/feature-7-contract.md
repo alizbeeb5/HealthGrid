@@ -1,6 +1,41 @@
 # Feature 7 — Investment package planning
 
-Status: implementation plan; the investments module and screen are placeholders.
+Status: backend implemented — `modules/investments` schemas/router/service/models,
+the starter catalog (`modules/investments/starter_catalog.json`, version
+`demo-investments-v1`), migration `0006_investment_runs`, all three endpoints,
+OpenAPI and examples in `contracts/examples/feature-7/`. `POST /investments/runs`
+returns HTTP 500 until `engines/investments.py` provides `optimize_investments`;
+the screen is pending.
+
+Backend interface decisions for the engine owner to review (`investments/schemas.py`):
+- `InvestmentEngineInput`: `service_id`, `capacity_unit`, frozen `requirement`,
+  `facilities` (every source facility: post-transfer `snapshot` and inherited
+  `required_service_places`, null when excluded), `included_facility_ids`,
+  `excluded_facilities` (inherited reasons), `candidates`, `planning_starts_at`,
+  `evaluation_at`, `operating_cost_months`, budget, currency and `solver_settings`
+  (5 s total, Feature 6 types). Built by the public
+  `allocation.service.get_post_allocation_state`, which reapplies the saved transfers
+  once and verifies them against the saved proposed summary.
+- Statuses, `FacilityExclusion` and `SolverSettings` are shared with Feature 6.
+  `CandidateExclusionReason`: `missing_confirmation`, `facility_excluded`,
+  `not_ready_by_evaluation`, `prerequisite_ineligible` (propagates to dependents).
+- `needs_inputs` (`not_run`) when no facility is included, or when every supplied
+  candidate lacks confirmation. An empty catalog or one ineligible for other reasons
+  is solved as `no_improvement`.
+- Rows report `resource_quantities` for every profile resource; `selected_projects`
+  include prerequisite-only projects with `ready_at`; runs add `assumed_transfers`.
+- Validation (422, exact paths such as `candidates.0.resource_effects.0.unit`):
+  planning start not before incident start plus the allocation horizon, evaluation
+  after planning start, the incident's service, known facilities, profile resources
+  and units, known prerequisites, no cycles, unique IDs. A source without a validated
+  proposal is a 422 on `allocation_run_id`; a missing source is 404.
+- The backend re-checks coverage, confirmation, prerequisites, exclusivity, ready
+  dates, per-project and total costs, budget and recomputed capacities before saving;
+  a failing package is a 500 and is never saved.
+- Examples use the real Feature 6 engine for the source proposal and a
+  contract-faithful reference solver for the package. `timeout` is constructed from
+  the improved inputs (no plan within 5 s). Tests ignore generated IDs,
+  `created_at` and `solve_duration_ms`.
 Feature 6 already provides saved resource-transfer proposals. This milestone
 builds on those contracts without changing their results.
 

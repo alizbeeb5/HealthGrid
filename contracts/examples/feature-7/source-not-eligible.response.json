@@ -1,0 +1,12 @@
+{
+  "error": {
+    "code": "invalid_request",
+    "message": "The investment request is invalid.",
+    "fields": [
+      {
+        "field": "allocation_run_id",
+        "message": "Allocation run ALLOC-DEMO-NEEDS-INPUTS has no validated proposal."
+      }
+    ]
+  }
+}
