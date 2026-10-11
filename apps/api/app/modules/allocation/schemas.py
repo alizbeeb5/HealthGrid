@@ -23,8 +23,8 @@ from app.modules.scenarios.schemas import AppliedOverride
 
 SCHEMA_VERSION = 1
 DEFAULT_TIME_LIMIT_SECONDS = 5.0
-Count = Annotated[int, Field(ge=0, strict=True)]
-PositiveCount = Annotated[int, Field(gt=0, strict=True)]
+Count = Annotated[int, Field(ge=0, le=1_000_000_000, strict=True)]
+PositiveCount = Annotated[int, Field(gt=0, le=1_000_000_000, strict=True)]
 SourceNote = Annotated[str, Field(min_length=1, max_length=500)]
 
 
@@ -94,9 +94,9 @@ class AllocationRunRequest(ContractModel):
     planning_horizon_minutes: PositiveCount
     budget_minor_units: Count  # USD cents
     currency: Literal["USD"]
-    facility_constraints: list[FacilityConstraint]
-    routes: list[RouteConstraint]
-    assumptions: list[SourceNote]
+    facility_constraints: list[FacilityConstraint] = Field(max_length=100)
+    routes: list[RouteConstraint] = Field(max_length=500)
+    assumptions: list[SourceNote] = Field(max_length=100)
 
     @field_validator("facility_constraints")
     @classmethod

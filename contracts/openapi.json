@@ -1649,6 +1649,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -1725,6 +1726,7 @@
           },
           "proposed_cost_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Proposed Cost Minor Units"
           },
@@ -1768,6 +1770,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -1995,6 +1998,7 @@
           },
           "total_cost_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Total Cost Minor Units"
           },
@@ -2024,6 +2028,7 @@
           },
           "solve_duration_ms": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Solve Duration Ms"
           },
@@ -2125,11 +2130,13 @@
           },
           "planning_horizon_minutes": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "exclusiveMinimum": 0.0,
             "title": "Planning Horizon Minutes"
           },
           "budget_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Budget Minor Units"
           },
@@ -2143,6 +2150,7 @@
               "$ref": "#/components/schemas/FacilityConstraint"
             },
             "type": "array",
+            "maxItems": 100,
             "title": "Facility Constraints"
           },
           "routes": {
@@ -2150,6 +2158,7 @@
               "$ref": "#/components/schemas/RouteConstraint"
             },
             "type": "array",
+            "maxItems": 500,
             "title": "Routes"
           },
           "assumptions": {
@@ -2159,6 +2168,7 @@
               "minLength": 1
             },
             "type": "array",
+            "maxItems": 100,
             "title": "Assumptions"
           }
         },
@@ -2197,6 +2207,7 @@
             "anyOf": [
               {
                 "type": "number",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -2210,6 +2221,7 @@
           },
           "scenario_quantity": {
             "type": "number",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Scenario Quantity"
           },
@@ -2474,6 +2486,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -3757,16 +3770,19 @@
           },
           "required_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Required Service Places"
           },
           "capacity_before": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Capacity Before"
           },
           "expected_capacity": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Expected Capacity"
           }
@@ -3959,26 +3975,31 @@
           },
           "required_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Required Service Places"
           },
           "minimum_retained_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Minimum Retained Service Places"
           },
           "minimum_retained_resource_quantity": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Minimum Retained Resource Quantity"
           },
           "transferable_quantity": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Transferable Quantity"
           },
           "maximum_inbound_quantity": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Maximum Inbound Quantity"
           },
@@ -4162,6 +4183,7 @@
           },
           "expected_capacity": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Expected Capacity"
           },
@@ -4169,6 +4191,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -4216,6 +4239,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -4254,6 +4278,7 @@
           },
           "required_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Required Service Places"
           },
@@ -4261,6 +4286,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -4273,6 +4299,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -4285,6 +4312,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -4297,6 +4325,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -4835,6 +4864,7 @@
               "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
             },
             "type": "array",
+            "maxItems": 100,
             "title": "Affected Facility Ids"
           },
           "service_overrides": {
@@ -4842,6 +4872,7 @@
               "$ref": "#/components/schemas/ServiceOverride"
             },
             "type": "array",
+            "maxItems": 500,
             "title": "Service Overrides"
           },
           "resource_overrides": {
@@ -4849,6 +4880,7 @@
               "$ref": "#/components/schemas/ResourceOverride"
             },
             "type": "array",
+            "maxItems": 1000,
             "title": "Resource Overrides"
           },
           "assumptions": {
@@ -4858,6 +4890,7 @@
               "minLength": 1
             },
             "type": "array",
+            "maxItems": 100,
             "title": "Assumptions"
           }
         },
@@ -4989,6 +5022,7 @@
               "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
             },
             "type": "array",
+            "maxItems": 100,
             "minItems": 1,
             "title": "Affected Facility Ids"
           },
@@ -4997,6 +5031,7 @@
               "$ref": "#/components/schemas/ServiceOverride"
             },
             "type": "array",
+            "maxItems": 500,
             "title": "Service Overrides"
           },
           "resource_overrides": {
@@ -5004,6 +5039,7 @@
               "$ref": "#/components/schemas/ResourceOverride"
             },
             "type": "array",
+            "maxItems": 1000,
             "title": "Resource Overrides"
           },
           "assumptions": {
@@ -5013,6 +5049,7 @@
               "minLength": 1
             },
             "type": "array",
+            "maxItems": 100,
             "title": "Assumptions"
           }
         },
@@ -5174,16 +5211,19 @@
           },
           "capital_cost_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Capital Cost Minor Units"
           },
           "monthly_operating_cost_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Monthly Operating Cost Minor Units"
           },
           "implementation_days": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Implementation Days"
           },
@@ -5192,6 +5232,7 @@
               "$ref": "#/components/schemas/ResourceEffect"
             },
             "type": "array",
+            "maxItems": 50,
             "title": "Resource Effects"
           },
           "requires_candidate_ids": {
@@ -5202,6 +5243,7 @@
               "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
             },
             "type": "array",
+            "maxItems": 100,
             "title": "Requires Candidate Ids"
           },
           "exclusive_group_id": {
@@ -5395,6 +5437,7 @@
           },
           "required_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Required Service Places"
           },
@@ -5407,16 +5450,19 @@
           },
           "estimated_capacity": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Estimated Capacity"
           },
           "covered_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Covered Service Places"
           },
           "unmet_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Unmet Service Places"
           },
@@ -5490,21 +5536,25 @@
           },
           "total_capital_cost_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Total Capital Cost Minor Units"
           },
           "total_operating_cost_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Total Operating Cost Minor Units"
           },
           "total_cost_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Total Cost Minor Units"
           },
           "remaining_budget_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Remaining Budget Minor Units"
           },
@@ -5534,6 +5584,7 @@
           },
           "solve_duration_ms": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Solve Duration Ms"
           },
@@ -5659,11 +5710,13 @@
           },
           "operating_cost_months": {
             "type": "integer",
+            "maximum": 1200.0,
             "exclusiveMinimum": 0.0,
             "title": "Operating Cost Months"
           },
           "budget_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Budget Minor Units"
           },
@@ -5683,6 +5736,7 @@
               "$ref": "#/components/schemas/InvestmentCandidate"
             },
             "type": "array",
+            "maxItems": 100,
             "title": "Candidates"
           },
           "assumptions": {
@@ -5692,6 +5746,7 @@
               "minLength": 1
             },
             "type": "array",
+            "maxItems": 100,
             "title": "Assumptions"
           }
         },
@@ -5724,16 +5779,19 @@
           },
           "required_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Required Service Places"
           },
           "covered_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Covered Service Places"
           },
           "unmet_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Unmet Service Places"
           },
@@ -5890,6 +5948,7 @@
           },
           "available_quantity": {
             "type": "number",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Available Quantity"
           },
@@ -5923,6 +5982,7 @@
           },
           "available_quantity": {
             "type": "number",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Available Quantity"
           },
@@ -6267,16 +6327,19 @@
           },
           "required_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Required Service Places"
           },
           "covered_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Covered Service Places"
           },
           "unmet_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Unmet Service Places"
           },
@@ -6363,6 +6426,7 @@
             "anyOf": [
               {
                 "type": "number",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -6486,6 +6550,7 @@
           },
           "quantity_delta": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Quantity Delta"
           },
@@ -6585,6 +6650,7 @@
           },
           "available_quantity": {
             "type": "number",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Available Quantity"
           },
@@ -6696,6 +6762,7 @@
             "anyOf": [
               {
                 "type": "number",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -6837,16 +6904,19 @@
           },
           "lead_time_minutes": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Lead Time Minutes"
           },
           "cost_per_unit_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Cost Per Unit Minor Units"
           },
           "maximum_quantity": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "exclusiveMinimum": 0.0,
             "title": "Maximum Quantity"
           },
@@ -6980,16 +7050,19 @@
           },
           "capital_cost_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Capital Cost Minor Units"
           },
           "operating_cost_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Operating Cost Minor Units"
           },
           "total_cost_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Total Cost Minor Units"
           }
@@ -7351,11 +7424,13 @@
           },
           "expected_unmet_service_places": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Expected Unmet Service Places"
           },
           "proposed_cost_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Proposed Cost Minor Units"
           },
@@ -7363,6 +7438,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -7375,6 +7451,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {
@@ -7492,6 +7569,7 @@
           },
           "quantity": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "exclusiveMinimum": 0.0,
             "title": "Quantity"
           },
@@ -7500,11 +7578,13 @@
           },
           "lead_time_minutes": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Lead Time Minutes"
           },
           "cost_minor_units": {
             "type": "integer",
+            "maximum": 1000000000.0,
             "minimum": 0.0,
             "title": "Cost Minor Units"
           }
@@ -7568,6 +7648,7 @@
             "anyOf": [
               {
                 "type": "integer",
+                "maximum": 1000000000.0,
                 "minimum": 0.0
               },
               {

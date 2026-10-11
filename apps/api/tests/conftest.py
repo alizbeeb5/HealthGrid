@@ -1,3 +1,4 @@
+import os
 from collections.abc import Iterator
 from datetime import UTC, datetime
 
@@ -6,6 +7,12 @@ from fastapi.testclient import TestClient
 from sqlalchemy import Engine, create_engine, event
 from sqlalchemy.orm import Session
 from sqlalchemy.pool import StaticPool
+
+# Tests use isolated databases and explicit auth cases, never local login secrets.
+# Set these before importing the application's cached settings.
+os.environ["SECURITY_PASSWORD"] = ""
+os.environ["SECURITY_USERNAME"] = "healthgrid"
+os.environ["APP_ENVIRONMENT"] = "development"
 
 import app.modules.allocation.models  # noqa: F401
 import app.modules.decisions.models  # noqa: F401

@@ -16,10 +16,20 @@ services:
       timeout: 5s
       retries: 10
   api:
+    mem_limit: 1g
+    cpus: 2
+    pids_limit: 256
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
     build:
       context: .
       dockerfile: apps/api/Dockerfile
     environment:
+      APP_ENVIRONMENT: ${APP_ENVIRONMENT:-development}
+      SECURITY_USERNAME: ${SECURITY_USERNAME:-healthgrid}
+      SECURITY_PASSWORD: ${SECURITY_PASSWORD:-}
+      SECURITY_ALLOWED_HOSTS: ${SECURITY_ALLOWED_HOSTS:-["localhost","127.0.0.1","api"]}
+      SECURITY_ALLOWED_ORIGINS: ${SECURITY_ALLOWED_ORIGINS:-["http://localhost:3000","http://127.0.0.1:3000","http://localhost:8000","http://127.0.0.1:8000"]}
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-healthgrid}:${POSTGRES_PASSWORD:-healthgrid_local}@db:5432/${POSTGRES_DB:-healthgrid}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       OPENAI_ASSESSMENT_MODEL: ${OPENAI_ASSESSMENT_MODEL:-gpt-6-luna}
@@ -31,16 +41,26 @@ services:
     volumes:
       - ./apps/api:/workspace/apps/api
       - ./data/synthetic:/workspace/data/synthetic:ro
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --limit-concurrency 64 --timeout-keep-alive 5
     depends_on:
       db:
         condition: service_healthy
   web:
+    user: node
+    mem_limit: 2g
+    cpus: 2
+    pids_limit: 256
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
     build:
       context: .
       dockerfile: apps/web/Dockerfile
     environment:
       API_BASE_URL: http://api:8000
+      APP_ENVIRONMENT: ${APP_ENVIRONMENT:-development}
+      SECURITY_USERNAME: ${SECURITY_USERNAME:-healthgrid}
+      SECURITY_PASSWORD: ${SECURITY_PASSWORD:-}
+      SECURITY_ALLOWED_ORIGINS: ${SECURITY_ALLOWED_ORIGINS:-["http://localhost:3000","http://127.0.0.1:3000","http://localhost:8000","http://127.0.0.1:8000"]}
     ports:
       - "127.0.0.1:3000:3000"
     volumes:

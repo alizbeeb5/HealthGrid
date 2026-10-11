@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { ExerciseProvider } from "../features/exercise/context";
 import { WorkspaceShell } from "../features/exercise/navigation";
 import "./globals.css";
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
   description: "Health capacity, response and investment planning",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Request rendering keeps Next's inline scripts paired with the fresh CSP nonce.
+  await headers();
   return (
     <html lang="en">
       <body>

@@ -69,6 +69,11 @@ Open http://localhost:3000 and API docs at http://localhost:8000/docs.
 The database is local-only on port 5432. Docker handles Python/Node versions.
 If frontend dependencies change, reinstall them in the web container and restart it.
 
+Shared browser/API login is enabled when `SECURITY_PASSWORD` is configured in the
+ignored root `.env`; the default username is `healthgrid`. Recreate `api` and `web`
+containers after changing credentials. See [security controls and deployment
+limits](docs/security-review.md) before exposing the application remotely.
+
 ## Local development
 From the repository root, create a separate Python 3.12 environment:
 ```bash

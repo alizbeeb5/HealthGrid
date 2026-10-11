@@ -60,9 +60,9 @@ class InvestmentCandidate(ContractModel):
     service_id: Identifier
     capital_cost_minor_units: Count
     monthly_operating_cost_minor_units: Count
-    implementation_days: Count  # calendar days after prerequisites are ready
-    resource_effects: list[ResourceEffect]
-    requires_candidate_ids: list[Identifier]
+    implementation_days: Count = Field(le=36_500)  # bounded calendar planning horizon
+    resource_effects: list[ResourceEffect] = Field(max_length=50)
+    requires_candidate_ids: list[Identifier] = Field(max_length=100)
     exclusive_group_id: Identifier | None
     source_note: SourceNote | None
     confirmed_at: AwareDatetime | None
@@ -92,12 +92,12 @@ class InvestmentRunRequest(ContractModel):
     allocation_run_id: Identifier
     planning_starts_at: AwareDatetime  # assumption: source transfers completed
     evaluation_at: AwareDatetime
-    operating_cost_months: PositiveCount
+    operating_cost_months: PositiveCount = Field(le=1200)
     budget_minor_units: Count  # USD cents, separate from transfer costs
     currency: Literal["USD"]
     catalog_version: str = Field(min_length=1, max_length=64)
-    candidates: list[InvestmentCandidate]
-    assumptions: list[SourceNote]
+    candidates: list[InvestmentCandidate] = Field(max_length=100)
+    assumptions: list[SourceNote] = Field(max_length=100)
 
     @field_validator("candidates")
     @classmethod

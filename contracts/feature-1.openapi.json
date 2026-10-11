@@ -363,6 +363,7 @@
             "type": "string"
           },
           "available_quantity": {
+            "maximum": 1000000000,
             "minimum": 0,
             "title": "Available Quantity",
             "type": "number"
@@ -396,6 +397,7 @@
             "type": "string"
           },
           "available_quantity": {
+            "maximum": 1000000000,
             "minimum": 0,
             "title": "Available Quantity",
             "type": "number"
@@ -531,6 +533,7 @@
           "available_quantity": {
             "anyOf": [
               {
+                "maximum": 1000000000,
                 "minimum": 0,
                 "type": "number"
               },

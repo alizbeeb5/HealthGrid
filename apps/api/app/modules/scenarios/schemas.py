@@ -68,10 +68,10 @@ class IncidentDraftInput(ContractModel):
     service_id: Identifier | None
     starts_at: AwareDatetime | None
     expected_ends_at: AwareDatetime | None
-    affected_facility_ids: list[Identifier]
-    service_overrides: list[ServiceOverride]
-    resource_overrides: list[ResourceOverride]
-    assumptions: list[Note]
+    affected_facility_ids: list[Identifier] = Field(max_length=100)
+    service_overrides: list[ServiceOverride] = Field(max_length=500)
+    resource_overrides: list[ResourceOverride] = Field(max_length=1000)
+    assumptions: list[Note] = Field(max_length=100)
 
     @field_validator("affected_facility_ids")
     @classmethod
@@ -86,7 +86,7 @@ class IncidentInput(IncidentDraftInput):
 
     service_id: Identifier
     starts_at: AwareDatetime
-    affected_facility_ids: list[Identifier] = Field(min_length=1)
+    affected_facility_ids: list[Identifier] = Field(min_length=1, max_length=100)
 
 
 class IncidentConfirmRequest(ContractModel):

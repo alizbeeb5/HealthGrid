@@ -9,7 +9,7 @@ from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validato
 Identifier = Annotated[
     str, Field(min_length=1, max_length=64, pattern=r"^[A-Za-z0-9][A-Za-z0-9_-]*$")
 ]
-Quantity = Annotated[float, Field(ge=0, allow_inf_nan=False, strict=True)]
+Quantity = Annotated[float, Field(ge=0, le=1_000_000_000, allow_inf_nan=False, strict=True)]
 
 
 class ContractModel(BaseModel):
