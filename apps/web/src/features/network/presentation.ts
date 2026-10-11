@@ -10,9 +10,9 @@ export function capacityFilter(value: string | null): CapacityFilter {
   return value && Object.hasOwn(capacityLabels, value) ? value as CapacityFilter : "all";
 }
 
-export function filterHospitals(rows: NetworkFacilityResult[], name: string, status: CapacityFilter) {
+export function filterHospitals(rows: NetworkFacilityResult[], name: string, status: CapacityFilter, displayName: (name: string) => string = (name) => name) {
   const query = name.trim().toLocaleLowerCase();
-  return rows.filter((row) => row.facility.name.toLocaleLowerCase().includes(query)
+  return rows.filter((row) => `${row.facility.name} ${displayName(row.facility.name)}`.toLocaleLowerCase().includes(query)
     && (status === "all" || row.capacity.status === status));
 }
 

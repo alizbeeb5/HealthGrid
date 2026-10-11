@@ -63,4 +63,4 @@ export function validatePlanning(form: PlanningForm, source: PlanningSource): st
   if (form.assumptions.some((item) => !item.trim())) errors.push("Enter or remove empty assumptions.");
   return [...new Set(errors)];
 }
-export function money(cents: number) { return new Intl.NumberFormat(undefined, { style: "currency", currency: "USD" }).format(cents / 100); }
+export function money(cents: number) { return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(cents / 100); }

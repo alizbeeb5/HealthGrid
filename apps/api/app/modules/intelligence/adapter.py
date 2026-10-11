@@ -79,7 +79,15 @@ class OpenAIReportProvider:
                 "dot paths to supplied scalar evidence: e.g. incident.report_text or "
                 "hospitals.DEMO-B.snapshot.services.0.status. Evidence supports the context, "
                 "not proof the proposed action works. No dispatch, execution, or tools. "
-                "Keep output concise; do not repeat generic disclaimers in each action."
+                "Keep output concise; do not repeat generic disclaimers in each action. "
+                + (
+                    "Write summaries, action titles, steps, rationales, prerequisites and "
+                    "questions in Modern Standard Arabic. "
+                    if context.get("response_language") == "ar"
+                    else "Write summaries, actions and questions in English. "
+                )
+                + "Preserve schema keys, enum values, facility IDs and evidence paths exactly. "
+                "Do not translate source evidence or change quantities."
             ),
             input=[{"role": "user", "content": json.dumps(context)}],
             text_format=EmergencyAdviceProposal,

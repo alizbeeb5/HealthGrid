@@ -1,3 +1,4 @@
+import { allowedAuthOrigins, authConfigurationError } from "../../../lib/auth/config";
 import { NextResponse } from "next/server";
 import { createSession, credentialsMatch, returnPath, SESSION_COOKIE, sessionOptions } from "../../../lib/auth/session";
 
@@ -8,10 +9,12 @@ export async function POST(request: Request) {
   if (now - windowStart >= 60_000) { windowStart = now; attempts = 0; }
   if (++attempts > 20) return NextResponse.json({ error: "Too many sign-in attempts. Try again in one minute." }, { status: 429, headers: { "Retry-After": "60" } });
   // Also enforce here: route handlers must stay guarded if proxy is bypassed.
-  const origins = JSON.parse(process.env.SECURITY_ALLOWED_ORIGINS ?? '["http://localhost:3000","http://127.0.0.1:3000"]') as string[];
+  const origins = allowedAuthOrigins();
+  const configurationError = authConfigurationError();
+  if (!origins || configurationError) return NextResponse.json({ error: configurationError ?? "Secure origins are not configured." }, { status: 503 });
   if (!origins.includes(request.headers.get("origin") ?? "") || request.headers.get("sec-fetch-site") === "cross-site") return NextResponse.json({ error: "Sign in from this website." }, { status: 403 });
   if (!request.headers.get("content-type")?.startsWith("application/json")) return NextResponse.json({ error: "Invalid request." }, { status: 415 });
-  if (!process.env.SECURITY_PASSWORD || (process.env.SECURITY_SESSION_SECRET?.length ?? 0) < 32) return NextResponse.json({ error: "Sign-in is not configured." }, { status: 503 });
+  if (!process.env.SECURITY_PASSWORD) return NextResponse.json({ error: "Sign-in is not configured." }, { status: 503 });
   const reader = request.body?.getReader();
   if (!reader) return NextResponse.json({ error: "Enter your username and password." }, { status: 400 });
   let length = 0;
@@ -26,7 +29,7 @@ export async function POST(request: Request) {
       chunks.push(value);
     }
     const body = JSON.parse(Buffer.concat(chunks).toString("utf8"));
-    if (typeof body.username !== "string" || typeof body.password !== "string" || body.username.length > 128 || body.password.length > 256 || !credentialsMatch(body.username, body.password)) return NextResponse.json({ error: "The username or password is incorrect." }, { status: 401 });
+    if (typeof body.username !== "string" || typeof body.password !== "string" || body.username.length > 128 || body.password.length > 256 || !credentialsMatch(body.username.trim(), body.password)) return NextResponse.json({ error: "The username or password is incorrect." }, { status: 401 });
     const response = NextResponse.json({ redirect: returnPath(body.returnTo) }, { headers: { "Cache-Control": "no-store" } });
     response.cookies.set(SESSION_COOKIE, createSession(), sessionOptions());
     return response;

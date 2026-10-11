@@ -18,3 +18,21 @@ textarea { resize: vertical; }
   a, button { transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease; }
 }
 main { scroll-margin-top: 72px; }
+
+/* Language changes preserve the map/chart coordinate system and input values. */
+html[lang="ar"] body { font-family: Tahoma, Arial, sans-serif; }
+html[dir="rtl"] .tracking-widest,
+html[dir="rtl"] .tracking-wider,
+html[dir="rtl"] .tracking-wide { letter-spacing: normal; }
+html[dir="rtl"] .lucide-arrow-right,
+html[dir="rtl"] .lucide-arrow-left,
+html[dir="rtl"] .lucide-arrow-up-right { transform: scaleX(-1); }
+.leaflet-container { direction: ltr; }
+html[dir="rtl"] .leaflet-popup-content,
+html[dir="rtl"] .leaflet-tooltip { direction: rtl; text-align: right; font-family: Tahoma, Arial, sans-serif; }
+pre, input[type="number"], input[type="datetime-local"], input[type="password"], input[autocomplete="username"], input[autocomplete="current-password"] { direction: ltr; text-align: left; }
+time { unicode-bidi: isolate; }
+.metric-value { font-size: clamp(1.75rem, 2.4vw, 2.5rem); line-height: 1.25; font-weight: 800; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.metric-number { font-weight: 800; font-variant-numeric: tabular-nums; }
+.metric-resource { border-inline-start: 4px solid #0f766e; background: #f0fdfa; }
+.metric-unknown { border-inline-start: 4px solid #94a3b8; background: #f8fafc; }

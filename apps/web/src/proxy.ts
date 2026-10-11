@@ -1,3 +1,4 @@
+import { allowedAuthOrigins, authConfigurationError } from "./lib/auth/config";
 import { randomBytes } from "node:crypto";
 import { SESSION_COOKIE, validSession } from "./lib/auth/session";
 import { NextResponse, type NextRequest } from "next/server";
@@ -6,20 +7,14 @@ export function proxy(request: NextRequest) {
   if (request.nextUrl.pathname.length > 2048 || request.nextUrl.search.length > 4097) {
     return new NextResponse("Request URI exceeds the size limit.", { status: 414 });
   }
-  const production = process.env.APP_ENVIRONMENT === "production";
   const password = process.env.SECURITY_PASSWORD ?? "";
   const username = process.env.SECURITY_USERNAME ?? "healthgrid";
-  if ((production && !password) || (password && (password.length < (production ? 16 : 12) || !username.trim()))) {
-    return new NextResponse("Secure access is not configured.", { status: 503 });
-  }
+  const error = authConfigurationError();
+  if (error) return new NextResponse(error, { status: 503 });
   const writes = !["GET", "HEAD", "OPTIONS"].includes(request.method);
   const origin = request.headers.get("origin");
-  let allowedOrigins: string[];
-  try {
-    allowedOrigins = JSON.parse(process.env.SECURITY_ALLOWED_ORIGINS ??
-      '["http://localhost:3000","http://127.0.0.1:3000","http://localhost:8000","http://127.0.0.1:8000"]');
-    if (!Array.isArray(allowedOrigins) || allowedOrigins.some((value) => typeof value !== "string" || (production && !value.startsWith("https://")))) throw new Error();
-  } catch { return new NextResponse("Secure origins are not configured.", { status: 503 }); }
+  const allowedOrigins = allowedAuthOrigins();
+  if (!allowedOrigins) return new NextResponse("Secure origins are not configured.", { status: 503 });
   if (request.headers.get("sec-fetch-site") === "cross-site" || (writes && origin && !allowedOrigins.includes(origin))) {
     return new NextResponse("Cross-site request rejected.", { status: 403 });
   }
@@ -31,9 +26,6 @@ export function proxy(request: NextRequest) {
   }
   const publicRoute = ["/login", "/auth/login", "/auth/logout"].includes(request.nextUrl.pathname);
   const signedIn = validSession(request.cookies.get(SESSION_COOKIE)?.value ?? "");
-  if (password && (process.env.SECURITY_SESSION_SECRET?.length ?? 0) < 32) {
-    return new NextResponse("Secure sessions are not configured.", { status: 503 });
-  }
   if (password && !publicRoute && !signedIn) {
     if (request.nextUrl.pathname.startsWith("/api/") || writes) {
       return NextResponse.json({ error: { message: "Sign in to continue." } }, { status: 401, headers: { "Cache-Control": "no-store" } });

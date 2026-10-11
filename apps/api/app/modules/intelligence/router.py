@@ -7,7 +7,7 @@ before application inclusion so extraction publishes the exact shared schema.
 from datetime import datetime
 from time import monotonic
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.routing import APIRoute
 from pydantic import BaseModel
@@ -66,12 +66,20 @@ def intelligence_settings() -> IntelligenceSettings:
     return IntelligenceSettings()
 
 
+def preferred_advice_language(request: Request) -> str:
+    """The UI sends an explicit locale; only a bounded language choice reaches the prompt."""
+    language = request.headers.get("accept-language", "en").split(",", 1)[0]
+    language = language.split(";", 1)[0].strip().lower().split("-", 1)[0]
+    return "ar" if language == "ar" else "en"
+
+
 @router.post("/incidents/advice", response_model=EmergencyAdviceResponse)
 async def advise_incident(
     request: EmergencyAdviceRequest,
     settings: IntelligenceSettings = Depends(intelligence_settings),
     db: Session = Depends(get_session),
     now: datetime = Depends(server_now),
+    language: str = Depends(preferred_advice_language),
 ):
     if not settings.openai_api_key.get_secret_value():
         return await emergency_advice(request, {}, settings, now)
@@ -81,6 +89,7 @@ async def advise_incident(
     catalog = load_report_catalog(db, now)
     profiles = capacity.get_profiles(db)
     context = {
+        "response_language": "ar" if language == "ar" else "en",
         "as_of": now.isoformat(),
         "incident": request.incident.model_dump(mode="json"),
         "incident_status": "unconfirmed_draft",

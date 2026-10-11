@@ -1,4 +1,6 @@
 "use client";
+import { useI18n } from "@/lib/i18n/context";
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { configureExerciseMode } from "../../lib/api/facilities";
@@ -7,6 +9,7 @@ import type { components } from "../../lib/api/schema";
 type Exercise = components["schemas"]["ExerciseContext"];
 const Context = createContext<Exercise | null>(null);
 export function ExerciseProvider({ children }: { children: React.ReactNode }) {
+  const { t } = useI18n();
   const signInPage = usePathname() === "/login";
   const [exercise, setExercise] = useState<Exercise | null>(null);
   const [ready, setReady] = useState(false);
@@ -23,8 +26,8 @@ export function ExerciseProvider({ children }: { children: React.ReactNode }) {
       .finally(() => { clearTimeout(timeout); if (mounted) setReady(true); });
     return () => { mounted = false; clearTimeout(timeout); controller.abort(); };
   }, [signInPage]);
-  if (!ready && !signInPage) return <p role="status" className="mx-auto max-w-7xl p-8 text-sm text-slate-600">Connecting to the planning workspace…</p>;
-  return <Context.Provider value={exercise}>{children}</Context.Provider>;
+  if (!ready && !signInPage) return <p role="status" className="mx-auto max-w-7xl p-8 text-sm text-slate-600">{t("Connecting to the planning workspace…")}</p>;
+  return <Context.Provider value={exercise}>{t(children)}</Context.Provider>;
 }
 export const useExercise = () => useContext(Context);
 export function useExerciseNames() {

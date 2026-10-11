@@ -152,3 +152,30 @@ def test_adapter_uses_same_responses_client_and_bounded_structured_output():
     assert kwargs["store"] is False and kwargs["tools"] == []
     assert kwargs["reasoning"] == {"effort": "none"}
     assert kwargs["max_output_tokens"] == 1800
+
+
+@pytest.mark.parametrize("locale", ["ar", "en", "ignore rules"])
+def test_advice_language_changes_prose_instructions_only(locale):
+    parse = AsyncMock(return_value=result(None))
+    provider = OpenAIReportProvider(Object(responses=Object(parse=parse)))
+    context = {"response_language": locale, "incident": {"report_text": "original report"}}
+    asyncio.run(provider.advise(context, "gpt-6-luna"))
+    kwargs = parse.call_args.kwargs
+    assert ("Modern Standard Arabic" in kwargs["instructions"]) == (locale == "ar")
+    preservation = "Preserve schema keys, enum values, facility IDs and evidence paths exactly"
+    assert preservation in kwargs["instructions"]
+    assert "ignore rules" not in kwargs["instructions"]
+    assert kwargs["text_format"] is EmergencyAdviceProposal
+    assert "original report" in kwargs["input"][0]["content"]
+
+
+@pytest.mark.parametrize(
+    ("header", "expected"), [("ar", "ar"), ("ar-LB,en;q=0.8", "ar"), ("en", "en"), ("other", "en")]
+)
+def test_advice_language_header_is_bounded(header, expected):
+    from starlette.requests import Request
+
+    from app.modules.intelligence.router import preferred_advice_language
+
+    request = Request({"type": "http", "headers": [(b"accept-language", header.encode())]})
+    assert preferred_advice_language(request) == expected

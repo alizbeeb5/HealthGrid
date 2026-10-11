@@ -1,7 +1,7 @@
 import type { ForecastPreview } from "./demo-client";
 
-export function forecastDate(date: string) {
-  return new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${date}T12:00:00Z`));
+export function forecastDate(date: string, locale: string = "en-GB") {
+  return new Intl.DateTimeFormat(locale, { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${date}T12:00:00Z`));
 }
 
 /** Chart projection only: copy supplied values; never extrapolate or subtract. */

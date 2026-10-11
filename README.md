@@ -10,6 +10,10 @@ Use your installed Python 3.12 environment. From the repository root:
 python apps/api/scripts/run_beirut_demo.py
 ```
 
+The web app also reads the root `.env` for server-side login settings. Existing shell,
+Docker and `apps/web/.env.local` settings take precedence. Restart the web server after
+changing credentials; do not copy secrets into `NEXT_PUBLIC_` variables.
+
 In a second terminal:
 
 ```bash
@@ -50,7 +54,7 @@ rehearsal controls make no AI calls.
 
 The hospital snapshot frontend includes `/health` and
 facility endpoints (list, snapshot, append observation). The network
-overview and seven-day forecast screen/API are implemented. Incident simulation and monitor allocation screens/APIs are connected. Investment planning is connected to the OR-Tools package solver and saved-run API. Decision tracking and outcome review are connected. Authentication is not implemented. Existing PyCharm `main.py` is preserved and is not the API entry point.
+overview and seven-day forecast screen/API are implemented. Incident simulation and monitor allocation screens/APIs are connected. Investment planning is connected to the OR-Tools package solver and saved-run API. Decision tracking and outcome review are connected. Optional shared sign-in is implemented; individual accounts and roles are not. Existing PyCharm `main.py` is preserved and is not the API entry point.
 
 ## Requirements
 Use Python **3.12**, Node.js **22** with npm **9.5+**, and PostgreSQL **17** (or Docker Compose).
@@ -87,6 +91,10 @@ cp .env.example .env
 docker compose up -d db
 python -m uvicorn app.main:app --app-dir apps/api --reload
 ```
+The web app also reads the root `.env` for server-side login settings. Existing shell,
+Docker and `apps/web/.env.local` settings take precedence. Restart the web server after
+changing credentials; do not copy secrets into `NEXT_PUBLIC_` variables.
+
 In a second terminal:
 ```bash
 cd apps/web
