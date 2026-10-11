@@ -21,13 +21,11 @@ export function Location({ latitude, longitude }: { latitude: number; longitude:
 
 export function ModeNotice() {
   const exercise = useExercise();
-  if (exercise?.enabled) return null;
+  if (exercise?.enabled || facilityDataMode !== "demo") return null;
   return <div className="mb-7 flex items-start gap-3 rounded-lg border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-teal-950">
     <Database size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
-    <div><strong>{facilityDataMode === "demo" ? "Synthetic demo" : "Connected API"}</strong>
-      <p className="mt-1">{facilityDataMode === "demo"
-        ? "Example hospitals and reports. Updates stay in this browser. Freshness uses the displayed demo snapshot clock."
-        : "Reports are loaded and saved through the hospital API. Demo hospitals use synthetic data."}</p>
+    <div><strong>Synthetic demo</strong>
+      <p className="mt-1">Example hospitals and reports. Updates stay in this browser. Freshness uses the displayed demo snapshot clock.</p>
     </div>
   </div>;
 }
