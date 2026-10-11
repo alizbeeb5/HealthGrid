@@ -35,8 +35,11 @@ class Settings(BaseSettings):
     @model_validator(mode="after")
     def production_security(self):
         password = self.security_password.get_secret_value()
-        if password and (len(password) < 16 or not self.security_username.strip()):
-            raise ValueError("Security credentials require a username and at least 16 characters.")
+        minimum = 16 if self.app_environment == "production" else 12
+        if password and (len(password) < minimum or not self.security_username.strip()):
+            raise ValueError(
+                "Security credentials require a username and a sufficiently long password."
+            )
         if self.app_environment == "production":
             if not password:
                 raise ValueError(

@@ -69,8 +69,10 @@ Open http://localhost:3000 and API docs at http://localhost:8000/docs.
 The database is local-only on port 5432. Docker handles Python/Node versions.
 If frontend dependencies change, reinstall them in the web container and restart it.
 
-Shared browser/API login is enabled when `SECURITY_PASSWORD` is configured in the
-ignored root `.env`; the default username is `healthgrid`. Recreate `api` and `web`
+Shared login is enabled when `SECURITY_PASSWORD` and a random 32+ character
+`SECURITY_SESSION_SECRET` are configured in the ignored root `.env`; the default
+username is `healthgrid`. The browser uses `/login`; direct API clients use HTTP
+Basic. Recreate `api` and `web`
 containers after changing credentials. See [security controls and deployment
 limits](docs/security-review.md) before exposing the application remotely.
 

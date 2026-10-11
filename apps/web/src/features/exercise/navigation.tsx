@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { SignOutButton } from "../../components/sign-out-button";
 import { usePathname } from "next/navigation";
 import { Activity, ArrowRight, CheckCircle2, LayoutDashboard, Building2, TrendingUp, Siren, ArrowLeftRight, Wallet, ClipboardCheck } from "lucide-react";
 import { useRef, useState } from "react";
@@ -22,6 +23,7 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
   const phase = exercise?.phase === "assessment" ? "Assessment" : exercise?.phase === "response" ? "Response" : "Recovery";
   const clock = exercise?.clock ? new Date(exercise.clock).toLocaleString("en-GB", { timeZone: "Asia/Beirut", dateStyle: "medium", timeStyle: "short" }) : undefined;
   const href = (key: string) => exercise?.enabled ? exercise.links?.[key] ?? `/${key}` : `/${key}`;
+  if (path === "/login") return <main id="main-content">{children}</main>;
   return <div className="min-h-screen lg:pl-52">
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-52 flex-col border-r border-slate-200 bg-white lg:flex">
       <Link href="/overview" className="flex items-center gap-2.5 px-5 py-6 text-lg font-bold"><span className="rounded-lg bg-teal-900 p-2 text-white"><Activity size={20} aria-hidden="true" /></span>HealthGrid</Link>
@@ -31,7 +33,8 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
     <header className="sticky top-0 z-30 border-b border-slate-200 bg-white">
       <div className="mx-auto flex min-h-14 max-w-[1440px] flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 py-2 sm:px-6">
         <div className="flex items-center gap-3"><Link href="/overview" className="font-bold text-teal-900 lg:hidden">HealthGrid</Link><p className="hidden text-xs text-slate-500 sm:block">{exercise?.enabled ? "Beirut response" : "Health system coordination"}<span className="mx-2 text-slate-300">/</span><span className="font-medium text-slate-700">{active?.label ?? "Workspace"}</span></p></div>
-        {exercise?.enabled && <div className="flex items-center gap-3 text-xs text-slate-500"><span className="rounded-full bg-slate-100 px-2.5 py-1 font-medium text-slate-600">{phase}</span><time dateTime={exercise.clock ?? undefined} title="Exercise clock · Beirut time">{clock}</time></div>}
+        <div className="flex items-center gap-4"><SignOutButton />
+        {exercise?.enabled && <div className="flex items-center gap-3 text-xs text-slate-500"><span className="rounded-full bg-slate-100 px-2.5 py-1 font-medium text-slate-600">{phase}</span><time dateTime={exercise.clock ?? undefined} title="Exercise clock · Beirut time">{clock}</time></div>}</div>
       </div>
       <nav aria-label="Mobile navigation" className="flex gap-1 overflow-x-auto border-t border-slate-100 px-3 lg:hidden">{pages.map(({ key, label }) => <Link key={key} href={href(key)} aria-current={active?.key === key ? "page" : undefined} className={`whitespace-nowrap border-b-2 px-3 py-3 text-xs font-semibold ${active?.key === key ? "border-teal-700 text-teal-900" : "border-transparent text-slate-500"}`}>{label}</Link>)}</nav>
       {exercise?.enabled && <p className="px-4 pb-2 text-[10px] text-slate-500 lg:hidden">Beirut exercise · Synthetic operational data</p>}

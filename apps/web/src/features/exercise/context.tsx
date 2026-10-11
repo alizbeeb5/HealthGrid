@@ -1,14 +1,17 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { configureExerciseMode } from "../../lib/api/facilities";
 import type { components } from "../../lib/api/schema";
 
 type Exercise = components["schemas"]["ExerciseContext"];
 const Context = createContext<Exercise | null>(null);
 export function ExerciseProvider({ children }: { children: React.ReactNode }) {
+  const signInPage = usePathname() === "/login";
   const [exercise, setExercise] = useState<Exercise | null>(null);
   const [ready, setReady] = useState(false);
   useEffect(() => {
+    if (signInPage) return;
     const controller = new AbortController();
     let mounted = true;
     const timeout = setTimeout(() => controller.abort(), 5000);
@@ -19,8 +22,8 @@ export function ExerciseProvider({ children }: { children: React.ReactNode }) {
     }).catch(() => { /* Ordinary pages retain their own connection error states. */ })
       .finally(() => { clearTimeout(timeout); if (mounted) setReady(true); });
     return () => { mounted = false; clearTimeout(timeout); controller.abort(); };
-  }, []);
-  if (!ready) return <p role="status" className="mx-auto max-w-7xl p-8 text-sm text-slate-600">Connecting to the planning workspace…</p>;
+  }, [signInPage]);
+  if (!ready && !signInPage) return <p role="status" className="mx-auto max-w-7xl p-8 text-sm text-slate-600">Connecting to the planning workspace…</p>;
   return <Context.Provider value={exercise}>{children}</Context.Provider>;
 }
 export const useExercise = () => useContext(Context);

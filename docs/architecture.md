@@ -58,7 +58,9 @@ backend; the OR-Tools investment engine and screen are connected. Projects are e
 tracking and captured outcome reviews) exist in the backend; the pure outcome engine and
 decision board are connected. Saved review history reopens frozen evidence without
 recalculating. Approval never changes hospital inventory. Domain routers are
-registered in `app/routes.py`. Authentication is not implemented. Paid AI behavior
+registered in `app/routes.py`. Optional shared access uses a browser sign-in page
+with signed HttpOnly sessions and independently authenticated API requests.
+Individual accounts, roles and verified approval identities are not implemented. Paid AI behavior
 requires live account verification.
 
 ## Isolated Beirut exercise
@@ -78,7 +80,7 @@ remain unchanged. The launcher refuses to seed over an existing hospital dataset
 The frontend loads the exercise manifest before mounting pages, selects API mode,
 and preserves saved-run links. Stage controls deliberately simulate human actions
 and separate report arrivals; they are not production approval automation. There
-is no authentication on this local prototype. See `demo-contract.md`.
+is optional shared sign-in on this local prototype. See `demo-contract.md`.
 
 The demo launcher repairs missing synthetic daily history on resume; the stage
 transaction appends completed follow-up days before advancing its clock. Existing

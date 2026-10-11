@@ -6,8 +6,15 @@ isolated databases; it does not flood the host or call paid AI providers.
 
 ## Implemented protections
 
-- Both the Next server and FastAPI independently verify optional shared Basic
-  credentials using constant-time digest comparisons. Secrets are server-side.
+- The browser sign-in form verifies shared credentials using constant-time digest
+  comparisons and issues an eight-hour signed HttpOnly, SameSite=Strict cookie
+  (Secure in production). An independent random server-side session secret signs
+  tokens; credential changes invalidate them. No passwords enter frontend source,
+  browser storage or session cookies. Sign-out clears the browser cookie; copied
+  tokens remain valid until expiry or a credential/secret change.
+  Next verifies sessions and adds Basic credentials only to server-to-server API
+  requests; FastAPI independently verifies those credentials. Direct API clients
+  still use Basic. Secrets are server-side.
   `APP_ENVIRONMENT=production` fails closed without configured credentials.
 - Production rejects the simulated Beirut approval exercise, requires explicit
   HTTPS browser origins and allowed hosts, and disables API schema/docs routes.
@@ -35,24 +42,30 @@ isolated databases; it does not flood the host or call paid AI providers.
   privileges, and bounds app memory, CPU, process counts and API connections.
   The frontend runs as the non-root `node` user. Development API documentation
   permits its CDN/inline bootstrap under a separate policy; production removes it.
+  Browser referrers use `strict-origin-when-cross-origin`, allowing the map provider
+  to identify the site's origin without receiving page paths or query strings.
+  Map images use the official HTTPS OpenStreetMap tile URL and the same policy.
 
 ## Access configuration
 
-For a shared login on the existing local Docker app, put a generated password of
-at least 16 characters in the ignored root `.env`:
+For shared sign-in, configure the ignored root `.env` with a password (at least
+12 characters locally, 16 in production) and an independent random session secret:
 
 ```dotenv
 SECURITY_USERNAME=healthgrid
 SECURITY_PASSWORD=<generated-unique-password>
+SECURITY_SESSION_SECRET=<independent-random-secret-of-at-least-32-characters>
 ```
 
 Recreate frontend and backend containers to apply environment changes. The browser
-prompts for credentials; API clients use HTTP Basic as well. Keep secrets out of
+uses `/login`; API clients use HTTP Basic. Login bodies are bounded to 4 KiB with a
+five-second read deadline, and attempts share a per-process 20/minute quota.
+Keep secrets out of
 `NEXT_PUBLIC_*`, source control, screenshots and logs. Basic auth must be behind
 TLS for any remote use. It is a shared gate, not individual identities, roles,
 verified approval signatures or multi-factor authentication.
 
-The reviewed local Docker instance has this login enabled. Its generated password
+The reviewed local Docker instance has this login enabled. Its password
 is stored only in the ignored root `.env` under `SECURITY_PASSWORD`.
 
 For production additionally set `APP_ENVIRONMENT=production`, explicit JSON arrays
@@ -66,7 +79,8 @@ reload servers. Do not expose development services by forwarding their ports.
   enforce header/body/read timeouts, bound connections and provide shared quotas.
 - A CDN/WAF or hosting provider must absorb volumetric DDoS; application middleware
   cannot protect network bandwidth, Next's server resources or multiple replicas
-  against a distributed flood. Frontend authentication attempts need edge throttling.
+  against a distributed flood. Login throttling needs shared edge enforcement
+  across replicas; the in-process quota resets on restart.
 - Individual accounts, authorization per hospital/action, MFA, session lifecycle and
   trusted audit identities are not implemented by the shared login. Never use real
   patient data or operational approvals with simulated actors.
@@ -92,7 +106,7 @@ Dependency audits: npm runtime audit and pip-audit against `requirements.lock`.
 Their absence of findings means no known advisories returned at audit time, not
 proof of vulnerability-free dependencies. Re-run audits regularly.
 
-Review results: 746 backend tests and 54 subtests passed; all four frontend security
+Initial review results: 746 backend tests and 54 subtests passed; all four frontend security
 tests, type checking, linting and the webpack production build passed. Runtime npm
 and locked Python dependency audits returned no known advisories. The full frontend
 suite passed 64 of 69 tests. The same five failures reproduce against unchanged HEAD
@@ -103,3 +117,7 @@ Authenticated local smoke checks passed for the frontend, direct API and fronten
 API forwarding. Anonymous requests returned 401, cross-site writes returned 403,
 and all 20 scripts in the hospital page had matching CSP nonces. Existing Beirut
 exercise data remained available.
+
+Sign-in update: seven frontend security tests and 16 focused backend security tests
+passed, along with the production build. Live cookie-based login, protected API
+forwarding and sign-out were verified on the local Docker instance.

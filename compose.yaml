@@ -57,6 +57,7 @@ services:
       dockerfile: apps/web/Dockerfile
     environment:
       API_BASE_URL: http://api:8000
+      SECURITY_SESSION_SECRET: ${SECURITY_SESSION_SECRET:-}
       APP_ENVIRONMENT: ${APP_ENVIRONMENT:-development}
       SECURITY_USERNAME: ${SECURITY_USERNAME:-healthgrid}
       SECURITY_PASSWORD: ${SECURITY_PASSWORD:-}

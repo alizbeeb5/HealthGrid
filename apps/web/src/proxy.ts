@@ -1,22 +1,6 @@
-import { createHash, randomBytes, timingSafeEqual } from "node:crypto";
+import { randomBytes } from "node:crypto";
+import { SESSION_COOKIE, validSession } from "./lib/auth/session";
 import { NextResponse, type NextRequest } from "next/server";
-
-// Server-only shared access gate for a private prototype. The backend independently
-// verifies credentials; this is not user/role authorization or a WAF.
-function authenticated(header: string, username: string, password: string) {
-  if (header.length > 4096) return false;
-  try {
-    const [scheme, token] = header.split(" ");
-    if (scheme?.toLowerCase() !== "basic" || !token || !/^[A-Za-z0-9+/]+={0,2}$/.test(token)) return false;
-    const decoded = Buffer.from(token, "base64").toString("utf8");
-    const split = decoded.indexOf(":");
-    if (split < 0) return false;
-    const digest = (value: string) => createHash("sha256").update(value).digest();
-    const validUser = timingSafeEqual(digest(decoded.slice(0, split)), digest(username));
-    const validPassword = timingSafeEqual(digest(decoded.slice(split + 1)), digest(password));
-    return validUser && validPassword;
-  } catch { return false; }
-}
 
 export function proxy(request: NextRequest) {
   if (request.nextUrl.pathname.length > 2048 || request.nextUrl.search.length > 4097) {
@@ -25,13 +9,8 @@ export function proxy(request: NextRequest) {
   const production = process.env.APP_ENVIRONMENT === "production";
   const password = process.env.SECURITY_PASSWORD ?? "";
   const username = process.env.SECURITY_USERNAME ?? "healthgrid";
-  if ((production && !password) || (password && (password.length < 16 || !username.trim()))) {
+  if ((production && !password) || (password && (password.length < (production ? 16 : 12) || !username.trim()))) {
     return new NextResponse("Secure access is not configured.", { status: 503 });
-  }
-  if (password && !authenticated(request.headers.get("authorization") ?? "", username, password)) {
-    return new NextResponse("Authentication required.", { status: 401, headers: {
-      "WWW-Authenticate": 'Basic realm="HealthGrid", charset="UTF-8"', "Cache-Control": "no-store",
-    } });
   }
   const writes = !["GET", "HEAD", "OPTIONS"].includes(request.method);
   const origin = request.headers.get("origin");
@@ -50,16 +29,36 @@ export function proxy(request: NextRequest) {
       return new NextResponse("Request exceeds the size limit.", { status: 413 });
     }
   }
+  const publicRoute = ["/login", "/auth/login", "/auth/logout"].includes(request.nextUrl.pathname);
+  const signedIn = validSession(request.cookies.get(SESSION_COOKIE)?.value ?? "");
+  if (password && (process.env.SECURITY_SESSION_SECRET?.length ?? 0) < 32) {
+    return new NextResponse("Secure sessions are not configured.", { status: 503 });
+  }
+  if (password && !publicRoute && !signedIn) {
+    if (request.nextUrl.pathname.startsWith("/api/") || writes) {
+      return NextResponse.json({ error: { message: "Sign in to continue." } }, { status: 401, headers: { "Cache-Control": "no-store" } });
+    }
+    const target = new URL("/login", request.url);
+    target.searchParams.set("returnTo", request.nextUrl.pathname + request.nextUrl.search);
+    const redirect = NextResponse.redirect(target);
+    redirect.headers.set("Cache-Control", "no-store");
+    return redirect;
+  }
   const nonce = randomBytes(18).toString("base64");
   const development = process.env.NODE_ENV === "development";
   const csp = [
     "default-src 'self'", `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${development ? " 'unsafe-eval'" : ""}`,
     "style-src 'self' 'unsafe-inline'", // Leaflet/Recharts require inline positioning styles.
-    "img-src 'self' data: blob: https://*.tile.openstreetmap.org",
+    "img-src 'self' data: blob: https://tile.openstreetmap.org",
     "font-src 'self'", `connect-src 'self'${development ? " ws: wss:" : ""}`,
     "object-src 'none'", "base-uri 'self'", "form-action 'self'", "frame-ancestors 'none'",
   ].join("; ");
   const headers = new Headers(request.headers);
+  // Only the server-to-server API request receives the shared credential.
+  if (password && signedIn && request.nextUrl.pathname.startsWith("/api/")) {
+    headers.set("authorization", `Basic ${Buffer.from(`${username}:${password}`).toString("base64")}`);
+    headers.delete("cookie");
+  } else { headers.delete("authorization"); }
   headers.set("x-nonce", nonce);
   headers.set("Content-Security-Policy", csp);
   const response = NextResponse.next({ request: { headers } });
