@@ -1,4 +1,5 @@
 "use client";
+import { PageHeader } from "../exercise/page-header";
 import { NextStep } from "../exercise/journey";
 import { useExercise } from "../exercise/context";
 
@@ -19,6 +20,7 @@ export function ForecastDashboard() {
   const exercise = useExercise();
   const params = useSearchParams();
   const [attempt, setAttempt] = useState(0);
+  const [view, setView] = useState<"chart" | "table">("chart");
   const mode = !exercise?.enabled && params.get("mode") === "example" ? "example" : "api";
   const [catalog, setCatalog] = useState<ReturnType<typeof forecastCatalog>>([]);
   const [catalogError, setCatalogError] = useState<string>();
@@ -50,10 +52,9 @@ export function ForecastDashboard() {
   const data = state.phase === "ready" && state.data.facility_id === facilityId && state.data.service_id === serviceId ? state.data : undefined;
   const pending = state.phase === "loading" || state.phase === "updating" || (state.phase === "ready" && !data);
 
-  return <div className="space-y-6">
-    <header className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.18em] text-teal-700">Ministry / Preventive planning</p><h1 className="mt-2 text-3xl font-bold tracking-tight">Capacity and demand forecasts</h1><p className="mt-3 text-sm text-slate-600">Inspect seven-day modeled capacity, expected simultaneous demand and possible gaps.</p></div><button className={buttonClass} disabled={pending} onClick={refresh}><RefreshCw size={16} aria-hidden="true" />{pending ? "Refreshing…" : "Refresh forecast"}</button></header>
+  return <div className="space-y-4">
+    <PageHeader title="Capacity forecast" description="Seven-day demand, capacity and potential gaps." actions={<button className={buttonClass} disabled={pending} onClick={refresh}><RefreshCw size={16} aria-hidden="true" />{pending ? "Refreshing…" : "Refresh"}</button>} />
 
-    {exercise?.enabled ? <p className="text-sm leading-6 text-slate-500">Seven-day projections from synthetic daily history, updated with completed exercise days. Current incident losses and future funded changes are reviewed separately; this trend does not predict the explosion.</p> : <p className="text-sm text-slate-500">Forecasts use daily history. Current resource updates do not rewrite that history.</p>}
     {catalogError && <LoadError message={catalogError} retry={refresh} />}
     <section className={`${panelClass} grid gap-4 p-5 ${exercise?.enabled ? "" : "sm:grid-cols-2"}`} aria-label="Forecast selection">
       <label className="text-xs font-semibold text-slate-600">Hospital<select className={inputClass} value={facilityId} onChange={(event) => {
@@ -70,16 +71,16 @@ export function ForecastDashboard() {
         <div><h2 className="text-xl font-semibold">{hospital?.facility.name ?? data.facility_id} · {service?.name ?? data.service_id}</h2><p className="mt-1 text-xs text-slate-500">Single service · simultaneous service places</p></div>
         {data.status !== "forecasted" ? <InsufficientHistory data={data} /> : <>
           <div className="grid gap-4 sm:grid-cols-3">
-            <div className={`${panelClass} p-5`}><p className="text-xs text-slate-500">Latest historical modeled capacity</p><p className="mt-3 text-3xl font-semibold">{data.baseline_capacity === null ? "Unknown" : `${data.baseline_capacity} places`}</p></div>
+            <div className={`${panelClass} p-5`}><p className="text-xs text-slate-500">Latest historical capacity</p><p className="mt-3 text-3xl font-semibold">{data.baseline_capacity === null ? "Unknown" : `${data.baseline_capacity} places`}</p></div>
             <div className={`${panelClass} p-5`}><p className="flex items-center gap-2 text-xs text-slate-500"><CalendarDays size={15} aria-hidden="true" />Forecast horizon</p><p className="mt-3 text-3xl font-semibold">Seven days</p><p className="mt-2 text-xs text-slate-500">{data.forecast[0] && forecastDate(data.forecast[0].date)}–{data.forecast.at(-1) && forecastDate(data.forecast.at(-1)!.date)}</p></div>
-            <div className={`${panelClass} p-5`}><p className="text-xs text-slate-500">First expected central gap</p><p className="mt-3 text-3xl font-semibold">{data.first_gap ? `${data.first_gap.gap} places` : "None"}</p><p className="mt-2 text-xs text-slate-500">{data.first_gap ? `Day ${data.first_gap.day_number} · ${forecastDate(data.first_gap.date)}` : "Review uncertainty ranges"}</p></div>
+            <div className={`${panelClass} p-5`}><p className="text-xs text-slate-500">First projected gap</p><p className="mt-3 text-3xl font-semibold">{data.first_gap ? `${data.first_gap.gap} places` : "None"}</p><p className="mt-2 text-xs text-slate-500">{data.first_gap ? `Day ${data.first_gap.day_number} · ${forecastDate(data.first_gap.date)}` : "Review uncertainty ranges"}</p></div>
           </div>
           <ForecastAlert data={data} />
-          <section className={`${panelClass} p-5`} aria-labelledby="forecast-chart-heading"><h2 id="forecast-chart-heading" className="flex items-center gap-2 text-lg font-semibold"><TrendingUp size={19} aria-hidden="true" />History and seven-day forecast</h2><p className="mt-2 text-xs text-slate-500">Solid lines: supplied history. Dashed lines: future central estimates. Shaded bands: uncalibrated capacity/demand error bands. All values are simultaneous service places.</p><div className="mt-5"><ForecastChart data={data} /></div></section>
-          <ForecastTable data={data} />
-          <details className={`${panelClass} p-5`}><summary className="cursor-pointer text-sm font-semibold text-teal-800">View historical values and sources</summary><div className="mt-4 overflow-x-auto"><table className="w-full text-left text-sm"><caption className="sr-only">Historical simultaneous capacity and demand</caption><thead><tr>{["Date", "Modeled capacity", "Demand", "Sources / quality"].map((heading) => <th scope="col" key={heading} className="py-2 pr-4 text-xs text-slate-500">{heading}</th>)}</tr></thead><tbody>{data.history.map((point) => <tr key={point.date} className="border-t border-slate-100"><th scope="row" className="py-2 pr-4 font-normal"><time dateTime={point.date}>{forecastDate(point.date)}</time></th><td className="py-2 pr-4">{point.capacity === null ? "Unknown" : `${point.capacity} places`}</td><td className="py-2">{point.demand === null ? "Unknown" : `${point.demand} places`}</td><td className="py-2 text-xs">{point.sources.join(", ") || "Unknown source"} · {point.data_quality ?? "Unknown quality"}</td></tr>)}</tbody></table></div></details>
+          <div role="group" aria-label="Forecast view" className="inline-flex gap-1 rounded-lg border border-slate-200 bg-white p-1">{([['chart', 'Chart'], ['table', 'Daily values']] as const).map(([key, label]) => <button key={key} aria-pressed={view === key} onClick={() => setView(key)} className={`rounded-md px-4 py-2 text-sm font-medium ${view === key ? "bg-teal-50 text-teal-900" : "text-slate-500 hover:bg-slate-50"}`}>{label}</button>)}</div>
+          {view === "chart" ? <section className={`${panelClass} p-5`} aria-labelledby="forecast-chart-heading"><h2 id="forecast-chart-heading" className="flex items-center gap-2 text-lg font-semibold"><TrendingUp size={19} aria-hidden="true" />History and seven-day forecast</h2><p className="mt-2 text-xs text-slate-500">Solid: history · Dashed: forecast · Shaded: model error bands. Units: simultaneous treatment places.</p><div className="mt-5"><ForecastChart data={data} /></div></section> : <ForecastTable data={data} />}
+          <details className={`${panelClass} p-5`}><summary className="cursor-pointer text-sm font-semibold text-teal-800">Historical records</summary><div className="mt-4 overflow-x-auto"><table className="w-full text-left text-sm"><caption className="sr-only">Historical simultaneous capacity and demand</caption><thead><tr>{["Date", "Modeled capacity", "Demand", "Sources / quality"].map((heading) => <th scope="col" key={heading} className="py-2 pr-4 text-xs text-slate-500">{heading}</th>)}</tr></thead><tbody>{data.history.map((point) => <tr key={point.date} className="border-t border-slate-100"><th scope="row" className="py-2 pr-4 font-normal"><time dateTime={point.date}>{forecastDate(point.date)}</time></th><td className="py-2 pr-4">{point.capacity === null ? "Unknown" : `${point.capacity} places`}</td><td className="py-2">{point.demand === null ? "Unknown" : `${point.demand} places`}</td><td className="py-2 text-xs">{point.sources.join(", ") || "Unknown source"} · {point.data_quality ?? "Unknown quality"}</td></tr>)}</tbody></table></div></details>
         </>}
-        <details className={`${panelClass} p-5`}><summary className="cursor-pointer text-sm font-medium text-teal-800">Forecast method, sources and uncertainty</summary><div className="mt-4"><ForecastEvidence data={data} /></div></details>
+        <details className={`${panelClass} p-5`}><summary className="cursor-pointer text-sm font-medium text-teal-800">Method and evidence</summary><div className="mt-4"><ForecastEvidence data={data} /></div></details>
       </>}
     {exercise?.enabled && <NextStep to="scenarios">Review the sudden incident with AI</NextStep>}
   </div>;

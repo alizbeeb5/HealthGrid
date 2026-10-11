@@ -8,3 +8,13 @@ button:disabled { cursor: wait; }
 :focus-visible { outline: 2px solid #0f766e; outline-offset: 3px; }
 ::selection { background: #ccfbf1; color: #134e4a; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+input, textarea, select, button { font-family: inherit; }
+summary { list-style-position: inside; }
+summary::marker { color: #64748b; font-size: 0.8em; }
+input[type="checkbox"] { accent-color: #0f766e; }
+textarea { resize: vertical; }
+@media (prefers-reduced-motion: no-preference) {
+  a, button { transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease; }
+}
+main { scroll-margin-top: 72px; }

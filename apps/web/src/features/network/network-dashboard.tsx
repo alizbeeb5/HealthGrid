@@ -14,6 +14,7 @@ import { createNetworkLoader, type NetworkState } from "./network-loader";
 import { capacityFilter, capacityLabels, filterHospitals, initialService } from "./presentation";
 import { summarizeNetwork, type NetworkSummary } from "./summary";
 import { SummaryCards } from "./summary-cards";
+import { PageHeader } from "../exercise/page-header";
 import { ExerciseOverview } from "../exercise/overview";
 import { useExercise } from "../exercise/context";
 
@@ -26,6 +27,7 @@ const inputClass = "rounded-lg border border-slate-300 bg-white px-3 py-2 text-s
 export function NetworkDashboard() {
   const exercise = useExercise();
   const params = useSearchParams();
+  const [view, setView] = useState<"map" | "hospitals" | "plans">("map");
   const requested = params.get("service_id");
   const mode: NetworkMode = !exercise?.enabled && (facilityDataMode === "demo" || params.get("mode") === "example") ? "example" : "api";
   const name = params.get("name") ?? "";
@@ -76,12 +78,10 @@ export function NetworkDashboard() {
   const fictional = ready?.data.facilities.some((row) => row.capacity.profile_version?.startsWith("demo-"));
 
   return <div className="space-y-4">
-    <header className="flex flex-wrap items-start justify-between gap-4">
-      <div><h1 className="text-2xl font-semibold tracking-tight">{exercise?.enabled ? "Beirut hospital situation" : "Hospital situation"}</h1><p className="mt-1 text-sm text-slate-500">Current capacity, interrupted services and reports needing attention.</p></div>
-      <div className="flex flex-wrap gap-2"><Link className={secondaryClass} href={exercise?.enabled ? exercise.links?.scenarios ?? "/scenarios" : "/scenarios"}>Assess emergency</Link><button className={buttonClass} onClick={refresh} disabled={pending}><RefreshCw size={16} aria-hidden="true" />{pending ? "Refreshing…" : "Refresh"}</button></div>
-    </header>
+    <PageHeader title={exercise?.enabled ? "Beirut hospital situation" : "Hospital situation"} actions={<><Link className={secondaryClass} href={exercise?.links?.scenarios ?? "/scenarios"}>Incident & AI</Link><button className={buttonClass} onClick={refresh} disabled={pending}><RefreshCw size={16} aria-hidden="true" />{pending ? "Refreshing…" : "Refresh"}</button></>} />
+    <div className="flex flex-wrap items-center justify-between gap-3"><div role="group" aria-label="Dashboard view" className="inline-flex gap-1 rounded-lg border border-slate-200 bg-white p-1">{([['map', 'Map'], ['hospitals', 'Hospitals'], ...(exercise?.enabled ? [['plans', 'Plan comparison']] : [])] as [typeof view, string][]).map(([key, label]) => <button key={key} aria-pressed={view === key} onClick={() => setView(key)} className={`rounded-md px-4 py-2 text-sm font-medium ${view === key ? "bg-teal-50 text-teal-900" : "text-slate-500 hover:bg-slate-50"}`}>{label}</button>)}</div>{view !== "plans" && ready && <p className="text-xs text-slate-500">{summary?.calculated_count ?? 0} assessed · {summary?.unavailable_count ?? 0} interrupted · {summary?.unknown_count ?? 0} need reports</p>}</div>
 
-    <section className="rounded-xl border border-slate-200 bg-white p-3" aria-label="Dashboard filters">
+    {view !== "plans" && <section className="rounded-xl border border-slate-200 bg-white p-3" aria-label="Dashboard filters">
       <div className={`grid gap-4 md:grid-cols-2 ${exercise?.enabled ? "" : "lg:grid-cols-4"}`}>
         {!exercise?.enabled && <label className="space-y-1 text-xs font-medium text-slate-600"><span className="block">Service</span><select className={`${inputClass} w-full`} value={selected ?? ""} onChange={(event) => updateQuery({ service_id: event.target.value }, true)} disabled={!services.length}>
           {!services.length && <option value="">{pending ? "Loading services…" : "No services available"}</option>}
@@ -93,12 +93,12 @@ export function NetworkDashboard() {
         {!exercise?.enabled && <label className="space-y-1 text-xs font-medium text-slate-600"><span className="block">Reports</span><select className={`${inputClass} w-full`} value={mode} onChange={(event) => updateQuery({ mode: event.target.value }, true)}><option value="api" disabled={facilityDataMode === "demo"}>Connected reports</option>{!exercise?.enabled && <option value="example">Shared demo examples (frozen)</option>}</select></label>}
       </div>
       {(name || status !== "all") && <button className="mt-3 text-xs font-semibold text-teal-800 hover:underline" onClick={() => updateQuery({ name: null, status: null })}>Clear name and status filters</button>}
-    </section>
+    </section>}
 
     {mode === "example" && <div role="note" className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950"><strong>Frozen synthetic preview</strong><p className="mt-1">Shared examples use the fixture clock. Refresh reloads these fixed examples and does not incorporate resource updates. {facilityDataMode === "api" ? "Hospital details open connected reports; return to Connected reports after saving an update." : "Hospital details use the browser demo; capacity previews do not include its saved observations."}</p></div>}
     {fictional && !exercise?.enabled && <p role="note" className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-950">Fictional demo rules and synthetic hospitals. Requirement profiles are illustrative, not clinical staffing standards.</p>}
 
-    {pending ? <section role="status" aria-live="polite" aria-busy="true" className={`${panelClass} p-8`}><p className="text-sm text-slate-600">{state.phase === "loading" ? "Loading services and network capacity…" : "Updating network capacity… Previous results are hidden until the refresh completes."}</p><div aria-hidden="true" className="mt-5 grid animate-pulse grid-cols-3 gap-3">{[1, 2, 3].map((id) => <div key={id} className="h-24 rounded-lg bg-slate-100" />)}</div></section>
+    {view === "plans" ? <ExerciseOverview /> : pending ? <section role="status" aria-live="polite" aria-busy="true" className={`${panelClass} p-8`}><p className="text-sm text-slate-600">{state.phase === "loading" ? "Loading services and network capacity…" : "Updating network capacity… Previous results are hidden until the refresh completes."}</p><div aria-hidden="true" className="mt-5 grid animate-pulse grid-cols-3 gap-3">{[1, 2, 3].map((id) => <div key={id} className="h-24 rounded-lg bg-slate-100" />)}</div></section>
       : state.phase === "error" ? <LoadError message={state.message} retry={refresh} />
       : state.phase === "empty" ? <EmptyNetwork title="No services available" message="Services will appear when participating hospitals report them." />
       : summaryError ? <LoadError message={summaryError} retry={refresh} />
@@ -106,16 +106,15 @@ export function NetworkDashboard() {
         {!ready.data.facilities.length ? <EmptyNetwork title={ready.data.service_name === null ? "Service not found" : "No hospitals offer this service"} message="Select an available service. Hospitals that do not offer this service are excluded, not counted as unavailable." />
           : !rows.length ? <EmptyNetwork title="No matching hospitals" message="Change the hospital name or capacity status filter." clear={() => updateQuery({ name: null, status: null })} />
           : <>
-            <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_300px]">
+            {view === "map" && <div className="grid items-start gap-4 xl:grid-cols-[minmax(0,1fr)_280px]">
               <section className={`${panelClass} overflow-hidden`} aria-labelledby="hospital-map-heading"><div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3"><div><h2 id="hospital-map-heading" className="flex items-center gap-2 text-lg font-semibold"><Map size={18} aria-hidden="true" />Hospitals on the map</h2><p className="mt-1 text-xs text-slate-500">{rows.length} of {ready.data.facilities.length} hospitals · Select a marker for details.</p></div><p className="text-xs text-slate-500">Updated <Timestamp value={ready.data.as_of} /></p></div><HospitalMap rows={rows} returnTo={returnTo} /></section>
               <AttentionList rows={rows} attentionIds={summary.attention_facility_ids} returnTo={returnTo} />
-            </div>
+            </div>}
             <details className={`${panelClass} p-4`}><summary className="cursor-pointer text-sm font-medium text-teal-800">Network totals and reporting coverage</summary><div className="mt-4"><SummaryCards summary={summary} /></div></details>
-            <HospitalTable rows={rows} returnTo={returnTo} />
+            {view === "hospitals" && <HospitalTable rows={rows} returnTo={returnTo} />}
           </>}
-        <p className="text-xs leading-relaxed text-slate-500">Reports older than {ready.data.stale_after_hours} hours are stale. Receipt time does not establish freshness for every required resource. Times are shown in your local timezone; hover a timestamp for UTC. Report updates can occur while the network is assessed.</p>
+        <p className="text-xs leading-relaxed text-slate-500">Freshness threshold: {ready.data.stale_after_hours} hours · Open a hospital for resource evidence.</p>
       </>}
-    <ExerciseOverview />
   </div>;
 }
 

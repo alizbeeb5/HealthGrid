@@ -68,10 +68,10 @@ export function EmergencyAdvicePanel({ incident, disabled }: { incident: Inciden
   }
   return <section className={`${panelClass} space-y-4 p-5`}>
     <h2 className="text-lg font-semibold">AI response recommendations</h2>
-    <p className="text-sm text-slate-600">Generate a prioritized action brief from the situation report and current hospital evidence. Review its reasons and prerequisites, then compare feasible resource moves in the next step.</p>
+    <p className="text-sm text-slate-600">Prioritized actions from the incident report and hospital evidence.</p>
     <button className={buttonClass} disabled={disabled || !incident.report_text?.trim() || state.phase === "loading"} onClick={() => void request()}>{state.phase === "loading" ? "Preparing next steps…" : "Generate recommendations · live AI"}</button>
-    {state.phase === "idle" && <p className="text-xs text-slate-500">{exercise?.enabled ? "The Beirut report is ready. Generate recommendations when you want a live analysis; no model runs automatically." : "Add a situation report to begin. Editing it clears previous guidance."}</p>}
-    {state.phase === "loading" && <p role="status" className="text-sm">Reviewing the report, hospital service status, resources and modeled capacity…</p>}
+    {state.phase === "idle" && <p className="text-xs text-slate-500">{exercise?.enabled ? "Ready to analyze · uses the configured server-side AI key." : "Add a situation report to begin. Editing it clears previous guidance."}</p>}
+    {state.phase === "loading" && <p role="status" className="text-sm">Reviewing the report and hospital evidence…</p>}
     {state.phase === "error" && <p role="alert" className="whitespace-pre-line text-sm text-rose-800">{state.message}</p>}
     {state.phase === "ready" && <EmergencyAdviceResult data={state.data} />}
   </section>;

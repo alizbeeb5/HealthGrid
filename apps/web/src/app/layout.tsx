@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ExerciseProvider } from "../features/exercise/context";
-import { ExerciseBanner, Navigation } from "../features/exercise/navigation";
+import { WorkspaceShell } from "../features/exercise/navigation";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,9 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ExerciseProvider>
           <a href="#main-content" className="sr-only focus:not-sr-only focus:block focus:bg-teal-900 focus:p-3 focus:text-white">Skip to content</a>
-          <Navigation />
-          <ExerciseBanner />
-          <main id="main-content" className="mx-auto max-w-7xl px-5 py-7 sm:px-8 md:py-9">{children}</main>
+          <WorkspaceShell>{children}</WorkspaceShell>
         </ExerciseProvider>
       </body>
     </html>

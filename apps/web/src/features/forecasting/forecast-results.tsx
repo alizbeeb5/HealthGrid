@@ -6,13 +6,13 @@ import { forecastDate } from "./presentation";
 
 export function ForecastAlert({ data }: { data: ForecastPreview }) {
   const gap = data.first_gap;
-  if (!gap) return <section role="status" className="rounded-xl border border-teal-200 bg-teal-50 p-5 text-teal-950"><h2 className="font-semibold">No central-estimate gap in this forecast</h2><p className="mt-2 text-sm">This does not confirm spare capacity. Review uncertainty ranges and the underlying assumptions.</p></section>;
+  if (!gap) return <section role="status" className="rounded-xl border border-teal-200 bg-teal-50 p-5 text-teal-950"><h2 className="font-semibold">No central-estimate gap in this forecast</h2><p className="mt-2 text-sm">Review the model error bands before planning.</p></section>;
   return <section role="status" className="rounded-xl border border-amber-300 bg-amber-50 p-5 text-amber-950" aria-labelledby="forecast-alert-heading">
     <h2 id="forecast-alert-heading" className="flex items-center gap-2 font-semibold"><CircleAlert size={19} aria-hidden="true" />First expected gap: day {gap.day_number} · <time dateTime={gap.date}>{forecastDate(gap.date)}</time></h2>
     <p className="mt-3 text-lg font-semibold">{gap.demand} expected places − {gap.capacity} modeled places → possible gap of {gap.gap} places</p>
-    <p className="mt-2 text-sm">Expected simultaneous demand may exceed modeled capacity. Review resource reports and planning assumptions before taking preventive action.</p>
-    <ul className="mt-3 space-y-1 text-xs">{data.alerts.map((alert) => <li key={alert.date}><time dateTime={alert.date}>{forecastDate(alert.date)}</time>: {alert.message}</li>)}</ul>
-    <p className="mt-2 text-xs">The alert uses central estimates. Uncertainty may include no gap; this is not a confirmed shortage or a transfer recommendation.</p>
+    <p className="mt-2 text-sm">Review the limiting resources before choosing a response.</p>
+    <details className="mt-3 text-xs"><summary className="cursor-pointer">All projected gaps</summary><ul className="mt-2 space-y-1">{data.alerts.map((alert) => <li key={alert.date}><time dateTime={alert.date}>{forecastDate(alert.date)}</time>: {alert.message}</li>)}</ul></details>
+    <p className="mt-2 text-xs">Central estimate · uncertainty may include no gap.</p>
   </section>;
 }
 

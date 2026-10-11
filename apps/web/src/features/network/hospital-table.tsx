@@ -14,14 +14,14 @@ export function ModeledPlaces({ row }: { row: NetworkFacilityResult }) {
 }
 
 export function HospitalTable({ rows, returnTo }: { rows: NetworkFacilityResult[]; returnTo: string }) {
-  const { resource: resourceLabel } = useExerciseNames();
+  const { resource: resourceLabel, hospital } = useExerciseNames();
   return <section className={`${panelClass} overflow-hidden`} aria-labelledby="hospital-table-heading">
-    <div className="p-5"><h2 id="hospital-table-heading" className="text-lg font-semibold">Hospital comparison</h2><p className="mt-1 text-xs text-slate-500">Latest report is a receipt time; individual resources can still be missing or stale.</p></div>
+    <div className="p-5"><h2 id="hospital-table-heading" className="text-lg font-semibold">Hospital reports</h2><p className="mt-1 text-xs text-slate-500">Capacity, limiting resources and reporting status.</p></div>
     <div className="overflow-x-auto">
       <table className="w-full text-left text-sm"><caption className="sr-only">Filtered hospitals offering the selected service, their modeled capacity and evidence warnings.</caption>
         <thead className="border-y border-slate-200 bg-slate-50 text-xs text-slate-600"><tr>{["Hospital", "Modeled places / status", "Bottleneck", "Evidence / assumptions", "Latest report received"].map((heading) => <th scope="col" key={heading} className="px-5 py-3 font-semibold">{heading}</th>)}</tr></thead>
         <tbody className="divide-y divide-slate-100">{rows.map((row) => <tr key={row.facility.facility_id} className="align-top">
-          <th scope="row" className="px-5 py-5 font-normal"><Link className="font-semibold text-teal-800 hover:underline" href={facilityLink(row.facility.facility_id, returnTo)}>{row.facility.name}<span className="sr-only">: open hospital details</span></Link><p className="mt-1 text-xs text-slate-500">{row.facility.facility_id}</p></th>
+          <th scope="row" className="px-5 py-5 font-normal"><Link className="font-semibold text-teal-800 hover:underline" href={facilityLink(row.facility.facility_id, returnTo)}>{hospital(row.facility.facility_id) === row.facility.facility_id ? row.facility.name : hospital(row.facility.facility_id)}<span className="sr-only">: open hospital details</span></Link><p className="mt-1 text-xs text-slate-500">{row.facility.facility_id}</p></th>
           <td className="px-5 py-5"><ModeledPlaces row={row} /><div className="mt-2"><CapacityBadge row={row} /></div><p className="mt-2 text-xs text-slate-500">Service: {row.capacity.service_status}</p></td>
           <td className="px-5 py-5">{row.capacity.bottleneck_resource_ids.length ? row.capacity.bottleneck_resource_ids.map((id) => <p key={id} className="mb-1">{resourceLabel(id)}</p>) : <span className="text-slate-500">Not identified</span>}</td>
           <td className="min-w-56 px-5 py-5"><EvidenceDetails row={row} /></td>
@@ -37,9 +37,9 @@ export function EvidenceDetails({ row }: { row: NetworkFacilityResult }) {
   const warnings = evidenceWarnings(row);
   return <>
     {warnings.length ? <ul className="space-y-1 text-xs text-amber-950">{warnings.map((warning) => <li key={warning}>{warning}</li>)}</ul> : <p className="text-xs text-slate-500">Required reports are current.</p>}
-    <p className="mt-2 text-xs text-slate-500">Profile: {row.capacity.profile_version ?? "Not configured"}</p>
+
     {row.capacity.resource_limits.length > 0 && <details className="mt-3 text-xs"><summary className="cursor-pointer font-medium text-teal-800">View resource evidence</summary>
-      <ul className="mt-3 space-y-3">{row.capacity.resource_limits.map((resource) => <li key={resource.resource_id}>
+      <p className="mt-3 text-slate-500">Profile: {row.capacity.profile_version ?? "Not configured"}</p><ul className="mt-3 space-y-3">{row.capacity.resource_limits.map((resource) => <li key={resource.resource_id}>
         <p className="font-semibold">{resourceLabel(resource.resource_id)} · {resource.data_status}</p>
         <p className="mt-1">{resource.available_quantity === null ? "Unknown quantity" : resource.available_quantity.toLocaleString(undefined, { maximumFractionDigits: 20 })} {resource.unit} · {resource.required_per_capacity_unit} {resource.unit} required per place</p>
         <p className="mt-1">Resource limit: {resource.capacity_limit === null ? "Not determined" : `${resource.capacity_limit} places`}</p>

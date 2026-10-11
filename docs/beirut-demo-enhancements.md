@@ -188,3 +188,17 @@ or launcher resume. Existing history is never overwritten. A recovery forecast
 uses synthetic post-transfer daily reports, not future funded capacity. Regression
 checks cover older short-history repair, resume idempotency, three receiving-hospital
 forecasts at recovery, and absence of future staffing benefits in history.
+
+
+## Workspace navigation and concise layout
+
+Desktop uses a persistent sidebar; mobile uses compact navigation. The dashboard
+has Map, Hospitals and Plan comparison views instead of stacking every section.
+Incident impact sits beside AI guidance. Funding and Outcomes keep their controls
+beside the principal result. Forecasts switch between Chart and Daily values.
+Hospital report forms remain beside resources while scrolling on desktop.
+
+Repeated introductory text is shortened; missing evidence and relevant uncertainty
+remain visible, with detailed provenance expandable. This is a presentation-only
+change. Code was reviewed and whitespace checks passed. Per user preference, no
+frontend build, automated frontend test or browser check was run.

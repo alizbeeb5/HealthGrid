@@ -1,9 +1,8 @@
 # Beirut exercise: presenter walkthrough
 
-Run the isolated launcher from the README and open `/overview`. The normal
-presentation is now six numbered steps: **Situation → Forecast → Incident & AI →
+Run the isolated launcher from the README and open `/overview`. The sidebar gives direct access to hospitals and the presentation workflow: **Situation → Forecast → Incident & AI →
 Response → Recovery funding → Outcomes**. Hospital reports are a supporting link.
-One compact context strip labels the synthetic data and current exercise clock.
+A persistent sidebar provides navigation on desktop. Mobile uses compact links. The header shows the phase and clock; the sidebar labels synthetic data.
 
 ## Presentation story
 
@@ -57,3 +56,13 @@ Normal decision approval/completion still changes no inventory. Rehearsal button
 explicitly simulate both actions and separate report arrivals. Forecasts use daily
 history, not current resource updates. User browser rehearsal remains the final
 presentation check; no frontend tests/builds/browser automation were run.
+
+
+## Workspace layout
+
+Dashboard opens in **Map** view. Switch to **Hospitals** for the comparison table
+or **Plan comparison** for saved response/recovery metrics. Filters apply to map
+and hospital reports. Incident impact and AI guidance are side by side; funding
+shows results beside its budget controls; Outcomes puts evidence beside decision
+progress. Forecasts switch between Chart and Daily values. Expanded sections
+retain assumptions and source evidence. The numerical/API contracts are unchanged.
